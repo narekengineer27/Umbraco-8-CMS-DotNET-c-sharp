@@ -1,0 +1,52 @@
+Home
+ - ConfirmEmailPage (Confirm)
+
+totalCodeAccountPage (My Account)
+ - totalCodeDocumentPage (Documents)
+ - totalCodeMarketingPage (Marketing Preferences)
+
+totalCodeWithdrawPage (Withdraw)
+ - totalCodeWithdrawBankPage (Bank Accounts & Cards)
+ - totalCodeWithdrawHistoryPage (History)
+
+totalCodeTicketsPage (Contact Us)
+
+totalCodeDepositPage (Deposit)
+ - totalCodeDepositBankPage (Bank Accounts & Cards)
+ - totalCodeDepositHistoryPage (History)
+
+totalCodeTermsPage (Terms and Conditions)
+
+totalCodeTransactionHistoryPage (Transaction History)
+
+totalCodeCategoriesPage (Help)
+ - totalCodeCategoryPage (Login Problems)
+ - totalCodeCategoryPage (Deposit & Withdraw)
+
+totalCodeGenericPage (Betting History)
+
+totalCodeGenericPage (Bonus History)
+
+totalCodeGenericPage (Sport)
+
+totalCodeGenericPage (In-Play)
+
+totalCodeGenericPage (Casino)
+
+totalCodeGenericPage (Live Casino)
+
+totalCodeGenericPage (Vegas)
+
+totalCodeGenericPage (Lottery)
+
+totalCodeGenericPage (Poker)
+
+totalCodeGenericPage (Overview)
+
+totalCodeGenericPage (Event View)
+
+totalCodeGenericPage (Live Schedule)
+
+totalCodeGenericPage (Live Score)
+
+totalCodeGenericPage (Results)

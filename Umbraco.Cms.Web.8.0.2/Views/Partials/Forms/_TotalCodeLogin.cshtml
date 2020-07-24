@@ -1,0 +1,48 @@
+﻿@inherits UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+@{
+    var tenantHome = Model.Content.AncestorOrSelf(1);
+}
+@if (!Model.IsLoggedIn)
+{
+    <form id="login-form">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="tenantUid" value="@tenantHome.GetProperty("tenantUid").Value()" />
+        <div class="item--input-label">
+            <div class="item--label">
+                <label for="login-user">@Umbraco.GetDictionaryValue("[Login]EmailUsernameOrPhone", "Email or Username")</label>
+                <a class="popup" href="#name-email" rel="modal:open">@Umbraco.GetDictionaryValue("[Others]ForgotUsernameEmail", "Forgot username or email?")</a>
+            </div>
+            <div class="item--input">
+                <input id="login-user" type="text" placeholder="@Umbraco.GetDictionaryValue("[Login]EmailUsernameOrPhonePlaceholder", "email, username or mobile phone")" name="credential" required tabindex="1" autocomplete="on">
+            </div>
+
+            <span class="error-message login-user" style="display:none;">@Umbraco.GetDictionaryValue("[Login]EmailUsernameOrPhone", "Credential")&nbsp;@Umbraco.GetDictionaryValue("[Register]IncorrectOrInvalid", " is incorrect or invalid")</span>
+        </div>
+        <div class="item--input-label">
+            <div class="item--label">
+                <label for="login-password">@Umbraco.GetDictionaryValue("[Login]Password", "Password")</label>
+                <a class="popup" href="#forgot-password" rel="modal:open">@Umbraco.GetDictionaryValue("[Login]ForgotPassword", "Forgot Password?")</a>
+            </div>
+            <div class="item--input">
+                <input id="login-password" placeholder="*********" name="password" required type="password" tabindex="2" autocomplete="on">
+            </div>
+
+            <span class="error-message login-password" style="display:none;">@Umbraco.GetDictionaryValue("[Login]Password","Password")&nbsp;@Umbraco.GetDictionaryValue("[Register]IncorrectOrInvalid", " is incorrect or invalid")</span>
+        </div>
+        <div class="item--input-label">
+            <label class="checkbox-static">
+                <input class="checkbox-static--input" type="checkbox" name="rememberme" tabindex="3">
+                <p class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Login]RememberMe", "Remember Me")</p>
+            </label>
+        </div>
+        <div class="item--input-label">
+            <input type="submit" class="popup-button button" value="@Umbraco.GetDictionaryValue("[Login]Login", "Login")" tabindex="4">
+        </div>
+        @Html.Partial("_processing")
+        @Html.Partial("_server-errors-display")
+        <div class="text-center"><a class="popup dont-account link-data" href="#registration-step1" data-mobilelink="mobile--registration-step1.html" rel="modal:open">@Umbraco.GetDictionaryValue("[Login]DontHaveAccount", "Don’t have an account?")</a></div>
+        <div class="response-success" style="display:none;">@Umbraco.GetDictionaryValue("[Login]LoginSuccess", "Login successful, please wait.")</div>
+        <div class="response-failure" style="display:none;">@Umbraco.GetDictionaryValue("[Login]LoginFailure", "Login failure, please check your credentials")</div>
+        <div class="resend-time" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Wait", "Wait") <span class="wait"></span></div>
+    </form>
+}

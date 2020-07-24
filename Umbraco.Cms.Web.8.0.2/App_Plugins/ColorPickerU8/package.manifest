@@ -1,0 +1,57 @@
+﻿{   
+    propertyEditors: [    
+        {
+            alias: "ColorPickerU8",
+            name: "Color Picker U8",
+			icon: "icon-color-bucket",
+			group: "Pickers",
+            editor: {
+                view: "~/App_Plugins/ColorPickerU8/ColorPicker.html"
+            },
+			prevalues: {
+				fields: [
+				{
+					label: "Show color value",
+					description: "Show the color value next to the color box.",
+					key: "showColorValue",
+					view: "boolean"
+				},
+				{
+					label: "Show palette only",
+					description: "The editor can  only choose from a limited number of colors (Predefined) in the palette, and will not be able to pick a color that's not in the palette.",
+					key: "showPaletteOnly",
+					view: "boolean"
+				},
+				{
+					label: "Enable Transparency",
+					key: "enableTransparency",
+					view: "boolean"
+				},				
+				{
+					label: "Preferred Format",
+					description: "Set the format the color should be in. RGBA is the default format if transparency is enabled.",
+					key: "preferredFormat",
+					view: "~/App_Plugins/ColorPickerU8/lib/prevalue/preferredFormat.html"
+				},
+				{
+                    label:"Predefined Colors",
+                    description: "Add predefined colors to the color picker. For example, #fff, rgb(119, 14, 14) etc.",
+                    key:"predefinedColor",
+                    view:"multivalues"
+                }
+				]
+			},
+			defaultConfig: {
+				enableTransparency: "0",
+				preferredFormat: "hex"
+			}
+        }
+    ]
+    ,
+    javascript: [
+        "~/App_Plugins/ColorPickerU8/ColorPickerController.js",
+    ],
+    css: [
+        "~/App_Plugins/ColorPickerU8/lib/spectrum/spectrum.css"
+    ]
+}

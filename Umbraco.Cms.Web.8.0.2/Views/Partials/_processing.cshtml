@@ -1,0 +1,11 @@
+﻿<div class="processing" style="display:none;">
+    @if (TempData["FormSpinnerImage"] != null)
+    {
+        <img src="@TempData["FormSpinnerImage"]" />
+
+    }
+    else
+    {
+        <img src="~/Media/img/tail-spin.svg" />
+    }
+</div>

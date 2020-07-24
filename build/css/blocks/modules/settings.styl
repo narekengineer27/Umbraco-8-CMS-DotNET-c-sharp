@@ -1,0 +1,32 @@
+.settings
+	.heading-default
+		margin-bottom 35px
+.settings-wrapper
+	.settings-item
+		display flex
+		flex-direction row
+		justify-content space-between
+		align-items center
+		height: 88px
+		border-radius: 6px
+		background-color: #242324
+		&:not(:last-child)
+			margin-bottom 8px
+		.name--settings-item
+			min-width 135px
+			text-align center
+			fsR(14px)
+			min-height 40px
+			line-height 40px
+			border-right 1px solid #313031
+		.select2-container
+			width 100% !important
+		.select-black+.select2-container--default .select2-selection--single
+			brr(10px)
+			border-right 0
+			background-color transparent
+			.select2-selection__rendered
+				padding-left 24px
+			
+			.select2-selection__arrow:after
+				right 28px

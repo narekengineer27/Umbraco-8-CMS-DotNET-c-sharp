@@ -1,0 +1,24 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "dictionaryManager",
+      "name": "Dictionary Import & Export",
+      "isReadOnly": false,
+      "icon": "icon-books",
+      "editor": {
+        "view": "~/App_Plugins/DictionarySettingsSurface/backoffice/DictionarySettings/edit.html",
+        "valueType": "JSON",
+        "hideLabel": true
+      }
+    }
+  ],
+
+  "javascript": [
+    "~/App_Plugins/DictionarySettingsSurface/backoffice/DictionarySettings/controller.js",
+    "~/App_Plugins/DictionarySettingsSurface/backoffice/DictionarySettings/import.js"
+  ],
+
+  "css": [
+    "~/App_Plugins/DictionarySettingsSurface/backoffice/DictionarySettings/style.css"
+  ]
+}

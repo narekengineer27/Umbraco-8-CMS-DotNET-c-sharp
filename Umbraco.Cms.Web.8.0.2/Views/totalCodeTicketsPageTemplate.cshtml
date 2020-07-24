@@ -1,0 +1,187 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.TicketsPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+    var currentLanguage = Model.CurrentLanguage.TwoLetterISOLanguageName;
+}
+
+<section class="black-main--default contact-tickets new-tickets">
+    <div class="heading--main-container">
+        <h1 class="black-main--head">@Model.Title</h1>
+        @if (Model.IsLoggedIn)
+        {
+            if (Model.HasActiveTicket == false)
+            {
+                <a class="popup button button-tiket" rel="modal:open" href="#new-ticket">@Umbraco.GetDictionaryValue("[Others]NewTicket", "New Ticket")</a>
+            }
+            else
+            {
+                <a class="popup button button-tiket" rel="modal:open" href="#new-ticket">@Umbraco.GetDictionaryValue("[Others]NewTicket", "New Ticket")</a>
+            }
+        }
+        else
+        {
+            <a class="popup button button-tiket" rel="modal:open" href="#new-ticket-anonymous">@Umbraco.GetDictionaryValue("[Others]NewTicket", "New Ticket")</a>
+        }
+        @if (!String.IsNullOrEmpty(Model.TelegramHelpdesk))
+        {
+            <a class="popup button button-tiket" href="@Model.TelegramHelpdesk" target="_blank">
+                <span class="telegram-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                        <path d="M8.2,16.2c4.4,0,8-3.6,8-8s-3.6-8-8-8s-8,3.6-8,8S3.8,16.2,8.2,16.2z M3.8,8l7.7-3c0.4-0.1,0.7,0.1,0.6,0.6l0,0l-1.3,6.2c-0.1,0.4-0.4,0.5-0.7,0.3l-2-1.5l-1,0.9c-0.1,0.1-0.2,0.2-0.4,0.2l0.1-2l3.7-3.3c0.2-0.1,0-0.2-0.2-0.1L5.7,9.2l-2-0.6C3.3,8.5,3.3,8.2,3.8,8L3.8,8z"></path>
+                    </svg>
+                </span>
+                @Umbraco.GetDictionaryValue("[Others]NewTelegramMsg", "New Telegram msg")
+            </a>
+        }
+    </div>
+    @if (Model.Tickets != null)
+    {
+        <div class="tiket-wrappe">
+            @foreach (var group in Model.Tickets.GroupBy(g => g.ClosedDate == null))
+            {
+                if (group.Key)
+                {
+                    <div class="tiket-main">
+                        <h6>@Umbraco.GetDictionaryValue("[Others]ActiveTicket", "Active Ticket")</h6>
+
+                        @foreach (var ticket in group)
+                        {
+                            var createdDate = ticket.CreateDate.FormatDate();
+                            if(currentLanguage == "fa")
+                            {
+                                createdDate = createdDate.Replace("at ", "");
+                            }
+                            
+                            var responseMsg = ticket.TicketResponseMessages.OrderByDescending(o => o.CreateDate).FirstOrDefault();
+
+                            <div class="tiket-main--item">
+                                <div class="tiket-item--head">
+                                    <a class="button small-button button-pending new-tiket" href="@($"{Model.ViewTicketUrl}")?id=@(ticket.Id)&openreply=true">
+                                        @Umbraco.GetDictionaryValue("[Others]NewMessage", "New Message")
+                                    </a>
+                                    <span class="tiket-date">@createdDate</span>
+                                    <a class="tiket-name" href="@($"{Model.ViewTicketUrl}")?id=@ticket.Id">@ticket.Title</a>
+                                </div>
+
+                                @if (responseMsg != null)
+                                {
+                                    var responseCreatedDate = ticket.CreateDate.FormatDate();
+                                    if(currentLanguage == "fa")
+                                    {
+                                        responseCreatedDate = responseCreatedDate.Replace("at ", "");
+                                    }
+                                <div class="tiket-item--content">
+                                    <div class="icon-user">
+                                        @if (responseMsg.MessageSenderType == 10)
+                                        {
+                                            <img src="/img/3-call-center-operator.svg" alt="User">
+                                        }
+                                        else
+                                        {
+                                            <img src="/img/user.svg" alt="User">
+                                        }
+                                    </div>
+                                    <div class="message-tiket">
+                                        <p>@responseMsg.MessageText</p>
+                                        <span class="message-date">@responseCreatedDate</span>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+
+                            @*@Html.Partial("_create-message-popup", ticket.Id.ToString())*@
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="tiket-main">
+                        <h6>@Umbraco.GetDictionaryValue("[Others]ClosedTickets", "Closed Tickets")</h6>
+
+                        @foreach (TicketResult ticket in group)
+                        {
+                            var createdDate = ticket.CreateDate.FormatDate();
+                            if(currentLanguage == "fa")
+                            {
+                                createdDate = createdDate.Replace("at ", "");
+                            }
+
+                            var responseMsg = ticket.TicketResponseMessages.OrderByDescending(o => o.CreateDate).FirstOrDefault();
+                            <div class="tiket-main--item">
+                                <div class="tiket-item--head">
+                                    <span class="tiket-date">@createdDate</span>
+                                    <a class="tiket-name" href="@($"{Model.ViewTicketUrl}")?id=@ticket.Id">@ticket.Title</a>
+                                </div>
+
+                                @if (responseMsg != null)
+                                {
+                                    var responseCreatedDate = responseMsg.CreateDate.FormatDate();
+                                    if (currentLanguage == "fa")
+                                    {
+                                        responseCreatedDate = responseCreatedDate.Replace("at ", "");
+                                    }
+
+                                    <div class="tiket-item--content">
+                                        <div class="icon-user">
+                                            @if (responseMsg.MessageSenderType == 10)
+                                            {
+                                                <img src="/img/3-call-center-operator.svg" alt="User">
+                                            }
+                                            else
+                                            {
+                                                <img src="/img/user.svg" alt="User">
+                                            }
+                                        </div>
+                                        <div class="message-tiket">
+                                            <p>@responseMsg.MessageText</p>
+                                            <span class="message-date">@responseCreatedDate</span>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    }
+
+    <div class="new-ticket--fixed">
+        @if (!String.IsNullOrEmpty(Model.TelegramHelpdesk))
+        {
+            <a class="button popup-button" href="@Model.TelegramHelpdesk" target="_blank" style="margin-bottom: 15px;">
+                <span class="telegram-icon-bottom">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="22" height="22" style="vertical-align: middle;">
+                        <path d="M8.2,16.2c4.4,0,8-3.6,8-8s-3.6-8-8-8s-8,3.6-8,8S3.8,16.2,8.2,16.2z M3.8,8l7.7-3c0.4-0.1,0.7,0.1,0.6,0.6l0,0l-1.3,6.2c-0.1,0.4-0.4,0.5-0.7,0.3l-2-1.5l-1,0.9c-0.1,0.1-0.2,0.2-0.4,0.2l0.1-2l3.7-3.3c0.2-0.1,0-0.2-0.2-0.1L5.7,9.2l-2-0.6C3.3,8.5,3.3,8.2,3.8,8L3.8,8z"></path>
+                    </svg>
+                </span>
+                @Umbraco.GetDictionaryValue("[Others]NewTelegramMsg", "New Telegram msg")
+            </a>
+        }
+        @if (Model.IsLoggedIn)
+        {
+            if (Model.HasActiveTicket == false)
+            {
+                <a class="button popup-button" rel="modal:open" href="#new-ticket">@Umbraco.GetDictionaryValue("[Others]NewTicket", "New Ticket")</a>
+            }
+        }
+        else
+        {
+            <a class="button popup-button" rel="modal:open" href="#new-ticket-anonymous">@Umbraco.GetDictionaryValue("[Others]NewTicket", "New Ticket")</a>
+        }
+    </div>
+    
+</section>
+
+@section Scripts {
+    @if (Model.Tickets == null)
+    {
+        var modalId = Model.IsLoggedIn ? "#new-ticket" : "#new-ticket-anonymous";
+        <script>
+            $(function () {
+                $("@modalId").modal();
+            });
+        </script>
+    }
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            background-color: #f2f2f2;
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+        }
+
+        header {
+            margin: 10px 0 0 20px;
+        }
+
+        section {
+            width: 80%;
+            margin: 80px auto;
+            text-align: center;
+        }
+
+            section img {
+                max-width: 250px;
+            }
+
+        .languages {
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+        }
+    </style>
+    <title>@Model.Name</title>
+</head>
+<body>
+    <header>
+        <div class="languages">
+            <select id="language-selector">
+
+                @foreach (var (culture, infos) in Model.Cultures)
+                {
+                    string selected = string.Empty;
+                    if (System.Threading.Thread.CurrentThread.CurrentCulture.Name.ToLower().Equals(culture, StringComparison.InvariantCulture))
+                    {
+                        selected = "selected";
+                    }
+                    <option value="/@culture" @selected>@Services.LocalizationService.GetLanguageByIsoCode(culture).CultureName</option>
+                }
+            </select>
+        </div>
+    </header>
+    <section>
+        <h1>@Model.GetProperty("homeContent").Value()</h1>
+        @if (Model.HasValue("brandLogo"))
+        {
+            <img src="@Model.GetProperty("brandLogo").Value()" alt="@Model.Name" />
+        }
+    </section>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#language-selector').change(function () {
+                var selected = $(this).children("option:selected").val();
+                if (window.location.href.indexOf("localhost") > -1) {
+                    window.location = window.location.origin + "/@Model.Value("subDomain")" + selected;
+                }
+                else {
+                    window.location = selected;
+                }
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿.apisettings td input {
+    width: 100%;
+}
+
+.apisettings th i {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.apisettings .icon {
+    font-size: 1.3em;
+}
+
+.apisettings {
+    transition: all linear 0.5s;
+    background: transparent;
+}
+
+    .apisettings input.ng-invalid {
+        border: 1px solid red;
+    }
+
+    .apisettings .icon-info {
+        font-size: 1em;
+        position: relative;
+        top: -6px;
+        color: #2c9220;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+
+        .apisettings .icon-info:hover {
+            color: #1a7419;
+        }
+
+    .apisettings .info-box {
+        width: 95%;
+        margin: 0 auto 20px auto;
+        padding: 0 0 0 20px;
+        border-left: 2px solid #2a1e17;
+        color: #2a1e17;
+    }
+
+.dialog pre {
+    background: transparent !important;
+}

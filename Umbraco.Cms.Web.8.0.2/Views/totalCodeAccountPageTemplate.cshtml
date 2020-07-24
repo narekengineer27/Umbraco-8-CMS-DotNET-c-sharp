@@ -1,0 +1,688 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.AccountPageViewModel>
+@using Umbraco.Plugins.Connector.Models
+@using Umbraco.Plugins.Connector.Helpers
+@{
+    Layout = "totalCodeLayout.cshtml";
+    ViewBag.Title = Umbraco.GetDictionaryValue("[Account]AccountPageTitle", "My Account");
+    var customerInfo = Model.Customer ?? new PayloadContent();
+    var tenantPreferences = Model.Preferences;
+    var currencySymbol = customerInfo.CurrencyCode == null ? "IRT" : CurrencyCodeMapper.GetSymbol(customerInfo.CurrencyCode);
+    var balance = Model.CustomerWallet ?? new CustomerWallet();
+    string required = string.Empty;
+    string requiredMessage = string.Empty;
+    string invalidMessage = string.Empty;
+    string asterisk = string.Empty;
+    var dataMethod = string.Empty;
+    // ignore for now
+    //var wallet = Model.CustomerWallet.Wallets[0]; // select first wallet???
+}
+@section Scripts{
+    <script src="~/scripts/edit-customer-popups.js"></script>
+    <script type="text/javascript">
+        var email = '';
+        function getCustomerEmail() {
+            var url = '/umbraco/surface/account/getcustomeremail';
+            var data = {
+                "tenantUid": settings.tenantUid,
+                "customerGuid": settings.customerGuid
+            }
+            $.get(url, data,
+                function (response) {
+                    if (response.Success) {
+                        response.Payload.forEach((item) => {
+                            if (!item.IsVerified) {
+                                document.getElementById("resend_verif").style.display = 'flex';
+                                email = item.Email;
+                            }
+                        });
+                    }
+
+                }).fail(function (data) {
+                    //console.log(data);
+                });
+        }
+
+        function sendVerifEmail() {
+            var loader = document.getElementById("verif_loader");
+            loader.style.display = 'block';
+
+            document.getElementById("resend_verif").style.display = 'none';
+            var url = '/umbraco/surface/account/sendverificationemail';
+            var data = {
+                "tenantUid": settings.tenantUid,
+                "email": email,
+                "language": settings.language
+            }
+            $.post(url, data,
+                function (response) {
+                    if (response.Success) {
+                        loader.style.display = 'none';
+                        $("#verification-email-sent-auto").modal("show");
+                    }
+                    else {
+                        loader.style.display = 'none';
+                    }
+                }).fail(function (data) {
+                    //console.log(data);
+                });
+        }
+
+        getCustomerEmail();
+    </script>
+}
+
+<section class="black-main">
+    <div class="left-sidebar">
+        @Html.Partial("_TotalCodeAccountMenu")
+    </div>
+    <div class="main-container">
+        <div class="heading--main-container">
+            <h1 class="black-main--head">@Model.Title</h1>
+        </div>
+        @Html.Partial("_TotalCodeMobilePageMenu")
+        <div class="account-info--black">
+            <ul class="list--info-account">
+                <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Balance", "Balance")</span><span class="result-option"><span class="currency-symbol">@currencySymbol</span>&nbsp; <span class="currency-format">@balance.TotalAccountBalance</span></span></li>
+                <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Bonus", "Bonus")</span><span class="result-option"><span class="currency-symbol">@currencySymbol</span>&nbsp; <span class="currency-format">@balance.BonusBalance</span></span></li>
+                <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Withdrawable", "Withdrawable")</span><span class="result-option"><span class="currency-symbol">@currencySymbol</span>&nbsp; <span class="currency-format">@balance.WithdrawableBalance</span></span></li>
+            </ul>
+        </div>
+        <div class="account-info--black">
+            <ul class="list--info-account">
+                @if (tenantPreferences.Title.IsUsed)
+                {
+                    <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Title", "Title")</span><span class="result-option">@customerInfo.Title</span></li>
+                }
+                @if (tenantPreferences.FirstName.IsUsed)
+                {
+                    <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]FirstName", "First Name")</span><span class="result-option">@customerInfo.FirstName</span></li>
+                }
+                @if (tenantPreferences.LastName.IsUsed)
+                {
+                    <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]LastName", "Last Name")</span><span class="result-option">@customerInfo.LastName</span></li>
+                }
+                @*@if (tenantPreferences.Security.Username.IsUsed)
+                {
+                    <li>
+                        <span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Username", "Username")</span><span class="result-option">@customerInfo.Username</span>
+                    </li>
+                }*@
+                @if (tenantPreferences.Gender.IsUsed)
+                {
+                    <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Gender", "Gender")</span><span class="result-option">@Umbraco.GetDictionaryValue(DefaultAllowedValues.GetGenderDisplayName(customerInfo.Gender))</span></li>
+                }
+                @if (tenantPreferences.DateOfBirth.IsUsed)
+                {
+                    <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]DateOfBirth", "Date of Birth")</span><span class="result-option">@(customerInfo.DOB.HasValue?customerInfo.DOB.Value.ToString("dd MMMM yyyy"):"")</span></li>
+                }
+                @if (tenantPreferences.Country.IsUsed)
+                {
+                    <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Country", "Country")</span><span class="result-option">@CountryHelper.GetCountryName(customerInfo.CountryCode)</span></li>
+                }
+                <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Currency", "Currency")</span><span class="result-option" title="@DefaultAllowedValues.GetCurrencyInfo(customerInfo.CurrencyCode).ToString()">@CurrencyCodeMapper.GetSymbol(customerInfo.CurrencyCode)</span></li>
+                @*<li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Currency", "Currency")</span><span class="result-option" title="@DefaultAllowedValues.GetCurrencyInfo(customerInfo.CurrencyCode).ToString()">@CurrencyCodeMapper.GetSymbol(customerInfo.CurrencyCode)&nbsp;(@DefaultAllowedValues.GetCurrencyInfo(customerInfo.CurrencyCode).Name)</span></li>*@
+                @if (tenantPreferences.Preferences.TimeZone.IsUsed)
+                {
+                    <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]TimeZone", "Time Zone")</span><span class="result-option">@DefaultAllowedValues.GetTimeZoneByCode(customerInfo.TimeZoneCode).DisplayName</span></li>
+                }
+                @if (tenantPreferences.Preferences.OddsDisplay.IsUsed)
+                {
+                    <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]OddsDisplay", "Odds Display")</span><span class="result-option">@DefaultAllowedValues.GetOddsDisplayName(customerInfo.OddsDisplay)</span></li>
+                }
+                @if (tenantPreferences.Preferences.DefaultLanguage.IsUsed && !string.IsNullOrEmpty(customerInfo.LanguageCode))
+                {
+                    <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Language", "Language")</span><span class="result-option">@(DefaultAllowedValues.GetLanguageByCode(customerInfo.LanguageCode)?.Name)</span></li>
+                }
+            </ul>
+            <div class="account-wrap--button text-right">
+                <a class="button button-gray" href="@(Model.EditPage.Url)?edit=customer">
+                    @Umbraco.GetDictionaryValue("[AccountPage]Edit", "Edit")
+                </a>
+            </div>
+        </div>
+        @if (tenantPreferences.Mobile.IsUsed)
+        {
+            <div class="account-info--black">
+                <div class="my-information">
+                    <div class="my-info--main">
+                        <p class="my-info--name">@Umbraco.GetDictionaryValue("[AccountPage]PhoneNumber", "Phone Number")</p>
+                        @*@foreach (var phone in customerInfo.PhoneNumbers)
+                        {
+                            <p class="my-info--result">
+                                @phone.Number @if (phone.IsPreferred)
+                                {@Umbraco.GetDictionaryValue("[Account]IsPreferred", "(Preferred)")}
+                            </p>
+                        }*@
+                        <p class="my-info--result full-phone-format">
+                            @(customerInfo.PhoneNumber == null?"":customerInfo.PhoneNumber.Number)
+                        </p>
+                    </div>
+                    <div class="my-info--change"><a class="popup button button-gray" href="#edit-mobile" rel="modal:open">@Umbraco.GetDictionaryValue("[AccountPage]Change", "Change")</a></div>
+                </div>
+            </div>
+        }
+
+        @if (tenantPreferences.Security.Username.IsUsed)
+        {
+            <div class="account-info--black">
+                <div class="my-information">
+                    <div class="my-info--main">
+                        <p class="my-info--name">@Umbraco.GetDictionaryValue("[AccountPage]Username", "Username")</p>
+                        <p class="my-info--result full-phone-format">
+                            @customerInfo.Username
+                        </p>
+                    </div>
+                    <div class="my-info--change"><a class="popup button button-gray" href="#edit-username" rel="modal:open">@Umbraco.GetDictionaryValue("[AccountPage]Change", "Change")</a></div>
+                </div>
+            </div>
+        }
+
+        @if (tenantPreferences.Email.IsUsed)
+        {
+            <div class="account-info--black">
+                <div class="my-information">
+                    <div class="my-info--main">
+                        <p class="my-info--name">@Umbraco.GetDictionaryValue("[AccountPage]Email", "Email")</p>
+                        @*@foreach (var email in customerInfo.Emails)
+                        {
+                            <p class="my-info--result">
+                                @email.EmailAddress @if (email.IsSelected)
+                                {@Umbraco.GetDictionaryValue("[Account]IsPreferred", "(Preferred)")}
+                            </p>
+                        }*@
+                        <p class="my-info--result">
+                            @(customerInfo.Email == null?"":customerInfo.Email.EmailAddress)
+                        </p>
+                    </div>
+                    <div class="my-info--change"><a class="popup button button-gray" href="#edit-email" rel="modal:open">@Umbraco.GetDictionaryValue("[AccountPage]Change", "Change")</a></div>
+                </div>
+
+                <br />
+
+                <div class="text-center" id="verif_loader" style="display:none;">
+                    <div class="processing mt-0">
+                        @if (TempData["FormSpinnerImage"] != null)
+                        {
+                            <img src="@TempData["FormSpinnerImage"]" />
+
+                        }
+                        else
+                        {
+                            <img src="~/Media/img/tail-spin.svg" />
+                        }
+                    </div>
+                </div>
+
+                <div class="my-information" id="resend_verif" style="display:none;">
+                    <div class="my-info--main">
+                        <p class="my-info--result">
+                            @Umbraco.GetDictionaryValue("[AccountPage]Unverified", "unverified")
+                        </p>
+                    </div>
+                    <div class="my-info--change">
+                        <a class="popup button button-gray" onclick="sendVerifEmail()">@Umbraco.GetDictionaryValue("[AccountPage]SendVerificationEmail", "Send verif. email")</a>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (tenantPreferences.Address.AddressLine1.IsUsed
+            || tenantPreferences.Address.AddressLine2.IsUsed
+            || tenantPreferences.Address.AddressLine3.IsUsed
+            || tenantPreferences.Address.CityOrTown.IsUsed
+            || tenantPreferences.Address.PostalCode.IsUsed)
+        {
+            var buttonText = @Umbraco.GetDictionaryValue("[AccountPage]Edit", "Edit");
+            <div class="account-info--black">
+
+                @if (customerInfo.Address != null
+                && string.IsNullOrEmpty(customerInfo.Address.AddressLine1)
+                && string.IsNullOrEmpty(customerInfo.Address.AddressLine2)
+                && string.IsNullOrEmpty(customerInfo.Address.AddressLine3)
+                && string.IsNullOrEmpty(customerInfo.Address.Town)
+                && string.IsNullOrEmpty(customerInfo.Address.PostCode))
+                {
+                    buttonText = @Umbraco.GetDictionaryValue("[AccountPage]AddAddress", "Add Address");
+                    <div class="my-information">
+                        <div class="my-info--main">
+                            <p class="my-info--name">
+                                @Umbraco.GetDictionaryValue("[AccountPage]NoAddressDefined", "No Address found")
+                                    @if (customerInfo.Address != null)
+                                    {
+                                    <span style="display:none">
+                                        @customerInfo.Address.AddressLine1 @customerInfo.Address.AddressLine2 -@customerInfo.Address.Town @customerInfo.Address.PostCode
+                                    </span>
+                                    }
+                                    else
+                                    {
+                                    <span style="display:none"></span>
+                                    }
+
+                            </p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <ul class="list--info-account">
+                        @if (tenantPreferences.Address.AddressLine1.IsUsed && !string.IsNullOrEmpty(customerInfo.Address.AddressLine1))
+                        {
+                            <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Address1", "Address")</span><span class="result-option">@customerInfo.Address.AddressLine1</span></li>
+                        }
+                        @if (tenantPreferences.Address.AddressLine2.IsUsed && !string.IsNullOrEmpty(customerInfo.Address.AddressLine2))
+                        {
+                            <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Address2", "Address Line 2")</span><span class="result-option">@customerInfo.Address.AddressLine2</span></li>
+                        }
+                        @if (tenantPreferences.Address.AddressLine3.IsUsed && !string.IsNullOrEmpty(customerInfo.Address.AddressLine3))
+                        {
+                            <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]Address3", "Address Line 3")</span><span class="result-option">@customerInfo.Address.AddressLine3</span></li>
+                        }
+                        @if (tenantPreferences.Address.CityOrTown.IsUsed && !string.IsNullOrEmpty(customerInfo.Address.Town))
+                        {
+                            <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]CityOrTown", "City Or Town")</span><span class="result-option">@customerInfo.Address.Town</span></li>
+                        }
+                        @if (tenantPreferences.Address.PostalCode.IsUsed && !string.IsNullOrEmpty(customerInfo.Address.PostCode))
+                        {
+                            <li><span class="name-option">@Umbraco.GetDictionaryValue("[AccountPage]PostalCode", "Postal Code")</span><span class="result-option">@customerInfo.Address.PostCode</span></li>
+                        }
+                    </ul>
+                }
+                <div class="account-wrap--button text-right">
+                    <a class="button button-gray" href="@(Model.EditPage.Url)?edit=address">
+                        @buttonText
+                    </a>
+                </div>
+            </div>
+        }
+        <div class="marketing-preferences">
+            <a class="popup-button button" href="#change-comm-preferences" rel="modal:open">@Umbraco.GetDictionaryValue("[Account]CommunicationPreferences", "Communication Preferences")</a>
+            <a class="popup-button button" href="#change-pwd" rel="modal:open">@Umbraco.GetDictionaryValue("[AccountPage]ChangePassword", "Change Password")</a>
+        </div>
+    </div>
+</section>
+
+<div style="display:none" ng-controller="AccountEditPopups as vm">
+
+    @*Change communication preferences *@
+    <div class="popup-default popup-send default-offset zoom-anim-dialog message-status" id="change-comm-preferences">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[Account]CommunicationPreferences", "Communication Preferences")
+        </h3>
+        <div class="height-36"></div>
+        <form id="change-comm-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            @if (tenantPreferences.ReceiveNotifications?.IsUsed == true)
+            {
+                required = tenantPreferences.ReceiveNotifications.IsMandatory ? "required" : string.Empty;
+                requiredMessage = tenantPreferences.ReceiveNotifications.IsMandatory ? "valid-error-notifications" : string.Empty;
+                asterisk = tenantPreferences.ReceiveNotifications.IsMandatory ? "*" : string.Empty;
+                var isChecked = customerInfo.NotificationPreferences.IsSelected ? "checked" : string.Empty;
+                <div class="label-payment--fill">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input validate-target" type="checkbox" @required @isChecked data-validate-expression="" data-validation-message="" data-no-value="@requiredMessage" name="notify" ng-click="vm.check($event)" />
+                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[AccountPage]ReceiveNotifications", "Receive Notifications") @asterisk</span>
+                    </label>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]ReceiveNotifications", "Receive Notifications")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                </div>
+            }
+            @if (tenantPreferences.ReceiveNotificationsViaInPlatformMessages?.IsUsed == true)
+            {
+                required = tenantPreferences.ReceiveNotificationsViaInPlatformMessages.IsMandatory ? "required" : string.Empty;
+                requiredMessage = tenantPreferences.ReceiveNotificationsViaInPlatformMessages.IsMandatory ? "valid-error-notifications-inplatform" : string.Empty;
+                asterisk = tenantPreferences.ReceiveNotificationsViaInPlatformMessages.IsMandatory ? "*" : string.Empty;
+                var isChecked = customerInfo.InPlatformNotificationPreferences.IsSelected ? "checked" : string.Empty;
+                <div class="label-payment--fill">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input validate-target" type="checkbox" @required @isChecked data-validate-expression="" data-validation-message="" data-no-value="@requiredMessage" name="notifyViaPlatform" ng-click="vm.check($event)" />
+                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[AccountPage]ReceiveNotificationsViaInPlatformMessages", "Receive Notifications via In-Platform") @asterisk</span>
+                    </label>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]ReceiveNotificationsViaInPlatformMessages", "Receive Notifications via In-Platform")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                </div>
+            }
+            @if (tenantPreferences.ReceiveNotificationsViaEmail?.IsUsed == true)
+            {
+                required = tenantPreferences.ReceiveNotificationsViaEmail.IsMandatory ? "required" : string.Empty;
+                requiredMessage = tenantPreferences.ReceiveNotificationsViaEmail.IsMandatory ? "valid-error-notifications-email" : string.Empty;
+                asterisk = tenantPreferences.ReceiveNotificationsViaEmail.IsMandatory ? "*" : string.Empty;
+                var isChecked = customerInfo.EmailNotificationPreferences.IsSelected ? "checked" : string.Empty;
+                <div class="label-payment--fill">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input validate-target" type="checkbox" @required @isChecked data-validate-expression="" data-validation-message="" data-no-value="@requiredMessage" name="notifyViaEmail" ng-click="vm.check($event)" />
+                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[AccountPage]ReceiveNotificationsViaEmail", "Receive Notifications via Email") @asterisk</span>
+                    </label>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]ReceiveNotificationsViaEmail", "Receive Notifications via Email")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                </div>
+            }
+            @if (tenantPreferences.ReceiveNotificationsViaSMS?.IsUsed == true)
+            {
+                required = tenantPreferences.ReceiveNotificationsViaSMS.IsMandatory ? "required" : string.Empty;
+                requiredMessage = tenantPreferences.ReceiveNotificationsViaSMS.IsMandatory ? "valid-error-notifications-sms" : string.Empty;
+                asterisk = tenantPreferences.ReceiveNotificationsViaSMS.IsMandatory ? "*" : string.Empty;
+                var isChecked = customerInfo.SmsNotificationPreferences.IsSelected ? "checked" : string.Empty;
+                <div class="label-payment--fill">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input validate-target" type="checkbox" @required @isChecked data-validate-expression="" data-validation-message="" data-no-value="@requiredMessage" name="notifyViaSms" ng-click="vm.check($event)" />
+                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[AccountPage]ReceiveNotificationsViaSMS", "Receive Notifications via SMS") @asterisk</span>
+                    </label>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]ReceiveNotificationsViaSMS", "Receive Notifications via SMS")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                </div>
+            }
+            @Html.Partial("_processing")
+            <div class="account-wrap--button text-right">
+                <a class="popup-button button" href="#" data-form="change-comm-form" ng-click="vm.submitChangeCommPreferences($event)">
+                    @Umbraco.GetDictionaryValue("[AccountPage]Save", "Save")
+                </a>
+            </div>
+            <div class="response-success" style="display:none;">@Umbraco.GetDictionaryValue("[Account]CommunicationPreferencesSaved", "Communication preferences have been changed")</div>
+            <div class="response-failure" style="display:none;">@Umbraco.GetDictionaryValue("[Account]CommunicationPreferencesError", "Error changing your communication preferences")</div>
+            @Html.Partial("_server-errors-display")
+        </form>
+    </div>
+    @*/Change Comm Preferences*@
+
+    @*Change Password*@
+    <div class="popup-default registration-step default-offset zoom-anim-dialog" id="change-pwd">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <form id="change-pwd-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Reset]ChangePassword", "Change Password")</h3>
+            <div class="height-36"></div>
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>@Umbraco.GetDictionaryValue("[Account]OldPassword", "Old Password")</label>
+                </div>
+                <div class="item--input">
+                    <input name="oldpassword" type="password" required placeholder="@Umbraco.GetDictionaryValue("[AccountPage]PasswordPlaceholder", "***********")" class="validate-target" data-validate-expression="@tenantPreferences.Security.Password.Validation" data-validation-message="error-message-oldpass" data-no-value="valid-error-oldpass">
+                    <span class="valid-error valid-error-oldpass" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                    <span class="error-message error-message-oldpass" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsInvalid", " is invalid")</span>
+                </div>
+            </div>
+
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label for="account-newpass-forgot-password">@Umbraco.GetDictionaryValue("[Forgot]NewPassword", "New Password")</label>
+                </div>
+                <div class="item--input">
+                    <input name="newpassword" type="password" required placeholder="@Umbraco.GetDictionaryValue("[AccountPage]PasswordPlaceholder", "***********")" class="validate-target" data-validate-expression="@tenantPreferences.Security.Password.Validation" data-validation-message="error-message-newpass-email" data-no-value="valid-error-newpass-email">
+                    <span class="valid-error valid-error-newpass" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                    <span class="error-message error-message-newpass" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsInvalid", " is invalid")</span>
+                </div>
+            </div>
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>@Umbraco.GetDictionaryValue("[Forgot]ConfirmNewPassword", "Confirm New Password")</label>
+                </div>
+                <div class="item--input">
+                    <input type="password" required placeholder="@Umbraco.GetDictionaryValue("[AccountPage]PasswordPlaceholder", "***********")" class="validate-target" data-validate-expression="" data-validation-message="error-message-confirm-newpass" data-no-value="valid-error-confirm-newpass" id="confirm-password-change">
+                    <span class="valid-error valid-error-confirm-newpass" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                    <span class="error-message error-message-confirm-newpass" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsInvalid", " is invalid")</span>
+                    <span class="password-nomatch" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]PasswordDoesNotMatch", "Passwords do not match")</span>
+                </div>
+            </div>
+            @Html.Partial("_processing")
+            <div class="item--input-label">
+                <a class="popup popup-button button validate" data-form="change-pwd-form" ng-click="vm.submitChangePassword($event)">@Umbraco.GetDictionaryValue("[Reset]ChangePassword", "Change Password")</a>
+            </div>
+            <div class="item--input-label text-center">
+                <div class="response-success" style="display:none;">@Umbraco.GetDictionaryValue("[Account]ChangePasswordSuccess", "Password has been changed")</div>
+                <div class="response-failure" style="display:none;">@Umbraco.GetDictionaryValue("[Account]ChangePasswordFailure", "Error changing your password")</div>
+                @Html.Partial("_server-errors-display")
+            </div>
+        </form>
+    </div>
+    @*/Change Password*@
+
+    @*Change Email*@
+    <div class="popup-default change-step default-offset zoom-anim-dialog" id="edit-email">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[AccountPage]ChangeEmail", "Change Email")
+        </h3>
+        <div class="height-36"></div>
+        <form id="edit-email-form">
+            @Html.AntiForgeryToken()
+            @{
+                required = tenantPreferences.Email.IsMandatory ? "required" : string.Empty;
+                requiredMessage = tenantPreferences.Email.IsMandatory ? "valid-error-change-email" : string.Empty;
+                invalidMessage = tenantPreferences.Email.Validation != null ? "error-message-change-email" : string.Empty;
+            }
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@Model.CurrentLanguage.TwoLetterISOLanguageName" />
+            <input type="hidden" name="validation-required" value="@Model.Preferences.Email.ValidationRequired.ToString().ToLower()" />
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>@Umbraco.GetDictionaryValue("[AccountPage]NewEmail", "New Email Address")</label>
+                </div>
+                <div class="item--input">
+                    <input name="email" @required placeholder="@Umbraco.GetDictionaryValue("[AccountPage]EmailPlaceholder", "johndoe@email.com")" class="validate-target" data-validate-expression="@tenantPreferences.Email.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@tenantPreferences.Email.MinValue" max="@tenantPreferences.Email.MaxValue" type="text">
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Email", "Email")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                    <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Email", "Email")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsInvalid", " is invalid")</span>
+                </div>
+            </div>
+            <div class="item--input-label">
+                @{
+                    var step = Model.Preferences.Email.ValidationRequired ? "#verification-email-sent" : "#edit-email-success";
+                    <a class="popup popup-button button validate" href="@step" data-form="edit-email-form" ng-click="vm.submitChangeEmail($event)">@Umbraco.GetDictionaryValue("[AccountPage]ChangeEmail", "Change Email")</a>
+                }
+            </div>
+            @Html.Partial("_processing")
+            @Html.Partial("_server-errors-display")
+            <p class="popup-text--gray text-center mobile-text--bottom">@Umbraco.GetDictionaryValue("[AccountPage]CurrentEmail", "Your current email address is") <br><span class="email-holder link-white">@Model.Customer.Email.EmailAddress</span></p>
+        </form>
+    </div>
+
+    @*Change Username*@
+    <div class="popup-default change-step default-offset zoom-anim-dialog" id="edit-username">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[AccountPage]ChangeUsername", "Change Username")
+        </h3>
+        <div class="height-36"></div>
+        <form id="edit-username-form">
+            @Html.AntiForgeryToken()
+            @{
+                required = tenantPreferences.Security.Username.IsMandatory ? "required" : string.Empty;
+                requiredMessage = tenantPreferences.Security.Username.IsMandatory ? "valid-error-username" : string.Empty;
+                invalidMessage = tenantPreferences.Security.Username.Validation != null ? "error-message-username" : "error-message-username";
+            }
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@Model.CurrentLanguage.TwoLetterISOLanguageName" />
+            @*<input type="hidden" name="validation-required" value="@Model.Preferences.Email.ValidationRequired.ToString().ToLower()" />*@
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>@Umbraco.GetDictionaryValue("[AccountPage]NewUsername", "New Username")</label>
+                </div>
+                <div class="item--input">
+                    <input name="username" @required placeholder="@Umbraco.GetDictionaryValue("[Register]UsernamePlaceholder", "johndoe")" class="validate-target" data-validate-expression="@tenantPreferences.Security.Username.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@tenantPreferences.Security.Username.MinValue" max="@tenantPreferences.Security.Username.MaxValue" type="text">
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Username", "Username")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                    <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]Username", "Username")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsInvalid", " is invalid")</span>
+                </div>
+            </div>
+            <div class="item--input-label">
+                @{
+                    <a class="popup popup-button button validate" href="#edit-username-success" data-form="edit-username-form" ng-click="vm.submitChangeUsername($event)">@Umbraco.GetDictionaryValue("[AccountPage]ChangeUsername", "Change Username")</a>
+                }
+            </div>
+            @Html.Partial("_processing")
+            @Html.Partial("_server-errors-display")
+            <p class="popup-text--gray text-center mobile-text--bottom">@Umbraco.GetDictionaryValue("[AccountPage]CurrentUsername", "Your current username is") <br><span class="email-holder link-white">@customerInfo.Username</span></p>
+        </form>
+    </div>
+
+    <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="verification-email-sent-auto">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-default text-center">
+            @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToTitle", "Email verification has been sent to your email")
+        </h3>
+        <p class="gray--text-info">
+            @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentTo", "We now need to verify your email address.We’ve sent an email to") <span class="email-holder"></span> @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToPleaseClick", "to verify your address. Please click the link in that email to continue.")
+        </p>
+
+        <div class="wrap--send-button text-center">
+            <a class="popup popup-button button" href="#" rel="modal:close">@Umbraco.GetDictionaryValue("[Others]Close", "Close")</a>
+        </div>
+    </div>
+
+    @if (Model.Preferences.Email.ValidationRequired)
+    {
+        <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="verification-email-sent">
+            <div class="top-wrap--popup"><a class="link-back-edit" href="#edit-email"></a><span class="custom-close">X</span></div>
+            <h3 class="heading-default text-center">
+                @Umbraco.GetDictionaryValue("[AccountPage]VerifyEmailSentToTitle", "Email verification has been sent to your email")
+            </h3>
+            <p class="gray--text-info">
+                @Umbraco.GetDictionaryValue("[AccountPage]VerifyEmailSentTo", "We now need to verify your email address.We’ve sent an email to") <span class="email-holder"></span> @Umbraco.GetDictionaryValue("[AccountPage]VerifyEmailSentToPleaseClick", "to verify your address. Please click the link in that email to continue.")
+            </p>
+
+            <div class="wrap--send-button text-center">
+                <form id="resend-verification-email">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                    <input type="hidden" name="language" value="@Model.CurrentLanguage.TwoLetterISOLanguageName" />
+                    <a class="button send-button" href="#" data-form="resend-verification-email" ng-click="vm.resendVerificationEmail($event)">@Umbraco.GetDictionaryValue("[AccountPage]ResendVerificationEmail", "Resend Verification Email")</a>
+                    @Html.Partial("_processing")
+                    @Html.Partial("_server-errors-display")
+                    <div class="wrapper-popup--message text-center"><span class="message-verification" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]ResendVerificationEmailSent", "New verification email has been sent")</span></div>
+                </form>
+            </div>
+        </div>
+    }
+    @*/Change Email*@
+    <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="edit-email-success">
+        <div class="top-wrap--popup"><span class="custom-close" ng-click="vm.forceRefresh()">X</span></div>
+        <h3 class="heading-default text-center">
+            @Umbraco.GetDictionaryValue("[Account]EmailChangedSucccess", "Email Changed Successfully")
+        </h3>
+        <p class="gray--text-info">
+            @Umbraco.GetDictionaryValue("[Account]EmailChangedSucccessNotice", "Your email address was changed!")
+        </p>
+    </div>
+
+
+
+    @*Change username success*@
+    <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="edit-username-success">
+        <div class="top-wrap--popup"><span class="custom-close" ng-click="vm.forceRefresh()">X</span></div>
+        <h3 class="heading-default text-center">
+            @Umbraco.GetDictionaryValue("[Account]UsernameChangedSucccess", "Username Changed Successfully")
+        </h3>
+        <p class="gray--text-info">
+            @Umbraco.GetDictionaryValue("[Account]UsernameChangedSucccessNotice", "Your username was changed!")
+        </p>
+    </div>
+    @*Change Phone*@
+    <div class="popup-default registration-step default-offset zoom-anim-dialog" id="edit-mobile">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[Account]ChangeMobile", "Change Mobile Phone")
+        </h3>
+        <form id="edit-mobile-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@Model.CurrentLanguage.TwoLetterISOLanguageName" />
+            <input type="hidden" name="validation-required" value="@Model.Preferences.Mobile.ValidationRequired.ToString().ToLower()" />
+            <div class="step-popup registration-steps step1">
+                <div class="item--input-label">
+                    <div class="item--label">
+                        @{
+                            asterisk = tenantPreferences.Mobile.IsMandatory ? "*" : string.Empty;
+                            <label for="phone-number">@Umbraco.GetDictionaryValue("[AccountPage]PhoneNumber", "Phone Number") @asterisk</label>
+                        }
+                    </div>
+                    <div class="item--input phone-checked">
+                        <div class="custom-select select-bold float">
+                            <select class="select-phone select-black" name="countryCode" tabindex="1">
+                                <option value="">xx</option>
+                                @foreach (var countryCode in Model.PhoneCountryCodes)
+                                {
+                                    <option value="@countryCode">@countryCode</option>
+                                }
+                            </select>
+                        </div>
+                        @{
+                            required = tenantPreferences.Mobile.IsMandatory ? "required" : string.Empty;
+                            asterisk = tenantPreferences.Mobile.IsMandatory ? "*" : string.Empty;
+                            <input id="phone-number" @required placeholder="@Umbraco.GetDictionaryValue("[AccountPage]PhoneNumberPlaceholder", "555-5555")" name="mobile" class="validate-target phone-number" data-validate-expression="@tenantPreferences.Mobile.Validation" data-validation-message="error-message" data-no-value="valid-error" min="@tenantPreferences.Mobile.MinValue" max="@tenantPreferences.Mobile.MaxValue" type="tel" pattern="@tenantPreferences.Mobile.Validation" tabindex="2">
+                            <span class="valid-error" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                            <span class="error-message" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IncorrectOrInvalid", " is incorrect or invalid")</span>
+                        }
+                    </div>
+                </div>
+                @{
+                    var stepToGo = tenantPreferences.Mobile.ValidationRequired ? "#edit-mobile-step2" : "#edit-mobile-success";
+                }
+                <div class="item--input-label">
+                    <a class="popup popup-button button validate" href="@stepToGo" data-form="edit-mobile-form" tabindex="3" ng-click="vm.submitChangeMobile($event)">
+                        @Umbraco.GetDictionaryValue("[AccountPage]Continue", "Continue")
+                    </a>
+                </div>
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                @if (Model.Customer.PhoneNumber != null)
+                {
+                    <p class="popup-text--gray text-center mobile-text--bottom">@Umbraco.GetDictionaryValue("[Account]CurrentPhone", "Your current phone number is") <br><span class="email-holder link-white">@Model.Customer.PhoneNumber.Number</span></p>
+                }
+                @if (Model.Preferences.Mobile.ValidationRequired)
+                {
+                    <p class="popup-text--gray text-center">
+                        @Umbraco.GetDictionaryValue("[AccountPage]PhoneNumberInstructions", "Enter your mobile phone number and we will send you a verification code")
+                    </p>
+                }
+            </div>
+        </form>
+    </div>
+    @if (Model.Preferences.Mobile.ValidationRequired)
+    {
+        <div class="popup-default registration-step default-offset zoom-anim-dialog" id="edit-mobile-step2">
+            <div class="top-wrap--popup"><a class="link-back-edit" href="#edit-mobile"></a><span class="custom-close">X</span></div>
+            <h3 class="heading-popup">
+                @Umbraco.GetDictionaryValue("[Account]ChangeMobile", "Change Mobile Phone")
+            </h3>
+            <div class="height-36"></div>
+            <form id="edit-mobile-step2-form">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                <input type="hidden" name="language" value="@Model.CurrentLanguage.TwoLetterISOLanguageName" />
+                <div class="step-popup registration-steps step2">
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label>@Umbraco.GetDictionaryValue("[AccountPage]VerificationCode", "Verification Code")</label>
+                        </div>
+                        <div class="item--input">
+                            <input name="code" placeholder="@Umbraco.GetDictionaryValue("[AccountPage]VerificationCodePlaceholder", "XXXXXX")" class="validate-target" data-validate-expression="^[0-9]{6}$" data-validation-message="error-message" data-no-value="valid-error" required type="number">
+                            <span class="valid-error" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]VerificationCode", "Verification Code")&nbsp;@Umbraco.GetDictionaryValue("[AccountPage]IsMandatory", " is required")</span>
+                            <span class="error-message" style="display:none;">@Umbraco.GetDictionaryValue("[AccountPage]VerificationCodeInvalidOrExpired", "Verification code is invalid or expired")</span>
+                        </div>
+                    </div>
+                    <div class="item--input-label"><a class="popup popup-button button validate" href="#edit-mobile-success" data-form="edit-mobile-step2" ng-click="vm.validateSms($event)">@Umbraco.GetDictionaryValue("[AccountPage]EnterCode", "Enter Code")</a></div>
+                    @Html.Partial("_processing")
+                    @Html.Partial("_server-errors-display")
+                    <p class="popup-text--gray text-center">
+                        @Umbraco.GetDictionaryValue("[AccountPage]Enter6DigitVerificationCode", "Enter the 6-digit verification code sent to") <span class="mobile-holder">{{vm.mobileNumber}}</span>
+                    </p>
+                    <div class="link--popup-default text-center">
+                        <a class="default-link resend-code" href="#" ng-click="vm.resendVerificationSms($event)" data-form="edit-mobile-step2">
+                            @Umbraco.GetDictionaryValue("[AccountPage]ResendCode", "Resend Code")
+                        </a>
+                        <div class="resend-time" style="display:none;">
+                            @Umbraco.GetDictionaryValue("[AccountPage]Wait", "wait")
+                            <span class="wait-time"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+    <div class="popup-default default-offset zoom-anim-dialog" id="edit-mobile-success">
+        <div class="top-wrap--popup"><span class="custom-close" ng-click="vm.forceRefresh()">X</span></div>
+        <h3 class="heading-default text-center">
+            @Umbraco.GetDictionaryValue("[Account]MobileChangedSucccess", "Mobile Phone Changed Successfully")
+        </h3>
+        <p class="gray--text-info">
+            @Umbraco.GetDictionaryValue("[Account]MobileChangedSucccessNotice", "Your mobile phone was changed!")
+        </p>
+    </div>
+    @*/Change Phone*@
+</div>

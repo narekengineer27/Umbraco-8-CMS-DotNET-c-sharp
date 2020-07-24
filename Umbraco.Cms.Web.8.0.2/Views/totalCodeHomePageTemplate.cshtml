@@ -1,0 +1,236 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.GamePageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+    ViewBag.Title = string.IsNullOrEmpty(Model.WebsiteName) ? Model.Title : Model.WebsiteName;
+    var currency = Model.CustomerSummary != null ? Model.CustomerSummary.CurrencyCode : "EUR";
+    var liveLogin = Model.CustomerSummary != null ? "true" : "false";
+}
+@if (string.IsNullOrEmpty(Model.GameUrl))
+{
+    @section Scripts{
+        <script type="text/javascript" src="~/scripts/owl.carousel.min.js"></script>
+        <script type="text/javascript">
+            var isMobile = @Model.IsMobileBrowser.ToString().ToLower();
+        </script>
+        <script type="text/javascript">
+            const slider = document.querySelector('.categories-slider');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2; //scroll-fast
+                slider.scrollLeft = scrollLeft - walk;
+            });
+        </script>
+    }
+    @section AdditionalHeaders{
+
+    }
+    <section class="landing">
+        <div class="wrapper-landing">
+            @if (Model.Slider.Any())
+            {
+                <div class="top-slider">
+                    <div class="owl-carousel slider-big">
+                        @foreach (var slider in Model.Slider)
+                        {
+                            <div class="item">
+                                <div class="items-text">
+                                    @if (!string.IsNullOrEmpty(slider.ButtonLabel))
+                                    {
+                                        <a class="button-land" href="@slider.Url">@slider.ButtonLabel</a>
+                                    }
+                                    <p>@Html.Raw(slider.Title)</p>
+                                    <p class="texts-gray">@Html.Raw(slider.Subtitle)</p>
+                                </div><a class="items-cont" href="@slider.Url">
+                                    <div class="img-container"><img src="@slider.Image" alt="@slider.ButtonLabel"></div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                    @*<p class="terms-text">@Umbraco.GetDictionaryValue("[Home]TermsApply", "Terms Apply:  18+")</p>*@
+                </div>
+            }
+
+
+            @if (Model.MenuItems.Any())
+            {
+                <nav class="menu-land">
+                    <ul class="categories-slider">
+                        @foreach (var menuItem in Model.MenuItems)
+                        {
+                            <li>
+                                <a href="@menuItem.Url" title="@menuItem.Label" target="_self">
+                                    <img type="image/svg+xml" src="@Html.Raw(menuItem.SvgIcon)" class="land-icon" />
+                                    <span>@menuItem.Label</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+
+            @if (Model.Games != null)
+            {
+                var counter = 0;
+                <div class="bottom-slider">
+                    <div class="owl-carousel slider-small">
+                        @foreach (var game in Model.Games.OrderBy(x => x.Priority))
+                        {
+                            if (game.Favourite) // filter home page to show only favorite games
+                            {
+                                string imageUrl = game.GameImages.SingleOrDefault(x => x.ImageTypeEnum == ImageType.Thumbnail)?.Url;
+                                imageUrl = string.IsNullOrEmpty(imageUrl) ? "https://via.placeholder.com/150" : imageUrl;
+                        <div class="item bounceIn" style="animation-delay: @(150 + counter * 1000 / Model.Games.Count )ms;">
+                            @if (game.NewGame)
+                            {
+                                <div class="corner-ribbon top-left sticky red shadow">@Umbraco.GetDictionaryValue("[Games]NewGame", "New")</div>
+                                @*<span class="new-game"><i class="icon-flag" title="@Umbraco.GetDictionaryValue("[Games]New", "New Game")"></i></span>*@
+                            }
+                            @if (game.Favourite)
+                            {
+                                <div class="favorite-game" title="@Umbraco.GetDictionaryValue("[Games]FavoriteGame", "Favorite")">
+                                    <svg class="checked-star is-active" viewBox="0 0 14 14" width="14px">
+                                        <use xlink:href="~/img/sprite-sports.svg#icon-favourites"></use>
+                                    </svg>
+                                </div>
+                                @*<span class="favorite-game"><i class="icon-star" title="@Umbraco.GetDictionaryValue("[Games]FavoriteGame", "Favorite")"></i></span>*@
+                            }
+                            @*<span class="game-info"><i class="icon-info-sign" title="@game.Description"></i></span>*@
+                            @*<ul class="game-details">
+            @if (!string.IsNullOrEmpty(game.Provider))
+            {
+                <li title="@Umbraco.GetDictionaryValue("[Games]Provider", "Game Provider")">@Umbraco.GetDictionaryValue("[Games]By", "By")&nbsp;@game.Provider</li>
+            }
+            @if (!string.IsNullOrEmpty(game.Category))
+            {
+                <li title="@Umbraco.GetDictionaryValue("[Games]Category", "Game Category")">@game.Category</li>
+            }
+            @if (!string.IsNullOrEmpty(game.SubCategory))
+            {
+                <li title="@Umbraco.GetDictionaryValue("[Games]SubCategory", "Game SubCategory")">@game.SubCategory</li>
+            }
+        </ul>*@
+
+                            @*<a href="@(Model.IsLoggedIn ? $"{game.GamePageUrl}?gameId={game.GameId}" : "#popup-login")" target="_self" rel="@(Model.IsLoggedIn ? "" : "modal:open")">*@
+                            <a href="@(Model.IsLoggedIn ? $"{Model.RootUrl}{game.Category.ToLower()}/?gameId={game.GameId}" : "#popup-login")" target="_self" rel="@(Model.IsLoggedIn ? "":"modal:open")">
+                                <img src="@imageUrl" alt="@game.Name">
+                            </a>
+                            <div class="game-title-wrapper">
+                                <div class="game-title" title="@game.Description">
+                                    @game.Name
+                                </div>
+                            </div>
+                        </div>
+                                counter++;
+                            }
+                        }
+                    </div>
+                </div>
+
+            }
+        </div>
+    </section>
+}
+else
+{
+    if (Model.HasDemoMode && Model.GameMode == GameMode.Choose)
+    {
+        var playText = !string.IsNullOrEmpty(Model.PlayButtonText) ? Model.PlayButtonText : Umbraco.GetDictionaryValue("[Games]PlayButtonText", "Play");
+        var demoText = !string.IsNullOrEmpty(Model.DemoButtonText) ? Model.DemoButtonText : Umbraco.GetDictionaryValue("[Games]DemoButtonText", "Demo");
+        @section AdditionalHeaders{
+            <style>
+                footer, header {
+                    display: none;
+                }
+            </style>
+        }
+        <section class="landing">
+            <div class="wrapper-landing">
+                <div class="demo-play-buttons">
+                    <a href="?gameId=@Model.GameId&mode=play" class="btn btn-huge">@playText</a>
+                    <a href="?gameId=@Model.GameId&mode=demo" class="btn btn-huge">@demoText</a>
+                    <hr />
+                    <div style="display:flex">
+
+                        @foreach (var item in Model.PageImages)
+                        {
+                            var media = Umbraco.Media(item.Key);
+                            <img src="@media.Url" alt="@media.Name" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    else
+    {
+        var url = Model.GameMode == GameMode.Choose ? $"{Model.GameUrl}/?id={Model.TenantUid}&langId={Model.CurrentLanguage.TwoLetterISOLanguageName}" : $"{Model.GameUrl}&id={Model.TenantUid}&langId={Model.CurrentLanguage.TwoLetterISOLanguageName}";
+        @section AdditionalHeaders{
+            <style>
+                footer, header {
+                    display: none;
+                }
+            </style>
+        }
+        @section Scripts{
+            <script type="text/javascript">
+            $(function () {
+
+                var username = Cookies.get('username');
+                var token = Cookies.get('token');
+                var liveLogin = @liveLogin;
+                var iframeWindow = document.getElementById('game-iframe');
+                if (username !== undefined && liveLogin) {
+                    $('#game-iframe').ready(function () {
+                        setTimeout(function () {
+                            iframeWindow.contentWindow.postMessage({ "method": "login", "payload": { "token": token, "currency": '@currency', "odds": "Decimal", "language": "@Model.CurrentLanguage.TwoLetterISOLanguageName" } }, '*');
+                        }, 5 * 1000);
+                    });
+
+                }
+                else {
+                        iframeWindow.contentWindow.postMessage({ "method": "logout", "payload": username }, '*');
+
+                }
+
+                window.onmessage = (event) => {
+                    if (event.data && event.data.method) {
+                        if (event.data.method === 'authentication') {
+                            try {
+                                iframeWindow.contentWindow.postMessage({ "method": "login", "payload": { "token": token, "currency": '@currency', "odds": "Decimal", "language" : "@Model.CurrentLanguage.TwoLetterISOLanguageName" } }, '*');
+                            } catch (e) {
+                                alert('Error while logging in, please refresh the page!');
+                                //console.log(e);
+                            }
+                        }
+                    }
+                };
+
+            // TODO: resize body to hide scroll
+            });
+            </script>
+        }
+        <div class="transparent-iframe fullscreen-iframe">
+            <iframe src="@url" id="game-iframe" frameborder="0" allowfullscreen></iframe>
+        </div>
+    }
+}

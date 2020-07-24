@@ -1,0 +1,143 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.DocumentPageViewModel>
+    @{
+        Layout = "totalCodeLayout.cshtml";
+    }
+
+    <section class="black-main">
+        <div class="left-sidebar">
+            @Html.Partial("_TotalCodeAccountMenu")
+        </div>
+        <div class="main-container account-document">
+            <div class="heading--main-container">
+                <h1 class="black-main--head">@Model.Title</h1>
+            </div>
+            @Html.Partial("_TotalCodeMobilePageMenu")
+            <div class="account-info--black small-offset">
+                <div class="my-info--head">
+                    <div class="my-info--head-name">
+                        <p>@Umbraco.GetDictionaryValue("[Documents]IDCard", "ID Card")</p>
+                    </div>
+                    <div class="my-info--head-button">
+                        <button class="button small-button button-rejected">@Umbraco.GetDictionaryValue("[Documents]Rejected","Rejected")</button>
+                    </div>
+                </div>
+                <div class="upload-file--wrapper">
+                    <div class="upload-file">
+                        <div class="upload-file--name">
+                            <div>
+                                <img src="/img/file-icon.svg" alt="">
+                                <p>@Umbraco.GetDictionaryValue("[Documents]Front", "Front.png")</p>
+                            </div>
+                            <button class="delete-file"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g><g><path d="M4.525 3.818a.5.5 0 0 1 .707 0L7 5.586l1.768-1.768a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1 0 .707L8.414 7l1.768 1.768a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707 0L7 8.414l-1.768 1.768a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707L5.586 7 3.818 5.232a.5.5 0 0 1 0-.707zM7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14z" /></g></g></svg></button>
+                        </div>
+                    </div>
+                    <div class="upload-message text-center">
+                        <p>@Umbraco.GetDictionaryValue("[Documents]UploadedDocumentRules","Your Uploaded ID document is obstructed or does not have all 4 edges visible. Please ensure the entire ID document is clear and visible for the best results.")</p>
+                    </div>
+                </div>
+            </div>
+            <div class="account-info--black small-offset">
+                <div class="my-info--head">
+                    <div class="my-info--head-name">
+                        <p>@Umbraco.GetDictionaryValue("[Documents]IDCertificate","ID Certificate")</p>
+                    </div>
+                    <div class="my-info--head-button">
+                        <button class="button small-button button-verified">@Umbraco.GetDictionaryValue("[Documents]Verified","Verified")</button>
+                    </div>
+                </div>
+                <div class="upload-file--wrapper">
+                    <div class="upload-file">
+                        <div class="upload-file--name">
+                            <div>
+                                <img src="/img/file-icon.svg" alt="">
+                                <p>@Umbraco.GetDictionaryValue("[Documents]Front", "Front.png")</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-info--black small-offset">
+                <div class="my-information">
+                    <div class="my-info--main">
+                        <p class="my-info--result">@Umbraco.GetDictionaryValue("[Documents]Passport","Passport")</p>
+                    </div>
+                    <div class="my-info--change">
+                        <div class="file-input-wrapper">
+                            <label class="button button-gray" for="upload-file">@Umbraco.GetDictionaryValue("[Documents]Upload","Upload")</label>
+                            <input id="upload-file" type="file" name="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-info--black small-offset">
+                <div class="my-info--head">
+                    <div class="my-info--head-name">
+                        <p>@Umbraco.GetDictionaryValue("[Documents]CreditCard","Credit Card")<span class="desc">(@Umbraco.GetDictionaryValue("[Documents]FrontBack","Front and Back"))</span></p>
+                    </div>
+                    <div class="my-info--head-button">
+                        <button class="button small-button button-pending">@Umbraco.GetDictionaryValue("[Documents]Pending","Pending")</button>
+                    </div>
+                </div>
+                <div class="upload-file--wrapper">
+                    <div class="upload-file">
+                        <div class="upload-file--name">
+                            <div>
+                                <img src="/img/file-icon.svg" alt="">
+                                <p>@Umbraco.GetDictionaryValue("[Documents]Front", "Front.png")</p>
+                            </div>
+                            <button class="delete-file"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g><g><path d="M4.525 3.818a.5.5 0 0 1 .707 0L7 5.586l1.768-1.768a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1 0 .707L8.414 7l1.768 1.768a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707 0L7 8.414l-1.768 1.768a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707L5.586 7 3.818 5.232a.5.5 0 0 1 0-.707zM7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14z" /></g></g></svg></button>
+                        </div>
+                    </div>
+                    <div class="upload-file">
+                        <div class="upload-file--name">
+                            <div>
+                                <img src="/img/file-icon.svg" alt="">
+                                <p>@Umbraco.GetDictionaryValue("[Documents]Front", "Front.png")</p>
+                            </div>
+                            <button class="delete-file"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g><g><path d="M4.525 3.818a.5.5 0 0 1 .707 0L7 5.586l1.768-1.768a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1 0 .707L8.414 7l1.768 1.768a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707 0L7 8.414l-1.768 1.768a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707L5.586 7 3.818 5.232a.5.5 0 0 1 0-.707zM7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14z" /></g></g></svg></button>
+                        </div>
+                        <div class="load-progress"><span style="width:30%;"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-info--black small-offset">
+                <div class="my-information">
+                    <div class="my-info--main">
+                        <p class="my-info--result">@Umbraco.GetDictionaryValue("[Documents]CreditCard","Credit Card")</p>
+                    </div>
+                    <div class="my-info--change">
+                        <div class="file-input-wrapper">
+                            <label class="button button-gray" for="upload-file">@Umbraco.GetDictionaryValue("[Documents]Upload","Upload")</label>
+                            <input id="upload-file" type="file" name="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-info--black small-offset">
+                <div class="my-information">
+                    <div class="my-info--main">
+                        <p class="my-info--result">@Umbraco.GetDictionaryValue("[Documents]BankStatement","Bank Statement")</p>
+                    </div>
+                    <div class="my-info--change">
+                        <div class="file-input-wrapper">
+                            <label class="button button-gray" for="upload-file">@Umbraco.GetDictionaryValue("[Documents]Upload","Upload")</label>
+                            <input id="upload-file" type="file" name="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-info--black small-offset">
+                <div class="my-information">
+                    <div class="my-info--main">
+                        <p class="my-info--result">@Umbraco.GetDictionaryValue("[Documents]UtilityBill", "Utility Bill")</p>
+                    </div>
+                    <div class="my-info--change">
+                        <div class="file-input-wrapper">
+                            <label class="button button-gray" for="upload-file">@Umbraco.GetDictionaryValue("[Documents]Upload","Upload")</label>
+                            <input id="upload-file" type="file" name="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

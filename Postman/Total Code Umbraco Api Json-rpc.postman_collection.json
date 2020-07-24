@@ -1,0 +1,1160 @@
+{
+	"info": {
+		"_postman_id": "eba26bf2-eb21-4803-be3a-4443290937be",
+		"name": "Total Code Umbraco Api Json-rpc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Tenant 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"bobdylan@outlook.com\",\n            \"Password\": \"Password!123\",\n            \"Email\": \"bobdylan@outlook.com\",\n            \"Group\": \"Bob Dylan Group\",\n            \"BrandName\": \"Bob Dylan Site\",\n            \"Domain\": \"totalumbraco.com\",\n            \"SubDomain\": \"bob\",\n            \"Name\": \"Bob Dylan\",\n            \"Languages\": {\n                \"Default\": \"en-Us\",\n                \"Alternate\": [\n                    \"en-GB\",\n                    \"es-ES\",\n                    \"pt-BR\",\n                    \"fr-FR\"\n                ]\n            },\n            \"Currencies\": {\n                \"Codes\": [\n                    \"USD\",\n                    \"EUR\",\n                    \"BRL\"\n                ]\n            },\n            \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n        }\n    },\n    \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "###### Use this procedure to create new Tenants in Umbraco\n\n*required objects:*\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => 28d978f9-e9e1-4629-b246-97eec59b2493\n\t- Username (string) *umbraco uses email address as username; example => myemail@email.com\n\t- Name (string) example => \"John Doe\"\n\t- Password (string) *minimum of 10 characters; example => 'Password!1234'\n\t- Email (string) example => myemail@email.com\n\t- Group (string) *group name for the tenant; example => \"John Doe's Group\"\n\t- BrandName (string) example => \"John Doe's Shop\"\n\t- Domain (string) *domain with no http:// i.e. 'totalumbraco.com'\n\t- Subdomain (string) *only cname i.e. 'tenantsite'\n\t- Languages:\n\t\t- Default (string) *ISO 639-1 standard language codes; example => 'en-US'\n\t\t- Alternate (string array) *ISO 639-1 standard language codes; example => 'es-ES'\n\t- Currencies:\n\t\t- Codes (string) *ISO 4217 country currency code; example => 'USD'\n\t- AppId (Guid) example => be576e8d-ac9c-4eba-9088-a81d2b363399\n\t- ApiKey (Guid) example => b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\n\t\nSince the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Tenant 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EditTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"bobdylan@outlook.com\",\n            \"Password\": \"Password!123\",\n            \"Email\": \"bobby@outlook.com\",\n            \"Group\": \"Bob Dylan Group\",\n            \"NewGroup\": \"Bob's Group\",\n            \"BrandName\": \"Bob Site\",\n            \"Domain\": \"totalumbraco.com\",\n            \"SubDomain\": \"bobs\",\n            \"Name\": \"Bob Dylan Jr\",\n            \"Languages\": {\n                \"Default\": \"en-Us\",\n                \"Alternate\": [\n                    \"en-GB\",\n                    \"es-ES\",\n                    \"pt-BR\",\n                    \"fr-FR\",\n                    \"aa-DJ\"\n                ]\n            },\n            \"Currencies\": {\n                \"Codes\": [\n                    \"USD\",\n                    \"EUR\",\n                    \"BRL\"\n                ]\n            },\n            \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n        }\n    },\n    \"id\": 2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Disable Tenant 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"DisableTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n       \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"bobdylan@outlook.com\",\n            \"Group\": \"Bob's Group\",\n            \"MediaHome\": \"Bob Dylan Site\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enable Tenant 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EnableTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"bobdylan@outlook.com\",\n            \"Group\": \"Bob's Group\",\n            \"MediaHome\": \"Bob Dylan Site\"\n        }\n    },\n    \"id\": 4\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Disable User 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"DisableUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"bobdylan@outlook.com\",\n            \"Group\": \"Bob's Group\",\n            \"MediaHome\": \"Bob Dylan Site\"\n        }\n    },\n    \"id\": 4\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enable User 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EnableUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"bobdylan@outlook.com\",\n            \"Group\": \"Bob's Group\",\n            \"MediaHome\": \"Bob Dylan Site\"\n        }\n    },\n    \"id\": 4\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User 1-2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"user\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Name\": \"Jane Doe\",\n            \"Password\": \"Password1234!\",\n            \"Email\": \"janedoe@outlook.com\",\n            \"Username\": \"janedoe@outlook.com\",\n            \"Group\": \"Bob's Group\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Disable User 1-2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"method\": \"DisableUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n       \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"janedoe@outlook.com\",\n            \"Group\": \"Bob's Group\",\n            \"MediaHome\": \"Bob Dylan Site\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enable User 1-2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EnableUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n       \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"janedoe@outlook.com\",\n            \"Group\": \"Bob's Group\",\n            \"MediaHome\": \"Bob Dylan Site\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password User 1-2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"ChangePassword\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"user\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Name\": \"Jane Doe\",\n            \"Password\": \"Password1234!\",\n            \"Email\": \"janedoe@outlook.com\",\n            \"Username\": \"janedoe@outlook.com\",\n            \"Group\": \"Bob's Group\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password User 1-2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"ResetPassword\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Name\": \"Jane Doe\",\n            \"Email\": \"janedoe@outlook.com\",\n            \"Username\": \"janedoe@outlook.com\",\n            \"Group\": \"Bob's Group\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateGroup\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"group\": {\n            \"Name\": \"Test 1\",\n            \"TenantUId\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"StartContentId\": 1066,\n            \"StartMediaId\": 1067,\n            \"Permissions\": [\n                \"I\",\n                \"P\",\n                \"K\",\n                \"F\",\n                \"ï\",\n                \"D\",\n                \"C\",\n                \"U\",\n                \"A\",\n                \"O\",\n                \"S\"\n            ],\n            \"AllowedSectionAliases\": [\n                \"content\",\n                \"media\"\n            ]\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group 2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateGroup\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"group\": {\n            \"Name\": \"Test 2\",\n            \"TenantUId\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"StartContentId\": 1066,\n            \"StartMediaId\": 1067,\n            \"Permissions\": [\n                \"I\",\n                \"P\",\n                \"K\",\n                \"F\",\n                \"ï\",\n                \"D\",\n                \"C\",\n                \"U\",\n                \"A\",\n                \"O\",\n                \"S\"\n            ],\n            \"AllowedSectionAliases\": [\n                \"content\",\n                \"media\"\n            ]\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group 3 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateGroup\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"group\": {\n            \"Name\": \"Test 3\",\n            \"TenantUId\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"StartContentId\": 1066,\n            \"StartMediaId\": 1067,\n            \"Permissions\": [\n                \"I\",\n                \"P\",\n                \"K\",\n                \"F\",\n                \"ï\",\n                \"D\",\n                \"C\",\n                \"U\",\n                \"A\",\n                \"O\",\n                \"S\"\n            ],\n            \"AllowedSectionAliases\": [\n                \"content\",\n                \"media\"\n            ]\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Groups User 1-2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"AssignUserGroups\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"groups\": [\n            \"Test 1\",\n            \"Test 2\",\n            \"Test 3\"\n        ],\n        \"username\": \"janedoe@outlook.com\"\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Tenant 1 Json-rpc NOT WORKING",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"LoginTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n       \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"bobdylan@outlook.com\",\n            \"Group\": \"Bob's Group\",\n            \"MediaHome\": \"Bob Dylan Site\"\n        }\n    },\n    \"id\": 30\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purge Tenant 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"PurgeTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"bobdylan@outlook.com\",\n            \"Group\": \"Bob's Group\",\n            \"MediaHome\": \"Bob Dylan Site\"\n        }\n    },\n    \"id\": 99\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Tenant 2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n            \"Username\": \"janetaylor@outlook.com\",\n            \"Password\": \"Password!123\",\n            \"Email\": \"janetaylor@outlook.com\",\n            \"Group\": \"Jane's Group\",\n            \"BrandName\": \"Jane Taylor Site\",\n            \"Domain\": \"totalumbraco.com\",\n            \"SubDomain\": \"jane\",\n            \"Name\": \"Jane Taylor\",\n            \"Languages\": {\n                \"Default\": \"en-Us\",\n                \"Alternate\": [\n                    \"en-GB\",\n                    \"es-ES\"\n                ]\n            },\n            \"Currencies\": {\n                \"Codes\": [\n                    \"USD\",\n                    \"EUR\"\n                ]\n            },\n            \"AppId\": \"778edd8c-3d84-44db-8e58-a548c1250d2d\",\n            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n        }\n    },\n    \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Tenant 2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EditTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"user\": {\n        \t\"TenantUId\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n        \t\"Name\": \"Jane Taylor\",\n        \t\"Username\": \"janetaylor@outlook.com\",\n            \"Password\": \"Password!123\",\n            \"Email\": \"janetaylor2@outlook.com\",\n            \"Group\": \"Jane's Group\"\n        },\n        \"group\": {\n            \"Name\": \"Jane's Group\",\n            \"Alias\": \"janesgroup\",\n            \"RenameGroupTo\":\"Test 12\",\n            \"TenantUId\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n            \"StartContentId\": 1064,\n            \"StartMediaId\": 1065,\n            \"Permissions\": [\n                \"I\",\n                \"P\",\n                \"K\",\n                \"F\",\n                \"ï\",\n                \"D\",\n                \"C\",\n                \"U\",\n                \"A\",\n                \"O\",\n                \"S\"\n            ],\n            \"AllowedSectionAliases\": [\n                \"content\",\n                \"media\"\n            ]\n        },\n        \"tenant\": {\n            \"TenantUid\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n            \"BrandName\": \"Dilek Test Site 10\",\n            \"Domain\": \"totalumbraco.com\",\n            \"SubDomain\": \"dilek10\",\n            \"Languages\": {\n                \"Default\": \"en-GB\",\n                \"Alternate\": [\n                    \"es-ES\",\n                    \"pt-BR\",\n                    \"fr-FR\"\n                ]\n            },\n            \"Currencies\": {\n                \"Codes\": [\n                    \"USD\",\n                    \"EUR\",\n                    \"BRL\"\n                ]\n            },\n            \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Tenant 3 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n            \"Username\": \"dilek2@outlook.com\",\n            \"Password\": \"Password!123\",\n            \"Email\": \"dilek2@outlook.com\",\n            \"Group\": \"Dilek Group 8\",\n            \"BrandName\": \"Dilek Test Site 8\",\n            \"Domain\": \"totalumbraco.com\",\n            \"SubDomain\": \"dilek8\",\n            \"Name\": \"Dilek Isci\",\n            \"Languages\": {\n                \"Default\": \"en-GB\",\n                \"Alternate\": [\n                    \"es-ES\",\n                    \"pt-BR\",\n                    \"fr-FR\"\n                ]\n            },\n            \"Currencies\": {\n                \"Codes\": [\n                    \"USD\",\n                    \"EUR\",\n                    \"BRL\"\n                ]\n            },\n            \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Errors 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"dc5bdfab-e2fc-431a-a84a-2fc2bed54247\",\n            \"Username\": \"bobdylan5@outlook.com\",\n            \"Password\": \"Password!123\",\n            \"Email\": \"bobdylan@outlook.com\",\n            \"Group\": \"b123 Group\",\n            \"BrandName\": \"Boo21 Site\",\n            \"Domain\": \"totalumbraco.com\",\n            \"SubDomain\": \"booss\",\n            \"Name\": \"Bob f Dylan\",\n            \"Languages\": {\n                \"Default\": \"en-US\",\n                \"Alternate\": [\n                    \"en-GB\",\n                    \"es-ES\",\n                    \"pt-BR\",\n                    \"fr-FR\"\n                ]\n            },\n            \"Currencies\": {\n                \"Codes\": [\n                    \"USD\",\n                    \"EUR\",\n                    \"BRL\"\n                ]\n            },\n            \"AppId\": \"dc5bdfab-e2fc-431a-a84a-2fc2bed54247\",\n            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n        }\n    },\n    \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Server - Create Tenant 1 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"bobdylan@outlook.com\",\n            \"Password\": \"Password!123\",\n            \"Email\": \"bobdylan@outlook.com\",\n            \"Group\": \"Bob Dylan Group\",\n            \"BrandName\": \"Bob Dylan Site\",\n            \"Domain\": \"totalumbraco.com\",\n            \"SubDomain\": \"bob\",\n            \"Name\": \"Bob Dylan\",\n            \"Languages\": {\n                \"Default\": \"en-Us\",\n                \"Alternate\": [\n                    \"en-GB\",\n                    \"es-ES\",\n                    \"pt-BR\",\n                    \"fr-FR\"\n                ]\n            },\n            \"Currencies\": {\n                \"Codes\": [\n                    \"USD\",\n                    \"EUR\",\n                    \"BRL\"\n                ]\n            },\n            \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n        }\n    },\n    \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "https://totalumbraco.com/json.rpc",
+					"protocol": "https",
+					"host": [
+						"totalumbraco",
+						"com"
+					],
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Server - Create Tenant 2 Json-rpc",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n            \"Username\": \"janetaylor@outlook.com\",\n            \"Password\": \"Password!123\",\n            \"Email\": \"janetaylor@outlook.com\",\n            \"Group\": \"Jane's Group\",\n            \"BrandName\": \"Jane Taylor Site\",\n            \"Domain\": \"totalumbraco.com\",\n            \"SubDomain\": \"jane\",\n            \"Name\": \"Jane Taylor\",\n            \"Languages\": {\n                \"Default\": \"en-Us\",\n                \"Alternate\": [\n                    \"en-GB\",\n                    \"es-ES\"\n                ]\n            },\n            \"Currencies\": {\n                \"Codes\": [\n                    \"USD\",\n                    \"EUR\"\n                ]\n            },\n            \"AppId\": \"778edd8c-3d84-44db-8e58-a548c1250d2d\",\n            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n        }\n    },\n    \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "https://totalumbraco.com/json.rpc",
+					"protocol": "https",
+					"host": [
+						"totalumbraco",
+						"com"
+					],
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

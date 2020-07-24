@@ -1,0 +1,73 @@
+﻿<div ng-controller="PaymentMethodsController as vm">
+    <h4><i class="icon-multiple-credit-cards"></i> Payment Settings</h4>
+    <umb-load-indicator ng-if="vm.loading"></umb-load-indicator>
+
+    <table class="table table-bordered table-hover payment-settings">
+
+        <tr ng-repeat="paymentMethod in vm.settings.PaymentSettings.PaymentMethods">
+            <td class="payment-settings-container" colspan="2">
+                <table class="payment-settings bordered">
+                    <tr>
+                        <th>Identifier</th>
+                        <th>System Name</th>
+                        <th>Icon</th>
+                        <th>Withdrawal Fields</th>
+                        <th>Deposit Fields</th>
+                    </tr>
+                    <tr>
+                        <td>{{paymentMethod.PaymentIdentifier}}</td>
+
+                        <td>{{paymentMethod.PaymentSystemName}}</td>
+
+                        <td><img ng-src="{{paymentMethod.Icon}}" alt="{{paymentMethod.PaymentSystemName}}" /></td>
+
+                        <td>
+                            <div ng-repeat="field in paymentMethod.WithdrawalFields">
+                                <details>
+                                    <summary>{{field.Label}} Details</summary>
+                                    <dl>
+                                        <dt>Type</dt>
+                                        <dd>{{field.Type}}</dd>
+                                        <dt>Name</dt>
+                                        <dd>{{field.Name}}</dd>
+                                        <dt>Label</dt>
+                                        <dd>{{field.Label}}</dd>
+                                        <dt>Value</dt>
+                                        <dd>{{field.Value}}</dd>
+                                        <dt>Required</dt>
+                                        <dd>{{field.Required}}</dd>
+                                        <dt>Read Only</dt>
+                                        <dd>{{field.IsReadonly}}</dd>
+                                    </dl>
+                                </details>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-repeat="field in paymentMethod.DepositFields">
+                                <details>
+                                    <summary>{{field.Label}} Details</summary>
+                                    <dl>
+                                        <dt>Type</dt>
+                                        <dd>{{field.Type}}</dd>
+                                        <dt>Name</dt>
+                                        <dd>{{field.Name}}</dd>
+                                        <dt>Label</dt>
+                                        <dd>{{field.Label}}</dd>
+                                        <dt>Value</dt>
+                                        <dd>{{field.Value}}</dd>
+                                        <dt>Required</dt>
+                                        <dd>{{field.Required}}</dd>
+                                        <dt>Read Only</dt>
+                                        <dd>{{field.IsReadonly}}</dd>
+                                    </dl>
+                                </details>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+    </table>
+
+</div>

@@ -1,0 +1,158 @@
+﻿<div ng-controller="DictionaryController as vm">
+
+    <form name="dictionarySettings" class="dictionarySettings" val-form-manager novalidate>
+
+        <umb-editor-view umb-tabs>
+
+            <umb-editor-header name="vm.content.name"
+                               tabs="vm.content.tabs"
+                               hide-alias="true"
+                               hide-description="false"
+                               hide-icon="false"
+                               name-locked="true">
+            </umb-editor-header>
+
+            <umb-editor-container>
+
+                <umb-tabs-content class="form-horizontal" view="true">
+                    <div class="tabs-wrapper">
+                        <ul class="tabs">
+                            <li ng-repeat="tab in vm.content.tabs" ng-class="{'active':tab.active}" ng-click="vm.changeTab(tab)">{{tab.label}}</li>
+                        </ul>
+                    </div>
+
+                    <div ng-show="vm.content.tabs[0].active">
+                        <umb-editor-sub-header>
+                            <umb-editor-sub-header-content-left>
+                                <h3>Dictionary Import &amp; Export</h3>
+                            </umb-editor-sub-header-content-left>
+
+                            <umb-editor-sub-header-content-right>
+
+                                <umb-button action="vm.ExportXlsx()"
+                                            icon="icon-download-alt white"
+                                            type="button"
+                                            button-style="primary"
+                                            state="vm.buttonState"
+                                            shortcut="ctrl+e"
+                                            label="Export"
+                                            disabled="vm.buttonState === 'busy'">
+                                </umb-button>
+                                &nbsp;
+                                <umb-button action="vm.ImportXlsx()"
+                                            icon="icon-cloud-upload white"
+                                            type="button"
+                                            button-style="warning"
+                                            state="vm.buttonState"
+                                            shortcut="ctrl+i"
+                                            label="Import"
+                                            disabled="vm.buttonState === 'busy'">
+                                </umb-button>
+                                &nbsp;
+                                <umb-button action="vm.ClearAll()"
+                                            icon="icon-delete white"
+                                            type="button"
+                                            button-style="danger"
+                                            state="vm.buttonState"
+                                            shortcut="ctrl+d"
+                                            label="Delete All"
+                                            disabled="vm.buttonState === 'busy'">
+                                </umb-button>
+
+                                &nbsp;
+                                <label class="filter-label"><i class="icon-filter"></i><input type="text" ng-model="vm.filter" placeholder="filter" name="filter" /></label>
+
+                            </umb-editor-sub-header-content-right>
+                        </umb-editor-sub-header>
+                        <umb-load-indicator ng-if="vm.loading">
+                        </umb-load-indicator>
+                        <h5><i class="icon-books"></i> Dictionary Items <span ng-show="vm.dictionaries.length > 0">({{+vm.dictionaries.length}})</span></h5>
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <th>Parent</th>
+                                <th>Key</th>
+                                <th>Language</th>
+                                <th>Translation</th>
+                            </tr>
+                            <tr ng-show="vm.dictionaries.length === 0">
+                                <td colspan="3">No dictionary items found</td>
+                            </tr>
+                            <tr ng-repeat="dictionary in vm.dictionaries | filter : vm.filter">
+                                <td>{{dictionary.ParentKey}}</td>
+                                <td data-id="{{dictionary.Id}}">{{dictionary.Key}}</td>
+                                <td>{{dictionary.LanguageName}}</td>
+                                <td>{{dictionary.Value}}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <div ng-show="vm.content.tabs[1].active">
+                        <umb-editor-sub-header>
+                            <umb-editor-sub-header-content-left>
+                                <h3>Dictionary Audit</h3>
+                            </umb-editor-sub-header-content-left>
+
+                            <umb-editor-sub-header-content-right>
+
+                                <umb-button action="vm.RunAudit()"
+                                            icon="icon-diagnostics white"
+                                            type="button"
+                                            button-style="primary"
+                                            state="vm.buttonState"
+                                            shortcut="ctrl+e"
+                                            label="Run Audit"
+                                            disabled="vm.buttonState === 'busy'">
+                                </umb-button>
+                                &nbsp;
+                                <label class="filter-label"><i class="icon-filter"></i><input type="text" ng-model="vm.auditfilter" placeholder="filter" name="filter" /></label>
+                                &nbsp;
+                                <div class="radio">
+                                    <label><input type="radio" ng-click="vm.auditfilter='false'" name="registered" ng-checked="vm.auditFilter=='false'" /><i aria-hidden="true" class="fa fa-times" title="Not Registered"></i></label>
+                                    <label><input type="radio" ng-click="vm.auditfilter='true'" name="registered" ng-checked="vm.auditFilter=='true'"/><i aria-hidden="true" class="fa fa-check" title="Registered"></i></label>
+                                    <label><input type="radio" ng-click="vm.auditfilter=''" name="registered" ng-checked="vm.auditFilter==''"/>All</label>
+                                </div>
+
+                            </umb-editor-sub-header-content-right>
+                        </umb-editor-sub-header>
+                        <umb-load-indicator ng-if="vm.loading">
+                        </umb-load-indicator>
+                        <div ng-show="vm.audit.length === 0">
+                            <h5>Click the <strong>Run Audit</strong> button to begin</h5>
+                        </div>
+                        <div ng-show="vm.audit.length > 0">
+
+                            <h5><i class="icon-diagnostics"></i> Dictionary References Found <span ng-show="vm.audit.length > 0">({{+vm.audit.length}})</span></h5>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <th>Key</th>
+                                    <th>File</th>
+                                    <th>Registered</th>
+                                </tr>
+                                <tr ng-show="vm.audit.length === 0">
+                                    <td colspan="3">No dictionary references found</td>
+                                </tr>
+                                <tr ng-repeat="found in vm.audit | filter : vm.auditfilter">
+                                    <td data-parent="{{found.ParentKey}}">{{found.Key}}</td>
+                                    <td>{{found.File}}</td>
+                                    <td class="registered">
+                                        <i aria-hidden="true" ng-class="{ 'fa fa-check': found.Registered, 'fa fa-times': !found.Registered }" title="{{found.Registered}}"></i>
+                                        <span>({{found.Registered}})</span>
+                                        <a ng-show="!found.Registered" ng-click="vm.Create(found)"><i aria-hidden="true" class="icon-add"></i> Add</a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </umb-tabs-content>
+
+            </umb-editor-container>
+
+        </umb-editor-view>
+
+    </form>
+
+</div>

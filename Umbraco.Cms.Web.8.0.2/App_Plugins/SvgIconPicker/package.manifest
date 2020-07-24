@@ -1,0 +1,20 @@
+﻿{
+  "propertyEditors": [
+    {
+      "alias": "SvgIconPicker",
+      "name": "SvgIconPicker",
+      "editor": {
+        "view": "~/App_Plugins/SvgIconPicker/Views/IconPicker.html",
+        "hideLabel": false
+      }
+    }
+  ],
+  "javascript": [
+    "/App_Plugins/SvgIconPicker/Scripts/Controllers/IconPicker.js",
+    "/App_Plugins/SvgIconPicker/Scripts/Controllers/IconPickerOverlay.js",
+    "/App_Plugins/SvgIconPicker/Scripts/Directives/Svg.js"
+  ],
+  "css": [
+    "/App_Plugins/SvgIconPicker/Styles/IconPicker.css"
+  ]
+}

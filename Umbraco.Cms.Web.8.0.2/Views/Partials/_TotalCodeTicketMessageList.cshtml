@@ -1,0 +1,64 @@
+﻿@model List<TicketResponseMessage>
+@{ 
+    bool isFirst = true;
+    var currentLanguage = (string)ViewData["currentLanguage"];
+    var MessageText = (string)ViewData["NewMessageText"];
+    var IsActive = (bool)ViewData["IsActive"];
+}
+
+
+@foreach (var message in Model.OrderByDescending(o => o.CreateDate))
+{
+
+    var messageCreatedDate = message.CreateDate.FormatDate();
+    if (currentLanguage == "fa")
+    {
+        messageCreatedDate = messageCreatedDate.Replace("at ", "");
+    }
+
+    <div class="tickets-chat" @(isFirst? "id=firstDiv":"")>
+        @if (isFirst && IsActive)
+        {
+            <a class="button small-button button-pending new-tiket" href="" ng-click="vm.showReplyBox = true">@MessageText</a>
+        }
+        <div class="tickets-chat--head">
+            <div class="icon-user">
+                @if (message.MessageSenderType == 10)
+                {
+                    <img src="/img/3-call-center-operator.svg" alt="User">
+                }
+                else
+                {
+                    <img src="/img/user.svg" alt="User">
+                }
+            </div>
+            <div class="message-tiket">
+                <p>@message.UserName</p><span class="message-date">@messageCreatedDate</span>
+            </div>
+        </div>
+        <div class="tickets-chat--message mb-20">
+            <p>@message.MessageText</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(message.Attachment))
+        {
+            <div class="upload-file--send">
+                @foreach (var file in message.Attachment.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    <div class="upload-file is-message mr-10">
+                        <div class="upload-file--name">
+                            <div>
+                                <a href="@file" target="_blank">
+                                    <img src="/img/file-icon.svg" alt="">
+                                    <span style="color:#fff">@(Path.GetFileName(file))</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+    isFirst = false;
+}

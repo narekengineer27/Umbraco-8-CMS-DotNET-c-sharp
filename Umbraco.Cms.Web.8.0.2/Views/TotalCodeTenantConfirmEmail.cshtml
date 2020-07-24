@@ -1,0 +1,70 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Umbraco.Plugins.Connector.Models.ConfirmEmailModel>
+@using Umbraco.Plugins.Connector.Models
+@using Umbraco.Plugins.Connector.Controllers
+@{
+    Layout = "totalCodeLayout.cshtml";
+    ViewBag.Title = Umbraco.GetDictionaryValue("[Others]ConfirmEmail", "Confirm Email Address");
+
+    TenantPreferences preferences = Model.Preferences;
+    var currencies = Model.Currencies;
+    var defaultLanguage = Model.DefaultLanguage;
+    var currentLanguage = Model.CurrentLanguage.TwoLetterISOLanguageName;
+    var currentLanguageLocalization = Model.CurrentLanguage.ISOLanguangeName;
+    var confirmationData = (ConfirmEmailController.ConfirmationData)ViewData["ConfirmationData"];
+    var response = (ConfirmEmailResponseContent)TempData["response"];
+}
+@if (!confirmationData.IsConfirmed)
+{
+    <input type="hidden" value="true" name="preventReload" />
+    <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="verification-emeil--you">
+        <h3 class="heading-default text-center">
+            @Umbraco.GetDictionaryValue("[Register]ResendVerificationEmail", "Resend Verification Email")
+        </h3>
+        <p class="gray--text-info">
+            @Umbraco.GetDictionaryValue("[Register]VerificationCodeInvalidOrExpired", "Verification code is invalid or expired")
+        </p>
+
+        <div class="wrap--send-button text-center">
+            <form id="resend-email-code-confirmation-page">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                <input type="hidden" name="language" value="@currentLanguage" />
+                <input type="hidden" name="email" value="@confirmationData.Email" />
+                <input type="hidden" name="id" value="@confirmationData.ClientId" />
+                <a class="button send-button resend-code-email" href="#forgot-password-verification-email-resent">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmail", "Resend Verification Email")</a>
+                <div class="line-break"></div>
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+            </form>
+        </div>
+    </div>
+    <div class="hidden">
+        <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="forgot-password-verification-email-resent">
+            <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+            <h3 class="heading-default text-center">
+                @Umbraco.GetDictionaryValue("[Forgot]ForgotPasswordEmailSentToTitle", "Password reset link has been sent to your email")
+            </h3>
+            <p class="gray--text-info">
+                @Umbraco.GetDictionaryValue("[Forgot]ForgotPasswordEmailSentTo", "We’ve sent an email to") <span class="email-holder"></span> @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToPleaseClick", "to verify your address. Please click the link in that email to continue.")
+            </p>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="popup-default registration-step default-offset zoom-anim-dialog" id="verificat-code-email-done">
+        <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Confirmation]EmailConfirmationTitle", "Email Confirmed")</h3>
+        <div class="height-36"></div>
+        <div class="item--input-label">
+            <div class="item--label">
+                <label for="ver-code">@Umbraco.GetDictionaryValue("[Confirmation]VerifyEmailDone", "Email verification completed, thank you!")</label>
+                @{
+                    var backDicKey = Model.IsLoggedIn ? "[Confirmation]BackToMyAccount" : "[Confirmation]BackToHome";
+                    var backDicTxt = Model.IsLoggedIn ? "Back to My Account" : "Back to Home";
+                    <a class="button " href="@Model.BackUrl">@Umbraco.GetDictionaryValue(backDicKey, backDicTxt)</a>
+                }
+            </div>
+        </div>
+    </div>
+}

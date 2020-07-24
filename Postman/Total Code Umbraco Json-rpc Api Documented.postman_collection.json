@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "7b4894d9-a48d-4e20-bfc3-8f43c76d9232",
+		"name": "Total Code Umbraco Json-rpc Api Documented",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\",\n            \"Password\": \"\",\n            \"Email\": \"\",\n            \"Group\": \"\",\n            \"BrandName\": \"\",\n            \"Domain\": \"\",\n            \"SubDomain\": \"\",\n            \"Name\": \"\",\n            \"Languages\": {\n                \"Default\": \"\",\n                \"Alternate\": [\n                    \"\",\n                    \"\"\n                ]\n            },\n            \"Currencies\": {\n                \"Codes\": [\n                    \"\",\n                    \"\"\n                ]\n            },\n            \"AppId\": \"\",\n            \"ApiKey\": \"\"\n        }\n    },\n    \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to create new Tenants in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => 28d978f9-e9e1-4629-b246-97eec59b2493\n\t- Username (string) *umbraco uses email address as username; example => myemail@email.com\n\t- Name (string) example => \"John Doe\"\n\t- Password (string) *minimum of 10 characters; example => 'Password!1234'\n\t- Email (string) example => myemail@email.com\n\t- Group (string) *group name for the tenant; example => \"John Doe's Group\"\n\t- BrandName (string) example => \"John Doe's Shop\"\n\t- Domain (string) *domain with no http:// i.e. 'totalumbraco.com'\n\t- Subdomain (string) *only cname i.e. 'tenantsite'\n\t- Languages:\n\t\t- Default (string) *ISO 639-1 standard language codes; example => 'en-US'\n\t\t- Alternate (string array) *ISO 639-1 standard language codes; example => 'es-ES'\n\t- Currencies:\n\t\t- Codes (string) *ISO 4217 country currency code; example => 'USD'\n\t- AppId (Guid) example => be576e8d-ac9c-4eba-9088-a81d2b363399\n\t- ApiKey (Guid) example => b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\n\n\t\t{\n\t\t    \"method\": \"CreateTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n\t\t            \"Username\": \"janetaylor@outlook.com\",\n\t\t            \"Password\": \"Password!123\",\n\t\t            \"Email\": \"janetaylor@outlook.com\",\n\t\t            \"Group\": \"Jane's Group\",\n\t\t            \"BrandName\": \"Jane Taylor Site\",\n\t\t            \"Domain\": \"totalumbraco.com\",\n\t\t            \"SubDomain\": \"jane\",\n\t\t            \"Name\": \"Jane Taylor\",\n\t\t            \"Languages\": {\n\t\t                \"Default\": \"en-Us\",\n\t\t                \"Alternate\": [\n\t\t                    \"en-GB\",\n\t\t                    \"es-ES\"\n\t\t                ]\n\t\t            },\n\t\t            \"Currencies\": {\n\t\t                \"Codes\": [\n\t\t                    \"USD\",\n\t\t                    \"EUR\"\n\t\t                ]\n\t\t            },\n\t\t            \"AppId\": \"778edd8c-3d84-44db-8e58-a548c1250d2d\",\n\t\t            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 1\n\t\t}\n\t\t\n### Returns extended Tenant with Umbraco System Details\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Tenant Created\",\n\t\t        \"TenantUid\": \"b4366529-cb61-43ca-a8ef-7c82adf7fe67\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"extended\": {\n\t\t                \"Tenant\": {\n\t\t                    \"ApiKey\": \"ca36640d-1904-4b03-9faa-232bf22e8304\",\n\t\t                    \"AppId\": \"3eeccb82-5c31-44a9-b0a1-1fdc20628178\",\n\t\t                    \"BrandName\": \"Tenant Example Site\",\n\t\t                    \"Currencies\": {\n\t\t                        \"Codes\": [\n\t\t                            \"USD\",\n\t\t                            \"EUR\",\n\t\t                            \"BRL\"\n\t\t                        ]\n\t\t                    },\n\t\t                    \"Domain\": \"totalumbraco.com\",\n\t\t                    \"Languages\": {\n\t\t                        \"Default\": \"en-Us\",\n\t\t                        \"Alternate\": [\n\t\t                            \"en-GB\",\n\t\t                            \"es-ES\",\n\t\t                            \"pt-BR\",\n\t\t                            \"fr-FR\"\n\t\t                        ]\n\t\t                    },\n\t\t                    \"Name\": \"Example Name\",\n\t\t                    \"Password\": \"Password!123\",\n\t\t                    \"Email\": \"example@email.com\",\n\t\t                    \"SubDomain\": \"example\",\n\t\t                    \"TenantUId\": \"b4366529-cb61-43ca-a8ef-7c82adf7fe67\",\n\t\t                    \"Username\": \"example@email.com\",\n\t\t                    \"Group\": \"Tenant Example Group\"\n\t\t                },\n\t\t                \"StartContentId\": 1066,\n\t\t                \"StartMediaId\": 1067,\n\t\t                \"Permissions\": [\n\t\t                    \"I\",\n\t\t                    \"P\",\n\t\t                    \"K\",\n\t\t                    \"F\",\n\t\t                    \"ï\",\n\t\t                    \"D\",\n\t\t                    \"C\",\n\t\t                    \"U\",\n\t\t                    \"A\",\n\t\t                    \"O\",\n\t\t                    \"S\"\n\t\t                ],\n\t\t                \"AllowedSectionAliases\": [\n\t\t                    \"content\",\n\t\t                    \"media\"\n\t\t                ],\n\t\t                \"UserId\": 0\n\t\t            }\n\t\t        }\n\t\t    },\n\t\t    \"id\": 1\n\t\t}\n\t\t\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        DefaultLanguageIsMandatory = 400,\n        DuplicateTenantUid = 501,\n        DuplicateTenantBrandName = 502,\n        DuplicateTenantDomain = 503,\n        TenantAlreadyExists = 507,\n        DomainAlreadyAssigned = 601,\n        DomainMalformatted = 602,\n        SubDomainIsRequired = 603,\n        UsernameAlreadyExists = 701,\n        UsernameMalformed = 702,\n        MediaNodeAlreadyExists = 800,\n        GroupAlreadyExists = 900"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EditTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"user\": {\n            \"TenantUId\": \"\",\n            \"Name\": \"\",\n            \"Username\": \"\",\n            \"Password\": \"\",\n            \"Email\": \"\",\n            \"Group\": \"\"\n        },\n        \"group\": {\n            \"Name\": \"\",\n            \"Alias\": \"\",\n            \"RenameGroupTo\": \"\",\n            \"TenantUId\": \"\",\n            \"StartContentId\": 0,\n            \"StartMediaId\": 0,\n            \"Permissions\": [],\n            \"AllowedSectionAliases\": []\n        },\n        \"tenant\": {\n            \"TenantUid\": \"\",\n            \"BrandName\": \"\",\n            \"Domain\": \"\",\n            \"SubDomain\": \"\",\n            \"Languages\": {\n                \"Default\": \"\",\n                \"Alternate\": []\n            },\n            \"Currencies\": {\n                \"Codes\": []\n            },\n            \"AppId\": \"\",\n            \"ApiKey\": \"\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to edit Tenants in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n\t\n    - User: [optional] * Used when needing to update the main user for the Tenant\n    \t- TenantUId (Guid) example => \"d7433649-7f63-4a87-838f-b87ad52ac778\"\n        - Name (string) example => \"Jane Taylor\"\n    \t- Username (string) *umbraco uses email address as username; example => \"janetaylor@outlook.com\"\n        - Password (string) *minimum of 10 characters; example => 'Password!1234'\n        - Email (string) example => \"janetaylor@outlook.com\"\n        - Group (string) *group name for the tenant; example => \"Jane's Group\"\n        \n    - Group: [optional] * Used when needing to update the main group for the Tenant\n        - Name (string) *group's current name; example => \"Jane's Group\"\n        - Alias (string) [optional] *by default, the alias is created from the group's name; example => \"janesgroup\"\n        - RenameGroupTo (string) *new name for the group; example => \"Test 1\"\n        - TenantUId (Guid) *must be the same as tenant, to make sure there's no tampering with other tenants; example => \"d7433649-7f63-4a87-838f-b87ad52ac778\"\n        - StartContentId (int) *this is the content home for the tenant, returned from the create tenant procedure; example => 1064\n        - StartMediaId (int) *this is the media home for the tenant, returned from the create tenant procedure; example => 1065\n        - Permissions (string array) *array of permissions for the group (functionalities permitted); example => \"I\",\"P\",\"K\",\"F\",\"ï\",\"D\",\"C\",\"U\",\"A\",\"O\",\"S\" (these are default)\n        - AllowedSectionAliases (string array) *array of sections the group is allowed to access, currently must be set to only \"content\" and \"media\"\n\n\t-Tenant [required] * Used to update the tenant information in Umbraco\n        - TenantUid (Guid) *must match other tenantUids; example => \"d7433649-7f63-4a87-838f-b87ad52ac778\"\n        - BrandName (string) *the brandname for the tenant; example => \"Test site 1\"\n        - Domain (string) *domain with no http:// i.e. 'totalumbraco.com'\n\t\t- Subdomain (string) *only cname i.e. 'tenantsite'\n\t\t- Languages:\n\t\t\t- Default (string) *ISO 639-1 standard language codes; example => 'en-US'\n\t\t\t- Alternate (string array) *ISO 639-1 standard language codes; example => 'es-ES'\n\t\t- Currencies:\n\t\t\t- Codes (string) *ISO 4217 country currency code; example => 'USD'\n\t\t- AppId (Guid) example => be576e8d-ac9c-4eba-9088-a81d2b363399\n\t\t- ApiKey (Guid) example => b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example:\n\n\t\t{\n\t\t    \"method\": \"EditTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"user\": {\n\t\t        \t\"TenantUId\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n\t\t        \t\"Name\": \"Jane Taylor\",\n\t\t        \t\"Username\": \"janetaylor@outlook.com\",\n\t\t            \"Password\": \"Password!123\",\n\t\t            \"Email\": \"janetaylor2@outlook.com\",\n\t\t            \"Group\": \"Jane's Group\"\n\t\t        },\n\t\t        \"group\": {\n\t\t            \"Name\": \"Jane's Group\",\n\t\t            \"Alias\": \"janesgroup\",\n\t\t            \"RenameGroupTo\":\"Test 12\",\n\t\t            \"TenantUId\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n\t\t            \"StartContentId\": 1064,\n\t\t            \"StartMediaId\": 1065,\n\t\t            \"Permissions\": [\n\t\t                \"I\",\n\t\t                \"P\",\n\t\t                \"K\",\n\t\t                \"F\",\n\t\t                \"ï\",\n\t\t                \"D\",\n\t\t                \"C\",\n\t\t                \"U\",\n\t\t                \"A\",\n\t\t                \"O\",\n\t\t                \"S\"\n\t\t            ],\n\t\t            \"AllowedSectionAliases\": [\n\t\t                \"content\",\n\t\t                \"media\"\n\t\t            ]\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n\t\t            \"BrandName\": \"Dilek Test Site 10\",\n\t\t            \"Domain\": \"totalumbraco.com\",\n\t\t            \"SubDomain\": \"dilek10\",\n\t\t            \"Languages\": {\n\t\t                \"Default\": \"en-GB\",\n\t\t                \"Alternate\": [\n\t\t                    \"es-ES\",\n\t\t                    \"pt-BR\",\n\t\t                    \"fr-FR\"\n\t\t                ]\n\t\t            },\n\t\t            \"Currencies\": {\n\t\t                \"Codes\": [\n\t\t                    \"USD\",\n\t\t                    \"EUR\",\n\t\t                    \"BRL\"\n\t\t                ]\n\t\t            },\n\t\t            \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n\t\t            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 2\n\t\t}\n\t\t\n### Returns an extended Tenant with newly updated Umbraco Details\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Tenant edited\",\n\t\t        \"TenantUid\": \"b4366529-cb61-43ca-a8ef-7c82adf7fe67\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"Tenant\": {\n\t\t                \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\",\n\t\t                \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n\t\t                \"BrandName\": \"Bob Site\",\n\t\t                \"Currencies\": {\n\t\t                    \"Codes\": [\n\t\t                        \"USD\",\n\t\t                        \"EUR\",\n\t\t                        \"BRL\"\n\t\t                    ]\n\t\t                },\n\t\t                \"Domain\": \"totalumbraco.com\",\n\t\t                \"Languages\": {\n\t\t                    \"Default\": \"en-Us\",\n\t\t                    \"Alternate\": [\n\t\t                        \"en-GB\",\n\t\t                        \"es-ES\",\n\t\t                        \"pt-BR\",\n\t\t                        \"fr-FR\",\n\t\t                        \"aa-DJ\"\n\t\t                    ]\n\t\t                },\n\t\t                \"Name\": null,\n\t\t                \"Password\": null,\n\t\t                \"Email\": null,\n\t\t                \"SubDomain\": \"bobs\",\n\t\t                \"TenantUId\": \"b4366529-cb61-43ca-a8ef-7c82adf7fe67\",\n\t\t                \"Username\": null,\n\t\t                \"Group\": null\n\t\t            },\n\t\t            \"StartContentId\": 1066,\n\t\t            \"StartMediaId\": 1067,\n\t\t            \"Permissions\": null,\n\t\t            \"AllowedSectionAliases\": null,\n\t\t            \"UserId\": 0\n\t\t        }\n\t\t    },\n\t\t    \"id\": 2\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        DefaultLanguageIsMandatory = 400,\n        DuplicateTenantBrandName = 502,\n        DuplicateTenantDomain = 503,\n        TenantNotFound = 504,\n        DomainAlreadyAssigned = 601,\n        DomainMalformatted = 602,\n        SubDomainIsRequired = 603,\n        UsernameMalformed = 702,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		},
+		{
+			"name": "Disable Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"DisableTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n       \"payload\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\",\n            \"Group\": \"\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Disable a Tenant in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be disabled, usually the main user; example => \"bobdylan@outlook.com\"\n    - Group (string) *the group to be disabled, usually the main group; example => \"Bob's Group\"\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example \n\n\t\t{\n\t\t    \"method\": \"DisableTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t       \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\",\n\t\t            \"Group\": \"Bob's Group\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 4\n\t\t}\n\t\t\n### Returns confirmation of Tenant Disabled\n\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Tenant disabled\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": null\n\t\t    },\n\t\t    \"id\": 3\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        TenantAlreadyDisabled = 505,\n        UsernameAlreadyDisabled = 703,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		},
+		{
+			"name": "Enable Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EnableTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\",\n            \"Group\": \"\"\n        }\n    },\n    \"id\": 5\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Enable a Tenant in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be enabled, usually the main user; example => \"bobdylan@outlook.com\"\n    - Group (string) *the group to be enabled, usually the main group; example => \"Bob's Group\"\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example \t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"EnableTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\",\n\t\t            \"Group\": \"Bob's Group\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 5\n\t\t}\n\t\t\n### Returns confirmation that Tenant has been enabled\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Tenant enabled\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": null\n\t\t    },\n\t\t    \"id\": 5\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        TenantAlreadyEnabled = 506,\n        UsernameAlreadyEnabled = 704,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"\",\n            \"Name\": \"\",\n            \"Password\": \"\",\n            \"Email\": \"\",\n            \"Username\": \"\",\n            \"Group\": \"\"\n        }\n    },\n    \"id\": 8\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to create new User in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - User:\n\t- TenantUid (Guid) example => 28d978f9-e9e1-4629-b246-97eec59b2493\n\t- Name (string) example => \"John Doe\"\n\t- Password (string) *minimum of 10 characters; example => 'Password!1234'\n\t- Email (string) example => myemail@email.com\n\t- Username (string) *umbraco uses email address as username; example => myemail@email.com\n\t- Group (string) *group name for the tenant; example => \"John Doe's Group\"\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\t\n\t\n\t\t{\n\t\t    \"method\": \"CreateUser\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"user\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Name\": \"Jane Doe\",\n\t\t            \"Password\": \"Password1234!\",\n\t\t            \"Email\": \"janedoe@outlook.com\",\n\t\t            \"Username\": \"janedoe@outlook.com\",\n\t\t            \"Group\": \"Bob's Group\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 8\n\t\t}\n\t\t\n### Returns confirmation the user has been created\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"User created\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": \"9\"\n\t\t    },\n\t\t    \"id\": 8\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameAlreadyExists = 701,"
+			},
+			"response": []
+		},
+		{
+			"name": "Disable User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"DisableUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\"\n        }\n    },\n    \"id\": 6\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Disable a single User in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be disabled, usually the main user; example => \"bobdylan@outlook.com\"\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example \t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"DisableUser\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 6\n\t\t}\n\t\t\n### Returns confirmation the user has been disabled\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"User disabled\",\n\t\t        \"TenantUid\": null,\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"Username\": \"bobdylan2@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 6\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameAlreadyDisabled = 703,\n        UsernameDoesNotExist = 705,"
+			},
+			"response": []
+		},
+		{
+			"name": "Enable User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EnableUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\"\n        }\n    },\n    \"id\": 7\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Enable a single User in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be enabled, usually the main user; example => \"bobdylan@outlook.com\"\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example \t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"EnableUser\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 7\n\t\t}\n\t\t\n### Returns confirmation the user has been enabled\n\n#### Example \n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"User bobdylan2@outlook.com Enabled\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": null\n\t\t    },\n\t\t    \"id\": 7\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameAlreadyEnabled = 704,\n        UsernameDoesNotExist = 705,"
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"ChangePassword\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"Password\": \"Password1234!\",\n            \"Username\": \"janedoe@outlook.com\"\n        }\n    },\n    \"id\": 9\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Change a User's Password in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - User:\n\t- Password (string) *minimum of 10 characters; example => 'Password!1234'\n\t- Username (string) *umbraco uses email address as username; example => myemail@email.com\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\n\n\t\t{\n\t\t    \"method\": \"ChangePassword\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"user\": {\n\t\t            \"Password\": \"Password1234!\",\n\t\t            \"Username\": \"janedoe@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 9\n\t\t}\n\t\t\n### Returns Confirmation the password has been changed\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Password for janedoe@outlook.com changed\",\n\t\t        \"TenantUid\": null,\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"Username\": \"janedoe@outlook.com\",\n\t\t            \"Password\": \"Password1234!\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 9\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        UsernameDoesNotExist = 705,"
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"ResetPassword\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"janedoe@outlook.com\"\n        }\n    },\n    \"id\": 10\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Change a User's Password in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - User:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n\t- Username (string) *umbraco uses email address as username; example => myemail@email.com\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\n\n\t\t{\n\t\t    \"method\": \"ResetPassword\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"janedoe@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 10\n\t\t}\n\t\t\n### Returns a new (random) password\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Password for janedoe@outlook.com Reset\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"newPassword\": \"999fr691gc\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 10\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameDoesNotExist = 705"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateGroup\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"Name\": \"\",\n            \"TenantUId\": \"\",\n            \"StartContentId\": 0,\n            \"StartMediaId\": 0,\n            \"Permissions\": [],\n            \"AllowedSectionAliases\": []\n        }\n    },\n    \"id\": 11\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to create new Group in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n\t\n - Group:\n    - Name (string) *group's current name; example => \"Jane's Group\"\n    - Alias (string) [optional] *by default, the alias is created from the group's name; example => \"janesgroup\"\n    - RenameGroupTo (string) *new name for the group; example => \"Test 1\"\n    - TenantUId (Guid) *must be the same as tenant, to make sure there's no tampering with other tenants; example => \"d7433649-7f63-4a87-838f-b87ad52ac778\"\n    - StartContentId (int) *this is the content home for the tenant, returned from the create tenant procedure; example => 1064\n    - StartMediaId (int) *this is the media home for the tenant, returned from the create tenant procedure; example => 1065\n    - Permissions (string array) *array of permissions for the group (functionalities permitted); example => \"I\",\"P\",\"K\",\"F\",\"ï\",\"D\",\"C\",\"U\",\"A\",\"O\",\"S\" (these are default)\n    - AllowedSectionAliases (string array) *array of sections the group is allowed to access, currently must be set to only \"content\" and \"media\"\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\t\t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"CreateGroup\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"group\": {\n\t\t            \"Name\": \"Test 1\",\n\t\t            \"TenantUId\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"StartContentId\": 1066,\n\t\t            \"StartMediaId\": 1067,\n\t\t            \"Permissions\": [\n\t\t                \"I\",\n\t\t                \"P\",\n\t\t                \"K\",\n\t\t                \"F\",\n\t\t                \"ï\",\n\t\t                \"D\",\n\t\t                \"C\",\n\t\t                \"U\",\n\t\t                \"A\",\n\t\t                \"O\",\n\t\t                \"S\"\n\t\t            ],\n\t\t            \"AllowedSectionAliases\": [\n\t\t                \"content\",\n\t\t                \"media\"\n\t\t            ]\n\t\t        }\n\t\t    },\n\t\t    \"id\": 11\n\t\t}\n\t\t\n### Returns Confirmation the new group has been created, and the Group Id in Umbraco\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Group Test 1 Created\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"groupId\": \"13\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 11\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        GroupAlreadyExists = 900,"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Groups",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"AssignUserGroups\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"groups\": [],\n        \"username\": \"\"\n    },\n    \"id\": 11\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to assign users to groups in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - groups (string array) *an array of user group names\n - username (string) *user to be assigned to groups; example => myemail@email.com\n\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\t\t\n\t\n\t\t{\n\t\t    \"method\": \"AssignUserGroups\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"groups\": [\n\t\t            \"Test 1\",\n\t\t            \"Test 2\",\n\t\t            \"Test 3\"\n\t\t        ],\n\t\t        \"username\": \"janedoe@outlook.com\"\n\t\t    },\n\t\t    \"id\": 12\n\t\t}\n\t\t\n### Returns confirmation of group assignment, with group ids\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Groups assigned to user\",\n\t\t        \"TenantUid\": null,\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"Username\": \"janedoe@outlook.com\",\n\t\t            \"assignedGroups\": \"13,10,11,\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 11\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		},
+		{
+			"name": "Purge Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"PurgeTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\",\n            \"Group\": \"\"\n        }\n    },\n    \"id\": 99\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to completely **DELETE** a tenant from Umbraco (including it's related objects)\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be enabled, usually the main user; example => \"bobdylan@outlook.com\"\n    - Group (string) *the group to be enabled, usually the main group; example => \"Bob's Group\"\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\t\t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"PurgeTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\",\n\t\t            \"Group\": \"Bob's Group\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 99\n\t\t}\n\t\t\n### Returns Confirmation of Tenant Removal, and Which objects were also removed\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Tenant Purged from CMS\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"ContentFoundAndDeleted\": true,\n\t\t            \"GroupFoundAndDeleted\": true,\n\t\t            \"MediaFolderFoundAndDeleted\": true,\n\t\t            \"UserFoundAndDeleted\": true\n\t\t        }\n\t\t    },\n\t\t    \"id\": 99\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		}
+	]
+}

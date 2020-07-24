@@ -1,0 +1,12 @@
+﻿@inherits UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+
+<nav class="mobile-page--menu">
+    <ul>
+        @foreach (var page in Model.MobileMenu)
+        {
+            <li>
+                <a class="@(Model.Content.Id == page.Id ? "is-active" : "")" href="@page.Url">@page.Title</a>
+            </li>
+        }
+    </ul>
+</nav>

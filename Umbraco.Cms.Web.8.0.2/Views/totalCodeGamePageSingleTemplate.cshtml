@@ -1,0 +1,40 @@
+﻿@using ClientDependency.Core.Mvc
+@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Umbraco.Plugins.Connector.Helpers;
+@using Newtonsoft.Json;
+@using System;
+@using System.Collections.Generic;
+@{
+    Layout = null;
+    Html
+            .RequiresCss("~/css/index.css")
+            .RequiresCss("~/css/custom.css")
+            .RequiresCss("~/css/custom2.css")
+            .RequiresCss("~/css/jquery.modal.css")
+            .RequiresCss("~/css/owl.carousel.min.css");
+
+    //var gameId = Model.GetProperty("gameId").Value().ToString();
+    var currentPage = Umbraco.Content(Model.Id);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@currentPage.Name</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+
+    <meta name="theme-color" content="#161516">
+    <meta name="msapplication-navbutton-color" content="#161516">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#161516">
+
+    @Html.RenderCssHere()
+</head>
+
+<body>
+    <div class="transparent-iframe lottery-iframe" style="top:0;" id="game-iframe-container">
+        @Html.Action("GameIframe", "Game")
+    </div>
+</body>
+</html>

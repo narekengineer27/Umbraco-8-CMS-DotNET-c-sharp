@@ -1,0 +1,5 @@
+C:\Users\paul\Source\Repos\totalcodingltd\Umbraco-Customer-Portal\System.Reflection.Helpers\bin\Release\System.Reflection.Helpers.dll
+C:\Users\paul\Source\Repos\totalcodingltd\Umbraco-Customer-Portal\System.Reflection.Helpers\bin\Release\System.Reflection.Helpers.pdb
+C:\Users\paul\Source\Repos\totalcodingltd\Umbraco-Customer-Portal\System.Reflection.Helpers\obj\Release\System.Reflection.Helpers.csproj.CoreCompileInputs.cache
+C:\Users\paul\Source\Repos\totalcodingltd\Umbraco-Customer-Portal\System.Reflection.Helpers\obj\Release\System.Reflection.Helpers.dll
+C:\Users\paul\Source\Repos\totalcodingltd\Umbraco-Customer-Portal\System.Reflection.Helpers\obj\Release\System.Reflection.Helpers.pdb

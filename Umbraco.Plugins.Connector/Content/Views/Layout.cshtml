@@ -1,0 +1,66 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = "";
+    ViewBag.Title = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@Model.WebsiteName</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="/media/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-72x72.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-144x144.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/index.css">
+    <meta name="theme-color" content="#161516">
+    <meta name="msapplication-navbutton-color" content="#161516">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#161516">
+
+    @RenderSection("AdditionalHeaders", required: false)
+
+</head>
+
+<body style="display: none">
+
+    <div id="overlayer"></div>
+    @Html.Partial("_navigation")
+
+    @RenderBody()
+
+    @Html.Partial("_footer")
+
+    <div class="hidden">
+        @Html.Partial("_register-popup")
+    </div>
+    <script src="~/scripts/jquery.min.js"></script>
+    <script src="~/scripts/jquery-ui.js"></script>
+    <script src="~/scripts/select.js"></script>
+    <script src="~/scripts/select2.full.js"></script>
+    <script src="~/scripts/jquery.magnific-popup.min.js"></script>
+    <script src="~/scripts/jquery.payment.min.js"></script>
+    <script src="~/scripts/register.js"></script>
+    <script src="~/scripts/scripts.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>*@
+    @*<script type="text/javascript">
+            $(function () {
+                $('#language-selector').change(function () {
+                    var selected = $(this).children("option:selected").val();
+                    if (window.location.href.indexOf("localhost") > -1) {
+                        window.location = window.location.origin + "/@Model.Value("subDomain")" + selected;
+                    }
+                    else {
+                        window.location = selected;
+                    }
+                })
+            })
+        </script>*@
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
+

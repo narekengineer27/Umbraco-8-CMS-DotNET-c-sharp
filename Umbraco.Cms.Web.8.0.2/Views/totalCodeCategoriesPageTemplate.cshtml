@@ -1,0 +1,108 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.CategoriesPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+}
+
+
+<section class="black-main--default help-page">
+    @if (!string.IsNullOrEmpty(Model.Body))
+    {
+        <a class="link-back text-back" href="@Model.BackUrl"><span class="mobile-none">@Umbraco.GetDictionaryValue("[Others]Back", "Back")</span></a>
+        <h1 class="black-main--head">@Model.Title</h1>
+        <div class="height-36"></div>
+        <div class="content">
+            @Html.Raw(Model.Body)
+        </div>
+    }
+    @if (Model.SearchResults != null && Model.SearchResults.Any())
+    {
+        <div class="heading--main-container">
+            <h1 class="black-main--head">@Umbraco.GetDictionaryValue("[Search]Results for", "Results for")&nbsp;&ldquo;@(Request["q"])&rdquo;</h1>
+        </div>
+    }
+    else if (Model.SearchResults != null && !Model.SearchResults.Any())
+    {
+        <div class="heading--main-container">
+            <h1 class="black-main--head">@Umbraco.GetDictionaryValue("[Search]NoResultsFound", "No results found for")&nbsp;&ldquo;@(Request["q"])&rdquo;</h1>
+        </div>
+    }
+    @*<div class="height-50"></div>*@
+        <div class="search-help">
+            <form method="get" action="@Model.HelpUrl">
+                <div class="form--search-help">
+                    <input class="search-help blur-input" name="q" placeholder="@Umbraco.GetDictionaryValue("[Help] WhatCanWeHelp","What can we help you with?")">
+                    <button class="search-submit" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                            <g>
+                                <g>
+                                    <path d="M2.018 6.016a3.999 3.999 0 1 1 7.997 0 3.999 3.999 0 0 1-7.997 0zm8.87 3.457a5.998 5.998 0 1 0-1.414 1.414l4.964 4.966a.5.5 0 0 0 .708 0l.707-.707a.5.5 0 0 0 0-.708z" />
+                                </g>
+                            </g>
+                        </svg>
+                    </button>
+                    <span class="cancel-default">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+                            <g>
+                                <g>
+                                    <path fill="#6f6e70" d="M4.525 3.818a.5.5 0 0 1 .707 0L7 5.586l1.768-1.768a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1 0 .707L8.414 7l1.768 1.768a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707 0L7 8.414l-1.768 1.768a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707L5.586 7 3.818 5.232a.5.5 0 0 1 0-.707zM7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14z" />
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                </div>
+            </form>
+
+            @if (Model.IsSearchMode)
+            {
+
+                <div class="search-help--result">
+                    @if (Model.SearchResults != null && Model.SearchResults.Any())
+                    {
+                        foreach (var result in Model.SearchResults)
+                        {
+                            var text = !string.IsNullOrEmpty(result.Body) ? result.Body : result.PageContent;
+                            //if (string.IsNullOrEmpty(result.Title))
+                            //{
+                            //    continue;
+                            //}
+                            <div class="result-def--item">
+                                <a class="result-name" href="@result.Url">
+                                    @result.Title
+                                    @if (!string.IsNullOrEmpty(text))
+                                    {
+                                        <p class="result-desc"><span>@text.Truncate(250).StripHtml()</span></p>
+                                    }
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+                <br/>
+                <p class="result-desc white"><span>@Model.SearchResults.Count()&nbsp;@Umbraco.GetDictionaryValue("[Help]TotalResultsFound","Result(s) found")</span></p>
+            }
+        </div>
+
+    @if (!Model.IsSearchMode)
+    {
+        <div class="wrapper--category">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="category-item">
+                    <a class="category-item--link" href="@category.Url">
+                        <span class="category-item--img">
+                            <img src="/img/@category.Icon" alt="">
+                        </span>
+                        <span class="text-category">
+                            <span class="name-category">
+                                @category.Name
+                            </span>
+                            <span class="count-articles">
+                                @category.TotalArticles @(category.TotalArticles > 1 || category.TotalArticles == 0 ? Umbraco.GetDictionaryValue("[Categories]SinglarArticle","article") : Umbraco.GetDictionaryValue("[Categories]PluralArticle", "articles"))
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</section>

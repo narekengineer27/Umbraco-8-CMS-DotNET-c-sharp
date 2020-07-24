@@ -1,0 +1,637 @@
+﻿<div ng-controller="TenantPreferencesController as vm">
+    <h4>Tenant Preferences</h4>
+    <umb-load-indicator ng-if="vm.loading"></umb-load-indicator>
+
+    <table class="table table-bordered table-hover tenant-preferences">
+
+        <tr>
+            <th colspan="2" class="title">
+                <h5>Notification Requirements</h5>
+            </th>
+        </tr>
+
+        <tr ng-show="vm.settings.ReceiveNotifications">
+            <th>{{vm.settings.ReceiveNotifications.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotifications.IsUsed, 'fa fa-times': !vm.settings.ReceiveNotifications.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotifications.IsMandatory, 'fa fa-times': !vm.settings.ReceiveNotifications.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.ReceiveNotifications.AllowedValues">{{vm.settings.ReceiveNotifications.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.ReceiveNotifications.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.ReceiveNotifications.MinValue" class="fixedWidth">{{vm.settings.ReceiveNotifications.MinValue}}</td>
+                        <td ng-show="!vm.settings.ReceiveNotifications.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.ReceiveNotifications.MaxValue" class="fixedWidth">{{vm.settings.ReceiveNotifications.MaxValue}}</td>
+                        <td ng-show="!vm.settings.ReceiveNotifications.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.ReceiveNotifications.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.ReceiveNotifications.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotifications.ValidationRequired, 'fa fa-times': !vm.settings.ReceiveNotifications.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.ReceiveNotifications.Validation" title="{{vm.settings.ReceiveNotifications.Validation}}">{{vm.settings.ReceiveNotifications.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.ReceiveNotifications.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr ng-show="vm.settings.ReceiveNotificationsViaInPlatformMessages">
+            <th>{{vm.settings.ReceiveNotificationsViaInPlatformMessages.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotificationsViaInPlatformMessages.IsUsed, 'fa fa-times': !vm.settings.ReceiveNotificationsViaInPlatformMessages.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotificationsViaInPlatformMessages.IsMandatory, 'fa fa-times': !vm.settings.ReceiveNotificationsViaInPlatformMessages.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.ReceiveNotificationsViaInPlatformMessages.AllowedValues">{{vm.settings.ReceiveNotificationsViaInPlatformMessages.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.ReceiveNotificationsViaInPlatformMessages.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.ReceiveNotificationsViaInPlatformMessages.MinValue" class="fixedWidth">{{vm.settings.ReceiveNotificationsViaInPlatformMessages.MinValue}}</td>
+                        <td ng-show="!vm.settings.ReceiveNotificationsViaInPlatformMessages.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.ReceiveNotificationsViaInPlatformMessages.MaxValue" class="fixedWidth">{{vm.settings.ReceiveNotificationsViaInPlatformMessages.MaxValue}}</td>
+                        <td ng-show="!vm.settings.ReceiveNotificationsViaInPlatformMessages.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.ReceiveNotificationsViaInPlatformMessages.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.ReceiveNotificationsViaInPlatformMessages.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotificationsViaInPlatformMessages.ValidationRequired, 'fa fa-times': !vm.settings.ReceiveNotificationsViaInPlatformMessages.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.ReceiveNotificationsViaInPlatformMessages.Validation" title="{{vm.settings.ReceiveNotificationsViaInPlatformMessages.Validation}}">{{vm.settings.ReceiveNotificationsViaInPlatformMessages.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.ReceiveNotificationsViaInPlatformMessages.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr ng-show="vm.settings.ReceiveNotificationsViaEmail">
+            <th>{{vm.settings.ReceiveNotificationsViaEmail.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotificationsViaEmail.IsUsed, 'fa fa-times': !vm.settings.ReceiveNotificationsViaEmail.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotificationsViaEmail.IsMandatory, 'fa fa-times': !vm.settings.ReceiveNotificationsViaEmail.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.ReceiveNotificationsViaEmail.AllowedValues">{{vm.settings.ReceiveNotificationsViaEmail.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.ReceiveNotificationsViaEmail.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.ReceiveNotificationsViaEmail.MinValue" class="fixedWidth">{{vm.settings.ReceiveNotificationsViaEmail.MinValue}}</td>
+                        <td ng-show="!vm.settings.ReceiveNotificationsViaEmail.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.ReceiveNotificationsViaEmail.MaxValue" class="fixedWidth">{{vm.settings.ReceiveNotificationsViaEmail.MaxValue}}</td>
+                        <td ng-show="!vm.settings.ReceiveNotificationsViaEmail.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.ReceiveNotificationsViaEmail.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.ReceiveNotificationsViaEmail.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotificationsViaEmail.ValidationRequired, 'fa fa-times': !vm.settings.ReceiveNotificationsViaEmail.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.ReceiveNotificationsViaEmail.Validation" title="{{vm.settings.ReceiveNotificationsViaEmail.Validation}}">{{vm.settings.ReceiveNotificationsViaEmail.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.ReceiveNotificationsViaEmail.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr ng-show="vm.settings.ReceiveNotificationsViaSMS">
+            <th>{{vm.settings.ReceiveNotificationsViaSMS.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotificationsViaSMS.IsUsed, 'fa fa-times': !vm.settings.ReceiveNotificationsViaSMS.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotificationsViaSMS.IsMandatory, 'fa fa-times': !vm.settings.ReceiveNotificationsViaSMS.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.ReceiveNotificationsViaSMS.AllowedValues">{{vm.settings.ReceiveNotificationsViaSMS.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.ReceiveNotificationsViaSMS.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.ReceiveNotificationsViaSMS.MinValue" class="fixedWidth">{{vm.settings.ReceiveNotificationsViaSMS.MinValue}}</td>
+                        <td ng-show="!vm.settings.ReceiveNotificationsViaSMS.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.ReceiveNotificationsViaSMS.MaxValue" class="fixedWidth">{{vm.settings.ReceiveNotificationsViaSMS.MaxValue}}</td>
+                        <td ng-show="!vm.settings.ReceiveNotificationsViaSMS.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.ReceiveNotificationsViaSMS.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.ReceiveNotificationsViaSMS.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.ReceiveNotificationsViaSMS.ValidationRequired, 'fa fa-times': !vm.settings.ReceiveNotificationsViaSMS.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.ReceiveNotificationsViaSMS.Validation" title="{{vm.settings.ReceiveNotificationsViaSMS.Validation}}">{{vm.settings.ReceiveNotificationsViaSMS.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.ReceiveNotificationsViaSMS.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Address Requirements</h5></th></tr>
+        <tr ng-repeat="a in vm.settings.Address">
+            <th>{{a.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': a.IsUsed, 'fa fa-times': !a.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': a.IsMandatory, 'fa fa-times': !a.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="a.AllowedValues">{{a.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!a.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="a.MinValue" class="fixedWidth">{{a.MinValue}}</td>
+                        <td ng-show="!a.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="a.MaxValue" class="fixedWidth">{{a.MaxValue}}</td>
+                        <td ng-show="!a.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="a.ValidationRequired">Validation Required</th>
+                        <td ng-show="a.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': a.ValidationRequired, 'fa fa-times': !a.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="a.Validation" title="{{a.Validation}}">{{a.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!a.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Country Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.Country.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Country.IsUsed, 'fa fa-times': !vm.settings.Country.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Country.IsMandatory, 'fa fa-times': !vm.settings.Country.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Country.AllowedValues">{{vm.settings.Country.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Country.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.Country.MinValue" class="fixedWidth">{{vm.settings.Country.MinValue}}</td>
+                        <td ng-show="!vm.settings.Country.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.Country.MaxValue" class="fixedWidth">{{vm.settings.Country.MaxValue}}</td>
+                        <td ng-show="!vm.settings.Country.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.Country.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.Country.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Country.ValidationRequired, 'fa fa-times': !vm.settings.Country.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Country.Validation" title="{{vm.settings.Country.Validation}}">{{vm.settings.Country.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Country.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Security Requirements</h5></th></tr>
+        <tr ng-repeat="a in vm.settings.Security">
+            <th>{{a.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': a.IsUsed, 'fa fa-times': !a.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': a.IsMandatory, 'fa fa-times': !a.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="a.AllowedValues">{{a.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!a.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="a.MinValue" class="fixedWidth">{{a.MinValue}}</td>
+                        <td ng-show="!a.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="a.MaxValue" class="fixedWidth">{{a.MaxValue}}</td>
+                        <td ng-show="!a.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="a.ValidationRequired">Validation Required</th>
+                        <td ng-show="a.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': a.ValidationRequired, 'fa fa-times': !a.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="a.Validation" title="{{a.Validation}}">{{a.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!a.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Preferences Requirements</h5></th></tr>
+        <tr ng-repeat="a in vm.settings.Preferences">
+            <th>{{a.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': a.IsUsed, 'fa fa-times': !a.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': a.IsMandatory, 'fa fa-times': !a.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="a.AllowedValues">{{a.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!a.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="a.MinValue" class="fixedWidth">{{a.MinValue}}</td>
+                        <td ng-show="!a.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="a.MaxValue" class="fixedWidth">{{a.MaxValue}}</td>
+                        <td ng-show="!a.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="a.ValidationRequired">Validation Required</th>
+                        <td ng-show="a.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': a.ValidationRequired, 'fa fa-times': !a.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="a.Validation" title="{{a.Validation}}">{{a.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!a.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Title Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.Title.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Title.IsUsed, 'fa fa-times': !vm.settings.Title.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Title.IsMandatory, 'fa fa-times': !vm.settings.Title.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Title.AllowedValues">{{vm.settings.Title.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Title.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.Title.MinValue" class="fixedWidth">{{vm.settings.Title.MinValue}}</td>
+                        <td ng-show="!vm.settings.Title.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.Title.MaxValue" class="fixedWidth">{{vm.settings.Title.MaxValue}}</td>
+                        <td ng-show="!vm.settings.Title.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.Title.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.Title.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Title.ValidationRequired, 'fa fa-times': !vm.settings.Title.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Title.Validation" title="{{vm.settings.Title.Validation}}">{{vm.settings.Title.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Title.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>First Name Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.FirstName.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.FirstName.IsUsed, 'fa fa-times': !vm.settings.FirstName.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.FirstName.IsMandatory, 'fa fa-times': !vm.settings.FirstName.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.FirstName.AllowedValues">{{vm.settings.FirstName.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.FirstName.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.FirstName.MinValue" class="fixedWidth">{{vm.settings.FirstName.MinValue}}</td>
+                        <td ng-show="!vm.settings.FirstName.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.FirstName.MaxValue" class="fixedWidth">{{vm.settings.FirstName.MaxValue}}</td>
+                        <td ng-show="!vm.settings.FirstName.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.FirstName.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.FirstName.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.FirstName.ValidationRequired, 'fa fa-times': !vm.settings.FirstName.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.FirstName.Validation" title="{{vm.settings.FirstName.Validation}}">{{vm.settings.FirstName.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.FirstName.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Last Name Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.LastName.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.LastName.IsUsed, 'fa fa-times': !vm.settings.LastName.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.LastName.IsMandatory, 'fa fa-times': !vm.settings.LastName.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.LastName.AllowedValues">{{vm.settings.LastName.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.LastName.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.LastName.MinValue" class="fixedWidth">{{vm.settings.LastName.MinValue}}</td>
+                        <td ng-show="!vm.settings.LastName.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.LastName.MaxValue" class="fixedWidth">{{vm.settings.LastName.MaxValue}}</td>
+                        <td ng-show="!vm.settings.LastName.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.LastName.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.LastName.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.LastName.ValidationRequired, 'fa fa-times': !vm.settings.LastName.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.LastName.Validation" title="{{vm.settings.LastName.Validation}}">{{vm.settings.LastName.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.LastName.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Age Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.Age.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Age.IsUsed, 'fa fa-times': !vm.settings.Age.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Age.IsMandatory, 'fa fa-times': !vm.settings.Age.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Age.AllowedValues">{{vm.settings.Age.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Age.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.Age.MinValue" class="fixedWidth">{{vm.settings.Age.MinValue}}</td>
+                        <td ng-show="!vm.settings.Age.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.Age.MaxValue" class="fixedWidth">{{vm.settings.Age.MaxValue}}</td>
+                        <td ng-show="!vm.settings.Age.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.Age.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.Age.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Age.ValidationRequired, 'fa fa-times': !vm.settings.Age.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Age.Validation" title="{{vm.settings.Age.Validation}}">{{vm.settings.Age.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Age.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Gender Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.Gender.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Gender.IsUsed, 'fa fa-times': !vm.settings.Gender.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Gender.IsMandatory, 'fa fa-times': !vm.settings.Gender.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Gender.AllowedValues">{{vm.settings.Gender.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Gender.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.Gender.MinValue" class="fixedWidth">{{vm.settings.Gender.MinValue}}</td>
+                        <td ng-show="!vm.settings.Gender.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.Gender.MaxValue" class="fixedWidth">{{vm.settings.Gender.MaxValue}}</td>
+                        <td ng-show="!vm.settings.Gender.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.Gender.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.Gender.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Gender.ValidationRequired, 'fa fa-times': !vm.settings.Gender.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Gender.Validation" title="{{vm.settings.Gender.Validation}}">{{vm.settings.Gender.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Gender.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Date of Birth Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.DateOfBirth.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.DateOfBirth.IsUsed, 'fa fa-times': !vm.settings.DateOfBirth.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.DateOfBirth.IsMandatory, 'fa fa-times': !vm.settings.DateOfBirth.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.DateOfBirth.AllowedValues">{{vm.settings.DateOfBirth.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.DateOfBirth.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.DateOfBirth.MinValue" class="fixedWidth">{{vm.settings.DateOfBirth.MinValue}}</td>
+                        <td ng-show="!vm.settings.DateOfBirth.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.DateOfBirth.MaxValue" class="fixedWidth">{{vm.settings.DateOfBirth.MaxValue}}</td>
+                        <td ng-show="!vm.settings.DateOfBirth.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.DateOfBirth.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.DateOfBirth.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.DateOfBirth.ValidationRequired, 'fa fa-times': !vm.settings.DateOfBirth.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.DateOfBirth.Validation" title="{{vm.settings.DateOfBirth.Validation}}">{{vm.settings.DateOfBirth.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.DateOfBirth.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Email Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.Email.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Email.IsUsed, 'fa fa-times': !vm.settings.Email.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Email.IsMandatory, 'fa fa-times': !vm.settings.Email.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Email.AllowedValues">{{vm.settings.Email.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Email.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.Email.MinValue" class="fixedWidth">{{vm.settings.Email.MinValue}}</td>
+                        <td ng-show="!vm.settings.Email.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.Email.MaxValue" class="fixedWidth">{{vm.settings.Email.MaxValue}}</td>
+                        <td ng-show="!vm.settings.Email.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.Email.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.Email.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Email.ValidationRequired, 'fa fa-times': !vm.settings.Email.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Email.Validation" title="{{vm.settings.Email.Validation}}">{{vm.settings.Email.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Email.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Mobile Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.Mobile.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Mobile.IsUsed, 'fa fa-times': !vm.settings.Mobile.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Mobile.IsMandatory, 'fa fa-times': !vm.settings.Mobile.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Mobile.AllowedValues">{{vm.settings.Mobile.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Mobile.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.Mobile.MinValue" class="fixedWidth">{{vm.settings.Mobile.MinValue}}</td>
+                        <td ng-show="!vm.settings.Mobile.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.Mobile.MaxValue" class="fixedWidth">{{vm.settings.Mobile.MaxValue}}</td>
+                        <td ng-show="!vm.settings.Mobile.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.Mobile.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.Mobile.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Mobile.ValidationRequired, 'fa fa-times': !vm.settings.Mobile.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Mobile.Validation" title="{{vm.settings.Mobile.Validation}}">{{vm.settings.Mobile.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Mobile.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Bonus Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.BonusCode.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.BonusCode.IsUsed, 'fa fa-times': !vm.settings.BonusCode.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.BonusCode.IsMandatory, 'fa fa-times': !vm.settings.BonusCode.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.BonusCode.AllowedValues">{{vm.settings.BonusCode.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.BonusCode.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.BonusCode.MinValue" class="fixedWidth">{{vm.settings.BonusCode.MinValue}}</td>
+                        <td ng-show="!vm.settings.BonusCode.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.BonusCode.MaxValue" class="fixedWidth">{{vm.settings.BonusCode.MaxValue}}</td>
+                        <td ng-show="!vm.settings.BonusCode.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.BonusCode.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.BonusCode.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.BonusCode.ValidationRequired, 'fa fa-times': !vm.settings.BonusCode.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.BonusCode.Validation" title="{{vm.settings.BonusCode.Validation}}">{{vm.settings.BonusCode.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.BonusCode.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Referrer Requirements</h5></th></tr>
+        <tr>
+            <th>{{vm.settings.Referrer.ObjectName}}</th>
+            <td class="inner-table-container">
+                <table class="inner-table">
+                    <tr>
+                        <th>Is Used</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Referrer.IsUsed, 'fa fa-times': !vm.settings.Referrer.IsUsed }"></i></td>
+                        <th>Is Mandatory</th>
+                        <td class="check"><i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Referrer.IsMandatory, 'fa fa-times': !vm.settings.Referrer.IsMandatory }"></i></td>
+                        <th>Allowed Values</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Referrer.AllowedValues">{{vm.settings.Referrer.AllowedValues.join()}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Referrer.AllowedValues">-</td>
+                        <th>Min Value</th>
+                        <td ng-show="vm.settings.Referrer.MinValue" class="fixedWidth">{{vm.settings.Referrer.MinValue}}</td>
+                        <td ng-show="!vm.settings.Referrer.MinValue" class="fixedWidth">-</td>
+                        <th>Max Value</th>
+                        <td ng-show="vm.settings.Referrer.MaxValue" class="fixedWidth">{{vm.settings.Referrer.MaxValue}}</td>
+                        <td ng-show="!vm.settings.Referrer.MaxValue" class="fixedWidth">-</td>
+                        <th ng-show="vm.settings.Referrer.ValidationRequired">Validation Required</th>
+                        <td ng-show="vm.settings.Referrer.ValidationRequired" class="check">
+                            <i aria-hidden="true" ng-class="{ 'fa fa-check': vm.settings.Referrer.ValidationRequired, 'fa fa-times': !vm.settings.Referrer.ValidationRequired }"></i>
+                        </td>
+                        <th>Validation</th>
+                        <td class="fixedWidth" ng-show="vm.settings.Referrer.Validation" title="{{vm.settings.Referrer.Validation}}">{{vm.settings.Referrer.Validation}}</td>
+                        <td class="fixedWidth" ng-show="!vm.settings.Referrer.Validation">-</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr><th colspan="2" class="title"><h5>Payment Settings</h5></th></tr>
+        <tr ng-repeat="paymentMethod in vm.settings.PaymentSettings.PaymentMethods">
+            <td class="payment-settings-container" colspan="2">
+                <table class="payment-settings bordered">
+                    <tr>
+                        <th>Identifier</th>
+                        <th>System Name</th>
+                        <th>Payment System Currency</th>
+                        <th>Icon</th>
+                        <th>Withdrawal Fields</th>
+                        <th>Deposit Fields</th>
+                    </tr>
+                    <tr>
+                        <td>{{paymentMethod.PaymentIdentifier}}</td>
+
+                        <td>{{paymentMethod.PaymentSystemName}}</td>
+
+                        <td>{{paymentMethod.PaymentSystemCurrency}}</td>
+
+                        <td><img ng-src="{{paymentMethod.Icon}}" alt="{{paymentMethod.PaymentSystemName}}" /></td>
+
+                        <td>
+                            <div ng-repeat="field in paymentMethod.WithdrawalFields">
+                                <details>
+                                    <summary>{{field.Label}} Details</summary>
+                                    <dl>
+                                        <dt>Type</dt>
+                                        <dd>{{field.Type}}</dd>
+                                        <dt>Name</dt>
+                                        <dd>{{field.Name}}</dd>
+                                        <dt>Label</dt>
+                                        <dd>{{field.Label}}</dd>
+                                        <dt>Value</dt>
+                                        <dd>{{field.Value}}</dd>
+                                        <dt>Required</dt>
+                                        <dd>{{field.Required}}</dd>
+                                        <dt>Read Only</dt>
+                                        <dd>{{field.IsReadonly}}</dd>
+                                    </dl>
+                                </details>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-repeat="field in paymentMethod.DepositFields">
+                                <details>
+                                    <summary>{{field.Label}} Details</summary>
+                                    <dl>
+                                        <dt>Type</dt>
+                                        <dd>{{field.Type}}</dd>
+                                        <dt>Name</dt>
+                                        <dd>{{field.Name}}</dd>
+                                        <dt>Label</dt>
+                                        <dd>{{field.Label}}</dd>
+                                        <dt>Value</dt>
+                                        <dd>{{field.Value}}</dd>
+                                        <dt>Required</dt>
+                                        <dd>{{field.Required}}</dd>
+                                        <dt>Read Only</dt>
+                                        <dd>{{field.IsReadonly}}</dd>
+                                    </dl>
+                                </details>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+    </table>
+
+</div>

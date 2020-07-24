@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.ArticlePageViewModel>
+    @{
+        Layout = "totalCodeLayout.cshtml";
+    }
+
+    <section class="black-main--default">
+        <div class="login-problems">
+            <a class="link-back text-back" href="@Model.ArticleCategory.Url"><span>@Model.ArticleCategory.Name</span></a>
+            <div class="height-36"></div>
+            <h1 class="black-main--head">@Model.Title</h1>
+            <div class="height-50"></div>
+            <div class="login-problems--post">
+                @Model.Body
+            </div>
+        </div>
+    </section>

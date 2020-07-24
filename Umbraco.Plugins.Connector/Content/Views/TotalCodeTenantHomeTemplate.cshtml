@@ -1,0 +1,19 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = "Layout.cshtml";
+    ViewBag.Title = "Home";
+}
+<main class="section-main" role="main">
+    <section class="black-main--default help-page">
+        <h1 class="black-main--head">@Model.Name</h1>
+        <div class="height-50"></div>
+        <div class="popup-text--gray">
+            @if (Model.HasValue("brandLogo"))
+            {
+                <img src="@Model.GetProperty("brandLogo").Value()" alt="@Model.Name" />
+            }
+            <p>@Model.GetProperty("homeContent").Value()</p>
+        </div>
+    </section>
+</main>
+

@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.GamePageViewModel>
+
+<div class="search">
+    @*<div class="search" style="display:none;" ng-class="{ 'show' : vm.gameGrid.length > 0}">*@
+    <form ng-submit="vm.searchGame()">
+        <input class="game-search-input" type="search" name="q" placeholder="@Umbraco.GetDictionaryValue("[Games]SearchGames", "Search Games")..." ng-model="vm.keyword" />
+        <button class="search-submit" type="submit"><i class="icon-search"></i></button>
+    </form>
+    @*<div class="status-filters">
+            <div ng-class="{ 'show' : vm.gameGrid.length > 0}">
+                <label ng-click="vm.filter=''" class="all active" ng-class="{'active':vm.filter===''}"><i class="icon-th-list" title="@Umbraco.GetDictionaryValue("[Games]All", "All Games")"></i></label>
+                <label ng-click="vm.filter={'New':true }" class="new" ng-class="{'active':vm.filter==={'New':true }}"><i class="icon-flag" title="@Umbraco.GetDictionaryValue("[Games]New", "New Game")"></i></label>
+                <label ng-click="vm.filter={'Favourite':true}" class="favourite" ng-class="{'active':vm.filter==={'Favourite':true}}"><i class="icon-star" title="@Umbraco.GetDictionaryValue("[Games]Favorite", "Favorite Game")"></i></label>
+            </div>
+        </div>*@
+</div>

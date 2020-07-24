@@ -1,0 +1,25 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "ApiSettings",
+      "name": "Total Code Api Settings",
+      "isReadOnly": false,
+      "icon": "icon-old-key",
+      "editor": {
+        "view": "~/App_Plugins/ApiSettingsSurface/backoffice/ApiSettings/edit.html",
+        "valueType": "JSON",
+        "hideLabel": true
+      }
+    }
+  ],
+
+  "javascript": [
+    "~/App_Plugins/ApiSettingsSurface/backoffice/ApiSettings/controller.js",
+    "~/App_Plugins/ApiSettingsSurface/backoffice/ApiSettings/wysiwyg.js",
+    "~/App_Plugins/ApiSettingsSurface/backoffice/ApiSettings/codeflask.min.js"
+  ],
+
+  "css": [
+    "~/App_Plugins/ApiSettingsSurface/backoffice/ApiSettings/style.css"
+  ]
+}

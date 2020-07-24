@@ -1,0 +1,59 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.HelpPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+}
+
+
+
+<section class="black-main--default help-page">
+    <h1 class="black-main--head">@Model.Title</h1>
+    <div class="height-50"></div>
+
+
+    <div class="search-help">
+        <form method="post" action="@Model.HelpUrl?mode=result">
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <div class="form--search-help">
+                <input class="search-help blur-input" placeholder="@Umbraco.GetDictionaryValue("[Help]WhatCanWeHelpWith", "What can we help you with?")">
+                <button class="search-submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><g><g><path d="M2.018 6.016a3.999 3.999 0 1 1 7.997 0 3.999 3.999 0 0 1-7.997 0zm8.87 3.457a5.998 5.998 0 1 0-1.414 1.414l4.964 4.966a.5.5 0 0 0 .708 0l.707-.707a.5.5 0 0 0 0-.708z" /></g></g></svg></button><span class="cancel-default"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g><g><path fill="#6f6e70" d="M4.525 3.818a.5.5 0 0 1 .707 0L7 5.586l1.768-1.768a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1 0 .707L8.414 7l1.768 1.768a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707 0L7 8.414l-1.768 1.768a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707L5.586 7 3.818 5.232a.5.5 0 0 1 0-.707zM7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14z" /></g></g></svg></span>
+            </div>
+        </form>
+
+        @if (Request.QueryString["mode"] != null)
+        {
+        <div class="search-help--result">
+            <div class="result-def--item">
+                <a class="result-name" href="#">@Umbraco.GetDictionaryValue("[Help]WhatCanIBet", "What can I bet on/play?")</a>
+                <p class="result-desc">@Umbraco.GetDictionaryValue("[Help]AccessToExclusivePoints", "Access to exclusive points and bonus bet offers from")&nbsp;<span>@Model.WebsiteName</span></p>
+            </div>
+            <div class="result-def--item">
+                <a class="result-name" href="#">@Umbraco.GetDictionaryValue("[Help]HowCanIPlaceABet", "How do I place a bet on")&nbsp;<span>@Model.WebsiteName</span>?</a>
+                <p class="result-desc">@Umbraco.GetDictionaryValue("[Help]AccessToExclusivePoints", "Access to exclusive points and bonus bet offers from")&nbsp;<span>@Model.WebsiteName </span>>@Umbraco.GetDictionaryValue("[Help]AndBonusBetOffers", "and bonus bet offers and other…")</p>
+            </div>
+            <div class="result-def--item">
+                <a class="result-name" href="#">@Umbraco.GetDictionaryValue("[Help]HowDoIWithdraw", "How do I withdraw my winnings?")</a>
+                <p class="result-desc">@Umbraco.GetDictionaryValue("[Help]AccessToExclusivePoints", "Access to exclusive points and bonus bet offers from")&nbsp;<span>@Model.WebsiteName </span></p>
+            </div>
+            <div class="result-def--item">
+                <a class="result-name" href="#">@Umbraco.GetDictionaryValue("[Help]HowCanIPlaceABet", "How do I place a bet on")&nbsp;<span>@Model.WebsiteName</span>?</a>
+                <p class="result-desc">@Umbraco.GetDictionaryValue("[Help]AccessToExclusivePoints", "Access to exclusive points and bonus bet offers from")&nbsp;<span>@Model.WebsiteName</span></p>
+            </div>
+        </div>
+        }
+    </div>
+
+    @if (Request.QueryString["mode"] == null)
+    {
+    <div class="wrapper--category">
+        <div class="category-item"><a class="category-item--link" href="login-problems.html"><span class="category-item--img"><img src="/img//icon-money.svg" alt=""></span><span class="text-category"><span class="name-category">Category</span><span class="count-articles">12 articles</span></span></a></div>
+        <div class="category-item"><a class="category-item--link" href="login-problems.html"><span class="category-item--img"><img src="/img//icon-money.svg" alt=""></span><span class="text-category"><span class="name-category">Category</span><span class="count-articles">12 articles</span></span></a></div>
+        <div class="category-item"><a class="category-item--link" href="login-problems.html"><span class="category-item--img"><img src="/img//icon-money.svg" alt=""></span><span class="text-category"><span class="name-category">Category</span><span class="count-articles">12 articles</span></span></a></div>
+        <div class="category-item"><a class="category-item--link" href="login-problems.html"><span class="category-item--img"><img src="/img//icon-money.svg" alt=""></span><span class="text-category"><span class="name-category">Category</span><span class="count-articles">12 articles</span></span></a></div>
+        <div class="category-item"><a class="category-item--link" href="login-problems.html"><span class="category-item--img"><img src="/img//icon-money.svg" alt=""></span><span class="text-category"><span class="name-category">Category</span><span class="count-articles">12 articles</span></span></a></div>
+        <div class="category-item"><a class="category-item--link" href="login-problems.html"><span class="category-item--img"><img src="/img//icon-money.svg" alt=""></span><span class="text-category"><span class="name-category">Category</span><span class="count-articles">12 articles</span></span></a></div>
+        <div class="category-item"><a class="category-item--link" href="login-problems.html"><span class="category-item--img"><img src="/img//icon-money.svg" alt=""></span><span class="text-category"><span class="name-category">Category</span><span class="count-articles">12 articles</span></span></a></div>
+        <div class="category-item"><a class="category-item--link" href="login-problems.html"><span class="category-item--img"><img src="/img//icon-money.svg" alt=""></span><span class="text-category"><span class="name-category">Category</span><span class="count-articles">12 articles</span></span></a></div>
+    </div>
+    }
+
+</section>

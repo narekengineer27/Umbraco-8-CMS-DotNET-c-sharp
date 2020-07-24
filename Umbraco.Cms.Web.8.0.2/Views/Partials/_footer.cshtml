@@ -1,0 +1,151 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+<footer class="footer" style="@(Model.Category == "lottery" ? "display:none;" : null)">
+    <div class="footer-head">
+        <div class="container flex-wrapper">
+            <div class="logo-foot">
+                @if (Model.FooterLogo != null)
+                {
+                    <a class="logo-foot__link" href="/"><img src="@(Model.FooterLogo?.Url)" alt=""></a>
+                }
+
+                <div class="copyright">
+                    <p>@Model.FooterText</p>
+                </div>
+            </div>
+            <div class="footer-head__category">
+                @if (Model.GroupLinksA != null)
+                {
+                    <div class="footer--category-items">
+                        <h4 class="heading-category">@Model.GroupLinksA.Title</h4>
+                        <nav class="nav-footer">
+                            <ul class="nav-footer__list">
+                                @foreach (var page in Model.GroupLinksA.Links)
+                                {
+                                    <li><a href="@page.URL">@page.Title</a></li>
+                                }
+                                @if (Model.FooterExternalLinks.Any())
+                                {
+                                    <li>&nbsp;</li>
+                                    foreach (var link in Model.FooterExternalLinks)
+                                    {
+                                        <li><a href="@link.Url" target="@link.Target">@link.Name</a></li>
+                                    }
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                }
+
+
+                @if (Model.GroupLinksB != null)
+                {
+                    <div class="footer--category-items">
+                        <h4 class="heading-category">@Model.GroupLinksB.Title</h4>
+                        <nav class="nav-footer">
+                            <ul class="nav-footer__list">
+                                @foreach (var page in Model.GroupLinksB.Links)
+                                {
+                                    <li><a href="@page.URL">@page.Title</a></li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                }
+
+                @if (Model.GroupLinksC != null)
+                {
+                    <div class="footer--category-items">
+                        <h4 class="heading-category">@Model.GroupLinksC.Title</h4>
+                        <nav class="nav-footer">
+                            <ul class="nav-footer__list">
+                                @foreach (var page in Model.GroupLinksC.Links)
+                                {
+                                    <li><a href="@page.URL">@page.Title</a></li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container flex-wrapper">
+            <div class="cocial-footer">
+                <ul class="list-social">
+                    @if (!string.IsNullOrEmpty(Model.FacebookLink))
+                    {
+                        <li><a href="@Model.FacebookLink" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><g><g><path d="M7.997 16h2.006M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5.997V9.994H5.999v-1.99h1.998V5.973c0-1.873 1.418-2.985 3.089-2.985.8 0 1.221.086 1.422.113v1.896l-1.417-.001c-.909 0-1.079.45-1.079 1.084v1.924h2.523l-.329 1.99h-2.193V16H14a2 2 0 0 0 2-2z" /></g></g></svg></a></li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.InstagramLink))
+                    {
+                        <li>
+                            <a href="@Model.InstagramLink" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><g><g><path d="M10.367 8.005a2.362 2.362 0 1 1-4.724 0 2.362 2.362 0 0 1 4.724 0zm1.41 0a3.772 3.772 0 1 0-7.544 0 3.772 3.772 0 0 0 7.544 0zm1.402-4.245a.94.94 0 1 0-1.878 0 .94.94 0 0 0 1.878 0zM14.588 8c0 2.145-.008 2.4-.047 3.248-.036.783-.166 1.208-.277 1.491-.145.375-.32.643-.6.924-.282.281-.55.456-.925.601-.283.11-.708.241-1.492.277-.847.039-1.101.047-3.247.047s-2.4-.008-3.247-.047c-.784-.036-1.209-.166-1.492-.277a2.492 2.492 0 0 1-.925-.6 2.491 2.491 0 0 1-.6-.925c-.11-.283-.241-.708-.277-1.491C1.42 10.4 1.412 10.145 1.412 8c0-2.145.008-2.4.047-3.247.036-.784.166-1.209.277-1.492.145-.375.32-.643.6-.924.282-.281.55-.456.925-.601.283-.11.708-.241 1.492-.277C5.6 1.42 5.854 1.412 8 1.412c2.145 0 2.4.008 3.247.047.784.036 1.209.166 1.492.277.375.145.643.32.925.601.28.28.455.549.6.924.11.283.241.708.277 1.492.039.847.047 1.102.047 3.247zm1.364 3.298c.04-.853.048-1.125.048-3.298s-.009-2.445-.048-3.298c-.04-.852-.174-1.433-.372-1.942a3.929 3.929 0 0 0-.923-1.417A3.925 3.925 0 0 0 13.24.42c-.509-.198-1.09-.333-1.942-.372C10.445.008 10.173 0 8 0S5.555.009 4.702.048C3.85.088 3.269.222 2.76.42a3.925 3.925 0 0 0-1.417.923A3.929 3.929 0 0 0 .42 2.76C.222 3.269.087 3.85.048 4.702.008 5.555 0 5.827 0 8s.009 2.445.048 3.298c.04.852.174 1.433.372 1.942.204.526.478.973.923 1.417.444.445.89.719 1.417.923.509.198 1.09.333 1.942.372C5.555 15.991 5.827 16 8 16s2.445-.01 3.298-.048c.852-.04 1.433-.174 1.942-.372a3.925 3.925 0 0 0 1.417-.923c.445-.444.719-.89.923-1.417.198-.509.333-1.09.372-1.942z" /></g></g></svg>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.TwitterLink))
+                    {
+                        <li>
+                            <a href="@Model.TwitterLink" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"><g><g><path d="M20 1.894a8.3 8.3 0 0 1-2.357.636A4.06 4.06 0 0 0 19.447.295a8.29 8.29 0 0 1-2.605.98A4.128 4.128 0 0 0 13.847 0C11.198 0 9.25 2.433 9.85 4.96A11.71 11.71 0 0 1 1.393.739a4.006 4.006 0 0 0 1.27 5.393 4.137 4.137 0 0 1-1.859-.505C.759 7.498 2.121 9.248 4.095 9.638c-.578.155-1.21.19-1.853.07a4.1 4.1 0 0 0 3.833 2.805A8.349 8.349 0 0 1 0 14.186 11.75 11.75 0 0 0 6.29 16c7.618 0 11.922-6.334 11.662-12.015A8.268 8.268 0 0 0 20 1.894z" /></g></g></svg>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.TelegramUsername))
+                    {
+                        <li>
+                            <a href="@Model.TelegramUsername" target="_blank">
+                            @*<a href="https://t.me/@Model.TelegramUsername" target="_blank">*@
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                    <path d="M8.2,16.2c4.4,0,8-3.6,8-8s-3.6-8-8-8s-8,3.6-8,8S3.8,16.2,8.2,16.2z M3.8,8l7.7-3c0.4-0.1,0.7,0.1,0.6,0.6l0,0l-1.3,6.2
+	c-0.1,0.4-0.4,0.5-0.7,0.3l-2-1.5l-1,0.9c-0.1,0.1-0.2,0.2-0.4,0.2l0.1-2l3.7-3.3c0.2-0.1,0-0.2-0.2-0.1L5.7,9.2l-2-0.6C3.3,8.5,3.3,8.2,3.8,8L3.8,8z" />
+                                </svg>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.WhatsAppNumber))
+                    {
+                        <li>
+                            <a href="@Model.WhatsAppNumber" target="_blank">
+                                @*<a href="https://api.whatsapp.com/send?phone=@Model.WhatsAppNumber" target="_blank">*@
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                    <path d="M8,0.2L8,0.2c-4.4,0-8,3.6-8,8c0,1.8,0.6,3.4,1.5,4.7l-1,3l3.1-1c1.3,0.8,2.8,1.3,4.4,1.3c4.4,0,8-3.6,8-8S12.4,0.2,8,0.2z M12.7,11.5c-0.2,0.5-1,1-1.6,1.1c-0.4,0.1-1,0.2-2.8-0.6c-2.4-1-3.9-3.4-4-3.5c-0.1-0.2-1-1.3-1-2.4s0.6-1.7,0.8-1.9C4.4,3.9,4.7,3.8,5,3.8c0.1,0,0.2,0,0.3,0c0.2,0,0.4,0,0.5,0.4C6,4.7,6.4,5.9,6.5,6c0.1,0.1,0.1,0.3,0,0.4C6.5,6.6,6.4,6.6,6.3,6.8C6.1,6.9,6,7,5.9,7.2C5.8,7.3,5.7,7.4,5.8,7.7c0.1,0.2,0.6,1,1.3,1.6C8,10.1,8.7,10.3,9,10.4c0.2,0.1,0.4,0.1,0.6-0.1c0.2-0.2,0.4-0.5,0.6-0.8c0.2-0.2,0.4-0.3,0.6-0.2c0.2,0.1,1.4,0.6,1.6,0.8c0.2,0.1,0.4,0.2,0.4,0.3C12.9,10.5,12.9,10.9,12.7,11.5z" />
+
+                                </svg>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="logos-footer">
+                <ul class="list-logos">
+                    @foreach (var logo in Model.CompanyLogos)
+                    {
+                        if (logo.IsSvg)
+                        {
+                            if (logo.Image != null)
+                            {
+                                <li><a href="@logo.Link">@Html.Raw(logo.Svg)</a></li>
+                            }
+                        }
+                        else
+                        {
+                            if (logo.Image != null)
+                            {
+                                <li><a href="@logo.Link"><img src="@logo.Image.Url?height=40" /></a></li>
+                            }
+                        }
+
+                        if (logo.Image == null)
+                        {
+                            <li><a href="@logo.Link">@logo.Title</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

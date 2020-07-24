@@ -1,0 +1,53 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.DepositPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+}
+
+@Html.Partial("_depositAndWithdraw", Model)
+
+@if (Request.QueryString["isConfirmed"] == "false")
+{
+    <div class="popup-default default-offset zoom-anim-dialog" id="deposit-failed">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-default text-center">
+            @Umbraco.GetDictionaryValue("[Deposit]DepositFailed", "Deposit failed")
+        </h3>
+        <p class="gray--text-info"></p>
+        <div class="wrap--send-button text-center">
+            <a class="popup popup-button button" href="#" rel="modal:close">@Umbraco.GetDictionaryValue("[Others]Close", "Close")</a>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @if (Model.ShowReceipt)
+    {
+        <script>
+            $('#popup-reciept').modal();
+        </script>
+    }
+
+    @if (Request.QueryString["isConfirmed"] == "false")
+    {
+        <script>
+            $('#deposit-failed').modal();
+        </script>
+    }
+
+    <script>
+        var TRANSACTION = {
+            fields: 'DepositFields',
+            type: 'deposit',
+            submitText: `${dictionary.depositAdd}`
+            @*submitText: `${dictionary.depositAdd} @(Model.CurrencySymbol)[${dictionary.depositAmount}] ${dictionary.depositToMyAccount}`*@
+        }
+    </script>
+
+    @if (Model.PredefinedAmounts != null && Model.PredefinedAmounts.Any())
+    {
+        <script>
+            TRANSACTION.predefinedAmounts = [@string.Join(",", Model.PredefinedAmounts)]
+        </script>
+    }
+}

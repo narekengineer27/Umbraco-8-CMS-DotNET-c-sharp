@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>500 Error</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="/media/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-72x72.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+    <link rel="stylesheet" href="/css/jquery.modal.css" />
+    <meta name="theme-color" content="#161516">
+    <meta name="msapplication-navbutton-color" content="#161516">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#161516">
+</head>
+<body>
+    <div id="overlayer"></div>
+    <main class="section-main" role="main">
+        <main class="section-main" role="main">
+            <section class="black-main--default help-page">
+                <h1 class="black-main--head"></h1>
+                <div class="height-50"></div>
+                <div class="error-message-content"></div>
+                <div class="popup-text--gray">
+                    <span class="back-text"></span>&nbsp;<a href="#" class="back-button-text"></a>
+                </div>
+            </section>
+        </main>
+    </main>
+    <script type="text/javascript" src="/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/scripts/js.cookies.js"></script>
+    <script type="text/javascript">
+        /*English*/
+        var english = {
+            Title: "A horrible 500 error ocurred!",
+            Message: " Something has happened, and it caused an error.",
+            Back: "Please",
+            BackButton: "try again"
+        }
+
+        /*Farsi*/
+        var farsi = {
+            Title: "title in farsi",
+            Message: "message in farsi",
+            Back: "back in farsi",
+            BackButton: "button in farsi"
+        }
+
+        var language = Cookies.get('lang');
+        if (language === null) useLanguage = english;
+        else {
+            var useLanguage = {};
+            switch (language) {
+                case "en": useLanguage = english;
+                    break;
+                case "fa": useLanguage = farsi;
+                    break;
+                default: useLanguage = english;
+                    break;
+            }
+        }
+
+        $('.black-main--head').html(useLanguage.Title);
+        $('.error-message-content').html(useLanguage.Message);
+        $('.back-text').html(useLanguage.Back);
+        $('.back-button-text').html(useLanguage.BackButton);
+        $('.back-button-text').click(function (e) {
+            e.preventDefault();
+            window.history.back();
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,1003 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.AffiliatePageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+}
+
+
+@section Scripts{
+    <script type="text/javascript" src="~/scripts/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.slider-big').owlCarousel({
+                loop: false,
+                margin: 8,
+                nav: true,
+                autoWidth: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        autoWidth: false
+                    },
+                    541: {
+                        items: 3
+                    }
+                }
+            });
+            $('.slider-small').owlCarousel({
+                loop: false,
+                margin: 8,
+                nav: true,
+                autoWidth: true,
+                items: 4,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    721: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            });
+            $('.slider-affiliates').owlCarousel({
+                items: 1,
+                loop: true,
+                margin: 8,
+                nav: true,
+                dot: true,
+                // autoplay: true,
+                autoplayTimeout: 4700,
+                smartSpeed: 900
+            });
+            $('.slider-testimonials').owlCarousel({
+                items: 2,
+                loop: true,
+                margin: 16,
+                nav: true,
+                dot: true,
+                autoWidth: true,
+                // autoplay: true,
+                autoplayTimeout: 4700,
+                smartSpeed: 900,
+                responsive: {
+                    0: {
+                        items: 3,
+                        autoWidth: true,
+                        margin: 8,
+                        center: true
+                    },
+                    541: {
+                        items: 3,
+                        autoWidth: true,
+                        margin: 8,
+                        center: true
+                    }
+                },
+                onInitialized: fixOwlCarousel,
+                onRefreshed: fixOwlCarousel
+            });
+            $(".accordeon-faq dd").hide().prev().click(function () {
+                $(this).parents(".accordeon-faq").find("dd").not(this).slideUp().prev().removeClass("active");
+                $(this).next().not(":visible").slideDown().prev().addClass("active");
+            });
+        });
+        var fixOwlCarousel = function () {
+            stage = $('.owl-stage');
+            stage.width(stage.width() * 2);
+        }
+    </script>
+}
+@section AdditionalHeaders{
+
+    <style>
+        .slider-affiliates,
+        .slider-partners {
+            color: #fff
+        }
+        .section-slider {
+            padding: 8px 8px 0
+        }
+        .wrapper-slider {
+            border-radius: 10px;
+            background-color: #242324;
+            overflow: hidden
+        }
+        .slider-affiliates {
+            background-image: url(../img/font-slide.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            padding-top: 60px;
+            padding-bottom: 70px
+        }
+            .slider-affiliates .owl-item {
+                overflow: hidden
+            }
+            .slider-affiliates .affiliates-item {
+                max-width: 944px;
+                min-height: 530px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: row;
+                align-items: stretch;
+                justify-content: space-between
+            }
+        .affiliates-item--text {
+            min-width: 410px;
+            max-width: 430px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: baseline;
+            padding-bottom: 54px
+        }
+            .affiliates-item--text span {
+                display: inline-block;
+                color: #8c8b8d;
+                font-family: Inter-ExtraBold, sans-serif;
+                font-size: 1.4375rem;
+                letter-spacing: -.01125rem;
+                line-height: 1.75rem;
+                margin-bottom: 10px
+            }
+            .affiliates-item--text p {
+                color: #fff;
+                font-family: Inter-ExtraBold,sans-serif;
+                font-size: 2.5rem;
+                letter-spacing: -.01875rem;
+                line-height: 3rem;
+                margin-bottom: 48px
+            }
+        .affiliates-item--img {
+            position: relative;
+            flex-shrink: 0
+        }
+            .affiliates-item--img img {
+                position: relative;
+                right: 0;
+                width: auto !important
+            }
+        .owl-dots {
+            max-width: 944px;
+            margin: 0 auto;
+            display:block !important;
+        }
+            .owl-dots .owl-dot {
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                background-color: #6f6e70 !important;
+                border-radius: 50%;
+                margin-right: 10px
+            }
+                .owl-dots .owl-dot.active {
+                    background-color: #fff !important
+                }
+        .owl-nav {
+            padding: 0 25px;
+            display: block !important;
+        }
+            .owl-nav button {
+                position: absolute;
+                top: 50%;
+                margin-top: -5px;
+                width: 17px;
+                height: 10px
+            }
+                .owl-nav button span {
+                    font-size: 0
+                }
+                .owl-nav button.owl-prev {
+                    left: 25px
+                }
+                    .owl-nav button.owl-prev:before {
+                        -webkit-transform: rotate(135deg);
+                        transform: rotate(135deg)
+                    }
+                .owl-nav button.owl-next {
+                    right: 25px
+                }
+                    .owl-nav button.owl-next:before {
+                        -webkit-transform: rotate(-45deg);
+                        transform: rotate(-45deg)
+                    }
+                .owl-nav button:before {
+                    position: absolute;
+                    content: "";
+                    top: 1px;
+                    right: 0;
+                    width: 6px;
+                    height: 6px;
+                    border-style: solid;
+                    border-width: 0 2px 2px 0;
+                    border-color: #fff;
+                    z-index: 2;
+                    pointer-events: none;
+                    transition: all .25s ease-out
+                }
+        .section-partners {
+            padding-top: 120px;
+            padding-bottom: 136px
+        }
+            .section-partners .wrapper-button {
+                padding-top: 64px
+            }
+        .partners-icon {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background-color: #161516;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px
+        }
+            .partners-icon img {
+                width: auto !important
+            }
+        .partners-item {
+            min-height: 304px;
+            height: 100%;
+            border-radius: 10px;
+            border: 1px solid #242324;
+            background-color: #1d1c1d;
+            padding: 48px 35px 44px
+        }
+        .partners-tops {
+            display: flex;
+            flex-direction: row;
+            flex-shrink: 0
+        }
+            .partners-tops .partners-icon {
+                margin-right: 40px
+            }
+            .partners-tops .partners-text {
+                text-align: left
+            }
+        .slider-partners {
+            margin: -8px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap
+        }
+            .slider-partners .item {
+                padding: 8px;
+                width: calc(100% / 3)
+            }
+                .slider-partners .item.big-item {
+                    width: 66.6%
+                }
+        .partners-text {
+            text-align: center
+        }
+            .partners-text h4 {
+                color: #fff;
+                font-family: Inter-ExtraBold,sans-serif;
+                font-size: 1.375rem;
+                letter-spacing: -.01063rem;
+                line-height: 1.5rem;
+                margin-bottom: 12px
+            }
+            .partners-text p {
+                color: #6f6e70;
+                font-family: Inter-Regular,sans-serif;
+                font-size: .875rem;
+                letter-spacing: -.00625rem;
+                line-height: 1.375rem
+            }
+        .partners-number {
+            display: flex;
+            flex-direction: row;
+            padding-top: 40px
+        }
+        .partners-number--items h4 {
+            color: #fff;
+            font-family: Inter-SemiBold,sans-serif;
+            font-size: 1.6875rem;
+            letter-spacing: -.05rem;
+            line-height: 2rem;
+            margin-bottom: 12px
+        }
+        .partners-number--items p {
+            color: #6f6e70;
+            font-family: Inter-SemiBold,sans-serif;
+            font-size: .875rem;
+            letter-spacing: -.00625rem
+        }
+        .slider-partners .owl-dots {
+            margin-top: 30px;
+            text-align: center
+        }
+        .default-names h3 {
+            color: #fff;
+            font-family: Inter-ExtraBold,sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: -.01938rem;
+            line-height: 3rem;
+            margin-bottom: 12px;
+        }
+        .container-center {
+            max-width: 944px;
+            margin: 0 auto;
+        }
+        .default-names p {
+            max-width: 510px;
+            color: #6f6e70;
+            font-family: Inter-Regular,sans-serif;
+            font-size: 1rem;
+            letter-spacing: -.00688rem;
+            line-height: 1.5rem;
+        }
+        .default-names {
+            margin-bottom: 70px;
+        }
+        .section--you-get {
+            padding: 0 8px
+        }
+        .wrapper--you-get {
+            padding-top: 130px;
+            padding-bottom: 136px;
+            box-shadow: 0 5px 30px rgba(5,5,5,.35);
+            border-radius: 10px;
+            border: 1px solid #242324;
+            background-color: #1d1c1d
+        }
+            .wrapper--you-get .wrapper-button {
+                padding-top: 64px
+            }
+        .slider-you-get {
+            margin: 0 -8px;
+            display: flex;
+            flex-direction: row
+        }
+            .slider-you-get .owl-dots {
+                margin-top: 32px;
+                text-align: center
+            }
+            .slider-you-get .item {
+                padding: 0 8px;
+                width: calc(100% / 5)
+            }
+            .slider-you-get .item-get {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                min-width: 176px;
+                max-width: 176px;
+                min-height: 352px;
+                border-radius: 10px;
+                background-color: #161516;
+                padding: 48px 16px 16px
+            }
+                .slider-you-get .item-get.item-cont {
+                    padding: 16px;
+                    justify-content: center;
+                    box-shadow: 0 5px 15px rgba(5,5,5,.07);
+                    border-radius: 10px;
+                    background-color: #242324
+                }
+            .slider-you-get .item-get--icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 80px;
+                height: 80px;
+                background-color: #242324;
+                border-radius: 50%
+            }
+                .slider-you-get .item-get--icon img {
+                    width: auto
+                }
+            .slider-you-get .item-get--content {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center
+            }
+                .slider-you-get .item-get--content h5 {
+                    color: #fff;
+                    font-family: Inter-ExtraBold,sans-serif;
+                    font-size: 1.375rem;
+                    letter-spacing: -.01063rem;
+                    line-height: 1.5rem;
+                    margin-bottom: 15px
+                }
+                .slider-you-get .item-get--content p {
+                    color: #6f6e70;
+                    font-family: Inter-Regular,sans-serif;
+                    font-size: .875rem;
+                    letter-spacing: -.00625rem;
+                    line-height: 1.375rem
+                }
+            .slider-you-get .item-get--text {
+                text-align: center
+            }
+                .slider-you-get .item-get--text h5 {
+                    color: #fff;
+                    font-family: Inter-ExtraBold,sans-serif;
+                    font-size: 1.375rem;
+                    letter-spacing: -.01063rem;
+                    line-height: 1.5rem;
+                    margin-bottom: 12px
+                }
+                .slider-you-get .item-get--text p {
+                    color: #6f6e70;
+                    font-family: Inter-Regular,sans-serif;
+                    font-size: .875rem;
+                    letter-spacing: -.00625rem;
+                    line-height: 1.375rem
+                }
+            .slider-you-get .stake {
+                color: #ffc30a;
+                font-family: Inter-SemiBold,sans-serif;
+                font-size: 1.5rem;
+                letter-spacing: -.04438rem;
+                line-height: 2rem;
+                border-radius: 5px;
+                background-color: #1d1c1d;
+                display: block;
+                width: 100%;
+                padding: 12px;
+                text-align: center;
+                margin-top: 10px
+            }
+        .section-promotions {
+            padding-top: 124px;
+            padding-bottom: 136px
+        }
+        .slider-promotions {
+            margin: 0 -8px;
+            display: flex;
+            flex-direction: row
+        }
+            .slider-promotions .item {
+                width: calc(100% / 2);
+                padding: 0 8px
+            }
+        .item-promotion {
+            min-height: 664px;
+            height: 100%;
+            border-radius: 10px;
+            background-color: #242324
+        }
+        .promotion-text {
+            padding: 44px 48px
+        }
+            .promotion-text h5 {
+                color: #fff;
+                font-family: Inter-ExtraBold,sans-serif;
+                font-size: 1.125rem;
+                letter-spacing: -.02125rem;
+                line-height: 1.25rem;
+                margin-bottom: 16px
+            }
+            .promotion-text p {
+                color: #6f6e70;
+                font-family: Inter-Regular,sans-serif;
+                font-size: .875rem;
+                letter-spacing: -.00625rem;
+                line-height: 1.375rem
+            }
+        .promotion-image {
+            position: relative;
+            min-height: 256px;
+            border-radius: 10px 10px 0 0;
+            padding: 40px 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background-position: center;
+            background-size: 102%
+        }
+            .promotion-image:before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                content: '';
+                width: 100%;
+                height: 100%;
+                background-image: linear-gradient(rgba(22,21,22,0) 0,#161516 100%)
+            }
+            .promotion-image span {
+                position: relative;
+                display: block;
+                color: #fff;
+                font-family: Inter-ExtraBold,sans-serif;
+                font-size: 1.125rem;
+                letter-spacing: -.00875rem;
+                line-height: 1.375rem;
+                margin-bottom: 9px
+            }
+            .promotion-image .price {
+                position: relative;
+                color: #fff;
+                font-family: Inter-ExtraBold,sans-serif;
+                font-size: 3rem;
+                letter-spacing: -.02375rem;
+                line-height: 3rem
+            }
+            .promotion-image p {
+                position: relative;
+                color: #ffc30a;
+                font-family: Inter-ExtraBold,sans-serif;
+                font-size: 1.25rem;
+                letter-spacing: -.01rem;
+                line-height: 1.625rem
+            }
+        .section-testimonials {
+            padding: 0 8px
+        }
+        .wrapper-testimonials {
+            padding-top: 125px;
+            padding-bottom: 70px;
+            box-shadow: 0 5px 30px rgba(5,5,5,.35);
+            background-color: #1d1c1d;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid #242324
+        }
+        .slider-testimonials .owl-dots {
+            text-align: center;
+            margin: 70px auto 0
+        }
+        .slider-testimonials .owl-nav button {
+            height: 100%;
+            max-height: 384px;
+            width: 100px;
+            top: 0;
+            margin-top: 0
+        }
+            .slider-testimonials .owl-nav button.owl-next {
+                right: 0;
+                background-image: linear-gradient(to right,rgba(29,28,29,0) 0,#1d1c1d 100%) !important
+            }
+                .slider-testimonials .owl-nav button.owl-next:before {
+                    top: 50%;
+                    margin-top: -7px;
+                    right: 30px
+                }
+            .slider-testimonials .owl-nav button.owl-prev {
+                left: 0;
+                background-image: linear-gradient(to right,#1d1c1d 0,rgba(29,28,29,0) 100%) !important
+            }
+                .slider-testimonials .owl-nav button.owl-prev:before {
+                    top: 50%;
+                    margin-top: -7px;
+                    left: 30px
+                }
+        .slider-testimonials .owl-stage-outer {
+            position: initial;
+            max-width: 944px;
+            margin: 0 auto;
+            overflow: inherit
+        }
+        .slider-testimonials .item {
+            max-width: 464px
+        }
+        .slider-testimonials .item-testimonials {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 384px;
+            border-radius: 10px;
+            background-color: #242324;
+            padding: 88px 48px 40px
+        }
+            .slider-testimonials .item-testimonials:before {
+                position: absolute;
+                top: 48px;
+                left: 48px;
+                content: '';
+                display: block;
+                width: 14px;
+                height: 11px;
+                background-image: url(../img/icon-shape.svg)
+            }
+            .slider-testimonials .item-testimonials p {
+                color: #6f6e70;
+                font-family: Inter-Regular,sans-serif;
+                font-size: 1rem;
+                letter-spacing: -.00688rem;
+                line-height: 1.5rem
+            }
+            .slider-testimonials .item-testimonials .link-testimonials {
+                color: #fff;
+                font-family: Inter-SemiBold,sans-serif;
+                font-size: 1rem;
+                letter-spacing: -.00813rem;
+                line-height: 1.5rem
+            }
+        .section-players {
+            padding-top: 124px;
+            padding-bottom: 136px;
+            border-bottom: 1px solid #242324
+        }
+            .section-players .wrapper-button {
+                padding-top: 70px
+            }
+            .section-players .item:nth-child(-n+3)
+            .item-players {
+                border-bottom: 1px solid #242324
+            }
+            .section-players .item:nth-child(3n+3) .item-players {
+                border-right: 0
+            }
+            .section-players .item-players {
+                text-align: center;
+                padding: 36px 15px 36px;
+                border-right: 1px solid #242324
+            }
+                .section-players .item-players span {
+                    color: #fff;
+                    display: block;
+                    font-family: Inter-SemiBold,sans-serif;
+                    font-size: 2.25rem;
+                    letter-spacing: -.06688rem;
+                    line-height: 2rem;
+                    margin-bottom: 10px
+                }
+                .section-players .item-players p {
+                    color: #6f6e70;
+                    font-family: Inter-SemiBold,sans-serif;
+                    font-size: .875rem;
+                    letter-spacing: -.00625rem
+                }
+            .section-players .slider-players {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap
+            }
+                .section-players .slider-players .item {
+                    width: calc(100% / 3)
+                }
+        .section-faq {
+            padding-top: 125px
+        }
+        .accordeon-faq {
+            background-color: #242324;
+            border-radius: 10px;
+            overflow: hidden
+        }
+            .accordeon-faq dl {
+                margin: 0;
+                border-bottom: 1px solid #161516;
+                padding: 0 8px
+            }
+                .accordeon-faq dl:last-child {
+                    border-bottom: 0
+                }
+            .accordeon-faq dt {
+                position: relative;
+                display: flex;
+                align-items: center;
+                padding: 10px 26px;
+                padding-right: 46px;
+                height: 79px;
+                background-color: #242324;
+                color: #fff;
+                font-family: Inter-ExtraBold,sans-serif;
+                font-size: 1rem;
+                letter-spacing: -.00813rem;
+                line-height: 1.5rem;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none
+            }
+                .accordeon-faq dt.active .icon-plus:after {
+                    display: none
+                }
+                .accordeon-faq dt .icon-plus {
+                    position: absolute;
+                    right: 18px;
+                    top: 50%;
+                    -webkit-transform: translate(0,-50%);
+                    transform: translate(0,-50%);
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 6px;
+                    border: 1px solid rgba(111,110,112,.25)
+                }
+                    .accordeon-faq dt .icon-plus:before {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        content: '';
+                        display: block;
+                        width: 10px;
+                        height: 2px;
+                        background: #6f6e70;
+                        -webkit-transform: translate(-50%,-50%);
+                        transform: translate(-50%,-50%);
+                        transition: all .15s ease-out
+                    }
+                    .accordeon-faq dt .icon-plus:after {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        content: '';
+                        display: block;
+                        width: 2px;
+                        height: 10px;
+                        background: #6f6e70;
+                        -webkit-transform: translate(-50%,-50%);
+                        transform: translate(-50%,-50%);
+                        transition: all .15s ease-out
+                    }
+            .accordeon-faq dd {
+                margin: 0;
+                margin-bottom: 8px;
+                border-radius: 6px;
+                background-color: #161516;
+                padding: 22px 23px 26px
+            }
+                .accordeon-faq dd p {
+                    color: #6f6e70;
+                    font-family: Inter-Regular,sans-serif;
+                    font-size: .875rem;
+                    letter-spacing: -.00625rem;
+                    line-height: 1.375rem;
+                    margin-bottom: 24px
+                }
+                    .accordeon-faq dd p:last-child {
+                        margin-bottom: 0
+                    }
+        .sliderbg {
+            border-radius: 10px !important;
+            background-color: #242324 !important;
+            overflow: hidden !important;
+        }
+    </style>
+}
+<section class="section-slider">
+    <div class="top-slider  @(HttpContext.Current.Request.Url.ToString().Contains("/en/")? "sliderbg":"")">
+        <div class="slider-affiliates owl-carousel">
+            @foreach (var item in Model.Slider)
+            {
+                <div class="item">
+                    <div class="affiliates-item">
+                        <div class="affiliates-item--text">
+                            <span>@item.Title</span>
+                            <p>@item.Subtitle</p><a class="button send-button" href="@Model.JoinNowLink">@Umbraco.GetDictionaryValue("[Common]JoinNow")</a>
+                        </div>
+                        <div class="affiliates-item--img"><img src="@item.Image" alt="" style="right: -167px; top: 35px;"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<section class="section-partners">
+    <div class="wrapper-partners">
+        <div class="container-center">
+            <div class="default-names">
+                <h3>@Model.partners.Heading</h3>
+                <p>@Model.partners.SubHeading</p>
+            </div>
+            <div class="slider-partners owl-carousel">
+                @foreach (var partner in Model.partners.PartnerList)
+                {
+                    var Image = partner.HasValue("mainImage") ? partner.GetProperty("mainImage").Value<IPublishedContent>().Url : string.Empty;
+                    var Title = partner.HasValue("title") ? partner.GetProperty("title").GetValue().ToString() : string.Empty;
+                    var Subtitle = partner.HasValue("subTitle") ? partner.GetProperty("subTitle").GetValue().ToString() : string.Empty;
+
+                    var partnerNumbers = partner.Value<IEnumerable<IPublishedElement>>("partnersNumbers")?.ToList();
+                    if (partnerNumbers.Count > 0)
+                    {
+                        <div class="item big-item">
+                            <div class="partners-item">
+                                <div class="partners-tops">
+                                    <div class="partners-icon"><img src="@Image" alt=""></div>
+                                    <div class="partners-text">
+                                        <h4>@Title</h4>
+                                        <p>@Subtitle</p>
+                                    </div>
+                                </div>
+                                <div class="partners-number">
+                                    @{
+                                        var i = 0;
+                                        foreach (var item in partnerNumbers)
+                                        {
+                                            if (i == 0)
+                                            {
+                                                <div class="partners-number--items" style="margin-right: 75px;">
+                                                    <h4>@item.Value("number")</h4>
+                                                    <p>@item.Value("itemName")</p>
+                                                </div>
+                                            }
+                                            else if (i == 1)
+                                            {
+                                                <div class="partners-number--items" style="margin-right: 90px;">
+                                                    <h4>@item.Value("number")</h4>
+                                                    <p>@item.Value("itemName")</p>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="partners-number--items">
+                                                    <h4>@item.Value("number")</h4>
+                                                    <p>@item.Value("itemName")</p>
+                                                </div>
+                                            }
+
+
+
+                                            i++;
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="item">
+                            <div class="partners-item">
+                                <div class="partners-icon"><img src="@Image" alt=""></div>
+                                <div class="partners-text">
+                                    <h4>@Title</h4>
+                                    <p>@Subtitle</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+
+
+
+
+            </div>
+            <div class="wrapper-button text-center"><a class="button send-button" href="@Model.JoinNowLink">@Umbraco.GetDictionaryValue("[Common]JoinNow")</a></div>
+        </div>
+    </div>
+</section>
+
+<section class="section--you-get">
+    <div class="wrapper--you-get">
+        <div class="container-center">
+            <div class="default-names">
+                <h3>@Model.whatYouGet.Heading</h3>
+                <p>@Model.whatYouGet.SubHeading</p>
+            </div>
+            <div class="slider-you-get owl-carousel">
+                @foreach (var whatYouGet in Model.whatYouGet.WhatYouGetList)
+                {
+                    var Image = whatYouGet.HasValue("mainImage") ? whatYouGet.GetProperty("mainImage").Value<IPublishedContent>().Url : string.Empty;
+                    var Title = whatYouGet.HasValue("title") ? whatYouGet.GetProperty("title").GetValue().ToString() : string.Empty;
+                    var Subtitle = whatYouGet.HasValue("subTitle") ? whatYouGet.GetProperty("subTitle").GetValue().ToString() : string.Empty;
+                    var stake = whatYouGet.HasValue("stake") ? whatYouGet.GetProperty("stake").GetValue().ToString() : string.Empty;
+
+                    <div class="item">
+                        <div class="item-get">
+                            <div class="item-get--icon"><img src="@Image" alt=""></div>
+                            <div class="item-get--text">
+                                <h5>@Title</h5>
+                                <p>@Subtitle</p>
+                            </div>
+                            <div class="stake">@stake</div>
+                        </div>
+                    </div>
+                }
+                <div class="item">
+                    <div class="item-get item-cont">
+                        <div class="item-get--content">
+                            @Html.Raw(Model.whatYouGet.PlanText)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper-button text-center"><a class="button send-button" href="@Model.JoinNowLink">@Umbraco.GetDictionaryValue("[Common]JoinNow")</a></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-promotions">
+    <div class="wrapper-promotions">
+        <div class="container-center">
+            <div class="default-names">
+                <h3>@Model.promotions.promotionHeading</h3>
+            </div>
+            <div class="slider-promotions owl-carousel">
+
+                @foreach (var item in Model.promotions.promotionList)
+                {
+                    var Image = item.HasValue("mainImage") ? item.GetProperty("mainImage").Value<IPublishedContent>().Url : string.Empty;
+
+                    <div class="item">
+                        <div class="item-promotion">
+                            <div class="promotion-image" style="background-image: url(@Image)">
+                                <span>@item.Value("imageText1")</span><span class="price">@item.Value("imageText2")</span>
+                                <p>@item.Value("imageText3")</p>
+                            </div>
+                            <div class="promotion-text">
+                                <h5>@item.Value("promotionText1")</h5>
+                                <p>@item.Value("promotionText2")</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-testimonials">
+    <div class="wrapper-testimonials">
+        <div class="container-center">
+            <div class="default-names text-center">
+                <h3>@Model.testimonails.Heading</h3>
+            </div>
+        </div>
+        <div class="slider-testimonials owl-carousel">
+
+            @foreach (var item in Model.testimonails.testimonialList)
+            {
+                <div class="item">
+                    <div class="item-testimonials">
+                        <p>“@item.Value("text")”</p><a class="link-testimonials" href="@item.Value("linkUrl")">@item.Value("linkText")</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section-players">
+    <div class="wrapper-players">
+        <div class="container-center">
+            <div class="default-names text-center">
+                <h3>@Model.whatYourPlayersGet.Heading</h3>
+            </div>
+            <div class="slider-players owl-carousel">
+                @foreach (var item in Model.whatYourPlayersGet.PlayerGetList)
+                {
+                    <div class="item">
+                        <div class="item-players">
+                            <span>@item.Value("number")</span>
+                            <p>@item.Value("title")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="wrapper-button text-center"><a class="button send-button" href="@Model.JoinNowLink">@Umbraco.GetDictionaryValue("[Common]JoinNow")</a></div>
+        </div>
+    </div>
+</section>
+<section class="section-faq">
+    <div class="wrapper-faq">
+        <div class="container-center">
+            <div class="default-names text-center">
+                <h3>@Model.FAQ.Heading</h3>
+            </div>
+            <div class="accordeon-faq">
+               @foreach (var item in Model.FAQ.FaqList)
+               {
+                <dl>
+                    <dt>@item.Value("question")<span class="icon-plus"></span></dt>
+                    <dd>
+                        @Html.Raw(item.Value("answer"))
+                    </dd>
+                </dl>
+               }
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-ready">
+        <div class="container-center">
+            <div class="default-names text-center">
+                @Html.Raw(Model.FAQ.Text)
+            </div>
+            <div class="wrapper-button text-center"><a class="button send-button" href="@Model.JoinNowLink">@Umbraco.GetDictionaryValue("[Common]JoinNow")</a></div>
+        </div>
+    </div>
+</section>

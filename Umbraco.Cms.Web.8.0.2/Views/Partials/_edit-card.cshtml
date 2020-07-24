@@ -1,0 +1,56 @@
+﻿@inherits UmbracoViewPage<Card>
+    <div class="popup-default edit-payment default-offset zoom-anim-dialog" id="edit-payment-@Model.CardNumber">
+        <div ng-controller="editCardController as vm"
+             ng-init="vm.card.cardNumber = '@Model.CardNumber'; vm.card.iban = '@Model.Iban'">
+            <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+            <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Cards]Edit", "Edit") @Umbraco.GetDictionaryValue("[Others]Payment Method", "Edit")</h3>
+            <div class="height-36"></div>
+            <form name="editCard" ng-submit="vm.submit()" novalidate>
+                <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="edit-card">@Umbraco.GetDictionaryValue("[Cards]CardNumber","Card Number")</label>
+                    </div>
+                    <div class="item--input">
+                        <input class="plch-white cc-number" id="edit-card" name="cardNumber" maxlength="19"
+                               ng-model="vm.card.cardNumber"
+                               ng-class="{'valid-error-input' : editCard.$submitted && editCard.cardNumber.$error.required}"
+                               required 
+                               placeholder="1234-1234-1234-1234">
+                        <span class="valid-error" ng-show="editCard.$submitted && editCard.cardNumber.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "This field is required.")</span>
+                    </div>
+                </div>
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="edit-iban">@Umbraco.GetDictionaryValue("[Cards]IBAN", "IBAN")</label>
+                    </div>
+                    <div class="item--input">
+                        <input class="plch-white" id="edit-iban"
+                               ng-model="vm.card.iban"
+                               ng-class="{'valid-error-input' : editCard.$submitted && editCard.iban.$error.required}"
+                               required>
+                        <span class="valid-error" ng-show="editCard.$submitted && editCard.iban.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "This field is required.")</span>
+                    </div>
+                </div>
+                <div class="item--input-label">
+                    <button class="popup-button button" ng-disabled="vm.processing" ng-class="{'disabled' : vm.processing}">@Umbraco.GetDictionaryValue("[Cards]Save", "Save")</button>
+                </div>
+                <div class="text-center" ng-show="vm.processing">
+                    <div class="processing mt-0">
+                        @if (TempData["FormSpinnerImage"] != null)
+                        {
+                            <img src="@TempData["FormSpinnerImage"]" />
+
+                        }
+                        else
+                        {
+                            <img src="~/Media/img/tail-spin.svg" />
+                        }
+                    </div>
+                </div>
+                <div class="response-failure" ng-show="vm.data.Errors">{{ vm.data.Errors.ErrorMessage }}</div>
+                <div class="response-success" ng-show="vm.success">{{ vm.success }}</div>
+            </form>
+        </div>
+    </div>

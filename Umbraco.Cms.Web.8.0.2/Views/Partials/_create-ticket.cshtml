@@ -1,0 +1,44 @@
+﻿@*@inherits UmbracoViewPage*@
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+<div class="popup-default new-ticket default-offset zoom-anim-dialog" id="new-ticket" ng-controller="createTicketController as vm">
+    <form name="createTicket" ng-submit="vm.submit()" novalidate>
+        <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Help]NewTicket","New Ticket")</h3>
+        <div class="height-36"></div>
+        <div class="item--input-label">
+            <div class="item--label">
+                <label for="contact-subject">@Umbraco.GetDictionaryValue("[Help]Subject","Subject")</label>
+            </div>
+            <div class="item--input">
+                <input id="contact-subject"
+                       name="title"
+                       ng-model="vm.ticket.title"
+                       ng-class="{'valid-error-input' : createTicket.$submitted && createTicket.title.$invalid}"
+                       required>
+                <span class="valid-error" ng-show="createTicket.$submitted && createTicket.title.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "Field is Required")</span>
+            </div>
+        </div>
+
+        <div class="item--input-label small-offset">
+            <div class="item--label">
+                <label for="text-message">@Umbraco.GetDictionaryValue("[Help]Message","Message")</label>
+            </div>
+            <div class="item--input">
+                <textarea id="text-message"
+                          name="description"
+                          ng-model="vm.ticket.description"
+                          ng-class="{'valid-error-input' : createTicket.$submitted && createTicket.description.$invalid}"
+                          required></textarea>
+                <span class="valid-error" ng-show="createTicket.$submitted && createTicket.description.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "Field is Required")</span>
+            </div>
+        </div>
+
+        @Html.Partial("_file_controller")
+
+        <div class="item--input-label small-offset">
+            <button class="popup-button button" ng-disabled="vm.processing" ng-class="{'disabled' : vm.processing}" type="submit">@Umbraco.GetDictionaryValue("[Help]Send","Send")</button>
+        </div>
+        @Html.Partial("_processing_angular")
+    </form>
+</div>

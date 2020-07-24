@@ -1,0 +1,99 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.GamePageViewModel>
+
+<div class="game-grid" ng-show="vm.gameGrid.length > 0">
+    <div class="grid">
+        <div class="item bounceIn" ng-repeat="game in vm.gameGrid | gamefilter: vm.filter" ng-style="{'animation-delay': (150 + $index * 1000 / vm.gameGrid.length ) + 'ms' }" data-gameprovider="{{game.GameProvider}}" data-subcategory="{{game.SubCategory}}">
+            <div ng-show="game.NewGame && vm.category !== 'poker'" class="corner-ribbon top-left sticky red shadow">@Umbraco.GetDictionaryValue("[Games]NewGame", "New")</div>
+            <div class="favorite-game" ng-show="game.Favourite && vm.category !== 'poker'" title="@Umbraco.GetDictionaryValue("[Games]FavoriteGame", "Favorite")">
+                <svg class="checked-star is-active" viewBox="0 0 14 14" width="14px">
+                    <use xlink:href="~/img/sprite-sports.svg#icon-favourites"></use>
+                </svg>
+            </div>
+            @*<span class="new-game" ng-show="game.NewGame && vm.category!=='poker'"><i class="icon-flag" title="@Umbraco.GetDictionaryValue("[Games]New", "New Games")"></i></span>*@
+            @*<span class="favorite-game" ng-show="game.Favourite && vm.category!=='poker'"><i class="icon-star" title="@Umbraco.GetDictionaryValue("[Games]FavoriteGame", "Favorite")"></i></span>*@
+            @*<span class="game-info" ng-show="vm.category!=='poker'"><i class="icon-info-sign" title="{{game.Description}}"></i></span>*@
+            @*<ul class="game-details">
+            <li title="@Umbraco.GetDictionaryValue("[Games]Provider", "Game Provider")" ng-show="game.Provider">@Umbraco.GetDictionaryValue("[Games]By", "By")&nbsp;{{game.GameProvider}}</li>
+            <li title="@Umbraco.GetDictionaryValue("[Games]SubCategory", "Game SubCategory")" ng-show="game.SubCategory">{{game.SubCategory}}</li>
+        </ul>*@
+            <a href="#popup-login" rel="modal:open" ng-show="!vm.isLoggedIn">
+                <img ng-src="{{ vm.getThumbnailImage(game.GameImages).Url }}" alt="{{game.Name}}">
+            </a>
+            <a href=""
+               ng-href="{{ game.DemoEnabled ? '#game-mode-selection': '?gameId='+game.GameId}}"
+               target="_self"
+               rel="{{ game.DemoEnabled ? 'modal:open':''}}"
+               ng-click="vm.selectGame(game)"
+               ng-show="vm.isLoggedIn">
+                <img ng-src="{{ vm.getThumbnailImage(game.GameImages).Url }}" alt="{{game.Name}}">
+            </a>
+            <div class="game-title-wrapper">
+                <div class="game-title" title="{{game.Description}}" data-provider="{{game.GameProvider}}">
+                    {{game.Name}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    var playText = !string.IsNullOrEmpty(Model.PlayButtonText) ? Model.PlayButtonText : Umbraco.GetDictionaryValue("[Games]PlayButtonText", "Play");
+    var demoText = !string.IsNullOrEmpty(Model.DemoButtonText) ? Model.DemoButtonText : Umbraco.GetDictionaryValue("[Games]DemoButtonText", "Demo");
+    var agreeText = !string.IsNullOrEmpty(Model.GameAgreeText) ? Model.GameAgreeText : Umbraco.GetDictionaryValue("[Games]GameModeAgreeTerms", "I do understand");
+    agreeText = string.Empty;
+    if (Model.IsLoggedIn)
+    {
+        <div class="hidden">
+            <div class="popup-default zoom-anim-dialog" id="game-mode-selection">
+                <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+                <div class="demo-play-wrapper" style="background: url('{{ vm.selectedGame.length > 0 ? vm.getFullImage(vm.selectedGame[0].GameImages).Url : '' }}') no-repeat center;background-size: 100% 100%;'}">
+                    <div class="dialog-heading">
+                        <h3 class="heading-popup">
+                            @*@Umbraco.GetDictionaryValue("[Games]SelectGameMode", "Game Mode")*@
+                            {{vm.selectedGame[0].Name}}
+                        </h3>
+                    </div>
+                    @*<div class="bottom-align" ng-show="vm.agreeTerms">*@
+                    <div class="bottom-align">
+                        <div class="demo-play-buttons">
+                            <a href="" ng-href="{{'?gameId='+ vm.selectedGame[0].GameId +'&mode=play'}}" class="btn btn-large" target="_self" ng-disabled="!vm.agreeTerms" ng-click="vm.openGame($event)">@playText</a>                                         '
+                            <a href="" ng-href="{{'?gameId='+ vm.selectedGame[0].GameId +'&mode=demo'}}" class="btn btn-large" target="_self" ng-disabled="!vm.agreeTerms" ng-click="vm.openGame($event)">@demoText</a>
+                        </div>
+                        @if (!string.IsNullOrEmpty(agreeText))
+                        {
+                            @*@if (!string.IsNullOrEmpty(Model.GameMessage))
+                                {
+                                    <div class="game-terms">
+                                        @Html.Raw(Model.GameMessage)
+                                    </div>*@
+                            <div class="demo-play-buttons">
+                                <div class="checkbox-static">
+                                    <label for="agreeToGameTerms">
+                                        <input class="checkbox-static--input" id="agreeToGameTerms" type="checkbox" required ng-click="vm.agreeTerms=!vm.agreeTerms" ng-checked="vm.agreeTerms" />
+                                        <span class="checkbox-static--text">@agreeText</span>
+                                        <h3 style="color:#fff;">{{vm.selectedGame[0].GameId}} {{vm.gameId}}</h3>
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <input type="hidden" ng-init="vm.agreeTerms=true" />
+                        }
+                        @if (Model.PageImages.Any())
+                        {
+                            <hr />
+                            <div class="demo-play-images">
+
+                                @foreach (var item in Model.PageImages)
+                                {
+                                    var media = Umbraco.Media(item.Key);
+                                    <img src="@media.Url" alt="@media.Name" />
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

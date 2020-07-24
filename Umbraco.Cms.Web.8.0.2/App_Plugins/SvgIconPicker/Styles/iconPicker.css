@@ -1,0 +1,69 @@
+﻿.SvgIconPicker .display-icon-data {
+  display: flex;
+}
+.SvgIconPicker .display-icon-data .display-icon {
+  padding: 10px;
+  width: 160px;
+}
+.SvgIconPicker .display-icon-data .display-icon .umb-sortable-thumbnails__action {
+  background: #fff;
+  border: 1px solid #B3AFBE;
+  border-radius: 50%;
+}
+.SvgIconPicker .display-icon-data .display-icon .umb-sortable-thumbnails__action:hover,
+.SvgIconPicker .display-icon-data .display-icon .umb-sortable-thumbnails__action:focus {
+  background: #efefef;
+  background: #00AEA2;
+  border-color: #00AEA2;
+  color: white;
+}
+.SvgIconPicker .display-icon-data .umb-sortable-thumbnails li {
+  margin: 0;
+}
+.SvgIconPicker .display-icon-data .actions {
+  display: flex;
+  flex-direction: column;
+  margin-left: 9px;
+}
+.SvgIconPickerOverlay .umb-iconpicker-item {
+  flex: initial;
+  width: 33%;
+  width: calc(100% / 3);
+  width: calc(100% / 4);
+  text-align: center;
+}
+.SvgIconPickerOverlay .umb-iconpicker-item svg {
+  width: 60%;
+  max-height: 60px;
+}
+.SvgIconPickerOverlay .form-search input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+/*.hello {
+
+    &.SvgIconPicker {
+        svg {
+            fill: red;
+        }
+
+        .display-icon-data .display-icon {
+            padding: 10px;
+            width: 300px;
+        }
+    }
+
+    &.SvgIconPickerOverlay {
+        svg {
+            fill: red;
+        }
+
+        .form-search {
+            margin-bottom: 20px;
+
+            input {
+                width: 100%;
+            }
+        }
+    }
+}*/

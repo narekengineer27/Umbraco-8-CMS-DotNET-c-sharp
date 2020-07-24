@@ -1,0 +1,23 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "svgCustomView",
+      "name": "Custom SVG Viewer",
+      "isReadOnly": true,
+      "icon": "icon-umb-media",
+      "editor": {
+        "view": "~/App_Plugins/SvgCustomViewer/view.html",
+        "valueType": "STRING",
+        "hideLabel": false
+      }
+    }
+  ],
+
+  "javascript": [
+    "~/App_Plugins/SvgCustomViewer/controller.js"
+  ],
+
+  "css": [
+    "~/App_Plugins/SvgCustomViewer/style.css"
+  ]
+}

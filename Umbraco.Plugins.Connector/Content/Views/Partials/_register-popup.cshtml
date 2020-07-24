@@ -1,0 +1,1012 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+@using Umbraco.Plugins.Connector.Models
+@using Umbraco.Plugins.Connector.Helpers
+@{
+
+    TenantPreferences preferences = Model.Preferences;
+    var currencies = Model.Currencies;
+    var defaultLanguage = Model.DefaultLanguage;
+    var currentLanguage = Model.CurrentLanguage.TwoLetterISOLanguageName;
+    var currentLanguageLocalization = Model.CurrentLanguage.ISOLanguangeName;
+
+    var termsAndConditionsText = Model.TermsAndConditionsText;
+    var termsAndConditionsPageUrl = Model.TermsAndConditionsPageUrl;
+    var cookiesPolicyPageUrl = Model.CookiesPolicyPageUrl;
+    var privacyPolicyPageUrl = Model.PrivacyPolicyPageUrl;
+    var steps = 1;
+    var currentStep = 0;
+    // add the steps according to preferences
+    if (preferences.Mobile.IsUsed) { steps++; }
+    if (preferences.Mobile.ValidationRequired) { steps++; }
+    if (preferences.Email.ValidationRequired) { steps++; }
+    string stepToGo = string.Empty;
+    string required = string.Empty;
+    string requiredMessage = string.Empty;
+    string invalidMessage = string.Empty;
+    string asterisk = string.Empty;
+    var dataMethod = string.Empty;
+    var defaultOddsDisplay = OddsDisplayHelper.Value("Decimal");
+}
+
+@if (preferences.Mobile.IsUsed)
+{
+    currentStep++;
+
+    <div class="popup-default registration-step default-offset zoom-anim-dialog" id="registration-step1">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[Register]RegisterTitle", "Registration")
+            @if (steps > 1)
+            {
+                <span class="step-count">@Umbraco.GetDictionaryValue("[Register]RegisterStep", "Step") <span class="cont-num">@currentStep </span>@Umbraco.GetDictionaryValue("[Register]RegisterOf", "of") @steps</span>
+            }
+        </h3>
+
+        <div class="height-36"></div>
+        <form id="insert-mobile-number">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@currentLanguage" />
+            <div class="step-popup registration-steps step1">
+                <div class="item--input-label">
+                    <div class="item--label">
+                        @{
+                            asterisk = preferences.Mobile.IsMandatory ? "*" : string.Empty;
+                            <label for="phone-number">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number") @asterisk</label>
+                        }
+                    </div>
+                    <div class="item--input phone-checked">
+                        <div class="custom-select select-bold float">
+                            <select class="select-phone select-black" name="countryCode" tabindex="1">
+                                <option value="">xx</option>
+                                @foreach (var countryCode in Model.PhoneCountryCodes)
+                                {
+                                    <option value="@countryCode">@countryCode</option>
+                                }
+                            </select>
+                        </div>
+                        @{
+                            required = preferences.Mobile.IsMandatory ? "required" : string.Empty;
+                            asterisk = preferences.Mobile.IsMandatory ? "*" : string.Empty;
+                            <input id="phone-number" @required placeholder="@Umbraco.GetDictionaryValue("[Register]PhoneNumberPlaceholder", "555-5555")" name="mobile" class="validate-target phone-number phone-format" data-validate-expression="@preferences.Mobile.Validation" data-validation-message="error-message" data-no-value="valid-error" min="@preferences.Mobile.MinValue" max="@preferences.Mobile.MaxValue" type="tel" pattern="@preferences.Mobile.Validation" tabindex="2">
+                            <span class="valid-error" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[Register]IncorrectOrInvalid", " is incorrect or invalid")</span>
+                        }
+                    </div>
+                </div>
+                @{
+                    stepToGo = preferences.Mobile.ValidationRequired ? "#registration-step2" : "#registration-step3";
+                    dataMethod = preferences.Mobile.ValidationRequired ? "sendSms" : "saveMobile";
+                }
+                <div class="item--input-label">
+                    <a class="popup popup-button button validate" href="@stepToGo" data-method="@dataMethod" data-form="insert-mobile-number" tabindex="3">
+                        @Umbraco.GetDictionaryValue("[Register]Continue", "Continue")
+                    </a>
+                </div>
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <p class="popup-text--gray text-center">
+                    @Umbraco.GetDictionaryValue("[Register]PhoneNumberInstructions", "Enter your mobile phone number and we will send you a verification code")
+                </p>
+                <div class="link--popup-default text-center"><a class="default-link" href="#popup-login" rel="modal:open">@Umbraco.GetDictionaryValue("[Site]AlreadyHaveAccount", "Already have an account?")</a></div>
+            </div>
+        </form>
+    </div>
+
+}
+@if (preferences.Mobile.ValidationRequired)
+{
+    currentStep++;
+
+    <div class="popup-default registration-step default-offset zoom-anim-dialog" id="registration-step2">
+        <div class="top-wrap--popup"><a class="link-back" href="#registration-step1"></a><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[Register]RegisterTitle", "Registration")
+            @if (steps > 1)
+            {
+                <span class="step-count">@Umbraco.GetDictionaryValue("[Register]RegisterStep", "Step") <span class="cont-num">@currentStep </span>@Umbraco.GetDictionaryValue("[Register]RegisterOf", "of") @steps</span>
+            }
+        </h3>
+        <div class="height-36"></div>
+        <form id="validate-mobile-number">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@currentLanguage" />
+            <input type="hidden" name="mobile" value="" />
+            <div class="step-popup registration-steps step2">
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="verification-code">@Umbraco.GetDictionaryValue("[Register]VerificationCode", "Verification Code")</label>
+                    </div>
+                    <div class="item--input">
+                        <input id="verification-code" name="code" placeholder="@Umbraco.GetDictionaryValue("[Register]VerificationCodePlaceholder", "XXXXXX")" class="validate-target" data-validate-expression="^[0-9]{6}$" data-validation-message="error-message" data-no-value="valid-error" required type="number">
+                        <span class="valid-error" style="display:none;">@Umbraco.GetDictionaryValue("[Register]VerificationCode", "Verification Code")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message" style="display:none;">@Umbraco.GetDictionaryValue("[Register]VerificationCodeInvalidOrExpired", "Verification code is invalid or expired")</span>
+                    </div>
+                </div>
+                @{
+                    stepToGo = "#registration-step3";
+                    <div class="item--input-label"><a class="popup popup-button button validate" href="@stepToGo" data-method="verifySms" data-form="validate-mobile-number">@Umbraco.GetDictionaryValue("[Register]EnterCode", "Enter Code")</a></div>
+                }
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <p class="popup-text--gray text-center">
+                    @Umbraco.GetDictionaryValue("[Register]Enter6DigitVerificationCode", "Enter the 6-digit verification code sent to")<span class="mobile-holder"></span>
+                </p>
+                <div class="link--popup-default text-center">
+                    <a class="default-link resend-code" href="#">
+                        @Umbraco.GetDictionaryValue("[Register]ResendCode", "Resend Code")
+                    </a>
+                    <div class="resend-time" style="display:none;">
+                        @Umbraco.GetDictionaryValue("[Register]Wait", "wait")
+                        <span class="wait-time"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+@{
+    currentStep++;
+}
+<div class="popup-default registration-step default-offset zoom-anim-dialog" id="registration-step3">
+    <div class="top-wrap--popup">
+        @if (preferences.Mobile.IsUsed)
+        {
+            string backTo = "#registration-step1";
+            <a class="link-back" href="@backTo"></a>
+        }
+        <span class="custom-close">X</span>
+    </div>
+    <h3 class="heading-popup">
+        @Umbraco.GetDictionaryValue("[Register]RegisterTitle", "Registration")
+        @if (steps > 1)
+        {
+            <span class="step-count">@Umbraco.GetDictionaryValue("[Register]RegisterStep", "Step") <span class="cont-num">@currentStep </span>@Umbraco.GetDictionaryValue("[Register]RegisterOf", "of") @steps</span>
+        }
+    </h3>
+    <div class="height-36"></div>
+    <form id="registration-step-3">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+        <input type="hidden" name="mobile" value="" />
+        <input type="hidden" name="language" value="@currentLanguage" />
+        <div class="step-popup registration-steps step3">
+            @if (preferences.Email.IsUsed)
+            {
+                required = preferences.Email.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.Email.IsMandatory ? "valid-error-email" : string.Empty;
+                invalidMessage = preferences.Email.Validation != null ? "error-message-email" : string.Empty;
+                asterisk = preferences.Email.IsMandatory ? "*" : string.Empty;
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="registration-email">@Umbraco.GetDictionaryValue("[Register]Email", "Email") @asterisk</label>
+                    </div>
+                    <div class="item--input">
+                        <input id="registration-email" name="email" @required placeholder="@Umbraco.GetDictionaryValue("[Register]EmailPlaceholder", "johndoe@email.com")" class="validate-target" data-validate-expression="@preferences.Email.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Email.MinValue" max="@preferences.Email.MaxValue">
+                        <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Email", "Email")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Email", "Email")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                    </div>
+                </div>
+            }
+            @if (preferences.Security.Password.IsUsed)
+            {
+                required = preferences.Security.Password.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.Security.Password.IsMandatory ? "valid-error-password" : string.Empty;
+                invalidMessage = preferences.Security.Password.Validation != null ? "error-message-password" : string.Empty;
+                asterisk = preferences.Security.Password.IsMandatory ? "*" : string.Empty;
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="registration-pass1">@Umbraco.GetDictionaryValue("[Register]Password", "Password") @asterisk</label>
+                    </div>
+                    <div class="item--input">
+                        <input type="password" id="registration-pass1" name="password" @required placeholder="@Umbraco.GetDictionaryValue("[Register]PasswordPlaceholder", "***********")" class="validate-target" data-validate-expression="@preferences.Security.Password.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Security.Password.MinValue" max="@preferences.Security.Password.MaxValue">
+                        <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                    </div>
+                </div>
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="registration-pass2">@Umbraco.GetDictionaryValue("[Register]ConfirmPassword", "Confirm Password")</label>
+                    </div>
+                    <div class="item--input">
+                        <input type="password" id="registration-pass2" @required placeholder="@Umbraco.GetDictionaryValue("[Register]PasswordPlaceholder", "***********")" class="validate-target" data-validate-expression="" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                        <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                        <span class="password-nomatch" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PasswordDoesNotMatch", "Passwords do not match")</span>
+                    </div>
+                </div>
+            }
+
+            @if (preferences.Title.IsUsed)
+            {
+                required = preferences.Title.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.Title.IsMandatory ? "valid-error-title" : string.Empty;
+                invalidMessage = preferences.Title.Validation != null ? "error-message-title" : string.Empty;
+                asterisk = preferences.Title.IsMandatory ? "*" : string.Empty;
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label>@Umbraco.GetDictionaryValue("[Register]Title", "Title") @asterisk</label>
+                    </div>
+                    <div class="flex--custom-select">
+                        <div class="custom-select select-bold">
+                            <select name="title" @required class="validate-target" data-validate-expression="@preferences.Title.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                <option value="">@Umbraco.GetDictionaryValue("[Register]Title", "Title")</option>
+                                @foreach (var title in Model.Titles)
+                                {
+                                    <option value="@title">@title</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Title", "Title")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                    <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Title", "Title")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                </div>
+            }
+
+            <div class="item--input-fifty">
+                @if (preferences.FirstName.IsUsed)
+                {
+                    required = preferences.FirstName.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.FirstName.IsMandatory ? "valid-error-firstname" : string.Empty;
+                    invalidMessage = preferences.FirstName.Validation != null ? "error-message-firstname" : string.Empty;
+                    asterisk = preferences.FirstName.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="registration-name1">@Umbraco.GetDictionaryValue("[Register]FirstName", "First Name") @asterisk</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="registration-name1" name="firstname" @required placeholder="@Umbraco.GetDictionaryValue("[Register]FirstNamePlaceholder", "John")" class="validate-target" data-validate-expression="@preferences.FirstName.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.FirstName.MinValue" max="@preferences.FirstName.MaxValue">
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]FirstName", "First Name")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]FirstName", "First Name")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                        </div>
+                    </div>
+                }
+                @if (preferences.LastName.IsUsed)
+                {
+                    required = preferences.LastName.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.LastName.IsMandatory ? "valid-error-lastname" : string.Empty;
+                    invalidMessage = preferences.LastName.Validation != null ? "error-message-lastname" : string.Empty;
+                    asterisk = preferences.LastName.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="registration-name2">@Umbraco.GetDictionaryValue("[Register]LastName", "Last Name") @asterisk</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="registration-name2" name="lastname" @required placeholder="@Umbraco.GetDictionaryValue("[Register]LastNamePlaceholder", "Doe")" class="validate-target" data-validate-expression="@preferences.LastName.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.LastName.MinValue" max="@preferences.LastName.MaxValue">
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]LastName", "Last Name")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]LastName", "Last Name")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (preferences.Security.Username.IsUsed)
+            {
+                required = preferences.Security.Username.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.Security.Username.IsMandatory ? "valid-error-username" : string.Empty;
+                invalidMessage = preferences.Security.Username.Validation != null ? "error-message-username" : "error-message-username";
+                asterisk = preferences.Security.Username.IsMandatory ? "*" : string.Empty;
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="registration-user">@Umbraco.GetDictionaryValue("[Register]Username", "Username") @asterisk</label>
+                    </div>
+                    <div class="item--input">
+                        <input id="registration-user" name="username" @required placeholder="@Umbraco.GetDictionaryValue("[Register]UsernamePlaceholder", "johndoe")" value="" class="validate-target" data-validate-expression="@preferences.Security.Username.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Security.Username.MinValue" max="@preferences.Security.Username.MaxValue">
+                        <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Username", "Username")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Username", "Username")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")&nbsp;(@Umbraco.GetDictionaryValue("[Register]UsernameRequirements", "Only letters and digits and _ allowed, minimum 5 characters, digits only not allowed"))</span>
+                    </div>
+                </div>
+            }
+            @if (preferences.Address.AddressLine1.IsUsed)
+            {
+                required = preferences.Address.AddressLine1.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.Address.AddressLine1.IsMandatory ? "valid-error-address1" : string.Empty;
+                invalidMessage = preferences.Address.AddressLine1.Validation != null ? "error-message-address1" : string.Empty;
+                asterisk = preferences.Address.AddressLine1.IsMandatory ? "*" : string.Empty;
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="registration-address1">@Umbraco.GetDictionaryValue("[Register]Address1", "Address") @asterisk</label>
+                    </div>
+                    <div class="item--input">
+                        <input id="registration-address1" name="address1" @required placeholder="@Umbraco.GetDictionaryValue("[Register]Address1Placeholder", "123 Sesame St")" class="validate-target" data-validate-expression="@preferences.Address.AddressLine1.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.AddressLine1.MinValue" max="@preferences.Address.AddressLine1.MaxValue">
+                        <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Address1", "Address1")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Address1", "Address1")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                    </div>
+                </div>
+            }
+            <div class="item--input-fifty">
+                @if (preferences.Address.AddressLine2.IsUsed)
+                {
+                    required = preferences.Address.AddressLine2.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.Address.AddressLine2.IsMandatory ? "valid-error-address2" : string.Empty;
+                    invalidMessage = preferences.Address.AddressLine2.Validation != null ? "error-message-address2" : string.Empty;
+                    asterisk = preferences.Address.AddressLine2.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="registration-address2">@Umbraco.GetDictionaryValue("[Register]Address2", "Address 2") @asterisk</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="registration-address2" name="address2" @required placeholder="@Umbraco.GetDictionaryValue("[Register]Address2Placeholder", "Apt. 33")" class="validate-target" data-validate-expression="@preferences.Address.AddressLine2.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.AddressLine2.MinValue" max="@preferences.Address.AddressLine2.MaxValue">
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Address2", "Address 2")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Address2", "Address 2")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                        </div>
+                    </div>
+                }
+                @if (preferences.Address.AddressLine3.IsUsed)
+                {
+                    required = preferences.Address.AddressLine3.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.Address.AddressLine3.IsMandatory ? "valid-error-address3" : string.Empty;
+                    invalidMessage = preferences.Address.AddressLine3.Validation != null ? "error-message-address3" : string.Empty;
+                    asterisk = preferences.Address.AddressLine3.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="registration-address3">@Umbraco.GetDictionaryValue("[Register]Address3", "Address 3") @asterisk</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="registration-address3" name="address3" @required placeholder="@Umbraco.GetDictionaryValue("[Register]Address3Placeholder", "block b")" class="validate-target" data-validate-expression="@preferences.Address.AddressLine3.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.AddressLine3.MinValue" max="@preferences.Address.AddressLine3.MaxValue">
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Address3", "Address 3")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Address3", "Address 3")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="item--input-fifty">
+                @if (preferences.Address.CityOrTown.IsUsed)
+                {
+                    required = preferences.Address.CityOrTown.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.Address.CityOrTown.IsMandatory ? "valid-error-town" : string.Empty;
+                    invalidMessage = preferences.Address.CityOrTown.Validation != null ? "error-message-town" : string.Empty;
+                    asterisk = preferences.Address.CityOrTown.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="registration-town">@Umbraco.GetDictionaryValue("[Register]CityOrTown", "Town") @asterisk</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="registration-town" name="town" @required placeholder="@Umbraco.GetDictionaryValue("[Register]CityOrTownPlaceholder", "Miami")" class="validate-target" data-validate-expression="@preferences.Address.CityOrTown.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.CityOrTown.MinValue" max="@preferences.Address.CityOrTown.MaxValue">
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]CityOrTown", "Town")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]CityOrTown", "Town")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                        </div>
+                    </div>
+                }
+                @if (preferences.Address.PostalCode.IsUsed)
+                {
+                    required = preferences.Address.PostalCode.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.Address.PostalCode.IsMandatory ? "valid-error-postalcode" : string.Empty;
+                    invalidMessage = preferences.Address.PostalCode.Validation != null ? "error-message-postalcode" : string.Empty;
+                    asterisk = preferences.Address.PostalCode.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="registration-postalcode">@Umbraco.GetDictionaryValue("[Register]PostalCode", "Postal Code") @asterisk</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="registration-postalcode" name="postalcode" @required placeholder="@Umbraco.GetDictionaryValue("[Register]PostalCodePlaceholder", "33324")" class="validate-target" data-validate-expression="@preferences.Address.PostalCode.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.PostalCode.MinValue" max="@preferences.Address.PostalCode.MaxValue">
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PostalCode", "Postal Code")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PostalCode", "Postal Code")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="item--input-fifty">
+                @if (preferences.Country.IsUsed)
+                {
+                    required = preferences.Country.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.Country.IsMandatory ? "valid-error-country" : string.Empty;
+                    invalidMessage = preferences.Country.Validation != null ? "error-message-country" : string.Empty;
+                    asterisk = preferences.Country.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label>@Umbraco.GetDictionaryValue("[Register]Country", "Country") @asterisk</label>
+                        </div>
+                        <div class="flex--custom-select">
+                            <div class="custom-select select-bold">
+                                <select name="country" @required class="validate-target" data-validate-expression="@preferences.Title.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                    <option value="">@Umbraco.GetDictionaryValue("[Register]Country", "Country")</option>
+                                    @foreach (var country in Model.Countries)
+                                    {
+                                        <option value="@country.Code">@country.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Country", "Country")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Country", "Country")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                    </div>
+                }
+
+                @if (preferences.Gender.IsUsed)
+                {
+                    required = preferences.Gender.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.Gender.IsMandatory ? "valid-error-gender" : string.Empty;
+                    invalidMessage = preferences.Gender.Validation != null ? "error-message-gender" : string.Empty;
+                    asterisk = preferences.Gender.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label>
+                                @Umbraco.GetDictionaryValue("[Register]Gender", "Gender") @asterisk
+                            </label>
+                        </div>
+                        <div class="payment--select-price payment--gender">
+                            @foreach (var gender in Model.Genders)
+                            {
+                                <label class="radio--select-price">
+                                    <input type="radio" name="gender" value="@gender" @required class="validate-target" data-validate-expression="@preferences.Gender.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                    <span class="text--select-price">@Umbraco.GetDictionaryValue(DefaultAllowedValues.GetGenderDisplayName(gender))</span>
+                                </label>
+                            }
+                        </div>
+                        <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Gender", "Gender")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Gender", "Gender")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                    </div>
+                }
+            </div>
+            @if (preferences.DateOfBirth.IsUsed)
+            {
+                required = preferences.DateOfBirth.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.DateOfBirth.IsMandatory ? "valid-error-dob" : string.Empty;
+                invalidMessage = preferences.DateOfBirth.Validation != null ? "error-message-dob" : string.Empty;
+                asterisk = preferences.DateOfBirth.IsMandatory ? "*" : string.Empty;
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label>@Umbraco.GetDictionaryValue("[Register]DateOfBirth", "Date of Birth") @asterisk</label>
+                    </div>
+                    <div class="flex--custom-select thirds">
+                        <div class="custom-select select-bold">
+                            <select name="day" @required class="validate-target" data-validate-expression="@preferences.DateOfBirth.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                <option value="">@Umbraco.GetDictionaryValue("[Register]DateOfBirthDay", "Day")</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                        <div class="custom-select select-bold mounth">
+                            <select name="month" @required class="validate-target" data-validate-expression="@preferences.DateOfBirth.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                <option value="">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonth", "Month")</option>
+                                <option value="1">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthJanuary", "January")</option>
+                                <option value="2">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthFebruary", "February")</option>
+                                <option value="4">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthMarch", "March")</option>
+                                <option value="3">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthApril", "April")</option>
+                                <option value="5">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthMay", "May")</option>
+                                <option value="6">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthJune", "June")</option>
+                                <option value="7">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthJuly", "July")</option>
+                                <option value="8">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthAugust", "August")</option>
+                                <option value="9">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthSeptember", "September")</option>
+                                <option value="10">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthOctober", "October")</option>
+                                <option value="11">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthNovember", "November")</option>
+                                <option value="12">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthDecember", "December")</option>
+                            </select>
+                        </div>
+                        <div class="custom-select select-bold">
+                            <select name="year" @required class="validate-target" data-validate-expression="@preferences.DateOfBirth.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                <option value="">
+                                    @Umbraco.GetDictionaryValue("[Register]DateOfBirthYear", "Year")
+                                </option>
+                                @foreach (var year in Model.Years)
+                                {
+                                    <option value="@year">@year</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]DateOfBirth", "Date of Birth")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                    <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]DateOfBirth", "Date of Birth")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                </div>
+            }
+
+            @if (preferences.Preferences.DefaultCurrency.IsUsed || preferences.Preferences.DefaultLanguage.IsUsed || preferences.Preferences.OddsDisplay.IsUsed || preferences.Preferences.TimeZone.IsUsed)
+            {
+                var requiredDefaultCurrency = preferences.Preferences.DefaultCurrency.IsMandatory ? "required" : string.Empty;
+                var requiredMessageDefaultCurrency = preferences.Preferences.DefaultCurrency.IsMandatory ? "valid-error-defaultcurrency" : string.Empty;
+                var invalidMessageDefaultCurrency = preferences.Preferences.DefaultCurrency.Validation != null ? "error-message-defaultcurrency" : string.Empty;
+                var requiredDefaultLanguage = preferences.Preferences.DefaultLanguage.IsMandatory ? "required" : string.Empty;
+                var requiredMessageDefaultLanguage = preferences.Preferences.DefaultLanguage.IsMandatory ? "valid-error-defaultlanguage" : string.Empty;
+                var invalidMessageDefaultLanguage = preferences.Preferences.DefaultLanguage.Validation != null ? "error-message-defaultlanguage" : string.Empty;
+                var requiredOdds = preferences.Preferences.OddsDisplay.IsMandatory ? "required" : string.Empty;
+                var requiredMessageOdds = preferences.Preferences.OddsDisplay.IsMandatory ? "valid-error-oddsdisplay" : string.Empty;
+                var invalidMessageOdds = preferences.Preferences.OddsDisplay.Validation != null ? "error-message-oddsdisplay" : string.Empty;
+                var requiredTimeZone = preferences.Preferences.TimeZone.IsMandatory ? "required" : string.Empty;
+                var requiredMessageTimeZone = preferences.Preferences.TimeZone.IsMandatory ? "valid-error-timezone" : string.Empty;
+                var invalidMessageTimeZone = preferences.Preferences.TimeZone.Validation != null ? "error-message-timezone" : string.Empty;
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label>@Umbraco.GetDictionaryValue("[Register]Preferences", "Preferences")</label>
+                    </div>
+                </div>
+                <div class="item--input-label">
+                    <div class="flex--custom-select thirds">
+                        @if (preferences.Preferences.DefaultCurrency.IsUsed)
+                        {
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[Register]Currency", "Currency")</label>
+                            </div>
+                        }
+                        @if (preferences.Preferences.DefaultLanguage.IsUsed)
+                        {
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[Register]Language", "Language")</label>
+                            </div>
+                        }
+                        @if (preferences.Preferences.OddsDisplay.IsUsed)
+                        {
+                            @*<div class="item--label">
+                                    <label>@Umbraco.GetDictionaryValue("[Register]OddsDisplay", "Odds Display")</label>
+                                </div>*@
+                        }
+                        @if (preferences.Preferences.TimeZone.IsUsed)
+                        {
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[Register]TimeZone", "Time Zone")</label>
+                            </div>
+                        }
+                    </div>
+                    <div class="flex--custom-select thirds">
+                        @if (preferences.Preferences.DefaultCurrency.IsUsed)
+                        {
+                            asterisk = preferences.Preferences.DefaultCurrency.IsMandatory ? "*" : string.Empty;
+                            <div class="custom-select select-bold" data-validation-message="@invalidMessage">
+                                <select name="currency" @requiredDefaultCurrency class="validate-target" data-validate-expression="@preferences.Preferences.DefaultCurrency.Validation" data-validation-message="@invalidMessageDefaultCurrency" data-no-value="@requiredMessageDefaultCurrency" data-prepopulated="true">
+                                    <option value="">@Umbraco.GetDictionaryValue("[Register]Currency", "Currency")</option>
+
+                                    @foreach (var currency in Model.Currencies)
+                                    {
+                                        var selected = preferences.Preferences.DefaultCurrency != null && preferences.Preferences.DefaultCurrency.AllowedValues != null && preferences.Preferences.DefaultCurrency.AllowedValues[0].Equals(currency.Code) ? "selected" : string.Empty;
+                                        <option value="@currency.Code" @selected>@currency.Name</option>
+                                    }
+                                </select>
+                                <div class="asterisk">@asterisk</div>
+
+                            </div>
+                        }
+                        @if (preferences.Preferences.DefaultLanguage.IsUsed)
+                        {
+                            asterisk = preferences.Preferences.DefaultLanguage.IsMandatory ? "*" : string.Empty;
+                            <div class="custom-select select-bold" data-validation-message="@invalidMessage">
+                                <select name="language" @requiredDefaultLanguage class="validate-target" data-validate-expression="@preferences.Preferences.DefaultLanguage.Validation" data-validation-message="@invalidMessageDefaultLanguage" data-no-value="@requiredMessageDefaultLanguage" data-prepopulated="true">
+                                    <option value="">@Umbraco.GetDictionaryValue("[Register]Language", "Language")</option>
+                                    @foreach (var language in Model.Languages)
+                                    {
+                                        var selected = defaultLanguage.Equals(language.ISOLanguangeName) ? "selected" : string.Empty;
+                                        // TODO: remove omission of language variation
+                                        <option value="@language.TwoLetterISOLanguageName" @selected>@language.Title</option>
+                                    }
+                                </select>
+                                <div class="asterisk">@asterisk</div>
+
+                            </div>
+                        }
+                        @if (preferences.Preferences.OddsDisplay.IsUsed)
+                        {
+                            @*asterisk = preferences.Preferences.OddsDisplay.IsMandatory ? "*" : string.Empty;
+                                <div class="custom-select select-bold" data-validation-message="@invalidMessage">
+                                    <select name="odds" @requiredOdds class="validate-target" data-validate-expression="@preferences.Preferences.OddsDisplay.Validation" data-validation-message="@invalidMessageOdds" data-no-value="@requiredMessageOdds">
+                                        <option value="">
+                                            @Umbraco.GetDictionaryValue("[Register]OddsDisplay", "Odds Display")
+                                        </option>
+                                        @foreach (var odd in Model.Odds)
+                                        {
+                                            <option value="@OddsDisplayHelper.Value(odd)">@odd</option>
+                                        }
+                                    </select>
+                                    <div class="asterisk">@asterisk</div>
+
+                                </div>*@
+                            <input type="hidden" name="odds" value="" />
+                            @*<input type="hidden" name="odds" value="@defaultOddsDisplay" />*@
+                        }
+                        @if (preferences.Preferences.TimeZone.IsUsed)
+                        {
+                            asterisk = preferences.Preferences.TimeZone.IsMandatory ? "*" : string.Empty;
+                            @*if (preferences.Preferences.DefaultCurrency.IsUsed && preferences.Preferences.DefaultLanguage.IsUsed && preferences.Preferences.OddsDisplay.IsUsed)
+                                {
+                                @:</div>
+                                <br />
+                                <div class="flex--custom-select thirds">
+                                    <div class="item--label">
+                                        <label>@Umbraco.GetDictionaryValue("[Register]TimeZone", "Time Zone")</label>
+                                    </div>
+                                </div>
+                                @:<div class="flex--custom-select">
+                                }*@
+                            <div class="custom-select select-bold" data-validation-message="@invalidMessage">
+                                <select name="timezone" @requiredTimeZone class="validate-target" data-validate-expression="@preferences.Preferences.TimeZone.Validation" data-validation-message="@invalidMessageTimeZone" data-no-value="@requiredMessageTimeZone">
+                                    <option value="">
+                                        @Umbraco.GetDictionaryValue("[Register]TimeZone", "Time Zone")
+                                    </option>
+                                    @foreach (var zone in Model.TimeZones)
+                                    {
+                                        <option value="@zone.Code">@zone.DisplayName</option>
+                                    }
+                                </select>
+                                <div class="asterisk">@asterisk</div>
+
+                            </div>
+
+                        }
+                    </div>
+                    <span class="valid-error @requiredMessageDefaultCurrency" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Currency", "Currency")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                    <span class="error-message @invalidMessageDefaultCurrency" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Currency", "Currency")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                    <span class="valid-error @requiredMessageDefaultLanguage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Language", "Language")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                    <span class="error-message @invalidMessageDefaultLanguage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Language", "Language")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                    <span class="valid-error @requiredMessageTimeZone" style="display:none;">@Umbraco.GetDictionaryValue("[Register]TimeZone", "Time Zone")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                    <span class="error-message @invalidMessageTimeZone" style="display:none;">@Umbraco.GetDictionaryValue("[Register]TimeZone", "Time Zone")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                    <span class="valid-error @requiredMessageOdds" style="display:none;">@Umbraco.GetDictionaryValue("[Register]OddsDisplay", "Odds")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                    <span class="error-message @invalidMessageOdds" style="display:none;">@Umbraco.GetDictionaryValue("[Register]OddsDisplay", "Odds")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                </div>
+            }
+
+            <div class="item--input-fifty">
+                @if (preferences.BonusCode.IsUsed)
+                {
+                    required = preferences.BonusCode.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.BonusCode.IsMandatory ? "valid-error-bonuscode" : string.Empty;
+                    invalidMessage = preferences.BonusCode.Validation != null ? "error-message-bonuscode" : string.Empty;
+                    asterisk = preferences.BonusCode.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="registration-bonuscode">@Umbraco.GetDictionaryValue("[Register]BonusCode", "Bonus Code") @asterisk</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="registration-bonuscode" name="bonuscode" @required placeholder="@Umbraco.GetDictionaryValue("[Register]BonusCodePlaceholder", "Bonus Code")" class="validate-target" data-validate-expression="@preferences.BonusCode.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.BonusCode.MinValue" max="@preferences.BonusCode.MaxValue" type="text">
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]BonusCode", "Bonus Code")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]BonusCode", "Bonus Code")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                        </div>
+                    </div>
+                }
+                @if (preferences.Referrer.IsUsed)
+                {
+                    required = preferences.Referrer.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.Referrer.IsMandatory ? "valid-error-referrer" : string.Empty;
+                    invalidMessage = preferences.Referrer.Validation != null ? "error-message-referrer" : string.Empty;
+                    asterisk = preferences.Referrer.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="registration-referrer">@Umbraco.GetDictionaryValue("[Register]Referrer", "Referrer") @asterisk</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="registration-referrer" name="referrer" @required placeholder="@Umbraco.GetDictionaryValue("[Register]ReferrerPlaceholder", "Referrer")" class="validate-target" data-validate-expression="@preferences.Referrer.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Referrer.MinValue" max="@preferences.Referrer.MaxValue" type="text">
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Referrer", "Referrer")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Referrer", "Referrer")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (preferences.ReceiveNotifications?.IsUsed == true)
+            {
+                required = preferences.ReceiveNotifications.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.ReceiveNotifications.IsMandatory ? "valid-error-notifications" : string.Empty;
+                asterisk = preferences.ReceiveNotifications.IsMandatory ? "*" : string.Empty;
+                <div class="label-payment--fill">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input validate-target" type="checkbox" @required data-validate-expression="" data-validation-message="" data-no-value="@requiredMessage" name="notify" />
+                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Register]ReceiveNotifications", "Receive Notifications") @asterisk</span>
+                    </label>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]ReceiveNotifications", "Receive Notifications")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                </div>
+            }
+            @if (preferences.ReceiveNotificationsViaInPlatformMessages?.IsUsed == true)
+            {
+                required = preferences.ReceiveNotificationsViaInPlatformMessages.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.ReceiveNotificationsViaInPlatformMessages.IsMandatory ? "valid-error-notifications-inplatform" : string.Empty;
+                asterisk = preferences.ReceiveNotificationsViaInPlatformMessages.IsMandatory ? "*" : string.Empty;
+                <div class="label-payment--fill">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input validate-target" type="checkbox" @required data-validate-expression="" data-validation-message="" data-no-value="@requiredMessage" name="notifyViaPlatform" />
+                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Register]ReceiveNotificationsViaInPlatformMessages", "Receive Notifications via In-Platform") @asterisk</span>
+                    </label>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]ReceiveNotificationsViaInPlatformMessages", "Receive Notifications via In-Platform")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                </div>
+            }
+            @if (preferences.ReceiveNotificationsViaEmail?.IsUsed == true)
+            {
+                required = preferences.ReceiveNotificationsViaEmail.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.ReceiveNotificationsViaEmail.IsMandatory ? "valid-error-notifications-email" : string.Empty;
+                asterisk = preferences.ReceiveNotificationsViaEmail.IsMandatory ? "*" : string.Empty;
+                <div class="label-payment--fill">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input validate-target" type="checkbox" @required data-validate-expression="" data-validation-message="" data-no-value="@requiredMessage" name="notifyViaEmail" />
+                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Register]ReceiveNotificationsViaEmail", "Receive Notifications via Email") @asterisk</span>
+                    </label>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]ReceiveNotificationsViaEmail", "Receive Notifications via Email")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                </div>
+            }
+            @if (preferences.ReceiveNotificationsViaSMS?.IsUsed == true)
+            {
+                required = preferences.ReceiveNotificationsViaSMS.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.ReceiveNotificationsViaSMS.IsMandatory ? "valid-error-notifications-sms" : string.Empty;
+                asterisk = preferences.ReceiveNotificationsViaSMS.IsMandatory ? "*" : string.Empty;
+                <div class="label-payment--fill">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input validate-target" type="checkbox" @required data-validate-expression="" data-validation-message="" data-no-value="@requiredMessage" name="notifyViaSms" />
+                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Register]ReceiveNotificationsViaSMS", "Receive Notifications via SMS") @asterisk</span>
+                    </label>
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]ReceiveNotificationsViaSMS", "Receive Notifications via SMS")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                </div>
+            }
+
+            <div class="label-payment--fill">
+                <label class="checkbox-static">
+                    <input class="checkbox-static--input validate-target" type="checkbox" required data-validate-expression="" data-validation-message="" data-no-value="valid-error-terms" />
+                    <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Register]IAgreeWithThe", "I agree with the") <a href="@termsAndConditionsPageUrl" target="_blank">@Umbraco.GetDictionaryValue("[Register]TermsAndConditions", "terms and conditions")</a> *</span>
+                </label>
+                <span class="valid-error valid-error-terms" style="display:none;">@termsAndConditionsText @Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+            </div>
+            @if (preferences.Age.MinValue != null && int.Parse(preferences.Age.MinValue.ToString()) > 0)
+            {
+                <div class="label-payment--fill">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input validate-target" type="checkbox" required data-validate-expression="" data-validation-message="" data-no-value="valid-error-age" />
+                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Register]MinimumAge", "I am at least") @preferences.Age.MinValue.ToString() @Umbraco.GetDictionaryValue("[Register]AgeYearsOld", " years old") *</span>
+                    </label>
+                    <span class="valid-error valid-error-age" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Age", "Minimum Age") @Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                </div>
+            }
+            @*<div class="item--input-label">
+                    <div class="item--label">
+                        <a href="@cookiesPolicyPageUrl" target="_blank">@Umbraco.GetDictionaryValue("[Register]CookiesPolicy", "Cookies Policy")</a>  <a href="@privacyPolicyPageUrl" target="_blank">@Umbraco.GetDictionaryValue("[Register]PrivacyPolicy", "Privacy Policy")</a>
+                    </div>
+                </div>*@
+            <div class="item--input-label">
+                @{
+                    stepToGo = preferences.Email.ValidationRequired ? "#verification-emeil--you" : "#registration-successful";
+                    <a class="popup popup-button button validate" href="@stepToGo" data-method="register" data-form="registration-step-3">@Umbraco.GetDictionaryValue("[Register]Finish", "Finish")</a>
+                }
+            </div>
+            @Html.Partial("_processing")
+            @Html.Partial("_server-errors-display")
+            <div class="resend-wrapper text-center"></div>
+        </div>
+    </form>
+</div>
+
+<div class="popup-default popup-send default-offset zoom-anim-dialog message-status" id="registration-successful">
+    <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+    <h3 class="heading-default text-center">
+        @Umbraco.GetDictionaryValue("[Register]RegisterTitle", "Registration")&nbsp;@Umbraco.GetDictionaryValue("[Others]Successful", "Successful")
+    </h3>
+    <div class="wrap--send-button text-center">
+        <a class="popup popup-button button" href="#" rel="modal:close">@Umbraco.GetDictionaryValue("[Others]Close", "Close")</a>
+        @*<a class="popup popup-button button" href="#popup-login" rel="modal:open">@Umbraco.GetDictionaryValue("[Others]ProceedToLogin", "Proceed to Login")</a>*@
+    </div>
+    @if (preferences.Email.IsUsed && preferences.Email.ValidationRequired)
+    {
+        <div class="wrap--send-button text-center">
+            <form id="resend-email-code-finish" class="resend-email-code">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                <input type="hidden" name="language" value="@currentLanguage" />
+                <input type="hidden" name="email" value="" />
+                <input type="hidden" name="id" value="" />
+                <a class="button send-button" href="#" id="resend-button">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmail", "Resend Verification Email")</a>
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <div class="wrapper-popup--message text-center"><span class="message-verification" style="display:none;">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmailSent", "New verification email has been sent")</span></div>
+            </form>
+        </div>
+    }
+</div>
+
+@if (preferences.Email.ValidationRequired)
+{
+    currentStep++;
+    stepToGo = preferences.Mobile.ValidationRequired ? "#registration-step1-change-email" : "#change-email-step";
+
+    <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="verification-emeil--you">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[Register]RegisterTitle", "Registration")
+            @if (steps > 1)
+            {
+                <span class="step-count">@Umbraco.GetDictionaryValue("[Register]RegisterStep", "Step") <span class="cont-num">@currentStep </span>@Umbraco.GetDictionaryValue("[Register]RegisterOf", "of") @steps</span>
+            }
+        </h3>
+        <h3 class="heading-default text-center">
+            @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToTitle", "Email verification has been sent to your email")
+        </h3>
+        <p class="gray--text-info">
+            @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentTo", "We now need to verify your email address.We’ve sent an email to") <span class="email-holder"></span> @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToPleaseClick", "to verify your address. Please click the link in that email to continue.")
+        </p>
+
+        <div class="wrap--send-button text-center">
+            <form id="resend-email-code" class="resend-email-code">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                <input type="hidden" name="language" value="@currentLanguage" />
+                <input type="hidden" name="email" value="" />
+                <input type="hidden" name="id" value="" />
+                <a class="button send-button" href="#" id="resend-button">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmail", "Resend Verification Email")</a>
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <div class="wrapper-popup--message text-center"><span class="message-verification" style="display:none;">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmailSent", "New verification email has been sent")</span></div>
+            </form>
+        </div>
+        <div class="resend-wrapper text-center"><a class="popup default-link change-email-link" href="@stepToGo">@Umbraco.GetDictionaryValue("[Register]ChangeEmail", "Change Email Address")</a></div>
+    </div>
+
+    <div class="popup-default registration-step default-offset zoom-anim-dialog" id="registration-step1-change-email">
+        <div class="top-wrap--popup"><a class="link-back" href="#verification-emeil--you"></a><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[Register]RegisterTitle", "Registration")
+        </h3>
+        <div class="height-36"></div>
+        <form id="insert-mobile-number-change-email">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@currentLanguage" />
+            <div class="step-popup registration-steps step1">
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="phone-number-change-email">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")</label>
+                    </div>
+                    <div class="item--input phone-checked">
+                        <div class="custom-select select-bold float">
+                            <select class="select-phone select-black" name="countryCode">
+                                <option value="">xx</option>
+
+                                @foreach (var countryCode in Model.PhoneCountryCodes)
+                                {
+                                    <option value="@countryCode">@countryCode</option>
+                                }
+
+                            </select>
+                        </div>
+                        @{
+                            required = preferences.Mobile.IsMandatory ? "required" : string.Empty;
+                            <input id="phone-number-change-email" @required placeholder="@Umbraco.GetDictionaryValue("[Register]PhoneNumberPlaceholder", "555-5555")" name="mobile" class="validate-target phone-number phone-format" data-validate-expression="@preferences.Mobile.Validation" data-validation-message="error-message" data-no-value="valid-error" min="@preferences.Mobile.MinValue" max="@preferences.Mobile.MaxValue" type="tel" pattern="@preferences.Mobile.Validation">
+                            <span class="valid-error" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[Register]IncorrectOrInvalid", " is incorrect or invalid")</span>
+                        }
+                    </div>
+                </div>
+                @{
+                    stepToGo = preferences.Mobile.ValidationRequired ? "#registration-step2-change-email" : "#verification-emeil--you";
+                    dataMethod = preferences.Mobile.ValidationRequired ? "sendSms" : "saveMobile";
+                }
+                <div class="item--input-label">
+                    <a class="popup popup-button button validate" href="@stepToGo" data-method="@dataMethod" data-form="insert-mobile-number">
+                        @Umbraco.GetDictionaryValue("[Register]Continue", "Continue")
+                    </a>
+                </div>
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <p class="popup-text--gray text-center">
+                    @Umbraco.GetDictionaryValue("[Register]PhoneNumberInstructions", "Enter your mobile phone number and we will send you a verification code")
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <div class="popup-default registration-step default-offset zoom-anim-dialog" id="registration-step2-change-email">
+        <div class="top-wrap--popup"><a class="link-back" href="#registration-step1-change-email"></a><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[Register]RegisterTitle", "Registration")
+        </h3>
+        <div class="height-36"></div>
+        <form id="validate-mobile-number-change-email">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@currentLanguage" />
+            <input type="hidden" name="mobile" value="" />
+            <div class="step-popup registration-steps step2">
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="verification-code-change-email">@Umbraco.GetDictionaryValue("[Register]VerificationCode", "Verification Code")</label>
+                    </div>
+                    <div class="item--input">
+                        <input id="verification-code-change-email" name="code" placeholder="@Umbraco.GetDictionaryValue("[Register]VerificationCodePlaceholder", "XXXXXX")" class="validate-target" data-validate-expression="^[0-9]{6}$" data-validation-message="error-message" data-no-value="valid-error" required type="number">
+                        <span class="valid-error" style="display:none;">@Umbraco.GetDictionaryValue("[Register]VerificationCode", "Verification Code")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message" style="display:none;">@Umbraco.GetDictionaryValue("[Register]VerificationCodeInvalidOrExpired", "Verification code is invalid or expired")</span>
+                    </div>
+                </div>
+                @{
+                    stepToGo = "#change-email-step";
+                    <div class="item--input-label"><a class="popup popup-button button validate" href="@stepToGo" data-method="verifySms" data-form="validate-mobile-number-change-email">@Umbraco.GetDictionaryValue("[Register]EnterCode", "Enter Code")</a></div>
+                }
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <p class="popup-text--gray text-center">
+                    @Umbraco.GetDictionaryValue("[Register]Enter6DigitVerificationCode", "Enter the 6-digit verification code sent to")<span class="mobile-holder"></span>
+                </p>
+                <div class="link--popup-default text-center">
+                    <a class="default-link resend-code" href="#">
+                        @Umbraco.GetDictionaryValue("[Register]ResendCode", "Resend Code")
+                    </a>
+                    <div class="resend-time" style="display:none;">
+                        @Umbraco.GetDictionaryValue("[Register]Wait", "wait")
+                        <span class="wait-time"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="popup-default change-step default-offset zoom-anim-dialog" id="change-email-step">
+        <div class="top-wrap--popup"><a class="link-back" href="#verification-emeil--you"></a></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[Register]ChangeEmail", "Change Email")
+        </h3>
+        <div class="height-36"></div>
+        <form id="change-email-form">
+            @Html.AntiForgeryToken()
+            @{
+                required = preferences.Email.IsMandatory ? "required" : string.Empty;
+                requiredMessage = preferences.Email.IsMandatory ? "valid-error-email" : string.Empty;
+                invalidMessage = preferences.Email.Validation != null ? "error-message-email" : string.Empty;
+            }
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@currentLanguage" />
+            <input type="hidden" name="username" value="" />
+            <input type="hidden" name="id" value="" />
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label for="new-email">@Umbraco.GetDictionaryValue("[Register]NewEmail", "New Email Address")</label>
+                </div>
+                <div class="item--input">
+                    <input id="registration-change-email" name="email" @required placeholder="@Umbraco.GetDictionaryValue("[Register]EmailPlaceholder", "johndoe@email.com" )" class="validate-target" data-validate-expression="@preferences.Email.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Email.MinValue" max="@preferences.Email.MaxValue" type="text">
+                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Email", "Email")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                    <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Email", "Email")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+                </div>
+            </div>
+            <div class="item--input-label"><a class="popup popup-button button validate" href="#verification-emeil--you-change-email" data-method="changeEmail" data-form="change-email">@Umbraco.GetDictionaryValue("[Register]ChangeEmail", "Change Email")</a></div>
+            @Html.Partial("_processing")
+            @Html.Partial("_server-errors-display")
+            <p class="popup-text--gray text-center mobile-text--bottom">@Umbraco.GetDictionaryValue("[Register]CurrentEmail", "Your current email address is") <br><span class="email-holder link-white"></span></p>
+        </form>
+        @if (!preferences.Mobile.IsUsed)
+        {
+            // TODO: set recaptcha here
+        }
+    </div>
+
+    <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="verification-emeil--you-change-email">
+        <h3 class="heading-default text-center">
+            @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToTitle", "Email verification has been sent to your email")
+        </h3>
+        <p class="gray--text-info">
+            @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentTo", "We now need to verify your email address.We’ve sent an email to") <span class="email-holder"></span> @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToPleaseClick", "to verify your address. Please click the link in that email to continue.")
+        </p>
+
+        <div class="wrap--send-button text-center">
+            <form id="resend-email-code-change-email">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                <input type="hidden" name="language" value="@currentLanguage" />
+                <input type="hidden" name="email" value="" />
+                <input type="hidden" name="id" value="" />
+                <a class="button send-button" href="#" id="resend-button-change-email">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmail", "Resend Verification Email")</a>
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <div class="wrapper-popup--message text-center"><span class="message-verification" style="display:none;">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmailSent", "New verification email has been sent")</span></div>
+            </form>
+        </div>
+        <div class="resend-wrapper text-center"><a class="popup default-link change-email-link" href="@stepToGo">@Umbraco.GetDictionaryValue("[Register]ChangeEmail", "Change Email Address")</a></div>
+    </div>
+}

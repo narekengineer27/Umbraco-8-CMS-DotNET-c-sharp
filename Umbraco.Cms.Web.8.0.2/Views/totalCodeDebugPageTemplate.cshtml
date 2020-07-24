@@ -1,0 +1,142 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.DebugPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+    var tenant = Model.Content.AncestorOrSelf(1);
+    var domain = tenant.Value("domain").ToString();
+    var subdomain = tenant.Value("subDomain").ToString();
+    var origin = $"http://{subdomain}.{domain}";
+}
+
+<section class="black-main--default">
+    
+    <div class="popup-default" style="padding:20px;margin:0;max-width:none;" ng-controller="debugController">
+        <form name="debugForm" ng-submit="process()" novalidate>
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>URL</label>
+                </div>
+                <div class="item--input">
+                    <input type="text" ng-model="url">
+                </div>
+            </div>
+
+            <h3 style="color:#fff;margin-bottom:20px;">Parameters</h3>
+
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>Method</label>
+                </div>
+                <div class="item--input">
+                    <input type="text" ng-model="request.method" name="method" placeholder="POST/GET" required>
+                    <span class="valid-error" ng-show="debugForm.$submitted && debugForm.method.$error.required">This field is required.</span>
+                </div>
+            </div>
+
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>Content-Type</label>
+                </div>
+                <div class="item--input">
+                    <input type="text" ng-model="request.contentType">
+                </div>
+            </div>
+
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>Token</label>
+                </div>
+                <div class="item--input">
+                    <textarea ng-model="request.token"></textarea>
+                </div>
+            </div>
+
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>Origin</label>
+                </div>
+                <div class="item--input">
+                    <input type="text" ng-model="request.origin">
+                </div>
+            </div>
+
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>Body</label>
+                </div>
+                <div class="item--input">
+                    <textarea ng-model="request.body"></textarea>
+                </div>
+            </div>
+            <div class="item--input-label">
+                <input type="submit" ng-class="{'disabled' : processing}" class="popup-button button" value="Send">
+            </div>
+        </form>
+        <div>
+            <h3 style="color:#fff;margin-bottom:20px;">Result</h3>
+            <div class="item--input-label">
+
+                <div class="item--input" style="color:#fff">
+                    {{ result }}
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    
+</section>
+
+<style>
+    input[type=button].disabled {
+        filter: grayscale(1);
+        cursor: not-allowed;
+    }
+</style>
+
+@section Scripts {
+    <script type="text/javascript">
+        
+        app.controller('debugController', function ($scope, $http) {
+
+            $scope.url = 'https://sit-financial-management-service-api.totalcoding-test1.com/api/Card/active-cards';
+
+            $scope.request = {
+                contentType: 'application/json',
+                origin: '@origin',
+                token: '@(Request.Cookies["token"] != null ? Request.Cookies["token"].Value : "")',
+                body: '',
+                method: 'GET'
+            };
+
+            $scope.processing = false;
+            $scope.process = function () {
+                if ($scope.debugForm.$valid) {
+                    $scope.processing = true;
+                    var req = {
+                        url: $scope.url,
+                        headers: {
+                            'Content-Type': $scope.request.contentType,
+                            'Origin': $scope.request.origin,
+                            'Authorization': `Bearer ${$scope.request.token}`
+                        },
+                        body: $scope.request.body,
+                        method: $scope.request.method
+                    }
+
+                    $scope.result = 'Processing...';
+                    $http.post('/umbraco/surface/utility/sendrequest', req).then(function (result) {
+                        //console.log(result.data);
+                        $scope.result = `${result.data.StatusDescription}: ${result.data.Content}`;
+                        $scope.processing = false;
+                    }, function () {
+                        $scope.processing = false;
+                        $scope.result = 'Error processing request.';
+                    });
+                }
+                else {
+                    //console.log('form is not valid');
+                    $scope.result = 'Form is not valid.';
+                }
+            };
+        });
+    </script>
+}

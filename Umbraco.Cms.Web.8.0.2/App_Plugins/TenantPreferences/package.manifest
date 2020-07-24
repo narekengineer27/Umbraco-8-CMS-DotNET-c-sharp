@@ -1,0 +1,23 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "tenantPreferences",
+      "name": "Tenant Preferences Viewer",
+      "isReadOnly": true,
+      "icon": "icon-settings",
+      "editor": {
+        "view": "~/App_Plugins/TenantPreferences/view.html",
+        "valueType": "JSON",
+        "hideLabel": true
+      }
+    }
+  ],
+
+  "javascript": [
+    "~/App_Plugins/TenantPreferences/view.js"
+  ],
+
+  "css": [
+    "~/App_Plugins/TenantPreferences/view.css"
+  ]
+}

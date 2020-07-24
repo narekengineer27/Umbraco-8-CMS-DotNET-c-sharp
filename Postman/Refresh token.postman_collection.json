@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "b3b7e803-4f82-47d5-8f9d-696870ee01a9",
+		"name": "Refresh token",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Refresh token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31d5ed4d-ea98-4865-bbe6-501541dd0de0",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var JWT=jsonData.token;",
+							"",
+							"pm.test(\"Successfully logged in with username \", function () {",
+							"   pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.globals.set(\"JWT\", jsonData.token);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "https://umbracotest39.totalbetting.xyz/"
+					}
+				],
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Account/refresh-token",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Account",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

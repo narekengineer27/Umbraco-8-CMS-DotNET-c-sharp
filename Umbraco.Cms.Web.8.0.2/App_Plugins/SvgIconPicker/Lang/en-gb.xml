@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en" intName="English" localName="English" lcid="2057" culture="en-GB">
+    <area alias="dialog">
+        <key alias="addIcon">Add icon</key>
+    </area>
+</language>

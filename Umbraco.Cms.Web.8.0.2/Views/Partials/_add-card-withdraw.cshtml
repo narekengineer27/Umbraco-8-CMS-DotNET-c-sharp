@@ -1,0 +1,81 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+
+<div class="popup-default edit-payment default-offset zoom-anim-dialog message-status" id="new-payment">
+    <div ng-controller="addCardWithdrawController as vm">
+        <div class="top-wrap--popup"><span class="custom-close" ng-init="vm.getCards()">X</span></div>
+        <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Cards]NewPaymentMethod", "New Payment Method")</h3>
+        <div class="height-36"></div>
+        <form name="addCard" novalidate ng-submit="vm.addCard()">
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+
+            <div class="item--input-label" ng-show="vm.allCards != ''">
+                <div class="item--label">
+                    <label for="add-card-dropdown">@Umbraco.GetDictionaryValue("[Cards]CardNumber", "Card Number")</label>
+                </div>
+                <div class="item--input">
+                    <div class="not-custom-select select-bold">
+                        <select required="" class="select-black" tabindex="0" id="add-card-dropdown" ng-change="vm.selectCard(vm.card.cardNumber)" ng-model="vm.card.cardNumber">
+                            <option value="">@Umbraco.GetDictionaryValue("[Cards]AddNewPaymentMethod", "Add New Payment Method")</option>
+                            <option ng-repeat="card in vm.allCards" value="{{ card.CardNumber }}">{{ card.CardNumber }}</option>
+                        </select>
+                    </div>
+                    <span class="valid-error" ng-show="addCard.$submitted && addCard.cardNumber.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "This field is required.")</span>
+                </div>
+            </div>
+
+            <div class="item--input-label" ng-show="vm.allCards == '' || vm.newCard">
+                <div class="item--label">
+                    <label for="add-card">@Umbraco.GetDictionaryValue("[Cards]CardNumber", "Card Number")</label>
+                </div>
+                <div class="item--input">
+                    <input class="plch-white cc-number"
+                           id="add-card"
+                           name="cardNumber"
+                           maxlength="19"
+                           ng-class="{'valid-error-input' : addCard.$submitted && addCard.cardNumber.$error.required}"
+                           ng-model="vm.card.cardNumber"
+                           required>
+                    <span class="valid-error" ng-show="addCard.$submitted && addCard.cardNumber.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "This field is required.")</span>
+                </div>
+            </div>
+
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label for="add-iban">@Umbraco.GetDictionaryValue("[Cards]IBAN", "IBAN")</label>
+                </div>
+                <div class="item--input">
+                    <input class="plch-white iban-number"
+                           id="add-iban"
+                           name="iban"
+                           maxlength="26"
+                           ng-class="{'valid-error-input' : addCard.$submitted && addCard.iban.$error.required}"
+                           ng-model="vm.card.iban"
+                           ng-readonly="vm.cardHasIban"
+                           required>
+                    <span class="valid-error" ng-show="addCard.$submitted && addCard.iban.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "This field is required.")</span>
+                </div>
+            </div>
+
+
+            <div class="item--input-label">
+                <button class="popup-button button mb-20" ng-disabled="vm.processing" ng-class="{'disabled' : vm.processing}">@Umbraco.GetDictionaryValue("[Cards]AddNewPaymentMethod", "Add New Payment Method")</button>
+                <button class="button cancel-button w-full" type="button" ng-click="vm.cancel()">@Umbraco.GetDictionaryValue("[Others]Cancel", "Cancel")</button>
+            </div>
+            <div class="text-center" ng-show="vm.processing">
+                <div class="processing mt-0">
+                    @if (TempData["FormSpinnerImage"] != null)
+                    {
+                        <img src="@TempData["FormSpinnerImage"]" />
+
+                    }
+                    else
+                    {
+                        <img src="~/Media/img/tail-spin.svg" />
+                    }
+                </div>
+            </div>
+            <div class="response-failure" ng-show="vm.data.Errors">{{ vm.data.Errors.ErrorMessage }}</div>
+            <div class="response-success" ng-show="vm.success">{{ vm.success }}</div>
+        </form>
+    </div>
+</div>

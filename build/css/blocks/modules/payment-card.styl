@@ -1,0 +1,210 @@
+.credit-card--drop
+	position relative
+	brr(10px)
+	.credit-card--name
+		margin-bottom 26px
+		p
+			fsR(14px)
+			c cWhite
+	.arrow-default
+		position absolute
+		right 65px
+		top 106px
+
+// Credit Card
+
+.head--credit-card
+	display block
+	position relative
+	padding 52px 64px 54px
+	cursor pointer
+	background: cBlackD
+	border-radius: 10px 10px 0 0
+	&.close-status
+		brr(10px)
+
+.payment-card
+	display flex
+	flex-direction row
+
+
+
+.payment-card--card,
+.payment-card--button
+	display flex
+	flex-direction row
+	.button
+		&:not(:last-child)
+			margin-right 8px
+
+.payment-card--info
+	margin-left 11px
+	p
+		fsR(14px)
+		c cWhite
+		margin-bottom 5px
+	span
+		display block
+		font-size 12px
+		ffa(fR)
+		c cGray
+		letter-spacing: -0.09px
+		line-height: 16px
+
+.main--credit-card
+	border-top 1px solid cGrayD
+	padding 52px 64px 56px
+	perspective: 800px
+	perspective-origin: center center
+	background: cBlackD
+	border-radius: 0 0 10px 10px
+	.form-withdraw--name
+		fsR(14px)
+		margin-bottom 14px
+	.form-withdraw--desc
+		font-size 12px
+		c cGray
+		letter-spacing: -0.09px
+		line-height: 16px
+		margin-bottom 28px
+	.form-withdraw--fill
+		position relative
+		.icon-many
+			position absolute
+			top 21px
+			left 20px
+			fsR(14px)
+			c cWhite
+		input
+			padding 0 40px
+			margin-bottom 20px
+
+// Credit Card Edit
+
+.credit-card--edit-wrapper
+	.credit-card--edit
+		&:not(:last-child)
+			margin-bottom 8px
+
+.credit-card--edit
+	position relative
+	background: cBlackD
+	brr(10px)
+	padding 48px 65px
+	.payment-card
+		justify-content space-between
+		align-items center
+
+.add-card
+	margin 24px 0
+
+.label-payment--fill
+	position relative
+	margin-bottom 30px
+	.icon-many
+		position absolute
+		top 21px
+		left 20px
+		fsR(14px)
+		c cWhite
+
+
+// Animation Card
+
+.wrapper-show--animate
+	opacity 0
+	visibility hidden
+	perspective: 500px
+	transform: rotateX(-20deg)
+	animation: FadeOut .3s ease-in-out;
+	&.is-show
+		opacity 1
+		visibility visible
+		animation: FadeIn .3s ease-in-out;
+		transform: rotateX(0deg)
+
+@keyframes FadeIn
+	0%
+		opacity: 0
+		visibility hidden
+		transform: rotateX(-20deg)
+	100%
+		opacity: 1
+		visibility visible
+		transform: rotateX(0deg)
+
+@keyframes FadeOut
+	0%
+		opacity: 1
+		visibility visible
+		transform: rotateX(0deg)
+	99%
+		opacity: 0
+		visibility hidden
+		transform: rotateX(-20deg)
+	100%
+		opacity: 0
+		visibility hidden
+		transform: rotateX(0deg)
+
+
+// Placeholder White
+
+.plch-white::-webkit-input-placeholder {color:#ffffff;}
+.plch-white::-moz-placeholder          {color:#ffffff;}
+.plch-white:-moz-placeholder           {color:#ffffff;}
+.plch-white:-ms-input-placeholder      {color:#ffffff;}
+
+input::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.2s ease;}
+input::-moz-placeholder                {opacity: 1; transition: opacity 0.2s ease;}
+input:-moz-placeholder                 {opacity: 1; transition: opacity 0.2s ease;}
+input:-ms-input-placeholder            {opacity: 1; transition: opacity 0.2s ease;}
+input:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.2s ease;}
+input:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.2s ease;}
+input:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.2s ease;}
+input:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.2s ease;}
+
+// Payment Mobile
+
+.add-new--payment-mobile
+	position fixed
+	top 0
+	left 0
+	width 100%
+	height 100%
+	background #161516
+	padding 70px 24px 24px
+	opacity 0
+	visibility hidden
+	overflow-y scroll
+	trn(.25s)
+	z-index 1000
+	&.is-show
+		opacity 1
+		visibility visible
+	.heading-choose
+		margin-bottom 75px
+	.head-choose
+		font-size: 27px
+		ffa(fEB)
+		c cWhite
+		letter-spacing: -0.21px
+		line-height: 32px
+		text-align center
+	
+	.add-payment--items
+		position relative
+		display block
+		height: 96px
+		border-radius: 6px
+		padding 30px 24px
+		background-color: #242324
+		&:not(:last-child)
+			margin-bottom 8px
+		.arrow-default
+			position absolute
+			top 43px
+			right 34px
+			transform rotateZ(-90deg)
+	.button-wrapper--mobile
+		margin-top 24px

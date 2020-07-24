@@ -1,0 +1,20 @@
+﻿.umb-table__name {
+    display: none !important;
+}
+
+.umb-table-head {
+    padding: 10px 0 10px;
+}
+
+.umb-table-head .umb-table-row .umb-table-cell:first-child {
+    display: none;
+}
+
+.icon-folder, .umb-table-body .umb-table-row {
+    color: #000 !important;
+}
+
+.download-btn-container .umb-button__button {
+    margin-bottom: 20px;
+    padding: 15px;
+}

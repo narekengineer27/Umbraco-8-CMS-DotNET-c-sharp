@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "4c9d2664-e5c2-488f-b91b-077d10982900",
+		"name": "Total Code Umbraco Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"method\": \"Ping\", \"params\": [\"Hello World\"], \"id\": 1  } "
+				},
+				"url": {
+					"raw": "http://localhost:7399/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7399",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"TenantUid\": \"f304211d-830a-455d-9789-00721b861186\",\n    \"Username\": \"ccasalicchio12@outlook.com\",\n    \"Email\": \"ccasalicchio12@outlook.com\",\n    \"Password\": \"Password!123\",\n    \"Group\": \"Carlos Group\",\n    \"BrandName\": \"Carlitos Site 12\",\n    \"Domain\": \"site.com\",\n    \"SubDomain\": \"carlitos12\",\n    \"Name\": \"Carlicchio\",\n    \"Languages\": {\n        \"Default\": \"en-Us\",\n        \"Alternate\": [\n            \"en-GB\",\n            \"es-ES\",\n            \"pt-BR\"\n        ]\n    },\n    \"Currencies\": {\n        \"Codes\": [\n            \"USD\",\n            \"EUR\",\n            \"BRL\"\n        ]\n    },\n    \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\",\n    \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/Umbraco/Api/ExternalApiConnector/CreateTenant",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"Umbraco",
+						"Api",
+						"ExternalApiConnector",
+						"CreateTenant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"User\": {\n        \"TenantUId\": \"f304211d-830a-455d-9789-00721b861186\",\n        \"Name\": \"Jane Taylor\",\n        \"Username\": \"ccasalicchio12@outlook.com\",\n        \"Password\": \"Password!123\",\n        \"Email\": \"janetaylor@outlook.com\",\n        \"Group\": \"Carlos Group\"\n    },\n    \"Group\": {\n        \"Name\": \"Carlos Group\",\n        \"Alias\": \"carlosgroup\",\n        \"RenameGroupTo\": \"Test 10\",\n        \"TenantUId\": \"f304211d-830a-455d-9789-00721b861186\",\n        \"StartContentId\": 1060,\n        \"StartMediaId\": 1061,\n        \"Permissions\": [\n            \"I\",\n            \"P\",\n            \"K\",\n            \"F\",\n            \"ï\",\n            \"D\",\n            \"C\",\n            \"U\",\n            \"A\",\n            \"O\",\n            \"S\"\n        ],\n        \"AllowedSectionAliases\": [\n            \"content\",\n            \"media\"\n        ]\n    },\n    \"Tenant\": {\n        \"TenantUid\": \"f304211d-830a-455d-9789-00721b861186\",\n        \"BrandName\": \"Dilek Test Site 10\",\n        \"Domain\": \"totalumbraco.com\",\n        \"SubDomain\": \"dilek10\",\n        \"Languages\": {\n            \"Default\": \"en-GB\",\n            \"Alternate\": [\n                \"es-ES\",\n                \"pt-BR\",\n                \"fr-FR\"\n            ]\n        },\n        \"Currencies\": {\n            \"Codes\": [\n                \"USD\",\n                \"EUR\",\n                \"BRL\"\n            ]\n        },\n        \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\",\n        \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/Umbraco/Api/ExternalApiConnector/EditTenantWrap",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"Umbraco",
+						"Api",
+						"ExternalApiConnector",
+						"EditTenantWrap"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purge Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tenant\": {\n        \"TenantUid\": \"f304211d-830a-455d-9789-00721b861186\",\n        \"Username\": \"ccasalicchio12@outlook.com\",\n        \"Group\": \"Carlos Group\",\n        \"MediaHome\": \"Carlitos Site 12\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

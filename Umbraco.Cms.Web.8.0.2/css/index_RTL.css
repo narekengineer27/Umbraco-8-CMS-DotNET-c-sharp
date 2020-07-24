@@ -1,0 +1,480 @@
+/*RTL*/
+
+body {
+    direction: rtl;
+}
+
+.navigate-login {
+    padding-right: 40px;
+    padding-left: unset
+}
+
+    .navigate-login ul {
+        white-space: nowrap;
+        text-align: left;
+        /Add this line/
+    }
+
+        .navigate-login ul li:not(:last-child) {
+            margin-left: 20px;
+            margin-right: unset;
+        }
+
+    .navigate-login:before {
+        right: 0;
+        left: unset;
+    }
+
+.logo-top {
+    margin-left: 64px;
+    margin-right: unset;
+}
+
+@media screen and (max-width: 1240px) {
+    .top-info--wrapper .top-info__right {
+        padding-right: 20px;
+        padding-left: unset
+    }
+}
+
+.top-info--wrapper .top-info__right {
+    border-right: 1px solid #313031;
+    border-left: unset;
+    padding-right: 30px;
+    padding-left: unset;
+}
+
+    .top-info--wrapper .top-info__right .top-info--items:first-child {
+        padding-right: 0;
+        padding-left: 20px;
+    }
+
+    .top-info--wrapper .top-info__right .top-info--items:last-child {
+        padding-left: 0;
+        padding-right: 20px;
+    }
+
+    .top-info--wrapper .top-info__right .top-info--items:not(:last-child):before {
+        left: 0;
+        right: unset;
+    }
+
+.select-items, .select-selected:after {
+    left: 0;
+    right: unset;
+}
+
+.select-items {
+    left: unset;
+    right: -30px;
+}
+
+
+.select-selected {
+    padding-left: 17px;
+    padding-right: unset;
+}
+
+.head-search__search {
+    padding-left: 24px;
+    border-left: 1px solid #313031;
+    padding-right: unset;
+    border-right: unset;
+}
+
+.head-search__menu .search-form--head {
+    left: unset;
+    padding-right: unset;
+    right: -2px;
+    padding-left: 8px;
+}
+
+    .head-search__menu .search-form--head .cancel {
+        left: 16px;
+        right: unset;
+    }
+
+    .head-search__menu .search-form--head .search-input {
+        padding-right: 48px;
+        padding-left: 20px;
+    }
+
+    .head-search__menu .search-form--head .search-submit {
+        right: 16px;
+        left: unset;
+    }
+
+.top-slider {
+    direction: ltr;
+}
+
+.bottom-slider {
+    direction: ltr;
+    overflow: hidden;
+}
+
+.slider-big .owl-stage-outer, .slider-small .owl-stage-outer {
+    position: relative;
+    padding-bottom: 0
+}
+
+.slider-big .owl-nav .owl-prev, .slider-small .owl-nav .owl-prev {
+    left: 0;
+    background-image: linear-gradient(to right,#242324,rgba(36,35,36,0)) !important;
+}
+
+.slider-big .owl-nav .owl-next, .slider-big .owl-nav .owl-prev, .slider-small .owl-nav .owl-next, .slider-small .owl-nav .owl-prev {
+    height: 248px;
+    width: 50px;
+}
+
+.head-search__menu .menu--top-info li:not(:last-child) {
+    margin-left: 30px;
+    margin-right: unset;
+}
+
+.head-search__menu {
+    padding-right: 30px;
+    padding-left: unset;
+}
+
+.menu-header .nav-top__list-li:not(:last-child) {
+    margin-left: 40px;
+    margin-right: unset;
+}
+
+.custom-close {
+    left: 0 !important;
+    right: unset !important;
+}
+
+.heading-popup .step-count {
+    margin-right: 34px;
+    margin-left: unset;
+}
+
+.heading-popup {
+    text-align: right;
+    margin-right: 0;
+    margin-left: unset;
+}
+
+.item--input.phone-checked {
+    direction: ltr
+}
+
+.phone-checked .select-bold .select-selected:after {
+    right: 20px;
+    left: unset;
+    top: 24px;
+}
+
+.link-back, .link-back--page, .link-back-edit {
+    left: unset;
+    right: 0;
+}
+
+    .link-back--page:after, .link-back-edit:after, .link-back:after {
+        right: 9px;
+        left: unset;
+        -webkit-transform: rotateZ(225deg);
+        transform: rotateZ(225deg);
+    }
+
+#registration-email, #registration-user {
+    direction: ltr;
+    text-align: right;
+}
+
+.item--input-fifty > div:not(:last-child), .popup--withdraw-cancel .wrap--send-button .button:not(:last-child) {
+    margin-left: 16px;
+    margin-right: unset;
+}
+
+.checkbox-static {
+    text-align: right;
+}
+
+.checkbox-static--text:before {
+    right: 0;
+    left: unset;
+}
+
+.checkbox-static--text {
+    padding-right: 30px;
+    padding-left: unset
+}
+
+.registration-steps .select-items {
+    right: 0;
+    min-width: 100px;
+}
+
+@media screen and (max-width: 1024px) {
+    .top-info--wrapper .settings-head {
+        padding-left: unset;
+        padding-right: 24px;
+        border-right: 1px solid #313031;
+        border-left: none
+    }
+}
+
+.burger-menu {
+    margin-left: 24px;
+    margin-right: unset;
+}
+
+.footer-bottom .list-logos li:not(:last-child) {
+    margin-left: 20px;
+    margin-right: unset;
+}
+
+.mobile-page--menu li:not(:last-child) {
+    margin-left: 30px;
+    margin-right: unset;
+}
+
+.navigate-login ul {
+    white-space: nowrap;
+    text-align: left;
+}
+
+.user-login .user-login--images {
+    margin-right: 16px;
+    margin-left: unset
+}
+
+.wrapper--user-login {
+    float: left;
+}
+
+.logo-top {
+    margin-left: 10px;
+    margin-right: unset;
+}
+
+.user-login {
+    margin-left: 16px;
+    margin-right: unset
+}
+
+.footer-bottom .list-social li:not(:last-child) {
+    margin-left: 36px;
+    margin-right: unset
+}
+
+.account-menu .account-menu--sub li {
+    padding-right: 28px;
+    padding-left: unset;
+}
+
+.account-menu li a.is-active:before {
+    right: 0;
+    left: unset;
+}
+
+.account-menu li a {
+    padding-right: 32px;
+    padding-left: unset;
+}
+
+.drop--menu-user {
+    left: 0;
+    right: unset;
+}
+
+.full-phone-format {
+    direction: ltr
+}
+
+
+.payment-card--info {
+    margin-right: 11px;
+    margin-left: unset
+}
+
+    .payment-card--info p {
+        direction: ltr
+    }
+
+.label-payment--fill {
+    text-align: right
+}
+
+.filter-button .filter-button__count {
+    margin-right: 10px;
+    margin-left: unset;
+}
+
+.table-history {
+    text-align: right;
+}
+
+    .table-history tbody tr td:not(:last-child), .table-history thead th:not(:last-child) {
+        border-left: 1px solid #313031;
+        border-right: unset;
+    }
+
+.cookies-message .cookies-text, .list--info-account li .name-option {
+    padding-left: 20px;
+    padding-right: unset;
+}
+
+.list--info-account li .result-option {
+    padding-right: 20px;
+    padding-left: unset;
+}
+
+@media screen and (max-width: 480px) {
+    .user-login {
+        margin-right: unset;
+        margin-left: unset;
+    }
+}
+
+.tiket-main--item .tiket-item--head .new-tiket {
+    right: unset;
+    left: 9px;
+}
+
+.icon-user {
+    margin-left: 16px;
+    margin-right: unset
+}
+
+.credit-card--drop .arrow-default {
+    left: 65px;
+    right: unset;
+}
+
+.card-dropdown .arrow-default {
+    left: 0px;
+}
+
+.add-new--payment .add--payments-method svg {
+    margin-left: 13px;
+    margin-right: 0px
+}
+
+.close--right-sidebar {
+    right: 27px;
+    left: unset;
+}
+
+.stake-order--heading .stake-curent {
+    direction: ltr
+}
+
+.form--search-help input {
+    text-align: right
+}
+
+.form--search-help .search-submit {
+    right: 16px;
+    left: unset;
+}
+
+.terms-content p {
+    text-align: justify
+}
+
+.terms-content h3 {
+    margin-bottom: 20px;
+}
+
+.footer .footer-head__category .footer--category-items:not(:last-child) {
+    margin-left: 40px;
+    margin-right: 0
+}
+
+.mobile-menu {
+    left: auto;
+    right: -85vw;
+}
+
+.telegram-icon {
+    float: right;
+    margin: 0 0 0 10px;
+}
+
+body {
+    right:0;
+    left:auto;
+}
+
+body.nav-active {
+    right: 85vw;
+    position: fixed;
+    width: 100vw;
+}
+
+    body.nav-active .mobile-menu {
+        left: auto;
+        right: 0;
+    }
+
+@media screen and (max-width: 718px) {
+
+    .footer .footer-head__category .footer--category-items:not(:last-child) {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+}
+
+.breadcrumbs ul li:not(:last-child):after {
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+
+.breadcrumbs ul li a {
+    margin-right: 0;
+    margin-left: 10px;
+}
+.active-tiket .status-ticket--wrapper .status-ticket--date {
+    margin-right: 16px;
+    margin-left: unset;
+}
+
+.link-back--page.text-back, .link-back-edit.text-back, .link-back.text-back {
+    padding-right: 24px;
+    padding-left: unset
+}
+
+    .link-back--page.text-back span, .link-back-edit.text-back span, .link-back.text-back span {
+        padding: 0 7px 0 9px;
+        float: right;
+        border-right: 1px solid #1d1c1d;
+        border-left: unset
+    }
+
+.reply-form--send .button-reply {
+    border-left: 1px solid #1d1c1d;
+    border-right: unset
+}
+
+.reply-form--send .upload-file--form label svg {
+    margin-left: 8px;
+    margin-right: unset
+}
+
+.tickets-chat .new-tiket {
+    left: 9px;
+    right: unset
+}
+
+.popup-default p {
+    text-align: right
+}
+.item--input .cc-number{
+    direction:ltr;
+    text-align:right
+}
+.infoCircle{
+    float: left;
+}
+.add-new--payment .add-payment--items .arrow-default {
+    top: 34px;
+    left: 34px;
+    right: auto;
+    transform: rotateZ(90deg)
+}

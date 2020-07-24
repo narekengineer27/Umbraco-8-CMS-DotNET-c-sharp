@@ -1,0 +1,1418 @@
+﻿@using ClientDependency.Core.Mvc
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+@{
+    Layout = null;
+    var currentLanguage = Model.CurrentLanguage.TwoLetterISOLanguageName;
+    var pageName = !string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title : Model.BrandName;
+    var theme = Model.Theme;
+    var homePage = Umbraco.Content(Model.PageId).Root();
+    var CurrentPage = Umbraco.Content(Model.CurrentPageId);
+    var customJS = homePage.HasValue("customJS") ? homePage.Value<string>("customJS") : string.Empty;
+    var headJS = homePage.HasValue("headJS") ? homePage.Value<string>("headJS") : string.Empty;
+
+
+    
+    if (!String.IsNullOrEmpty(theme))
+    {
+        Html
+            .RequiresCss("~/css/" + theme + "/index.css")
+            .RequiresCss("~/css/" + theme + "/custom.css")
+            .RequiresCss("~/css/" + theme + "/custom2.css")
+            .RequiresCss("~/css/" + theme + "/jquery.modal.css")
+            .RequiresCss("~/css/" + theme + "/owl.carousel.min.css")
+            .RequiresCss("~/css/" + theme + "/theme.css");
+        //.RequiresCss("~/css/whhg.css");
+    }
+    else
+    {
+        Html
+            .RequiresCss("~/css/index.css")
+            .RequiresCss("~/css/custom.css")
+            .RequiresCss("~/css/custom2.css")
+            .RequiresCss("~/css/jquery.modal.css")
+            .RequiresCss("~/css/owl.carousel.min.css");
+    }
+
+    Html
+        .RequiresCss("~/css/flatpickr.min.css")
+        .RequiresCss("~/css/flatpickr_rtl.css")
+        .RequiresCss("~/css/toastr.css")
+
+        .RequiresJs("~/scripts/angular.min.js")
+        .RequiresJs("~/scripts/ng-file-upload-shim.min.js")
+        .RequiresJs("~/scripts/ng-file-upload.min.js")
+        .RequiresJs("~/scripts/cleave-angular.min.js")
+        .RequiresJs("~/scripts/jquery.min.js")
+        .RequiresJs("~/scripts/jquery-ui.js")
+        .RequiresJs("~/scripts/signalr.js");
+
+    if (currentLanguage != "en")
+    {
+        Html.RequiresJs($"~/scripts/datepickerlang/datepicker-{currentLanguage}.js");
+    }
+
+    Html
+        .RequiresJs("~/scripts/select.js")
+        .RequiresJs("~/scripts/select2.full.js")
+        .RequiresJs("~/scripts/jquery.modal.min.js")
+        .RequiresJs("~/scripts/jquery.payment.min.js")
+        .RequiresJs("~/scripts/jquery.mask.min.js")
+        .RequiresJs("~/scripts/js.cookies.js")
+        .RequiresJs("~/scripts/scripts.js")
+        .RequiresJs("~/scripts/register.js")
+        .RequiresJs("~/scripts/controllers.js")
+        .RequiresJs("~/scripts/directives.js")
+        .RequiresJs("~/scripts/services.js")
+        .RequiresJs("~/scripts/toastr.js")
+        .RequiresJs("~/scripts/custom.js")
+        .RequiresJs("~/scripts/flatpickr.min.js")
+        .RequiresJs("~/scripts/jdate.min.js")
+        .RequiresJs("~/scripts/fa.js")
+        .RequiresJs("~/scripts/login.js");
+}
+
+<!DOCTYPE html>
+<html lang="@currentLanguage">
+<head>
+    <title>@(!string.IsNullOrEmpty(Model.WebsiteName) && !Model.IsHomePage ? $"{Model.WebsiteName} - " : string.Empty)@Model.Title</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="@Model.MetaDescription">
+    <meta name="copyright" content="@Model.MetaCopyright">
+    <meta name="keywords" content="@Model.MetaKeywords">
+    <meta name="author" content="@Model.MetaAuthor">
+    <meta name="robots" content="@Model.MetaRobots">
+    @*<link rel="shortcut icon" href="/media/img/favicon/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon.png" type="image/x-icon">
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-72x72.png" type="image/x-icon">
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-144x144.png" type="image/x-icon">*@
+    @if (!string.IsNullOrEmpty(Model.FaviconIco))
+    {
+        <link rel="shortcut icon" href="@Model.FaviconIco" type="image/x-icon">
+    }
+    else
+    {
+        <link rel="shortcut icon" href="/media/img/favicon/favicon.ico" type="image/x-icon">
+    }
+    @if (!string.IsNullOrEmpty(Model.Favicon32x32))
+    {
+        <link rel="shortcut icon" href="@Model.Favicon32x32" type="image/x-icon">
+    }
+    else
+    {
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon.png" type="image/x-icon">
+    }
+    @if (!string.IsNullOrEmpty(Model.Favicon72x72))
+    {
+        <link rel="shortcut icon" href="@Model.Favicon72x72" type="image/x-icon">
+    }
+    else
+    {
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-72x72.png" type="image/x-icon">
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Favicon144x144))
+    {
+        <link rel="shortcut icon" href="@Model.Favicon144x144" type="image/x-icon">
+    }
+    else
+    {
+        @*<link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-144x1k44.png" type="image/x-icon">*@
+    }
+
+    @Html.RenderCssHere()
+
+    @if (currentLanguage == "fa")
+    {
+        <link rel="stylesheet" href="~/css/index_RTL.css" />
+    }
+
+    <meta name="theme-color" content="#161516">
+    <meta name="msapplication-navbutton-color" content="#161516">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#161516">
+    @RenderSection("AdditionalHeaders", required: false)
+
+    @Html.Raw(headJS)
+</head>
+<body style="display: none" ng-app="Gamingplatformapp">
+    @*<div class="wrapper">*@
+    <div class="loader">
+        <div class="img-wrapper">
+            @if (Model.SpinnerImage != null)
+            {
+                <img src="@Model.SpinnerImage.Url" />
+            }
+            else
+            {
+                <img src="~/img/spinner.png" />
+            }
+        </div>
+    </div>
+    <div id="overlayer"></div>
+    @Html.Partial("_navigation")
+
+    @if (Model.BreadCrumbs != null)
+    {
+        <div class="breadcrumbs">
+            <ul>
+                @foreach (var item in Model.BreadCrumbs)
+                {
+                    <li><a href="@item.Url">@item.Name</a></li>
+                }
+                <li>@Model.Title</li>
+            </ul>
+        </div>
+    }
+
+    <main class="section-main @(Model.BreadCrumbs != null ? "has-breadcrumb" : "")" role="main">
+        @RenderBody()
+    </main>
+
+    @Html.Partial("_footer")
+
+    <div class="hidden">
+        @if (!Model.IsLoggedIn)
+        {
+            @Html.Partial("_register-popup")
+            @Html.Partial("_reset-password-popup")
+            @Html.Partial("_forgot-username-popup")
+        }
+        @Html.Partial("_hidden-values")
+
+        <div class="popup-default popup--withdraw-success default-offset zoom-anim-dialog" id="popup--withdraw-success">
+            <div class="height-36"></div>
+            <h3 class="heading-default text-center">
+                @Html.Raw(Umbraco.GetDictionaryValue("[Others]WithdrawCancelled", "The withdrawal has been successfully cancelled"))
+            </h3>
+            <div class="wrap--send-button text-center"><a class="button send-button" href="#">@Umbraco.GetDictionaryValue("[Others]GotIt", "Got it")</a></div>
+        </div>
+        @*<div class="popup-default popup--withdraw-cancel default-offset zoom-anim-dialog" id="popup--withdraw-cancel">
+                <div class="height-36"></div>
+                <h3 class="heading-default text-center">
+                    @Umbraco.GetDictionaryValue("[Others]AreYouSureWant")
+                    @Umbraco.GetDictionaryValue("[Others]Cancel")
+                    @Umbraco.GetDictionaryValue("[Others]This")
+                    @Umbraco.GetDictionaryValue("[Others]Withdraw")
+                </h3>
+                <div class="wrap--send-button text-center"><a class="button cancel-button" href="#">@Umbraco.GetDictionaryValue("[Others]Yes"), @Umbraco.GetDictionaryValue("[Others]Cancel")</a><a class="button cancel-button gray-color" href="#">@Umbraco.GetDictionaryValue("[Others]No")</a></div>
+            </div>
+            <div class="popup-default popup--withdraw-cancel default-offset zoom-anim-dialog message-status" id="delete-payments">
+                <div class="height-36"></div>
+                <h3 class="heading-default text-center">
+                    @Umbraco.GetDictionaryValue("[Others]AreYouSureWant")
+                    @Umbraco.GetDictionaryValue("[Others]Delete")
+                    @Umbraco.GetDictionaryValue("[Others]This")
+                    @Umbraco.GetDictionaryValue("[Others]PaymentMethod")
+                </h3>
+                <div class="wrap--send-button text-center"><a class="button cancel-button" href="">@Umbraco.GetDictionaryValue("[Others]Yes"), @Umbraco.GetDictionaryValue("[Others]Delete")</a><a class="button cancel-button gray-color" href="">@Umbraco.GetDictionaryValue("[Others]No")</a></div>
+            </div>
+            <div class="popup-default popup-send zoom-anim-dialog" id="popup-pass-success">
+                <h3 class="heading-default text-center">@Html.Raw(Umbraco.GetDictionaryValue("[Others]PasswordChanged"))</h3>
+                <div class="wrap--send-button text-center"><a class="button send-button" href="#">@Umbraco.GetDictionaryValue("[Others]GetStarted")</a></div>
+            </div>
+            <div class="popup-default popup-send zoom-anim-dialog message-status" id="popup-payment-success">
+                <h3 class="heading-default text-center">@Html.Raw(Umbraco.GetDictionaryValue("[Others]NewPaymentMethodAdded"))</h3>
+                <div class="wrap--send-button text-center"><a class="button send-button" href="#">@Umbraco.GetDictionaryValue("[Register]Continue")</a></div>
+            </div>
+            <div class="popup-default popup-pass-reset zoom-anim-dialog message-status" id="popup-pass-reset">
+                <h3 class="heading-default text-center">@Html.Raw(Umbraco.GetDictionaryValue("[Others]PasswordResetLinkSent"))</h3>
+                <p class="popup--text-info"> @Html.Raw(Umbraco.GetDictionaryValue("[Others]PasswordResetLinkSentTo")) <a href="#">example@email.com</a></p>
+                <div class="wrap--send-button text-center"><a class="button send-button" href="#">@Umbraco.GetDictionaryValue("[Others]ProceedToLogin")</a></div>
+            </div>
+            <div class="popup-default popup-send zoom-anim-dialog message-status" id="popup-send">
+                <h3 class="heading-default text-center">@Umbraco.GetDictionaryValue("[Others]MessageSent")</h3>
+                <div class="wrap--send-button text-center"><a class="button send-button" href="mobile--login.html">@Umbraco.GetDictionaryValue("[Others]ProceedToLogin")</a></div>
+            </div>
+            <div class="popup-default reset-password zoom-anim-dialog" id="reset-password">
+                <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ResetPassword")</h3>
+                <form>
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="reset-pass">@Umbraco.GetDictionaryValue("[Others]ResetPassword")</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="reset-pass">
+                        </div>
+                    </div>
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="confirm-pass">@Umbraco.GetDictionaryValue("[Others]ConfirmNewPassword")</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="confirm-pass">
+                        </div>
+                    </div>
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="enter-pass">@Umbraco.GetDictionaryValue("[Register]EnterCode")</label>
+                        </div>
+                        <div class="captcha--wrapper">
+                            <div class="items--captcha-popup">
+                                <input class="input-black" type="text" id="enter-pass">
+                            </div>
+                            <div class="captcha-main"><img src="/img/captcha.jpg" alt=""></div>
+                        </div>
+                    </div>
+                    <div class="item--input-label">
+                        <button class="popup-button button">@Umbraco.GetDictionaryValue("[Others]SaveNewPassword")</button>
+                    </div>
+                </form>
+            </div>*@
+        @*<div class="popup-default registration-step default-offset zoom-anim-dialog" id="registration-step1">
+
+                <h3 class="heading-popup">
+                    @Umbraco.GetDictionaryValue("[Others]Registration")
+                    <snan class="step-count">@Umbraco.GetDictionaryValue("[Others]Step") <span class="cont-num">1 </span>of 3</snan>
+                </h3>
+                <div class="height-36"></div>
+                <form>
+                    <div class="step-popup registration-steps step1">
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="phone-number">@Umbraco.GetDictionaryValue("[Register]PhoneNumber")</label>
+                            </div>
+                            <div class="item--input phone-checked">
+                                <select class="select-phone select-black">
+                                    <option value="">+1</option>
+                                    <option value="">+2</option>
+                                    <option value="">+44</option>
+                                    <option value="">+33</option>
+                                </select>
+                                <input id="phone-number" onkeypress="return isNumberKey(event)">
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#registration-step2">@Umbraco.GetDictionaryValue("[Register]Continue")</a></div>
+                        <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Phrase]Enter your mobile phone number and we will send you a verification code")</p>
+                        <div class="link--popup-default text-center"><a class="default-link" href="#">@Umbraco.GetDictionaryValue("[Phrase]Already have an account?")</a></div>
+                    </div>
+                </form>
+            </div>
+            <div class="popup-default registration-step default-offset zoom-anim-dialog" id="registration-step2">
+                <div class="top-wrap--popup"><a class="popup link-back" href="#registration-step1"></a></div>
+                <h3 class="heading-popup">
+                    @Umbraco.GetDictionaryValue("[Others]Registration")
+                    <snan class="step-count">@Umbraco.GetDictionaryValue("[Others]Step") <span class="cont-num">2 </span>of 3</snan>
+                </h3>
+                <div class="height-36"></div>
+                <div class="step-popup registration-steps step2">
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="verification-code">@Umbraco.GetDictionaryValue("[Register]VerificationCode")</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="verification-code">
+                        </div>
+                    </div>
+                    <div class="item--input-label"><a class="popup popup-button button" href="#registration-step-error">@Umbraco.GetDictionaryValue("[Register]EnterCode")</a></div>
+                    <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Register]Enter6DigitVerificationCode") +44 535 345354342</p>
+                    <div class="link--popup-default text-center">
+                        <a class="default-link resend-code" href="#">@Umbraco.GetDictionaryValue("[Register]ResendCode")</a>
+                        <div class="resend-time">@Umbraco.GetDictionaryValue("[Register]Wait")</div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-default registration-step default-offset zoom-anim-dialog" id="registration-step-error">
+                <div class="top-wrap--popup"><a class="popup link-back" href="#registration-step2"></a></div>
+                <h3 class="heading-popup">
+                    @Umbraco.GetDictionaryValue("[Others]Registration")
+                    <snan class="step-count">@Umbraco.GetDictionaryValue("[Others]Step") <span class="cont-num">2 </span>of 3</snan>
+                </h3>
+                <div class="height-36"></div>
+                <div class="step-popup registration-steps step2">
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="verification-code">@Umbraco.GetDictionaryValue("[Register]VerificationCode")</label>
+                        </div>
+                        <div class="item--input">
+                            <input class="valid-error" id="verification-code"><span class="error-message">@Umbraco.GetDictionaryValue("[Register]VerificationCodeInvalidOrExpired")</span>
+                        </div>
+                    </div>
+                    <div class="item--input-label"><a class="popup popup-button button" href="#registration-step3">Enter Code</a></div>
+                    <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Register]Enter6DigitVerificationCode") +44 535 345354342</p>
+                    <div class="link--popup-default text-center">
+                        <a class="default-link resend-code" href="#">@Umbraco.GetDictionaryValue("[Register]ResendCode")</a>
+                        <div class="resend-time">@Umbraco.GetDictionaryValue("[Register]Wait") <span id="time">00:45</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-default registration-step default-offset zoom-anim-dialog" id="registration-step3" ng-controller="registrationController as vm">
+                <div class="top-wrap--popup"><a class="popup link-back" href="#registration-step2"></a></div>
+                <h3 class="heading-popup">
+                    @Umbraco.GetDictionaryValue("[Others]Registration")
+                    <snan class="step-count">@Umbraco.GetDictionaryValue("[Others]Step") <span class="cont-num">3 </span>of 3</snan>
+                </h3>
+                <div class="height-36"></div>
+                <form novalidate name="registrationForm" ng-submit="vm.submit()">
+                    <div class="step-popup registration-steps step3">
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="registration-email">@Umbraco.GetDictionaryValue("[Register]Email")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="registration-email" name="email" type="email" ng-model="vm.email" ng-pattern="@("/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/")" required>
+                                <span class="error-message"
+                                      ng-show="(registrationForm.email.$touched && registrationForm.email.$invalid) ||
+                                      (registrationForm.$submitted && registrationForm.email.$invalid)">
+                                    @Html.Raw(Umbraco.GetDictionaryValue("[Phrase]Please input valid email."))
+                                </span>
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="registration-pass1">@Umbraco.GetDictionaryValue("[Register]Password")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="registration-pass1">
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="registration-pass2">@Umbraco.GetDictionaryValue("[Register]ConfirmPassword")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="registration-pass2">
+                            </div>
+                        </div>
+                        <div class="item--input-fifty">
+                            <div class="item--input-label">
+                                <div class="item--label">
+                                    <label for="registration-name1">@Umbraco.GetDictionaryValue("[Register]FirstName")</label>
+                                </div>
+                                <div class="item--input">
+                                    <input id="registration-name1">
+                                </div>
+                            </div>
+                            <div class="item--input-label">
+                                <div class="item--label">
+                                    <label for="registration-name2">@Umbraco.GetDictionaryValue("[Register]LastName")</label>
+                                </div>
+                                <div class="item--input">
+                                    <input id="registration-name2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="registration-user">@Umbraco.GetDictionaryValue("[Register]Username")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="registration-user">
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <div class="item--gender">
+                                <label>Gender</label>
+                                <div class="payment--select-price payment--gender">
+                                    <label class="radio--select-price">
+                                        <input type="radio" name="radio" required="">
+                                        <div class="text--select-price">@Umbraco.GetDictionaryValue("[Others]Male")</div>
+                                    </label>
+                                    <label class="radio--select-price">
+                                        <input type="radio" name="radio" required="">
+                                        <div class="text--select-price">@Umbraco.GetDictionaryValue("[Others]Female")</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[Register]DateOfBirth")</label>
+                            </div>
+                            <div class="flex--custom-select">
+                                <div class="custom-select select-bold">
+                                    <select>
+                                        <option value="0">@Umbraco.GetDictionaryValue("[Register]DateOfBirthDay")</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                    </select>
+                                </div>
+                                <div class="custom-select select-bold mounth">
+                                    <select>
+                                        <option value="0">@Umbraco.GetDictionaryValue("[Month]Month")</option>
+                                        <option value="1">@Umbraco.GetDictionaryValue("[Month]January")</option>
+                                        <option value="2">@Umbraco.GetDictionaryValue("[Month]February")</option>
+                                        <option value="3">@Umbraco.GetDictionaryValue("[Month]March")</option>
+                                        <option value="4">@Umbraco.GetDictionaryValue("[Month]April")</option>
+                                        <option value="5">@Umbraco.GetDictionaryValue("[Month]May")</option>
+                                        <option value="6">@Umbraco.GetDictionaryValue("[Month]June")</option>
+                                        <option value="7">@Umbraco.GetDictionaryValue("[Month]July")</option>
+                                        <option value="8">@Umbraco.GetDictionaryValue("[Month]August")</option>
+                                        <option value="9">@Umbraco.GetDictionaryValue("[Month]September")</option>
+                                        <option value="10">@Umbraco.GetDictionaryValue("[Month]October")</option>
+                                        <option value="11">@Umbraco.GetDictionaryValue("[Month]November")</option>
+                                        <option value="12">@Umbraco.GetDictionaryValue("[Month]December")</option>
+                                    </select>
+                                </div>
+                                <div class="custom-select select-bold">
+                                    <select>
+                                        <option value="0">@Umbraco.GetDictionaryValue("[Others]Year")</option>
+                                        <option value="1">1960</option>
+                                        <option value="2">1961</option>
+                                        <option value="3">1962</option>
+                                        <option value="4">1963</option>
+                                        <option value="5">1964</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="label-payment--fill">
+                            <label class="checkbox-static">
+                                <input class="checkbox-static--input" type="checkbox" required="">
+                                <p class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Phrase]I agree with the") <a href="terms-conditions.html">@Umbraco.GetDictionaryValue("[Register]TermsAndConditions")</a></p>
+                            </label>
+                        </div>
+                        <div class="item--input-label"><button type="submit" class="popup-button button">@Umbraco.GetDictionaryValue("[Register]Finish")</button></div>
+                    </div>
+                </form>
+            </div>*@
+        <div class="popup-default popup-login zoom-anim-dialog" id="popup-login">
+            <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+            <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]Login")</h3>
+
+            @Html.Partial("Forms/_TotalCodeLogin")
+
+        </div>
+
+        @Html.Partial("Forms/_MobileVerification")
+
+        @*
+
+
+
+                <div class="popup-default new-password default-offset zoom-anim-dialog" id="new-password">
+
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Register]ChangeEmail")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="new-email">@Umbraco.GetDictionaryValue("[Register]NewEmail")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="new-email">
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#new-password--phone">@Umbraco.GetDictionaryValue("[Register]ChangeEmail")</a></div>
+                        <p class="popup-text--gray text-center mobile-text--bottom">@Umbraco.GetDictionaryValue("[Register]CurrentEmail") <br><a class="link-white" href="#">example@example.com</a></p>
+                    </form>
+                </div>
+                <div class="popup-default new-password--phone default-offset zoom-anim-dialog" id="new-password--phone">
+
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Register]ChangeEmail")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="phone-number">@Umbraco.GetDictionaryValue("[Register]PhoneNumber")</label>
+                            </div>
+                            <div class="item--input phone-checked">
+                                <select class="select-phone select-black">
+                                    <option value="">+1</option>
+                                    <option value="">+2</option>
+                                    <option value="">+44</option>
+                                    <option value="">+33</option>
+                                </select>
+                                <input id="phone-number">
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#verificat-code">@Umbraco.GetDictionaryValue("[Register]Continue")</a></div>
+                        <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Register]PhoneNumberInstructions")</p>
+                    </form>
+                </div>
+                <div class="popup-default verificat-code default-offset zoom-anim-dialog" id="verificat-code-phone">
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ChangePhone")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="ver-code">@Umbraco.GetDictionaryValue("[Register]VerificationCode")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="ver-code">
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#verificat-code-phone-error">@Umbraco.GetDictionaryValue("[Register]EnterCode")</a></div>
+                        <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Register]Enter6DigitVerificationCode") +44 535 345354342</p>
+                        <div class="link--popup-default resend-wrapper text-center">
+                            <a class="default-link resend-code" href="#">@Umbraco.GetDictionaryValue("[Register]ResendCode")</a>
+                            <div class="resend-time">@Umbraco.GetDictionaryValue("[Register]Wait")</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="popup-default verificat-code default-offset zoom-anim-dialog" id="verificat-code-phone-error">
+                    <div class="top-wrap--popup"><a class="popup link-back" href="#verificat-code-phone"></a></div>
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ChangePhone")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="ver-code">@Umbraco.GetDictionaryValue("[Register]VerificationCode")</label>
+                            </div>
+                            <div class="item--input">
+                                <input class="valid-error" id="ver-code"><span class="error-message">@Umbraco.GetDictionaryValue("[Register]VerificationCodeInvalidOrExpired")</span>
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#phone-successfully">@Umbraco.GetDictionaryValue("[Register]EnterCode")</a></div>
+                        <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Register]Enter6DigitVerificationCode") +44 535 345354342</p>
+                        <div class="link--popup-default resend-wrapper text-center">
+                            <a class="default-link resend-code" href="#">@Umbraco.GetDictionaryValue("[Register]ResendCode")</a>
+                            <div class="resend-time">@Umbraco.GetDictionaryValue("[Register]Wait") <span id="time">00:45</span></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="popup-default verificat-code default-offset zoom-anim-dialog" id="verificat-code-email">
+                    <div class="top-wrap--popup"><a class="link-back" href="#"></a></div>
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ChangeEmail")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="ver-code">@Umbraco.GetDictionaryValue("[Register]VerificationCode")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="ver-code">
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#verificat-code-email-error">@Umbraco.GetDictionaryValue("[Register]EnterCode")</a></div>
+                        <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Register]Enter6DigitVerificationCode") +44 535 345354342</p>
+                        <div class="link--popup-default resend-wrapper text-center">
+                            <a class="default-link resend-code" href="#">@Umbraco.GetDictionaryValue("[Register]ResendCode")</a>
+                            <div class="resend-time">@Umbraco.GetDictionaryValue("[Register]Wait")</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="popup-default verificat-code default-offset zoom-anim-dialog" id="verificat-code-email-error">
+                    <div class="top-wrap--popup"><a class="link-back" href="#"></a></div>
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ChangeEmail")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="ver-code">@Umbraco.GetDictionaryValue("[Register]VerificationCode")</label>
+                            </div>
+                            <div class="item--input">
+                                <input class="valid-error" id="ver-code"><span class="error-message">@Umbraco.GetDictionaryValue("[Register]VerificationCodeInvalidOrExpired")</span>
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#verification-emeil--you">@Umbraco.GetDictionaryValue("[Register]EnterCode")</a></div>
+                        <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Register]Enter6DigitVerificationCode") +44 535 345354342</p>
+                        <div class="link--popup-default resend-wrapper text-center">
+                            <a class="default-link resend-code" href="#">@Umbraco.GetDictionaryValue("[Register]ResendCode")</a>
+                            <div class="resend-time">@Umbraco.GetDictionaryValue("[Register]Wait") <span id="time">00:45</span></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="verification-emeil--you">
+                    <h3 class="heading-default text-center">@Umbraco.GetDictionaryValue("[Others]PasswordResetLinkSent")</h3>
+                    <p class="gray--text-info"> @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentTo") <a href="#">example@email.com </a>@Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToPleaseClick")</p>
+                    <div class="wrap--send-button text-center">
+                        <a class="button send-button" href="#">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmail")</a>
+                        <div class="wrapper-popup--message text-center"><span class="message-verification">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmailSent")</span></div>
+                    </div>
+                    <div class="resend-wrapper text-center"><a class="popup default-link resend-code" href="#new-password">@Umbraco.GetDictionaryValue("[Register]ChangeEmail")</a></div>
+                </div>
+                <div class="popup-default edit-profile default-offset zoom-anim-dialog" id="edit-profile">
+
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]EditUserInfo")</h3>
+                    <div class="height-36"></div>
+                    <div class="item--input-fifty">
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="registration-name1">@Umbraco.GetDictionaryValue("[Register]FirstName")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="registration-name1" value="John">
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="registration-name2">@Umbraco.GetDictionaryValue("[Register]LastName")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="registration-name2" value="Doe">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="registration-user">@Umbraco.GetDictionaryValue("[Register]Username")</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="registration-user" value="johndoe">
+                        </div>
+                    </div>
+                    <div class="item--input-label">
+                        <div class="item--gender">
+                            <label>@Umbraco.GetDictionaryValue("[Register]Gender")</label>
+                            <div class="payment--select-price payment--gender">
+                                <label class="radio--select-price">
+                                    <input type="radio" name="radio" required="" checked>
+                                    <div class="text--select-price">@Umbraco.GetDictionaryValue("[Others]Male")</div>
+                                </label>
+                                <label class="radio--select-price">
+                                    <input type="radio" name="radio" required="">
+                                    <div class="text--select-price">@Umbraco.GetDictionaryValue("[Others]Female")</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label>@Umbraco.GetDictionaryValue("[Register]DateOfBirth")</label>
+                        </div>
+                        <div class="flex--custom-select">
+                            <div class="custom-select is-active select-bold">
+                                <select>
+                                    <option value="0">@Umbraco.GetDictionaryValue("[Register]DateOfBirthDay")</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11" selected>11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select>
+                            </div>
+                            <div class="custom-select is-active select-bold mounth">
+                                <select>
+                                    <option value="">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonth", "Month")</option>
+                                    <option value="1">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthJanuary", "January")</option>
+                                    <option value="2">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthFebruary", "February")</option>
+                                    <option value="4">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthMarch", "March")</option>
+                                    <option value="3">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthApril", "April")</option>
+                                    <option value="5">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthMay", "May")</option>
+                                    <option value="6">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthJune", "June")</option>
+                                    <option value="7">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthJuly", "July")</option>
+                                    <option value="8">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthAugust", "August")</option>
+                                    <option value="9">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthSeptember", "September")</option>
+                                    <option value="10">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthOctober", "October")</option>
+                                    <option value="11">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthNovember", "November")</option>
+                                    <option value="12">@Umbraco.GetDictionaryValue("[Register]DateOfBirthMonthDecember", "December")</option>
+                                </select>
+                            </div>
+                            <div class="custom-select is-active select-bold">
+                                <select>
+                                    <option value="0">@Umbraco.GetDictionaryValue("[Register]DateOfBirthYear", "Year")</option>
+                                    <option value="1">1960</option>
+                                    <option value="2">1961</option>
+                                    <option value="3">1962</option>
+                                    <option value="4">1963</option>
+                                    <option value="5" selected>1989</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item--input-label">
+                        <button class="popup-button button">@Umbraco.GetDictionaryValue("[Register]Finish")</button>
+                    </div>
+                </div>
+                <div class="popup-default send-guest default-offset zoom-anim-dialog message-status" id="message--user-info">
+                    <h3 class="heading-default text-center">@Html.Raw(Umbraco.GetDictionaryValue("[Others]UserInfoUpdated"))</h3>
+                    <div class="wrap--send-button text-center"><a class="button send-button" href="#">@Umbraco.GetDictionaryValue("[Others]GotIt")</a></div>
+                </div>
+                <div class="popup-default new-password default-offset zoom-anim-dialog" id="myaccount--change-phone">
+
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ChangePhone")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="new-pass">@Umbraco.GetDictionaryValue("[Register]Password")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="new-pass">
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#change-password--phone">@Umbraco.GetDictionaryValue("[Register]Continue")</a></div>
+                        <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Others]EnterPasswordToChange") @Umbraco.GetDictionaryValue("[Register]PhoneNumber")</p>
+                    </form>
+                </div>
+                <div class="popup-default new-password--phone default-offset zoom-anim-dialog" id="change-password--phone">
+                    <div class="top-wrap--popup"><a class="popup link-back" href="#myaccount--change-phone"></a></div>
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ChangePhone")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="phone-number">@Umbraco.GetDictionaryValue("[Register]PhoneNumber")</label>
+                            </div>
+                            <div class="item--input phone-checked">
+                                <select class="select-phone select-black">
+                                    <option value="">+1</option>
+                                    <option value="">+2</option>
+                                    <option value="">+44</option>
+                                    <option value="" selected>+33</option>
+                                </select>
+                                <input id="phone-number">
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#verificat-code-phone">@Umbraco.GetDictionaryValue("[Register]Continue")</a></div>
+                        <p class="popup-text--gray text-center">@Umbraco.GetDictionaryValue("[Register]PhoneNumberInstructions")</p>
+                    </form>
+                </div>
+                <div class="popup-default popup-send default-offset zoom-anim-dialog message-status" id="phone-successfully">
+                    <h3 class="heading-default text-center">
+                        @Umbraco.GetDictionaryValue("[Register]PhoneNumber") @Umbraco.GetDictionaryValue("[Others]SuccessChanged")
+                    </h3>
+                    <div class="wrap--send-button text-center"><a class="button send-button" href="@Model.Content.Url">@Umbraco.GetDictionaryValue("[Others]GotIt")</a></div>
+                </div>
+                <div class="popup-default new-password default-offset zoom-anim-dialog" id="myaccount--change-mail">
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Register]ChangeEmail")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="change-email">@Umbraco.GetDictionaryValue("[Register]Password")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="change-email">
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#new-password--email">@Umbraco.GetDictionaryValue("[Register]Continue")</a></div>
+                        <p class="popup-text--gray text-center">
+                            @Umbraco.GetDictionaryValue("[Others]PleaseEnterPasswordToChange") @Umbraco.GetDictionaryValue("[Register]Email")
+                        </p>
+                    </form>
+                </div>
+                <div class="popup-default new-password default-offset zoom-anim-dialog" id="new-password--email">
+                    <div class="top-wrap--popup"><a class="popup link-back" href="#myaccount--change-mail"></a></div>
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Register]ChangeEmail")</h3>
+                    <div class="height-36"></div>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="new-email">@Umbraco.GetDictionaryValue("[Register]NewEmail")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="new-email">
+                            </div>
+                        </div>
+                        <div class="item--input-label"><a class="popup popup-button button" href="#myaccount--change-verify">@Umbraco.GetDictionaryValue("[Register]ChangeEmail")</a></div>
+                    </form>
+                </div>
+                <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog message-status" id="myaccount--change-verify">
+                    <div class="popup--text-success">
+                        <h3 class="heading-default text-center">@Umbraco.GetDictionaryValue("[Others]ChangeEmailVerifyNewEmail")</h3>
+                        <p class="gray--text-info">@Umbraco.GetDictionaryValue("[Register]VerifyEmailSentTo") <a href="#">example@email.com </a>@Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToPleaseClick") @Umbraco.GetDictionaryValue("[Others]WillNotBeReplacedUntil")</p>
+                    </div>
+                    <div class="wrap--send-button text-center"><a class="popup button send-button" href="#myaccount--change-verify-error">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmail")</a></div>
+                </div>
+                <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog message-status" id="myaccount--change-verify-error">
+                    <div class="popup--text-success">
+                        <h3 class="heading-default text-center">@Umbraco.GetDictionaryValue("[Others]ChangeEmailVerifyNewEmail")</h3>
+                        <p class="gray--text-info">@Umbraco.GetDictionaryValue("[Register]VerifyEmailSentTo") <a href="#">example@email.com </a>@Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToPleaseClick") @Umbraco.GetDictionaryValue("[Others]WillNotBeReplacedUntil")</p>
+                    </div>
+                    <div class="wrap--send-button text-center no-flex--mobile">
+                        <a class="button send-button" href="#">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmail")</a>
+                        <div class="wrapper-popup--message text-center"><span class="message-verification">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmailSent")</span></div>
+                    </div>
+                </div>
+                <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="myaccount--change-verify-code">
+                    <h3 class="heading-default text-center">@Umbraco.GetDictionaryValue("[Others]ChangeEmailVerifyNewEmail")</h3>
+                    <p class="gray--text-info">@Umbraco.GetDictionaryValue("[Register]VerifyEmailSentTo") <a href="#">example@email.com </a>@Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToPleaseClick") @Umbraco.GetDictionaryValue("[Others]WillNotBeReplacedUntil")</p>
+                    <div class="wrap--send-button text-center">
+                        <a class="button send-button" href="#">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmail")</a>
+                        <div class="wrapper-popup--message text-center"><span class="message-verification">@Umbraco.GetDictionaryValue("[Register]ResendVerificationEmailSent")</span></div>
+                    </div>
+                    <div class="resend-wrapper text-center"><a class="default-link resend-code" href="#">@Umbraco.GetDictionaryValue("[Register]ChangeEmail")</a></div>
+                </div>
+                <div class="popup-default popup-login zoom-anim-dialog" id="myaccount--change-password">
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ChangePassword")</h3>
+                    <form>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="account-pass">@Umbraco.GetDictionaryValue("[Register]Password")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="account-pass">
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="account-new-pass">@Umbraco.GetDictionaryValue("[Others]NewPassword")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="account-new-pass">
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="account-confirm-pass">@Umbraco.GetDictionaryValue("[Others]ConfirmNewPassword")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="account-confirm-pass">
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <button class="popup-button button">@Umbraco.GetDictionaryValue("[Others]ChangePassword")</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="popup-default popup-send default-offset zoom-anim-dialog message-status" id="change-pass-successfully">
+                    <h3 class="heading-default text-center">
+                        @Html.Raw(Umbraco.GetDictionaryValue("[Others]PasswordChanged"))
+                    </h3>
+                    <div class="wrap--send-button text-center"><a class="button send-button" href="myaccount.html">@Umbraco.GetDictionaryValue("[Others]GotIt")</a></div>
+                </div>
+                <div class="popup-default send-guest default-offset zoom-anim-dialog" id="send-guest">
+                    <h3 class="heading-default text-center">@Umbraco.GetDictionaryValue("[Others]MessageSent")</h3>
+                    <p class="popup--text-info">@Umbraco.GetDictionaryValue("[Others]WeWillRespondToEmail") <a href="#">(example@mail.com) </a><br>@Umbraco.GetDictionaryValue("[Others]Within24Hours")</p>
+                    <div class="wrap--send-button text-center"><a class="button send-button" href="#">@Umbraco.GetDictionaryValue("[Others]GotIt")</a></div>
+                </div>
+                <div class="popup-default contact-guest default-offset zoom-anim-dialog" id="contact-guest">
+                    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ContactUs")</h3>
+                    <div class="height-36"></div>
+                    <div class="item--input-fifty">
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="registration-name1">@Umbraco.GetDictionaryValue("[Register]FirstName")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="registration-name1">
+                            </div>
+                        </div>
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label for="registration-name2">@Umbraco.GetDictionaryValue("[Register]LastName")</label>
+                            </div>
+                            <div class="item--input">
+                                <input id="registration-name2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="contact-email">@Umbraco.GetDictionaryValue("[Register]Email")</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="contact-email">
+                        </div>
+                    </div>
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label for="contact-subject">@Umbraco.GetDictionaryValue("[Others]Subject")</label>
+                        </div>
+                        <div class="item--input">
+                            <input id="contact-subject">
+                        </div>
+                    </div>
+                    <div class="item--input-label small-offset">
+                        <div class="item--label">
+                            <label for="text-message">@Umbraco.GetDictionaryValue("[Others]Message")</label>
+                        </div>
+                        <div class="item--input">
+                            <textarea id="text-message"></textarea>
+                        </div>
+                    </div>
+                    <div class="upload-file--wrapper">
+                        <div class="upload-file">
+                            <div class="upload-file--name">
+                                <div>
+                                    <img src="/img/file-icon.svg" alt="">
+                                    <p>File.png</p>
+                                </div>
+                                <button class="delete-file"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g><g><path d="M4.525 3.818a.5.5 0 0 1 .707 0L7 5.586l1.768-1.768a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1 0 .707L8.414 7l1.768 1.768a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707 0L7 8.414l-1.768 1.768a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707L5.586 7 3.818 5.232a.5.5 0 0 1 0-.707zM7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14z" /></g></g></svg></button>
+                            </div>
+                        </div>
+                        <div class="upload-file">
+                            <div class="upload-file--name">
+                                <div>
+                                    <img src="/img/file-icon.svg" alt="">
+                                    <p>@Umbraco.GetDictionaryValue("[Others]Uploading") file.png</p>
+                                </div>
+                                <button class="delete-file"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g><g><path d="M4.525 3.818a.5.5 0 0 1 .707 0L7 5.586l1.768-1.768a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1 0 .707L8.414 7l1.768 1.768a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707 0L7 8.414l-1.768 1.768a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707L5.586 7 3.818 5.232a.5.5 0 0 1 0-.707zM7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14z" /></g></g></svg></button>
+                            </div>
+                            <div class="load-progress"><span style="width:30%;"></span></div>
+                        </div>
+                    </div>
+                    <div class="item--input-label small-offset">
+                        <div class="file-input-wrapper">
+                            <label class="button popup-button attach-file" for="upload-file">
+                                @Umbraco.GetDictionaryValue("[Others]AttachFile")<svg xmlns="http://www.w3.org/2000/svg" class="pluss-icon" width="12" height="12" viewBox="0 0 12 12"><g><g><path fill="#161516" d="M0 5.5A.5.5 0 0 1 .5 5H5V.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V5h4.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H7v4.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V7H.5a.5.5 0 0 1-.5-.5z" /></g></g></svg>
+                            </label>
+                            <input id="upload-file" type="file" name="image">
+                        </div>
+                    </div>
+                    <div class="item--input-label small-offset">
+                        <button class="popup-button button">@Umbraco.GetDictionaryValue("[Others]Send")</button>
+                    </div>
+                </div>
+
+                <div class="popup-default default-offset settings zoom-anim-dialog message-status" id="settings">
+                    <div class="height-36"></div>
+                    <h3 class="heading-default">@Umbraco.GetDictionaryValue("[Others]Settings")</h3>
+                    <div class="settings-wrapper">
+                        <div class="settings-item">
+                            <span class="name--settings-item">@Umbraco.GetDictionaryValue("[Register]OddsDisplay")</span>
+                            <select class="select-phone select-black">
+                                <option value="">@Umbraco.GetDictionaryValue("[Others]Fractional")</option>
+                                <option value="">@Umbraco.GetDictionaryValue("[Others]Fractional") 1</option>
+                                <option value="">@Umbraco.GetDictionaryValue("[Others]Fractional") 2</option>
+                                <option value="">@Umbraco.GetDictionaryValue("[Others]Fractional") 3</option>
+                            </select>
+                        </div>
+                        <div class="settings-item">
+                            <span class="name--settings-item">@Umbraco.GetDictionaryValue("[Register]Language")</span>
+                            <select class="select-phone select-black">
+                                <option value="">English</option>
+                                <option value="">Español</option>
+                                <option value="">Deutsch</option>
+                                <option value="">Français</option>
+                            </select>
+                        </div>
+                        <div class="settings-item">
+                            <span class="name--settings-item">@Umbraco.GetDictionaryValue("[Register]TimeZone")</span>
+                            <select class="select-phone select-black">
+                                <option value="">GMT-4</option>
+                                <option value="">GMT-3</option>
+                                <option value="">GMT-2</option>
+                                <option value="">GMT-1</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="add-new--payment-mobile" style="display: none" id="choose-payment">
+                <span class="custom-close"></span>
+                <div class="heading-choose">
+                    <h3 class="head-choose">@Umbraco.GetDictionaryValue("[Others]ChoosePaymentMethod")</h3>
+                </div><a class="add-payment--items" href="#">
+                    <span class="arrow-default"></span>
+                    <div class="payment-card">
+                        <img src="/img/credit-card--mc.svg" alt="">
+                        <div class="payment-card--info">
+                            <p>*4242</p><span>@Umbraco.GetDictionaryValue("[Others]CreditCard")</span>
+                        </div>
+                    </div>
+                </a><a class="add-payment--items" href="#">
+                    <span class="arrow-default"></span>
+                    <div class="payment-card">
+                        <img src="/img/credit-card--visa.svg" alt="">
+                        <div class="payment-card--info">
+                            <p>*4242</p><span>@Umbraco.GetDictionaryValue("[Others]CreditCard")</span>
+                        </div>
+                    </div>
+                </a><a class="add-payment--items" href="#">
+                    <span class="arrow-default"></span>
+                    <div class="payment-card">
+                        <img src="/img/credit-card--paypal.svg" alt="">
+                        <div class="payment-card--info">
+                            <p>*4242</p><span>@Umbraco.GetDictionaryValue("[Others]CreditCard")</span>
+                        </div>
+                    </div>
+                </a><a class="add-payment--items" href="#">
+                    <span class="arrow-default"></span>
+                    <div class="payment-card">
+                        <img src="/img/credit-card--ame.svg" alt="">
+                        <div class="payment-card--info">
+                            <p>*4242</p><span>@Umbraco.GetDictionaryValue("[Others]CreditCard")</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="button-wrapper--mobile">
+                    <button class="button popup-button">@Umbraco.GetDictionaryValue("[Others]AddNewPaymentMethod")</button>
+                </div>
+            </div>*@
+
+
+        @Html.Partial("_create-ticket-anonymous")
+        @Html.Partial("_create-ticket")
+
+        @if (Model.Content.ContentType.Alias == "totalCodeWithdrawPage")
+        {
+            @Html.Partial("_add-card-withdraw")
+        }
+        else
+        {
+            @Html.Partial("_add-card")
+        }
+
+        <div class="popup-default popup--withdraw-cancel default-offset zoom-anim-dialog message-status" id="ticket-cancel">
+            <div class="height-36"></div>
+            <h3 class="heading-default text-center">
+                @Umbraco.GetDictionaryValue("[Others]AreYouSureWant", "Are you sure you want to")&nbsp;
+                @Umbraco.GetDictionaryValue("[Others]Close", "close")&nbsp;
+                @Umbraco.GetDictionaryValue("[Others]This", "this")&nbsp;
+                @Umbraco.GetDictionaryValue("[Help]Ticket", "Ticket")
+            </h3>
+            <div class="wrap--send-button text-center">
+                <a class="popup button cancel-button" href="#ticket-success">@Umbraco.GetDictionaryValue("[Others]Yes", "Yes"), @Umbraco.GetDictionaryValue("[Others]Cancel", "Cancel")</a>
+                <a class="button cancel-button gray-color" href="#">@Umbraco.GetDictionaryValue("[Others]No", "No")</a>
+            </div>
+        </div>
+        <div class="popup-default popup-pass-reset zoom-anim-dialog message-status" id="create-ticket">
+            <h3 class="heading-default text-center">@Umbraco.GetDictionaryValue("[Help]Newticket", "New Ticket")&nbsp;@Umbraco.GetDictionaryValue("[Others]Created", "created")</h3>
+            <p class="popup--text-info">@Umbraco.GetDictionaryValue("[Help]WeWillRespondTo", "We will respond to")&nbsp;@Umbraco.GetDictionaryValue("[Help]Email", "your email")</p>
+            <div class="wrap--send-button text-center"><a class="button send-button" href="contact-tikets-active.html">@Umbraco.GetDictionaryValue("[Others]GotIt", "Got it")</a></div>
+        </div>
+        <div class="popup-default popup--withdraw-success default-offset zoom-anim-dialog message-status" id="ticket-success">
+            <div class="height-36"></div>
+            <h3 class="heading-default text-center">@Umbraco.GetDictionaryValue("[Help]TicketSuccessClose", "Ticket successful")</h3>
+            <div class="wrap--send-button text-center"><a class="button send-button" href="contact-tikets-closed.html">@Umbraco.GetDictionaryValue("[Others]GotIt", "Got it")</a></div>
+        </div>
+
+        @if (Model.Content.ContentType.Alias == "totalCodeDepositHistoryPage" || Model.Content.ContentType.Alias == "totalCodeWithdrawHistoryPage")
+        {
+            <div class="popup-default mobile-popup--style" id="popup-filter--mobile">
+                <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+                <h3 class="mobile-head">@Umbraco.GetDictionaryValue("[Others]Filter", "Filter")</h3>
+                <form action="" ng-controller="transactionFilterController as vm" ng-init="vm.mode = 'mobile'">
+                    <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                    <div class="filter-hidden--mobile">
+                        <div class="filter-hidden--items">
+                            <p class="status-filter">@Umbraco.GetDictionaryValue("[Others]Status", "Status")</p>
+                            <div class="checkout-status">
+                                <div class="checkout-status--items" ng-repeat="status in vm.statuses">
+                                    <label class="checkbox-static">
+                                        <input class="checkbox-static--input" type="checkbox" ng-model="status.checked">
+                                        <p class="checkbox-static--text">{{ status.name }}</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-hidden--items">
+                            <div class="filter-date">
+                                <div class="filter-date--items">
+                                    <div class="item--label">
+                                        <label class="default-label" for="start-date--mob">@Umbraco.GetDictionaryValue("[Others]StartDate", "Start Date")</label>
+                                    </div>
+                                    <div class="item--input">
+                                        <input class="filter-date datapicker input-black" id="start-date--mob" type="text">
+                                    </div>
+                                </div>
+                                <div class="filter-date--items">
+                                    <div class="item--label">
+                                        <label class="default-label" for="end-date--mob">@Umbraco.GetDictionaryValue("[Others]EndDate", "End Date")</label>
+                                    </div>
+                                    <div class="item--input">
+                                        <input class="filter-date datapicker input-black" id="end-date--mob" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-hidden--items filter-buttons--mobile">
+                        <div class="filter-buttons">
+                            <button class="button send-button mr-10" type="button"
+                                    ng-class="{'disabled' : vm.processing}"
+                                    ng-disabled="vm.processing"
+                                    ng-click="vm.applyFilters()">
+                                @Umbraco.GetDictionaryValue("[Others]ApplyFilters", "Apply Filters")
+                            </button>
+                            <div class="mt-10" ng-show="vm.processing">
+                                @if (TempData["FormSpinnerImage"] != null)
+                                {
+                                    <img src="@TempData["FormSpinnerImage"]" />
+
+                                }
+                                else
+                                {
+                                    <img src="~/Media/img/tail-spin.svg" />
+                                }
+                            </div>
+                            <button class="reset reset-mobile" type="button" ng-click="vm.resetFilters()">@Umbraco.GetDictionaryValue("[Others]ResetFilters", "Reset Filters")</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+
+        @if (Model.Content.ContentType.Alias == "totalCodeTransactionHistoryPage")
+        {
+            <div class="popup-default mobile-popup--style" id="popup-trnfilter--mobile">
+                <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+                <h3 class="mobile-head">@Umbraco.GetDictionaryValue("[Others]Filter", "Filter")</h3>
+                <form action="" ng-controller="transactionAllFilterController as vm" ng-init="vm.mode = 'mobile'">
+                    <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                    <div class="filter-hidden--mobile">
+                        <div class="filter-hidden--items">
+                            <p class="status-filter">@Umbraco.GetDictionaryValue("[Others]Status", "Status")</p>
+                            <div class="checkout-status">
+                                <div class="checkout-status--items">
+                                    <label class="checkbox-static">
+                                        <input class="checkbox-static--input" type="checkbox" ng-model="vm.types.deposit" required="">
+                                        <p class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Others]Deposit", "Deposit")</p>
+                                    </label>
+                                </div>
+                                <div class="checkout-status--items">
+                                    <label class="checkbox-static">
+                                        <input class="checkbox-static--input" type="checkbox" ng-model="vm.types.withdraw" required="">
+                                        <p class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Others]Withdraw", "Withdraw")</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-hidden--items">
+                            <div class="filter-date">
+                                <div class="filter-date--items">
+                                    <div class="item--label">
+                                        <label class="default-label" for="start-date--mob">@Umbraco.GetDictionaryValue("[Others]StartDate", "Start Date")</label>
+                                    </div>
+                                    <div class="item--input">
+                                        <input class="filter-date datapicker input-black" id="start-date--mob2" type="text">
+                                    </div>
+                                </div>
+                                <div class="filter-date--items">
+                                    <div class="item--label">
+                                        <label class="default-label" for="end-date--mob">@Umbraco.GetDictionaryValue("[Others]EndDate", "End Date")</label>
+                                    </div>
+                                    <div class="item--input">
+                                        <input class="filter-date datapicker input-black" id="end-date--mob2" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-hidden--items filter-buttons--mobile">
+                        <div class="filter-buttons">
+                            <button class="button send-button mr-10" type="button"
+                                    ng-class="{'disabled' : vm.processing}"
+                                    ng-disabled="vm.processing"
+                                    ng-click="vm.applyFilters()">
+                                @Umbraco.GetDictionaryValue("[Others]ApplyFilters", "Apply Filters")
+                            </button>
+                            <div class="mt-10" ng-show="vm.processing">
+                                @if (TempData["FormSpinnerImage"] != null)
+                                {
+                                    <img src="@TempData["FormSpinnerImage"]" />
+
+                                }
+                                else
+                                {
+                                    <img src="~/Media/img/tail-spin.svg" />
+                                }
+                            </div>
+                            <button class="reset reset-mobile" type="button" ng-click="vm.resetFilters()">@Umbraco.GetDictionaryValue("[Others]ResetFilters", "Reset Filters")</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+
+    </div>
+
+    @Html.Partial("_server-errors")
+
+    @Html.RenderJsHere()
+
+    @Html.Raw(customJS)
+
+    @{
+        string customerGuid = String.Empty;
+        if (Model.IsLoggedIn)
+        {
+            customerGuid = Model.CustomerSummary.CustomerGuid.ToString();
+        }
+    }
+    <script>
+        var settings = {
+            tenantUid: '@Model.TenantUid',
+            viewTicketUrl: '@Model.ViewTicketUrl',
+            contactUsUrl: '@Model.ContactUsUrl',
+            withdrawUrl: '@Model.WithdrawUrl',
+            depositUrl: '@Model.DepositPageUrl',
+            depositUrlAbsolute: '@Model.DepositPageUrlAbsolute',
+            rootGuid: '@Model.RootGuid',
+            currencySymbol: '@Model.CurrencySymbol',
+            customerCurrency: '@(Model.CustomerSummary?.CurrencyCode)',
+            tenantCurrency: '@Model.Preferences.Preferences.DefaultCurrency.AllowedValues.FirstOrDefault().ToString()',
+            customerToken: Cookies.get('token'),
+            balanceApi: '@Model.BalanceApiUrl',
+            customerGuid: '@customerGuid',
+            pageId: '@Model.CurrentPageId',
+            language: '@currentLanguage'
+        };
+
+        var dictionary = {
+            accountHolderName: '@Umbraco.GetDictionaryValue("[Others]AccountHolderName","Account Holder Name")',
+            action: '@Umbraco.GetDictionaryValue("[Others]Action","Action")',
+            amount:'@Umbraco.GetDictionaryValue("[Cards]Amount", "Amount-en")',
+            belowMinimumWithdrawalAmount: '@Umbraco.GetDictionaryValue("[ServerErrors]BelowMinimumWithdrawalAmount","Below minimum withdraw amount")',
+            cancelled: '@Umbraco.GetDictionaryValue("[Others]Cancelled","Cancelled")',
+            cancelWithdrawConfirm: '@Umbraco.GetDictionaryValue("[Others]CancelWithdrawConfirm","Confirm withdraw cancellation?")',
+            cancelWithdrawSuccess: '@Umbraco.GetDictionaryValue("[Others]The withdrawal has been successfully cancelled")',
+            cardName: '@Umbraco.GetDictionaryValue("[Cards]CardName","Card Name-en")',
+            cardNumber16Digits: '@Umbraco.GetDictionaryValue("[Cards]CardNumber","Card Number-en")',
+            cardCVV: '@Umbraco.GetDictionaryValue("[Cards]CardCVV", "CVV-en")',
+            cardExpiration: '@Umbraco.GetDictionaryValue("[Cards]CardExpiration", "Expiration-en")',
+            closeTicketMessage: '@Umbraco.GetDictionaryValue("[Others]CloseTicketMessage", "Closed by customer")',
+            completed: '@Umbraco.GetDictionaryValue("[Others]Completed","Completed")',
+            currencyFormat: '@Model.CurrencyFormat',
+            dateAndTime: '@Umbraco.GetDictionaryValue("[Others]DateAndTime","Date and Time")',
+            dateTimeFormat: '@Umbraco.GetDictionaryValue("[Formats]DateTime","11 111 1111")',
+            deposit: '@Umbraco.GetDictionaryValue("[Others]Deposit","Deposit")',
+            depositAdd: '@Umbraco.GetDictionaryValue("[Others]DepositAdd", "Add")',
+            depositAmount: '@Umbraco.GetDictionaryValue("[Others]DepositAmount", "amount")',
+            depositToMyAccount: '@Umbraco.GetDictionaryValue("[Others]DepositToMyAccount", "to my account")',
+            edit: '@Umbraco.GetDictionaryValue("[Others]Edit", "Edit")',
+            failed: '@Umbraco.GetDictionaryValue("[Others]Failed","Failed")',
+            gotIt: '@Umbraco.GetDictionaryValue("[Others]GotIt", "Got it")',
+            inProgress: '@Umbraco.GetDictionaryValue("[Others]InProgress","In progress")',
+            insufficientBalance: '@Umbraco.GetDictionaryValue("[ServerErrors]InsufficientBalance","Insufficient Balance")',
+            method: '@Umbraco.GetDictionaryValue("[Others]Method","Method")',
+            no: '@Umbraco.GetDictionaryValue("[Others]No","No")',
+            paymentMethod: '@Umbraco.GetDictionaryValue("[Others]PaymentMethod","Payment Method")',
+            paymentMethodAdded: '@Umbraco.GetDictionaryValue("[Others]NewPaymentMethodAdded", "New payment method has been successfully added.")',
+            paymentMethodDeleted: '@Umbraco.GetDictionaryValue("[Others]PaymentMethodDeleted", "Payment method has been successfully deleted.")',
+            paymentMethodUpdated: '@Umbraco.GetDictionaryValue("[Others]PaymentMethodUpdated", "Payment method has been successfully updated.")',
+            phoneFormat: '@Umbraco.GetDictionaryValue("[Formats]Phone","(000) 000-0000")',
+            phoneFullFormat: '@Umbraco.GetDictionaryValue("[Formats]FullPhone","+00 (000) 000-0000")',
+            save: '@Umbraco.GetDictionaryValue("[Others]Save", "Save")',
+            ticketHasBeenClosed: '@Umbraco.GetDictionaryValue("[Others]TicketHasBeenClosed", "The ticket has been closed.")',
+            ticketSentToAdmin: '@Umbraco.GetDictionaryValue("[Others]TicketSentToAdmin","Ticket sent to Administrator")',
+            withdraw: '@Umbraco.GetDictionaryValue("[Others]Withdraw","Withdraw")',
+            withdrawBelowMinimum: '@Umbraco.GetDictionaryValue("[Others]WithdrawBelowMinimum", "Below minimum withdrawal amount!")',
+            withdrawInsufficientBalance: '@Umbraco.GetDictionaryValue("[Others]WithdrawInsufficientBalance", "Insufficient balance!")',
+            yesCancel: '@Umbraco.GetDictionaryValue("[Others]YesCancel","Confirm or Cancel")',
+            depositbonus: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Deposit Bonus","Deposit Bonus")',
+            active: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Active","Active")',
+            closed: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Closed","Closed")',
+            completed: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Completed","Completed")',
+            incomplete: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Incomplete","Incomplete")',
+            totalBetAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalBetAmount","Total Bet Amount")',
+            totalSportsbookAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalSportsbookAmount","Total Sportsbook Amount")',
+            totalPokerAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalPokerAmount","Total Poker Amount")',
+            totalDepositAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalDepositAmount","Total Deposit Amount")',
+            totalCasinoAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalCasinoAmount","Total Casino Amount")',
+            totalLiveCasinoAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalLiveCasinoAmount","Total Live Casino Amount")',
+            totalLotteryAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalLotteryAmount","Total Lottery Amount")',
+        };
+
+        $(function () {
+            if ($('.currency-format').length) {
+                $('.currency-format').mask(dictionary.currencyFormat , { reverse: true });
+            }
+            if ($('.date-format').length) {
+                $('.date-format').mask(dictionary.dateFormat);
+            }
+            @*
+            //if ($('.phone-format').length) {
+            //    $('.phone-format').mask(dictionary.phoneFormat);
+            //}
+            //if ($('.full-phone-format').length) {
+            //    $('.full-phone-format').mask(dictionary.phoneFullFormat);
+            //}*@
+            if (Cookies.get('lang-url') === undefined) {
+                Cookies.set('lang', '@Model.CurrentLanguage.TwoLetterISOLanguageName', { expires: 999, path: '/' });
+            }
+            if (Cookies.get('lang-url') === undefined) {
+                Cookies.set('lang-url', '@Model.CurrentLanguage.Url', { expires: 999, path: '/' });
+            }
+        });
+    </script>
+    @if (Model.IsLoggedIn)
+    {
+        <script>
+            $(window).on("load", function () {
+
+                AutoUpdate('@CurrentPage.ContentType.Alias','@Model.CurrentPageId','@currentLanguage','@Model.notificationBgColor','@Model.notificationWidth');
+            });
+        </script>
+    }
+    else
+    {
+        <script>
+            $(window).on("load", function () {
+
+                AutoUpdateAnonymous('@CurrentPage.ContentType.Alias','@Model.CurrentPageId','@currentLanguage','@Model.notificationBgColor','@Model.notificationWidth');
+            });
+        </script>
+    }
+
+    @*<script type="text/javascript" src="~/scripts/hubconnection.js"></script>*@
+
+    @RenderSection("Scripts", required: false)
+
+    @if (Request.QueryString["login"] != null)
+    {
+        if (!Model.IsLoggedIn)
+        {
+            <script>
+                $(function () {
+                    $("#popup-login").modal();
+                });
+            </script>
+        }
+    }
+
+    <input type="hidden" id="tenantUid-root" value="@Model.TenantUid" />
+    @*</div>*@
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "@Model.notificationPosition",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": false,
+            "hideDuration": false,
+            "timeOut": 0,
+            "extendedTimeOut": false,
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
+            "tapToDismiss": false,
+            "closeOnHover":false
+        };
+    </script>
+</body>
+</html>

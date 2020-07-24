@@ -1,0 +1,34 @@
+.terms-content
+	.mobile-offset--terms
+		display none
+		height 104px
+	h1,	h2,	h3,	h4,	h5,	h6
+		ffa(fSB)
+		c cWhite
+	p, span, a,
+	ul li
+		ffa(fR)
+		font-size 16px
+		line-height: 24px
+		ls(-0.11px)
+		c cGray
+	a
+		c cYellow
+		text-decoration none
+	p
+		margin-bottom 18px
+	ul.conter-number
+		counter-reset: li
+		margin-bottom 28px
+		li
+			&:before
+				counter-increment: li
+				content: counter(li) "."
+				margin-right 15px
+	h1
+		margin-bottom 38px
+	h4
+		margin-bottom 20px
+	h6
+		margin-bottom 19px
+	

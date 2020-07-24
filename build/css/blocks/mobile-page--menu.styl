@@ -1,0 +1,30 @@
+.mobile-page--menu
+	padding-bottom 18px
+	border-bottom: 1px solid #313031
+	margin-bottom 24px
+	display none
+	li
+		display inline-block
+		notR(30px)
+		a
+			position relative
+			fsSB(14px)
+			c cGray
+			trn(.25s)
+			padding-bottom 20px
+			&:before
+				position absolute
+				bottom 0
+				left 0
+				content ""
+				width 100%
+				height 3px
+				background: cYellow
+				opacity 0
+				visibility hidden
+				trn(.25s)
+			&.is-active
+				c cWhite
+				&:before
+					opacity 1
+					visibility visible

@@ -1,0 +1,379 @@
+﻿<div ng-controller="ApiSettingsController as vm">
+
+    <form name="apiSettings" class="apisettings" val-form-manager novalidate>
+
+        <umb-editor-view umb-tabs>
+
+            <umb-editor-header name="vm.content.name"
+                               tabs="vm.content.tabs"
+                               hide-alias="true"
+                               hide-description="true"
+                               hide-icon="false"
+                               name-locked="true">
+            </umb-editor-header>
+
+            <umb-editor-container>
+                <umb-tabs-content class="form-horizontal" view="true">
+                    <umb-tab id="tab{{tab.id}}" ng-repeat="tab in vm.content.tabs" rel="{{tab.id}}">
+
+                        <div ng-show="tab.alias==='tab1'">
+                            <umb-editor-sub-header>
+                                <umb-editor-sub-header-content-left>
+                                    <span ng-show="!apiSettings.$valid" style="color:#ff6a00"><i class="icon icon-alert" style="font-size:1.3em"></i>Some settings are invalid, please check...</span>
+                                </umb-editor-sub-header-content-left>
+
+                                <umb-editor-sub-header-content-right>
+
+                                    <umb-button action="vm.Save()"
+                                                icon="icon icon-pushpin white"
+                                                type="button"
+                                                button-style="primary"
+                                                state="vm.buttonState"
+                                                shortcut="ctrl+s"
+                                                label="Save"
+                                                disabled="vm.loading || !apiSettings.$valid">
+                                    </umb-button>
+
+                                </umb-editor-sub-header-content-right>
+                            </umb-editor-sub-header>
+                            <umb-load-indicator ng-if="vm.loading">
+                            </umb-load-indicator>
+
+                            <div>
+                                <h5><i class="icon icon-key"></i> Api Authentication <i class="icon-info" title="Help" ng-click="vm.toggle($event)"></i></h5>
+                                <hr />
+                                <div class="info-box">
+                                    The app Id and api Key are credentials used by external applications to connect to this Umbraco instance and perform tasks via Json-Rpc.
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th>AppId</th>
+                                        <th>ApiKey</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" ng-model="vm.setting('TotalCode.Admin.AppId').Value" required /></td>
+                                        <td><input type="text" ng-model="vm.setting('TotalCode.Admin.ApiKey').Value" required /></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+
+                            <div>
+                                <h5><i class="icon icon-link"></i> Iframe Urls <i class="icon-info" title="Help" ng-click="vm.toggle($event)"></i></h5>
+                                <hr />
+                                <div class="info-box">
+                                    The iframe Urls are external links or fragments to suffix the iframe urls for the specific pages
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th>Sports | Betting History</th>
+                                        <td><input type="url" ng-model="vm.setting('TotalCode.Admin.SportsPageIframeUrl').Value" /></td>
+                                    </tr>
+                                    <!--<tr>
+                                        <th>Casino</th>
+                                        <td><input type="text" ng-model="vm.setting('TotalCode.Admin.CasinoPageIframeUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Live Casino</th>
+                                        <td><input type="text" ng-model="vm.setting('TotalCode.Admin.LiveCasinoPageIframeUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>In-Play</th>
+                                        <td><input type="text" ng-model="vm.setting('TotalCode.Admin.InPlayPageIframeUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Poker</th>
+                                        <td><input type="text" ng-model="vm.setting('TotalCode.Admin.PokerPageIframeUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Lottery</th>
+                                        <td><input type="text" ng-model="vm.setting('TotalCode.Admin.LotteryPageIframeUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Vegas</th>
+                                        <td><input type="text" ng-model="vm.setting('TotalCode.Admin.VegasPageIframeUrl').Value" /></td>
+                                    </tr>-->
+                                </table>
+                            </div>
+
+                            <div>
+                                <h5><i class="icon icon-link"></i> External Api Urls <i class="icon-info" title="Help" ng-click="vm.toggle($event)"></i></h5>
+                                <hr />
+                                <div class="info-box">
+                                    The external urls are links to the external api end-points, to handle data requests.
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th>Customer Management</th>
+                                        <td><input type="url" ng-model="vm.setting('TotalCode.Admin.CustomerManagementUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Financial Management</th>
+                                        <td><input type="url" ng-model="vm.setting('TotalCode.Admin.FinancialManagementUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>User Management</th>
+                                        <td><input type="url" ng-model="vm.setting('TotalCode.Admin.UserManagementUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Game Management</th>
+                                        <td><input type="url" ng-model="vm.setting('TotalCode.Admin.GameManagementUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Helpdesk Management</th>
+                                        <td><input type="url" ng-model="vm.setting('TotalCode.Admin.HelpdeskManagementUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Helpdesk Management Upload</th>
+                                        <td><input type="url" ng-model="vm.setting('TotalCode.Admin.HelpdeskManagementUploadUrl').Value" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Currency Management</th>
+                                        <td><input type="url" ng-model="vm.setting('TotalCode.Admin.CurrencyManagementUrl').Value"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Notification Management</th>
+                                        <td><input type="url" ng-model="vm.setting('TotalCode.Admin.NotificationManagementUrl').Value"></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                            <div>
+                                <h5><i class="icon icon-script"></i> Tenant Options <i class="icon-info" title="Help" ng-click="vm.toggle($event)"></i></h5>
+                                <hr />
+                                <div class="info-box">
+                                    Tenant options define specific behaviors when creating new tenants in Umbraco.
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th>
+                                            Save and Publish
+                                            <br />
+                                            <i>or save only</i>
+                                        </th>
+                                        <td>
+                                            <umb-toggle checked="vm.setting('TotalCode.Admin.SaveAndPublish').Value === 'true'"
+                                                        on-click="vm.toggle('TotalCode.Admin.SaveAndPublish')">
+                                            </umb-toggle>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Secure Urls
+                                            <br />
+                                            <i>(https)</i>
+                                        </th>
+                                        <td>
+                                            <umb-toggle checked="vm.setting('TotalCode.Admin.SecureUrls').Value === 'true'"
+                                                        on-click="vm.toggle('TotalCode.Admin.SecureUrls')">
+                                            </umb-toggle>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Setup Local Urls
+                                            <br />
+                                            <i>(creates relative paths without subdomain.domain)</i>
+                                        </th>
+                                        <td>
+                                            <umb-toggle checked="vm.setting('TotalCode.Admin.SetupLocalUrls').Value === 'true'"
+                                                        on-click="vm.toggle('TotalCode.Admin.SetupLocalUrls')">
+                                            </umb-toggle>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h5>
+                                    <i class="icon icon-application-error"></i> Custom Errors <i class="icon-info" title="Help" ng-click="vm.toggle($event)"></i>
+                                    <umb-button action="vm.newErrorPage()"
+                                                icon="icon icon-page-add white"
+                                                type="button"
+                                                button-style="primary"
+                                                state="vm.buttonState"
+                                                shortcut="ctrl+n"
+                                                label="New Error Page"
+                                                disabled="vm.loading">
+                                    </umb-button>
+                                </h5>
+                                <hr />
+                                <div class="info-box">
+                                    Custom errors define which pages are going to be displayed when server errors occur. You can add new errors pages by creating new html documents inside the <span style="font-family:'Courier New'">/errors</span>  folder.
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th>Mode</th>
+                                        <th>Default Redirect</th>
+                                        <th>Error 500 Redirect</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select ng-model="vm.setting('Mode').Value">
+                                                <option value="Off" ng-selected="vm.setting('Mode').Value === 'Off'">Off</option>
+                                                <option value="RemoteOnly" ng-selected="vm.setting('Mode').Value === 'RemoteOnly'">Remote Only</option>
+                                                <option value="On" ng-selected="vvm.setting('Mode').Value === 'On'">On</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select ng-model="vm.setting('DefaultRedirect').Value">
+                                                <option value="">None</option>
+                                                <option ng-repeat="file in vm.errorFiles"
+                                                        value="{{file}}"
+                                                        ng-selected="vm.setting('DefaultRedirect').Value === file">
+                                                    {{file}}
+                                                </option>
+                                            </select>
+                                            &nbsp;
+                                            <a href="" ng-click="vm.openEditor(vm.setting('DefaultRedirect').Value)" ng-show="vm.setting('DefaultRedirect').Value">Edit</a>&nbsp;
+                                            <a href="" ng-click="vm.deleteErrorPage(vm.setting('DefaultRedirect').Value)" ng-show="vm.setting('DefaultRedirect').Value">Delete</a>
+                                        </td>
+                                        <td>
+                                            <select ng-model="vm.setting('500Error').Value">
+                                                <option value="">None</option>
+                                                <option ng-repeat="file in vm.errorFiles"
+                                                        value="{{file}}"
+                                                        ng-selected="vm.setting('500Error').Value === file">
+                                                    {{file}}
+                                                </option>
+                                            </select>
+                                            &nbsp;
+                                            <a href="" ng-click="vm.openEditor(vm.setting('500Error').Value)" ng-show="vm.setting('500Error').Value">Edit</a>&nbsp;
+                                            <a href="" ng-click="vm.deleteErrorPage(vm.setting('500Error').Value)" ng-show="vm.setting('500Error').Value">Delete</a>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+
+                            <div>
+                                <h5><i class="icon icon-script-alt"></i> Client Dependency Cache <i class="icon-info" title="Help" ng-click="vm.toggle($event)"></i></h5>
+                                <hr />
+                                <div class="info-box">
+                                    The client dependency cache bundles all styles (css) and scripts (js) into one minified document. This setting defines the version of the bundle is going to be used in production.
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th>Current Version</th>
+                                        <!--<td><input type="text" ng-model="vm.setting('clientDependency').Value" value="{{vm.setting('clientDependency').Value}}" ng-pattern="/^\d+$/" required /></td>-->
+                                        <td>
+                                            {{vm.setting('clientDependency').Value}}
+                                        </td>
+                                        <td>
+                                            <umb-button action="vm.clearCache()"
+                                                        icon="icon icon-trash-alt-2 white"
+                                                        type="button"
+                                                        button-style="primary"
+                                                        state="vm.buttonState"
+                                                        shortcut="ctrl+n"
+                                                        label="Clear Cache"
+                                                        disabled="vm.loading">
+                                            </umb-button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h5><i class="icon icon-umb-settings"></i> Umbraco Settings <i class="icon-info" title="Help" ng-click="vm.toggle($event)"></i></h5>
+                                <hr />
+                                <div class="info-box">
+                                    These are Umbraco specific settings.
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th>Error 404 (Node #)</th>
+                                        <td><input type="text" ng-model="vm.setting('error404').Value" value="{{vm.setting('error404').Value}}" ng-pattern="/^\d+$/" required /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Notification Email</th>
+                                        <td><input type="text" ng-model="vm.setting('email').Value" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required /></td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Login Background Image
+                                        </th>
+                                        <td><input type="text" ng-model="vm.setting('loginBackgroundImage').Value" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div>
+                                <h5><i class="icon icon-script-alt"></i> API Cache <i class="icon-info" title="Help" ng-click="vm.toggle($event)"></i></h5>
+                                <hr />
+                                <div class="info-box">
+                                    API Cache management and settings
+                                </div>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th>Cache Timeout in Seconds</th>
+                                        <td><input type="number" ng-model="vm.setting('TotalCode.Admin.CacheTimeoutInSeconds').Value" ng-value="vm.setting('TotalCode.Admin.CacheTimeoutInSeconds').Value"/></td>
+                                    </tr>
+                                </table>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th colspan="2">Current Cache Table</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Tenant Uids currently saved on Cache</th>
+                                        <td style="border: 1px solid #e9e9eb;">
+                                            <select ng-model="vm.selectedCacheTenantUid" ng-change="vm.tenantSelectChange()" ng-if="vm.cacheTenantUids.length > 0 && !vm.isSelectedCacheTenantUidLoading" style="width:100%">
+                                                <option value="" selected="selected">Select</option>
+                                                <option ng-repeat="o in vm.cacheTenantUids" value="{{o}}">{{o}}</option>
+                                            </select>
+                                            <span ng-if="vm.isSelectedCacheTenantUidLoading">Loading</span>
+                                            <span ng-if="vm.cacheTenantUids.length == 0">No cache saved as of the moment.</span>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="vm.selectedCacheTenantUid !== ''">
+                                        <th>Cache Name / Types</th>
+                                        <td style="border: 1px solid #e9e9eb;">
+                                            <select ng-model="vm.selectedCacheName" ng-change="vm.cacheNameSelectChange()" ng-if="!vm.isSelectedCacheNameLoading" style="width:100%">
+                                                <option value="" selected="selected">All</option>
+                                                <option ng-repeat="o in vm.cacheNames" value="{{o}}">{{o}}</option>
+                                            </select>
+                                            <span ng-if="vm.isSelectedCacheNameLoading">Loading</span>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="vm.cacheTenantUids.length > 0 && vm.selectedCacheTenantUid !== '' && !vm.isSelectedCacheNameLoading">
+                                        <td colspan="2">
+                                            <umb-button action="vm.clearCacheOfSelectedItems()"
+                                                        icon="icon icon-trash-alt-2 white"
+                                                        type="button"
+                                                        button-style="primary"
+                                                        state="vm.buttonState"
+                                                        label="Clear Cache of Selected TenantUid and Cache Name"
+                                                        disabled="vm.loading">
+                                            </umb-button>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <td>
+                                            <umb-button action="vm.clearApiCache()"
+                                                        icon="icon icon-trash-alt-2 white"
+                                                        type="button"
+                                                        button-style="primary"
+                                                        state="vm.buttonState"
+                                                        shortcut="ctrl+c"
+                                                        label="Clear All Cache"
+                                                        disabled="vm.loading">
+                                            </umb-button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </umb-tab>
+                </umb-tabs-content>
+
+            </umb-editor-container>
+
+        </umb-editor-view>
+
+    </form>
+
+</div>

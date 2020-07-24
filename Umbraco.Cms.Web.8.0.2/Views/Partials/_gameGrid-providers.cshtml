@@ -1,0 +1,10 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.GamePageViewModel>
+<div class="filters" ng-show="vm.providers.length > 1">
+    <span class="filter-title">@Umbraco.GetDictionaryValue("[Games]Providers", "Providers")</span>
+    <label labelfor="all" class="all" ng-class="{'active':vm.filter===''}">
+        <input type="radio" name="subcategory" value="" id="all" ng-click="vm.updateGrid('')" /> @Umbraco.GetDictionaryValue("[Games]All", "All")
+    </label>
+    <label labelfor="{{vm.removeSpaces(provider)}}" ng-repeat="provider in vm.providers" class="{{vm.removeSpaces(provider)}}" ng-class="{'active':vm.filter===provider}">
+        <input type="radio" name="provider" value="{{provider}}" id="{{vm.removeSpaces(provider)}}" ng-click="vm.updateGrid(provider)" />{{provider}}
+    </label>
+</div>

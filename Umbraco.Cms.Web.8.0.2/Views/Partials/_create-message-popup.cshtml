@@ -1,0 +1,54 @@
+﻿@*@inherits UmbracoViewPage<string>*@
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+
+<div style="display:none;">
+
+    <div class="popup-default new-ticket default-offset zoom-anim-dialog" id="new-message-@Model">
+        <div ng-controller="createMessageController as vm" ng-init="vm.message.ticketId = @(Model)">
+            <form name="createMessage" ng-submit="vm.submit()" novalidate>
+                <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+                <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Help]NewMessage", "New Message")</h3>
+                <div class="height-36"></div>
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label>@Umbraco.GetDictionaryValue("[Help]Email", "Email Address")</label>
+                    </div>
+                    <div class="item--input">
+                        <input type="email"
+                               name="email"
+                               ng-model="vm.message.emailAddress"
+                               ng-class="{'valid-error-input' : createMessage.$submitted && createMessage.email.$invalid}"
+                               required>
+                        <span class="valid-error" ng-show="createMessage.$submitted && createMessage.email.$invalid">@Umbraco.GetDictionaryValue("[ServerErrors]InvalidEmailFormat", "Invalid Email Format")</span>
+                    </div>
+                </div>
+                <div class="item--input-label small-offset">
+                    <div class="item--label">
+                        <label>@Umbraco.GetDictionaryValue("[Help]Message", "Message")</label>
+                    </div>
+                    <div class="item--input">
+                        <textarea name="message"
+                                  ng-model="vm.message.messageText"
+                                  ng-class="{'valid-error-input' : createMessage.$submitted && createMessage.message.$invalid}"
+                                  required>
+                        </textarea>
+                        <span class="valid-error" ng-show="createMessage.$submitted && createMessage.message.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "Field Required")</span>
+                    </div>
+                </div>
+                <div class="item--input-label small-offset">
+                    <div class="file-input-wrapper">
+                        <label class="button popup-button attach-file" for="upload-file">
+                            @Umbraco.GetDictionaryValue("[Help]AttachFile", "Attach File")<svg xmlns="http://www.w3.org/2000/svg" class="pluss-icon" width="12" height="12" viewBox="0 0 12 12"><g><g><path fill="#161516" d="M0 5.5A.5.5 0 0 1 .5 5H5V.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V5h4.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H7v4.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V7H.5a.5.5 0 0 1-.5-.5z" /></g></g></svg>
+                        </label>
+                        <input id="upload-file" type="file" name="image">
+                    </div>
+                </div>
+                <div class="item--input-label small-offset">
+                    <button class="popup-button button" type="submit" ng-class="{'disabled': vm.processing }">@Umbraco.GetDictionaryValue("[Help]Send", "Send")</button>
+                </div>
+                @Html.Partial("_processing_angular")
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "4a4a963d-adcd-48f0-b0cc-1b880ae6c13c",
+		"name": "Umbraco Registration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Verify-mobile Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "{{Origin}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"TenantPlatformMapGuid\": \"50046935-C7CA-4AB9-B504-9000D5A52906\",\n    \"Mobile\": \"+441559223534\",\n    \"RequestDate\": \"2019-06-03 15:58:50.7921318\",\n    \"LanguageId\": \"EN\"\n}"
+				},
+				"url": {
+					"raw": "http://customer-management-service-api.totalcoding-test1.com/api/Customer/verify-mobile",
+					"protocol": "http",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"verify-mobile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate-verification-code Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "{{Origin}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"TenantPlatformMapGuid\": \"50046935-C7CA-4AB9-B504-9000D5A52906\",\n    \"Mobile\": \"+441559223534\",\n    \"VerificationCode\":\"764528\",\n    \"VerificationDate\": \"2019-06-03 15:58:50.7921318\"\n}"
+				},
+				"url": {
+					"raw": "http://customer-management-service-api.totalcoding-test1.com/api/Customer/validate-verification-code",
+					"protocol": "http",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"validate-verification-code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verification-email-request Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "{{Origin}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"TenantPlatformMapGuid\": \"50046935-C7CA-4AB9-B504-9000D5A52906\",\r\n  \"email\": \"test1560181033@totalcoding.co.uk\",\r\n  \"URL\": \"\"\r\n}"
+				},
+				"url": {
+					"raw": "http://customer-management-service-api.totalcoding-test1.com/api/Customer/verification-email-request",
+					"protocol": "http",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"verification-email-request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm-email Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://customer-management-service-api.totalcoding-test1.com",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"tenantPlatformMapGuid\": \"50046935-C7CA-4AB9-B504-9000D5A52906\",\r\n  \"email\": \"test1559915120@totalcoding.co.uk\",\r\n  \"verificationDate\": \"2019-06-07T16:24:19.135Z\",\r\n  \"verificationUrl\": \"http://customer-management-service-api.totalcoding-test1.com/confirm-email?a=294&b=CfDJ8JqCnB+naTJEqRo4/xJwrdKvgf2+XOddVTodE5KjRA7QeGY1fQp4na0uEdBRkMxWIcKiPt2sev6jCxN+9Hs5hl0tUmQoayqBh1gj1IswLQPoQVUYsDTaXe9E0c2wPij2MuJaQu/SinoYztctBBBHshUd24gCupIoYYChs0/wA2EKjFwpWoGAQIfyoY3qTp5mr4rkJtv8rfRyg8f7xRJV2IA=&c=test1559915120@totalcoding.co.uk\"\r\n}"
+				},
+				"url": {
+					"raw": "http://customer-management-service-api.totalcoding-test1.com/api/Customer/confirm-email",
+					"protocol": "http",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"confirm-email"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{JWT}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "537d666c-4c35-4746-a4d6-049daed2fdd8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8ececd1d-fd7b-49dd-93b6-031a4b85cf19",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,255 @@
+﻿@inherits UmbracoViewPage<TotalCode.Core.Models.Pages.TransactionPageViewModel>
+@{
+    var page = Umbraco.Content(Model.CurrentPageId);
+    var dict_name = string.Empty;
+    var pageType = string.Empty;
+    if (page.ContentType.Alias == "totalCodeDepositPage")
+    {
+        dict_name = "[Deposit]NoCards";
+        pageType = "Deposit";
+    }
+    if (page.ContentType.Alias == "totalCodeWithdrawPage")
+    {
+        dict_name = "[Withdraw]NoCards";
+        pageType = "Withdraw";
+    }
+    var width = 33;
+    if (page.HasProperty("predefinedAmountsColumns"))
+    {
+        var columns = page.GetProperty("predefinedAmountsColumns").Value<int>();
+        if (columns > 0)
+        {
+            width = 100 / columns;
+        }
+    }
+}
+
+<section class="black-main"
+         ng-controller="transactionController as vm"
+         ng-init="vm.predefinedAmount = '@(Model.PredefinedAmounts.LastOrDefault())'">
+    <div class="left-sidebar">
+        @Html.Partial("_TotalCodeAccountMenu")
+    </div>
+    <div class="main-container">
+        <div class="heading--main-container">
+            <h1 class="black-main--head">@Model.Title</h1>
+        </div>
+        @Html.Partial("_TotalCodeMobilePageMenu")
+
+        <div class="loader loader-d-block" ng-show="!vm.ready">
+            <div class="img-wrapper">
+                @if (Model.SpinnerImage != null)
+                {
+                    <img src="@Model.SpinnerImage.Url" />
+                }
+                else
+                {
+                    <img src="~/img/spinner.png" />
+                }
+            </div>
+        </div>
+
+        <div class="text-center" ng-show="vm.noGateway">
+            <div class="processing mt-0">
+                <p class="gray--text-info">@Umbraco.GetDictionaryValue("[PM]NoGateway", "There is no payment gateway available!")</p>
+            </div>
+        </div>
+
+        <div class="credit-card--drop credit-card--drop-first" ng-show="vm.ready && !vm.hideForm" ng-cloak>
+            <span class="arrow-default"></span>
+            <div class="head--credit-card" ng-click="vm.showPaymentList = !vm.showPaymentList">
+                <div class="credit-card--name">
+                    <p>@Umbraco.GetDictionaryValue("[Cards]SelectPaymentMethod", "Select Payment Method")</p>
+                </div>
+                <div class="payment-card">
+                    <img ng-src="{{ vm.tenantCard.selectedCard.Icon }}" alt="card" height="30">
+                    <div class="payment-card--info">
+                        <p>{{ vm.tenantCard.selectedCard.PaymentSystemName }}</p>
+                    </div>
+                </div>
+                <div class="add-new--payment" ng-class="{'is-active' : vm.showPaymentList}">
+                    <a class="add-payment--items" ng-repeat="card in vm.tenantCard.cards" ng-click="vm.tenantCard.selectTenantCard(card)">
+                        <span class="arrow-default"></span>
+                        <div class="payment-card">
+                            <img ng-src="{{ card.Icon }}" alt="card" height="30">
+                            <div class="payment-card--info">
+                                <p>{{ card.PaymentSystemName }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="credit-card--drop" ng-show="vm.ready && !vm.hideForm" ng-cloak>
+            <div class="main--credit-card">
+                <div class="wrapper-show--animate is-show">
+                    <div class="credit-card--mobile-wrapper" ng-show="vm.no_cards">
+                        <div class="payment-card--nocards">
+                            <p>
+                                @Umbraco.GetDictionaryValue(dict_name, "No cards")
+                            </p>
+                        </div>
+                        <div class="add-new--payment_new is-active">
+                            <a class="add--payments-method" rel="modal:open" href="#new-payment">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="pluss-icon" width="12" height="12" viewBox="0 0 12 12"><g><g><path d="M0 5.5A.5.5 0 0 1 .5 5H5V.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V5h4.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H7v4.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V7H.5a.5.5 0 0 1-.5-.5z" /></g></g></svg>@Umbraco.GetDictionaryValue("[Cards]AddNewPaymentMethod", "Add New Payment Method")
+                            </a>
+                        </div>
+                    </div>
+                    <form name="transactForm" ng-show="!vm.no_cards">
+                        <div class="credit-card--mobile-wrapper">
+                            <div ng-if="vm.transactionFields">
+
+                                <div ng-repeat="field in vm.transactionFields">
+                                    <div ng-switch="field.Type">
+
+                                        <!-- card -->
+                                        <div class="card-dropdown" ng-switch-when="card" ng-init="field.Value = vm.customerCard.activeCard.CardNumber">
+                                            <span class="arrow-default"></span>
+                                            <div class="card-dropdown__inner" ng-click="vm.showCustomerCards = !vm.showCustomerCards">
+                                                <div class="credit-card--name">
+                                                    <p>{{ vm.cardNumberLabel }}</p>
+                                                    @*<p>{{ field.Label }}</p>*@
+                                                </div>
+                                                <div class="payment-card">
+                                                    <div class="payment-card--info">
+                                                        <p>{{ vm.customerCard.activeCard.CardNumberMasked }}</p>
+                                                        @{
+                                                            if (pageType == "Withdraw")
+                                                            {
+                                                                <p>{{ vm.customerCard.activeCard.Iban }}</p>
+                                                            }
+                                                        }
+                                                        @*<p>* {{ vm.customerCard.activeCard.CardNumberLast4Digits }}</p>*@
+                                                    </div>
+                                                </div>
+                                                <div class="add-new--payment" ng-class="{'is-active' : vm.showCustomerCards}">
+                                                    <a class="add-payment--items" ng-repeat="card in vm.customerCard.cards" ng-click="vm.customerCard.selectCard(card);field.Value = card.CardNumber">
+                                                        <span class="arrow-default"></span>
+                                                        <div class="payment-card">
+                                                            <div class="payment-card--info">
+                                                                <p>{{ card.CardNumberMasked }}</p>
+                                                                @*<p>* {{ card.CardNumberLast4Digits }}</p>*@
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a class="add--payments-method" rel="modal:open" href="#new-payment">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="pluss-icon" width="12" height="12" viewBox="0 0 12 12"><g><g><path d="M0 5.5A.5.5 0 0 1 .5 5H5V.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V5h4.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H7v4.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V7H.5a.5.5 0 0 1-.5-.5z" /></g></g></svg>@Umbraco.GetDictionaryValue("[Cards]AddNewPaymentMethod", "Add New Payment Method")
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- text -->
+                                        <div class="label-payment--fill" ng-switch-when="text">
+                                            @*<label class="default-label">{{ vm.cardCvv }}</label>*@
+                                            <label class="default-label">{{ field.Label }}</label>
+                                            <input class="input-black cc-number" type="text"
+                                                   ng-model="field.Value"
+                                                   ng-readonly="field.IsReadOnly"
+                                                   ng-required="field.Required">
+                                        </div>
+
+                                        <!-- number -->
+                                        <div class="label-payment--fill" ng-switch-when="number">
+                                            @*<label class="default-label">{{ vm.cardExpiration }}</label>*@
+                                            <label class="default-label">{{ field.Label }}</label>
+                                            <input class="input-black" type="number"
+                                                   ng-model="field.Value"
+                                                   ng-readonly="field.IsReadOnly"
+                                                   ng-required="field.Required">
+                                        </div>
+
+                                        <!-- amount -->
+                                        <div class="label-payment--fill" ng-switch-when="amount">
+                                            <label class="default-label">{{ vm.amountLabel }}</label>
+                                            @*<label class="default-label">{{ field.Label }}</label>*@
+                                            <span class="icon-many">@(Model.CurrencySymbol)</span>
+                                            <input class="input-black text-center" type="text"
+                                                   cleave="vm.inputTypes.amount"
+                                                   ng-change="vm.updateAmount(field.Value)"
+                                                   ng-blur="vm.autoThousands(field.Value, vm.tenantCard.selectedCard.PaymentIdentifier)"
+                                                   ng-model="field.Value"
+                                                   ng-readonly="field.IsReadOnly"
+                                                   ng-required="field.Required">
+                                        </div>
+
+                                        <!--predefined amounts-->
+                                        <div ng-switch-when="predefinedAmounts">
+                                            <div class="payment--select-price mb-30">
+                                                <label class="radio--select-price" ng-repeat="p in vm.predefinedAmounts" style="width:@width%">
+                                                    <input type="radio" name="radio" ng-click="vm.updateAmount(p)" value="{{ p }}">
+                                                    <span class="text--select-price d-block">@(Model.CurrencySymbol) {{ p }}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!--default-->
+                                        <div class="label-payment--fill" ng-switch-default>
+                                            <label class="default-label">{{ field.Label }}</label>
+                                            <input class="input-black text-center" type="text"
+                                                   ng-model="field.Value"
+                                                   ng-readonly="field.IsReadOnly"
+                                                   ng-required="field.Required">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (page.GetProperty("hideTermsAndConditions").Value<bool>() == false)
+                            {
+                                <div class="label-payment--fill">
+                                    <label class="checkbox-static">
+                                        <input class="checkbox-static--input" id="agreeToTerms" type="checkbox" required ng-model="vm.agreeTerms">
+                                        <span class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Register]IAgreeWithThe", "I agree with the") <a href="@Model.TermsAndConditionsPageUrl" target="_blank">@Umbraco.GetDictionaryValue("[Register]TermsAndConditions", "terms and conditions")</a> *</span>
+                                    </label>
+                                </div>
+                            }
+                            else
+                            {
+                                <input type="hidden" required ng-model="vm.agreeTerms" ng-init="vm.agreeTerms=true" />
+                            }
+                        </div>
+
+                        <button class="popup popup-button button mb-10"
+                                ng-class="{ 'disabled' : transactForm.$invalid || vm.processing}"
+                                ng-disabled="transactForm.$invalid || vm.processing"
+                                ng-click="vm.transact()">
+                            {{ vm.submitText }}
+                        </button>
+                        <em class="currency-info" ng-show="vm.currencyInfo">{{ vm.currencyInfo }}</em>
+
+                        @Html.Partial("_processing_angular")
+
+                        <div class="response-failure" ng-if="vm.errorCardRequired">{{ vm.errorCardRequired }}</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="vm.bitCoinDetails" class="bitcoin-details" ng-cloak>
+            <p class="color-white mb-20">@Umbraco.GetDictionaryValue("[Bitcoin]BitCoinDepositAddress", "Bitcoin Deposit Address")</p>
+            <div class="bitcoin-address">{{ vm.bitCoinDetails.Parameters.Address }}</div>
+        </div>
+    </div>
+</section>
+
+@if (Model.ShowReceipt)
+{
+    <div class="popup-default popup-reciept default-offset zoom-anim-dialog" id="popup-reciept">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-default">@Model.WebsiteName&nbsp;@Umbraco.GetDictionaryValue("[Cards]Receipt", "Receipt")</h3>
+        <div class="height-36"></div>
+        <div class="wrapper--reciept-info">
+            <p class="reciept-info">@Umbraco.GetDictionaryValue("[Cards]PaymentMethod", "Payment Method")<span>@Umbraco.GetDictionaryValue("[PaymentSystem]" + Model.Receipt.PaymentSystemName, Model.Receipt.PaymentSystemName)</span></p>
+            <p class="reciept-info">@Umbraco.GetDictionaryValue("[Cards]FirstAndLastName", "Full Name")<span>@Model.Receipt.Name</span></p>
+            <p class="reciept-info">@Umbraco.GetDictionaryValue("[Cards]Date", "Date")<span>@Model.Receipt.Date</span></p>
+            <p class="reciept-info">@Umbraco.GetDictionaryValue("[Cards]Status", "Status")<span>@Umbraco.GetDictionaryValue("[ReceiptStatus]" + Model.Receipt.Status, Model.Receipt.Status)</span></p>
+            <p class="reciept-info">@Umbraco.GetDictionaryValue("[Cards]Amount", "Amount")<span>@(Model.CurrencySymbol)@Model.Receipt.Amount</span></p>
+            <p class="reciept-info">@Umbraco.GetDictionaryValue("[Cards]TransactionNumber", "Transaction Number")<span>@Model.Receipt.TransactionNumber</span></p>
+            <p class="reciept-info">@Umbraco.GetDictionaryValue("[Receipt]Gift", "Gift")<span>@Model.Receipt.Gift</span></p>
+            <p class="reciept-info">@Umbraco.GetDictionaryValue("[Receipt]Bonus", "Bonus")<span>@Model.Receipt.Bonus</span></p>
+        </div>
+    </div>
+}
+

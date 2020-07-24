@@ -1,0 +1,676 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BFCC0F64-4EE6-4E88-830A-3D46DB240A7B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Umbraco.Plugins.Connector</RootNamespace>
+    <AssemblyName>Umbraco.Plugins.Connector</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AustinHarris.JsonRpc">
+      <HintPath>..\packages\AustinHarris.JsonRpc.1.1.70\lib\net40\AustinHarris.JsonRpc.dll</HintPath>
+    </Reference>
+    <Reference Include="AustinHarris.JsonRpc.AspNet">
+      <HintPath>..\packages\AustinHarris.JsonRpc.AspNet.1.1.70\lib\net40\AustinHarris.JsonRpc.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="ClientDependency.Core, Version=1.9.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClientDependency.1.9.7\lib\net45\ClientDependency.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ClientDependency.Core.Mvc, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Examine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Examine.1.0.0\lib\net452\Examine.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.8.14.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.14\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageProcessor, Version=2.7.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.7.0.100\lib\net452\ImageProcessor.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.5.4.0\lib\net46\LightInject.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject.Annotation, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Annotation.1.1.0\lib\net46\LightInject.Annotation.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject.Mvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Mvc.2.0.0\lib\net46\LightInject.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject.Web, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Web.2.0.0\lib\net46\LightInject.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject.WebApi, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.WebApi.2.0.0\lib\net46\LightInject.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Markdown, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdown.2.2.1\lib\net451\Markdown.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.15.1.1012\lib\net46\Microsoft.Build.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Framework.15.1.1012\lib\net46\Microsoft.Build.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Tasks.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Tasks.Core.15.1.1012\lib\net46\Microsoft.Build.Tasks.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Utilities.Core.15.1.1012\lib\net46\Microsoft.Build.Utilities.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.5.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.5.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.5.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Setup.Configuration.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Setup.Configuration.Interop.1.16.30\lib\net35\Microsoft.VisualStudio.Setup.Configuration.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.4.0.138\lib\net461\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler.Shared, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.Shared.4.0.138\lib\net461\MiniProfiler.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime, Version=2.4.6.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaTime.2.4.6\lib\net45\NodaTime.dll</HintPath>
+    </Reference>
+    <Reference Include="NPoco, Version=3.9.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPoco.3.9.4\lib\net45\NPoco.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RestSharp, Version=106.6.9.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.6.9\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Semver, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Semver.2.0.4\lib\net452\Semver.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.8.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Enrichers.Process, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Enrichers.Process.2.0.1\lib\net45\Serilog.Enrichers.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Enrichers.Thread, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Enrichers.Thread.3.0.0\lib\net45\Serilog.Enrichers.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Filters.Expressions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Filters.Expressions.2.0.0\lib\net45\Serilog.Filters.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Formatting.Compact, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Formatting.Compact.1.0.0\lib\net45\Serilog.Formatting.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Formatting.Compact.Reader, Version=1.0.3.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Formatting.Compact.Reader.1.0.3\lib\net45\Serilog.Formatting.Compact.Reader.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Settings.AppSettings, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Settings.AppSettings.2.2.2\lib\net45\Serilog.Settings.AppSettings.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Superpower, Version=1.0.0.0, Culture=neutral, PublicKeyToken=aec39280ded1b3a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Superpower.2.0.0\lib\net45\Superpower.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Umbraco.SqlServerCE.4.0.0.1\lib\net472\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Umbraco.SqlServerCE.4.0.0.1\lib\net472\System.Data.SqlServerCe.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.5.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Linq.Expressions" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection" />
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.9.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TimeZoneConverter, Version=3.2.0.0, Culture=neutral, PublicKeyToken=e20ab7d0d9479841, processorArchitecture=MSIL">
+      <HintPath>..\packages\TimeZoneConverter.3.2.0\lib\net471\TimeZoneConverter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TimeZoneNames, Version=4.0.1.0, Culture=neutral, PublicKeyToken=e20ab7d0d9479841, processorArchitecture=MSIL">
+      <HintPath>..\packages\TimeZoneNames.4.0.1\lib\net471\TimeZoneNames.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.8.0.2\lib\net472\Umbraco.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Examine, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Examine.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Web.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache\ApiKeyCache.cs" />
+    <Compile Include="Cache\ApiAuthorizationCache.cs" />
+    <Compile Include="Composer.cs" />
+    <Compile Include="ConnectorContext.cs" />
+    <Compile Include="Content\AffiliatePageDocumentType.cs" />
+    <Compile Include="Content\FooterLinkGroupChangesDocumentType.cs" />
+    <Compile Include="Content\BonusHistoryPageDocumentType.cs" />
+    <Compile Include="Content\GenericInfoPageDocumentType.cs" />
+    <Compile Include="Content\HomeDocTypeNotificationSettings.cs" />
+    <Compile Include="Content\HomeDocumentTypeSpinner.cs" />
+    <Compile Include="Content\LoginPageDocumentType.cs" />
+    <Compile Include="Content\ManageDictionaryItems.cs" />
+    <Compile Include="Content\TitleOnAllPagesMigration.cs" />
+    <Compile Include="Content\MetaTagOnAllPagesMigration.cs" />
+    <Compile Include="Content\ReceiptStatus.cs" />
+    <Compile Include="Content\MetaTags.cs" />
+    <Compile Include="Content\GamePageBodyText.cs" />
+    <Compile Include="Content\DemoModeReconfiguration.cs" />
+    <Compile Include="Content\ContentPagesReconfiguration.cs" />
+    <Compile Include="Content\ErrorPageDocumentType.cs" />
+    <Compile Include="Content\HomeDocumentTypeGameModeDialog.cs" />
+    <Compile Include="Content\HomeDocTypeTelegramWhatsApp.cs" />
+    <Compile Include="Content\ExternalUrlsToMenus.cs" />
+    <Compile Include="Content\GenderDictionaries.cs" />
+    <Compile Include="Content\ReceiptMigration.cs" />
+    <Compile Include="Content\StylesheetBulkDownloadMigration.cs" />
+    <Compile Include="Content\StylesheetBulkUploadMigration.cs" />
+    <Compile Include="Content\TenantFavicon.cs" />
+    <Compile Include="Content\ServerErrorsDictionary.cs" />
+    <Compile Include="Content\ServerErrorsDictionaries.cs" />
+    <Compile Include="Content\InPlayGamePageReconfiguration.cs" />
+    <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\StylesheetBulkDownloadSurfaceController.cs" />
+    <Compile Include="Controllers\StylesheetBulkUploadSurfaceController.cs" />
+    <Compile Include="Controllers\StylesheetBulkDownloadTreeController.cs" />
+    <Compile Include="Controllers\StylesheetBulkUploadTreeController.cs" />
+    <Compile Include="Helpers\CacheHelper.cs" />
+    <Compile Include="Helpers\UrlHelper.cs" />
+    <Compile Include="Interfaces\IGameService.cs" />
+    <Compile Include="Models\CacheInfo.cs" />
+    <Compile Include="Models\GamePageType.cs" />
+    <Compile Include="Models\HubConnectionRequest.cs" />
+    <Compile Include="Models\ImageCropDataSet.cs" />
+    <Compile Include="Services\EditorEventsService.cs" />
+    <Compile Include="Services\GameService.cs" />
+    <Compile Include="Services\IUtilityService.cs" />
+    <Compile Include="Services\RestClientExtended.cs" />
+    <Compile Include="Services\UtilityService.cs" />
+    <EmbeddedResource Include="Content\Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Content\BettingHistoryPageIntegration.cs" />
+    <Compile Include="Content\EditAccountPageParentFix.cs" />
+    <Compile Include="Content\EditAccountDocumentType.cs" />
+    <Compile Include="Content\CasinoPageIntegration.cs" />
+    <Compile Include="Content\HomeAddAlternateDomains.cs" />
+    <Compile Include="Content\HomeDocumentTypePaymentSettings.cs" />
+    <Compile Include="Content\HomeDocumentTypeSlider.cs" />
+    <Compile Include="Content\MoveTenantPreferencesPropertyType.cs" />
+    <Compile Include="Content\GamePages.cs" />
+    <Compile Include="Content\UpdateGenericDocumentTypeForSvgIcons.cs" />
+    <Compile Include="Content\HomeDocumentTypeTenantCurrencies.cs" />
+    <Compile Include="Content\SportsPageIntegration.cs" />
+    <Compile Include="Content\ResetPasswordContentNode.cs" />
+    <Compile Include="Content\ResetPasswordViaEmailDocumentType.cs" />
+    <Compile Include="Content\Phase2Milestone7.cs" />
+    <Compile Include="Content\RenantePhase2Milestone6DictionaryMigration.cs" />
+    <Compile Include="Content\Phase2Milestone7DictionaryMigration.cs" />
+    <Compile Include="Content\ConfirmEmailDocumentType.cs" />
+    <Compile Include="Content\ConfirmEmailContentNode.cs" />
+    <Compile Include="Content\Phase2MergedHomeDocumentType.cs" />
+    <Compile Include="Content\HomeDocumentTypePhase2Milestone6.cs" />
+    <Compile Include="Content\HomeDocumentTypePhase2.cs" />
+    <Compile Include="Content\HomeMediaNode.cs" />
+    <Compile Include="Content\HomeContentNode.cs" />
+    <Compile Include="Controllers\SliderController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DictionarySettingsTreeController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CardController.cs" />
+    <Compile Include="Controllers\DictionarySettingsSurfaceController.cs" />
+    <Compile Include="Controllers\TenantController.cs" />
+    <Compile Include="Controllers\TicketFileController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\TotalCodeTenantHomeController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
+    <Compile Include="Controllers\TransactionHistoryController.cs" />
+    <Compile Include="Controllers\UtilityController.cs" />
+    <Compile Include="Controllers\WandController.cs" />
+    <Compile Include="Controllers\SvgIconPickerController.cs" />
+    <Compile Include="Dictionaries\DictionaryItems.cs" />
+    <Compile Include="Dictionaries\ImportExportDictionaryItem.cs" />
+    <Compile Include="Helpers\FileSystemHelper.cs" />
+    <Compile Include="Helpers\ImportDigest.cs" />
+    <Compile Include="Helpers\NodeHelper.cs" />
+    <Compile Include="Helpers\OddsDisplayHelper.cs" />
+    <Compile Include="Helpers\TenantHelper.cs" />
+    <Compile Include="Helpers\TimeZoneHelper.cs" />
+    <Compile Include="Interfaces\IEmbeddedResource.cs" />
+    <Compile Include="Interfaces\IField.cs" />
+    <Compile Include="Interfaces\IMandatoryField.cs" />
+    <Compile Include="Interfaces\ICustomerFields.cs" />
+    <Compile Include="Models\ApiParameters.cs" />
+    <Compile Include="Models\ApiPayloadErrorCodes.cs" />
+    <Compile Include="Models\ApiResponses.cs" />
+    <Compile Include="Models\ApiSetting.cs" />
+    <Compile Include="Models\Card.cs" />
+    <Compile Include="Models\CardModels.cs" />
+    <Compile Include="Models\CustomerSummary.cs" />
+    <Compile Include="Models\Countries.cs" />
+    <Compile Include="Models\DefaultAllowedValues.cs" />
+    <Compile Include="Models\ExcelCell.cs" />
+    <Compile Include="Models\GameDetails.cs" />
+    <Compile Include="Models\JsonRpcFormat.cs" />
+    <Compile Include="Models\LoginSession.cs" />
+    <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Models\OddsDisplay.cs" />
+    <Compile Include="Models\ReceiptModel.cs" />
+    <Compile Include="Models\SliderItem.cs" />
+    <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\TicketModels.cs" />
+    <Compile Include="Models\TimeZone.cs" />
+    <Compile Include="Models\ValidationErrorItem.cs" />
+    <Compile Include="Models\ValidationErrorList.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\CardService.cs" />
+    <Compile Include="Interfaces\ICardService.cs" />
+    <Compile Include="Interfaces\ITransactionHistoryService.cs" />
+    <Compile Include="Interfaces\ITransactionService.cs" />
+    <Compile Include="Services\TicketFileService.cs" />
+    <Compile Include="Interfaces\ITicketFileService.cs" />
+    <Compile Include="Interfaces\ITicketService.cs" />
+    <Compile Include="Services\LanguageDictionaryService.cs" />
+    <Compile Include="Controllers\ExternalApiConnectorController.cs" />
+    <Compile Include="Content\HomeDocumentType.cs" />
+    <Compile Include="Controllers\JsonRpcController.cs" />
+    <Compile Include="Controllers\ApiSettingsSurfaceController.cs" />
+    <Compile Include="Controllers\ApiSettingsTreeController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="EmbeddedResources.cs" />
+    <Compile Include="Exceptions\ConnectorExceptions.cs" />
+    <Compile Include="Filters\ApiKeyAuthenticationAttribute.cs" />
+    <Compile Include="Helpers\CountryCodeHelper.cs" />
+    <Compile Include="Helpers\GroupHelper.cs" />
+    <Compile Include="Interfaces\IDictionaryItem.cs" />
+    <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Helpers\ContentHelper.cs" />
+    <Compile Include="Services\ControllerService.cs" />
+    <Compile Include="Helpers\EncryptDecryptHelper.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="Migrations\MigrationsComponent.cs" />
+    <Compile Include="Services\TicketService.cs" />
+    <Compile Include="Services\TransactionHistoryService.cs" />
+    <Compile Include="Services\TransactionService.cs" />
+    <Compile Include="Services\UserGroupService.cs" />
+    <Compile Include="Services\TotalCodeApiService.cs" />
+    <Compile Include="Interfaces\IApiConnectorJsonRpc.cs" />
+    <Compile Include="Interfaces\IApiConnector.cs" />
+    <Compile Include="Interfaces\IDbService.cs" />
+    <Compile Include="Interfaces\IParameter.cs" />
+    <Compile Include="Interfaces\IResponseContent.cs" />
+    <Compile Include="Migrations\NoAppIdMigration.cs" />
+    <Compile Include="Migrations\InitialMigration.cs" />
+    <Compile Include="Migrations\MigrationUpgradeComponent.cs" />
+    <Compile Include="Models\ApiAuthorization.cs" />
+    <Compile Include="Models\ApiKeys.cs" />
+    <Compile Include="Models\Currencies.cs" />
+    <Compile Include="Models\DefaultSections.cs" />
+    <Compile Include="Models\EmbeddedResource.cs" />
+    <Compile Include="Models\JsonRpcResponseData.cs" />
+    <Compile Include="Models\Languages.cs" />
+    <Compile Include="Models\PurgeResults.cs" />
+    <Compile Include="Models\Tenant.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ApiKeysService.cs" />
+    <Compile Include="Services\ContextComposer.cs" />
+    <Compile Include="Services\DbService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Global.asax" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\scripts\bootstrap-3.4.1.min.js" />
+    <EmbeddedResource Include="Content\scripts\edit-customer-popups.js" />
+    <EmbeddedResource Include="Content\scripts\edit-customer.js" />
+    <EmbeddedResource Include="Content\scripts\sports-feed.controller.js" />
+    <EmbeddedResource Include="Content\scripts\js.cookies.js" />
+    <EmbeddedResource Include="Content\scripts\jquery.modal.min.js" />
+    <EmbeddedResource Include="Content\scripts\login.js" />
+    <EmbeddedResource Include="Content\scripts\jquery-ui.js" />
+    <EmbeddedResource Include="Content\scripts\jquery.min.js" />
+    <EmbeddedResource Include="Content\scripts\jquery.payment.min.js" />
+    <EmbeddedResource Include="Content\scripts\register.js" />
+    <EmbeddedResource Include="Content\Media\icons\d-cloud.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-arc.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-camera.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-case.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-coffee-cup.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-discount.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-doc.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-enigma.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-graph.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-lamp.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-like.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-location.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-mail.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-mouse.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-people.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-phone-footer.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-phone.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-pointer.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-rub.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-rupor.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-shop.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-skype.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-student.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-wing-cyan.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-wing.png" />
+    <EmbeddedResource Include="Content\Media\icons\ic-world.png" />
+    <EmbeddedResource Include="Content\Media\img\arrow-default.svg" />
+    <EmbeddedResource Include="Content\Media\img\arrow-left.svg" />
+    <EmbeddedResource Include="Content\Media\img\betcloob-user.svg" />
+    <EmbeddedResource Include="Content\Media\img\blur-font.png" />
+    <EmbeddedResource Include="Content\Media\img\captcha.jpg" />
+    <EmbeddedResource Include="Content\Media\img\checked.svg" />
+    <EmbeddedResource Include="Content\Media\img\close-small.svg" />
+    <EmbeddedResource Include="Content\Media\img\closed-popup.svg" />
+    <EmbeddedResource Include="Content\Media\img\closed.svg" />
+    <EmbeddedResource Include="Content\Media\img\credit-card--ame.svg" />
+    <EmbeddedResource Include="Content\Media\img\credit-card--icon.svg" />
+    <EmbeddedResource Include="Content\Media\img\credit-card--paypal.svg" />
+    <EmbeddedResource Include="Content\Media\img\credit-card--visa.svg" />
+    <EmbeddedResource Include="Content\Media\img\favicon\apple-touch-icon-114x114.png" />
+    <EmbeddedResource Include="Content\Media\img\favicon\apple-touch-icon-72x72.png" />
+    <EmbeddedResource Include="Content\Media\img\favicon\apple-touch-icon.png" />
+    <EmbeddedResource Include="Content\Media\img\favicon\favicon.ico" />
+    <EmbeddedResource Include="Content\Media\img\file-icon.png" />
+    <EmbeddedResource Include="Content\Media\img\file-icon.svg" />
+    <EmbeddedResource Include="Content\Media\img\foot-logo3.svg" />
+    <EmbeddedResource Include="Content\Media\img\foot-logo4.svg" />
+    <EmbeddedResource Include="Content\Media\img\gambling.svg" />
+    <EmbeddedResource Include="Content\Media\img\icon-money.svg" />
+    <EmbeddedResource Include="Content\Media\img\line.png" />
+    <EmbeddedResource Include="Content\Media\img\logo-footer.svg" />
+    <EmbeddedResource Include="Content\Media\img\logo.svg" />
+    <EmbeddedResource Include="Content\Media\img\plus.svg" />
+    <EmbeddedResource Include="Content\Media\img\reload.svg" />
+    <EmbeddedResource Include="Content\Media\img\search.svg" />
+    <EmbeddedResource Include="Content\Media\img\social-icon1.svg" />
+    <EmbeddedResource Include="Content\Media\img\social-icon2.svg" />
+    <EmbeddedResource Include="Content\Media\img\social-icon3.svg" />
+    <EmbeddedResource Include="Content\Media\img\user.svg" />
+    <EmbeddedResource Include="Content\Media\img\year-18.svg" />
+    <EmbeddedResource Include="Content\css\index.css" />
+    <EmbeddedResource Include="Content\scripts\scripts.js" />
+    <None Include="app.config" />
+    <EmbeddedResource Include="Content\App_Plugins\ApiSettingsSurface\package.manifest" />
+    <EmbeddedResource Include="Content\App_Plugins\TenantPreferences\package.manifest" />
+    <EmbeddedResource Include="Content\Views\Partials\_footer.cshtml" />
+    <EmbeddedResource Include="Content\Views\Partials\_navigation.cshtml" />
+    <EmbeddedResource Include="Content\scripts\select.js" />
+    <EmbeddedResource Include="Content\scripts\select2.full.js" />
+    <EmbeddedResource Include="Content\Views\Partials\_register-popup.cshtml" />
+    <EmbeddedResource Include="Content\Views\Layout.cshtml" />
+    <EmbeddedResource Include="Content\Views\TotalCodeTenantHomeTemplate.cshtml" />
+    <EmbeddedResource Include="Content\Media\img\gambling.webp" />
+    <EmbeddedResource Include="Content\fonts\InterExtraBold\Inter-ExtraBold.svg" />
+    <EmbeddedResource Include="Content\fonts\InterRegular\Inter-Regular.svg" />
+    <EmbeddedResource Include="Content\fonts\InterSemiBold\Inter-SemiBold.svg" />
+    <EmbeddedResource Include="Content\Media\img\favicon\apple-touch-icon-144x144.png" />
+    <EmbeddedResource Include="Content\css\jquery.modal.css" />
+    <EmbeddedResource Include="Content\App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\controller.js" />
+    <EmbeddedResource Include="Content\App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\edit.html" />
+    <EmbeddedResource Include="Content\App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\wysiwyg.html" />
+    <EmbeddedResource Include="Content\App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\wysiwyg.js" />
+    <EmbeddedResource Include="Content\App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\codeflask.min.js" />
+    <EmbeddedResource Include="Content\App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\codeflask.module.js" />
+    <Content Include="Content\App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\import.html" />
+    <Content Include="Content\App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\import.js" />
+    <EmbeddedResource Include="Content\App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\style.css" />
+    <EmbeddedResource Include="Content\App_Plugins\PaymentSettings\view.css" />
+    <EmbeddedResource Include="Content\App_Plugins\PaymentSettings\view.html" />
+    <EmbeddedResource Include="Content\App_Plugins\PaymentSettings\view.js" />
+    <EmbeddedResource Include="Content\App_Plugins\SvgCustomViewer\controller.js" />
+    <EmbeddedResource Include="Content\App_Plugins\SvgCustomViewer\style.css" />
+    <EmbeddedResource Include="Content\App_Plugins\SvgCustomViewer\view.html" />
+    <EmbeddedResource Include="Content\App_Plugins\StylesheetBulkUploadSurface\backoffice\StylesheetBulkUpload\controller.js" />
+    <EmbeddedResource Include="Content\App_Plugins\StylesheetBulkUploadSurface\backoffice\StylesheetBulkUpload\dashboard.html" />
+    <EmbeddedResource Include="Content\App_Plugins\StylesheetBulkDownloadSurface\backoffice\StylesheetBulkDownload\controller.js" />
+    <EmbeddedResource Include="Content\App_Plugins\StylesheetBulkDownloadSurface\backoffice\StylesheetBulkDownload\dashboard.html" />
+    <EmbeddedResource Include="Content\App_Plugins\StylesheetBulkDownloadSurface\backoffice\StylesheetBulkDownload\overlay.html" />
+    <EmbeddedResource Include="Content\App_Plugins\StylesheetBulkDownloadSurface\backoffice\StylesheetBulkDownload\style.css" />
+    <Content Include="Content\Media\img\tail-spin.svg" />
+    <Content Include="Content\Media\Web.config" />
+    <EmbeddedResource Include="Content\Views\TotalCodeTenantConfirmEmail.cshtml" />
+    <EmbeddedResource Include="Content\fonts\InterExtraBold\Inter-ExtraBold.eot" />
+    <EmbeddedResource Include="Content\fonts\InterExtraBold\Inter-ExtraBold.ttf" />
+    <EmbeddedResource Include="Content\fonts\InterExtraBold\Inter-ExtraBold.woff" />
+    <EmbeddedResource Include="Content\fonts\InterRegular\Inter-Regular.eot" />
+    <EmbeddedResource Include="Content\fonts\InterRegular\Inter-Regular.ttf" />
+    <EmbeddedResource Include="Content\fonts\InterRegular\Inter-Regular.woff" />
+    <EmbeddedResource Include="Content\fonts\InterSemiBold\Inter-SemiBold.eot" />
+    <EmbeddedResource Include="Content\fonts\InterSemiBold\Inter-SemiBold.ttf" />
+    <EmbeddedResource Include="Content\fonts\InterSemiBold\Inter-SemiBold.woff" />
+    <EmbeddedResource Include="Content\Views\TotalCodeTenantResetPassword.cshtml" />
+    <EmbeddedResource Include="Content\Views\Partials\_server-errors.cshtml" />
+    <EmbeddedResource Include="Content\Views\Partials\_forgot-username-popup.cshtml" />
+    <EmbeddedResource Include="Content\Views\Partials\_reset-password-popup.cshtml" />
+    <EmbeddedResource Include="Content\Views\Partials\_processing.cshtml" />
+    <EmbeddedResource Include="Content\Views\Partials\_server-errors-display.cshtml" />
+    <EmbeddedResource Include="Content\Views\Partials\_hidden-values.cshtml" />
+    <EmbeddedResource Include="Content\Views\totalCodeSportsFeedPageTemplate.cshtml" />
+    <EmbeddedResource Include="Content\Views\totalCodeAccountEditPageTemplate.cshtml" />
+    <EmbeddedResource Include="Content\Views\totalCodeCasinoPageTemplate.cshtml" />
+    <EmbeddedResource Include="Content\Views\totalCodeBettingHistoryPageTemplate.cshtml" />
+    <EmbeddedResource Include="Content\App_Plugins\DictionarySettingsSurface\package.manifest" />
+    <EmbeddedResource Include="Content\App_Plugins\PaymentSettings\package.manifest" />
+    <EmbeddedResource Include="Content\App_Plugins\SvgCustomViewer\package.manifest" />
+    <EmbeddedResource Include="Content\Views\totalCodeGamePageTemplate.cshtml" />
+    <EmbeddedResource Include="Content\Views\GenericErrorTemplate.cshtml" />
+    <EmbeddedResource Include="Content\Views\totalCodeAffiliatePageTemplate.cshtml" />
+    <EmbeddedResource Include="Content\Views\totalCodeBonusHistoryPageTemplate.cshtml" />
+    <EmbeddedResource Include="Content\App_Plugins\StylesheetBulkUploadSurface\package.manifest" />
+    <EmbeddedResource Include="Content\App_Plugins\StylesheetBulkDownloadSurface\package.manifest" />
+    <EmbeddedResource Include="Content\Views\totalCodeGenericInfoPageTemplate.cshtml" />
+    <EmbeddedResource Include="Content\Views\totalCodeLoginPageTemplate.cshtml" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Readme - Backup Install.md" />
+    <None Include="Readme - Fresh Install.md" />
+    <None Include="Readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\controller.js" />
+    <EmbeddedResource Include="Content\App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\edit.html" />
+    <EmbeddedResource Include="Content\App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\App_Plugins\TenantPreferences\view.css" />
+    <EmbeddedResource Include="Content\App_Plugins\TenantPreferences\view.html" />
+    <EmbeddedResource Include="Content\App_Plugins\TenantPreferences\view.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.Reflection.Helpers\System.Reflection.Helpers.csproj">
+      <Project>{13708EE0-876A-4B61-95C0-E249046D5DC1}</Project>
+      <Name>System.Reflection.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets'))" />
+  </Target>
+</Project>

@@ -1,0 +1,23 @@
+﻿<div class="SvgIconPicker" ng-controller="SvgIconPicker.Controller">
+    <div class="display-icon-data">
+        <ul class="umb-sortable-thumbnails" ng-show="model.value">
+            <li>
+                <div class="display-icon">
+                    <skybrud-svg value="model.value" config="config"></skybrud-svg>
+                    <div class="umb-sortable-thumbnails__actions" data-element="sortable-thumbnail-actions">
+                        <a class="umb-sortable-thumbnails__action" data-element="action-edit" href="" ng-click="add(media)">
+                            <i class="icon icon-edit"></i>
+                        </a>
+                        <a class="umb-sortable-thumbnails__action -red" data-element="action-remove" href="" ng-click="remove()">
+                            <i class="icon icon-delete"></i>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="actions">
+            <a class="link" href="#" prevent-default="" ng-show="!model.value" ng-click="add()"><localize key="dialog_addIcon">Add icon</localize> <i class="icon icon-add"></i></a>
+        </div>
+    </div>
+    <umb-overlay ng-if="overlay.show" model="overlay" position="{{overlay.position || 'right'}}" view="overlay.view"></umb-overlay>
+</div>

@@ -1,0 +1,94 @@
+﻿@inherits UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+@{
+    var tenantHome = Model.Content.AncestorOrSelf(1);
+    TenantPreferences preferences = Model.Preferences;
+}
+@if (!Model.IsLoggedIn)
+{
+    <div class="popup-default popup-mobile zoom-anim-dialog" id="mobile-verification">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]Login")</h3>
+        <form id="mobile-verification-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@Model.CurrentLanguage.TwoLetterISOLanguageName" />
+            <div class="step-popup registration-steps step1">
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="phone-number-change-email">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")</label>
+                    </div>
+                    <div class="item--input phone-checked">
+                        <div class="custom-select select-bold float">
+                            <select class="select-phone select-black" name="countryCode">
+                                <option value="">xx</option>
+                                @foreach (var countryCode in Model.PhoneCountryCodes)
+                                {
+                                    <option value="@countryCode">@countryCode</option>
+                                }
+                            </select>
+                        </div>
+                        @{
+                            <input id="phone-number" required placeholder="@Umbraco.GetDictionaryValue("[Register]PhoneNumberPlaceholder", "555-5555")" name="mobile" class="validate-target phone-number phone-format" data-validate-expression="@preferences.Mobile.Validation" data-validation-message="error-message" data-no-value="valid-error" min="@preferences.Mobile.MinValue" max="@preferences.Mobile.MaxValue" type="tel" pattern="@preferences.Mobile.Validation">
+                            <span class="valid-error" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                            <span class="error-message" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[Register]IncorrectOrInvalid", " is incorrect or invalid")</span>
+                        }
+                    </div>
+                </div>
+                <div class="item--input-label">
+                    <a class="popup popup-button button validate" href="#registration-step2" data-method="verifyMobile" data-form="mobile-verification">
+                        @Umbraco.GetDictionaryValue("[Register]Continue", "Continue")
+                    </a>
+                </div>
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <p class="popup-text--gray text-center">
+                    @Umbraco.GetDictionaryValue("[Register]PhoneNumberInstructions", "Enter your mobile phone number and we will send you a verification code")
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <div class="popup-default registration-step default-offset zoom-anim-dialog" id="mobile-verification-confirm">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">
+            @Umbraco.GetDictionaryValue("[Others]Login", "Login")
+
+        </h3>
+        <div class="height-36"></div>
+        <form id="mobile-verification-confirm-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+            <input type="hidden" name="language" value="@Model.CurrentLanguage.TwoLetterISOLanguageName" />
+            <input type="hidden" name="mobile" value="" />
+            <div class="step-popup registration-steps step2">
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="verification-code">@Umbraco.GetDictionaryValue("[Register]VerificationCode", "Verification Code")</label>
+                    </div>
+                    <div class="item--input">
+                        <input id="verification-code" name="code" placeholder="@Umbraco.GetDictionaryValue("[Register]VerificationCodePlaceholder", "XXXXXX")" class="validate-target" data-validate-expression="^[0-9]{1,6}$" data-validation-message="error-message" data-no-value="valid-error" required type="number">
+                        <span class="valid-error" style="display:none;">@Umbraco.GetDictionaryValue("[Register]VerificationCode", "Verification Code")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsRequired", " is required")</span>
+                        <span class="error-message" style="display:none;">@Umbraco.GetDictionaryValue("[Register]VerificationCodeInvalidOrExpired", "Verification code is invalid or expired")</span>
+                    </div>
+                </div>
+                @{
+                    <div class="item--input-label"><a class="popup popup-button button validate" href="#" data-method="verifyMobileConfirm" data-form="mobile-verification-confirm-form">@Umbraco.GetDictionaryValue("[Register]EnterCode", "Enter Code")</a></div>
+                }
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <p class="popup-text--gray text-center">
+                    @Umbraco.GetDictionaryValue("[Register]Enter6DigitVerificationCode", "Enter the 6-digit verification code sent to")<span class="mobile-holder"></span>
+                </p>
+                <div class="link--popup-default text-center">
+                    <a class="default-link resend-code-mobile" href="#">
+                        @Umbraco.GetDictionaryValue("[Register]ResendCode", "Resend Code")
+                    </a>
+                    <div class="resend-time-mobile" style="display:none;">
+                        @Umbraco.GetDictionaryValue("[Register]Wait", "wait")
+                        <span class="wait-time"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+}

@@ -1,0 +1,116 @@
+.custom-select 
+	position relative
+	ffa(fR)
+	select 
+		display none
+
+.custom-select 
+	&.is-active
+		.select-selected
+			c cWhite
+
+.select-selected
+	font-size 12px
+	ffa(fR)
+	color cWhite
+	outline none
+	cursor pointer
+	padding-right 17px
+	&.select-arrow-active 
+		&:after
+			transform rotate(-135deg)
+			top 4px
+	&:after 
+		position absolute
+		content ""
+		top 1px
+		right 0
+		width 6px
+		height 6px
+		border-style: solid
+		border-width: 0 2px 2px 0
+		border-color: cWhite
+		z-index 2
+		pointer-events none
+		transition all .25s ease-out
+		transform rotate(45deg)
+.select-items
+	min-width 128px
+	position absolute
+	font-size 12px
+	ffa(fR)
+	ls(-0.09px)
+	color cGrayD
+	background cGraySelec
+	top calc(100% + 25px)
+	left -30px
+	right 0
+	z-index 99
+	trn(.25s)
+	box-shadow  0 5px 30px rgba(5, 5, 5, 0.35)
+	opacity 1
+	visibility visible
+	padding 16px 20px 24px 30px
+	div 
+		c cGrayL
+		padding 12px 0
+		cursor pointer
+		trn(.25s)
+		&.same-as-selected 
+			c cWhite
+		&:hover 
+			c cYellow
+.select-hide
+	top calc(100% + 45px)
+	opacity 0
+	visibility hidden
+
+.flex--custom-select
+	display flex
+	flex-direction row
+	justify-content space-between
+	flex-wrap wrap
+
+.select-bold
+	width 120px
+	&:not(:last-child)
+		margin-right 16px
+	&.mounth
+		width 192px
+	.select-selected
+		fsR(14px)
+		c cGray
+		background: cGraySearch
+		height 56px
+		padding 20px 44px 20px 20px
+		brr(6px)
+		&:after
+			right 20px
+			top 24px
+	.select-items
+		left 0
+		top calc(100% - 4px)
+		max-height 200px
+		overflow-y scroll
+		background: cGraySearch
+		padding 0
+		box-shadow: 0 10px 14px rgba(5,5,5,.25)
+		&>div
+			background: cGraySearch
+			padding: 14px 20px
+			border-top 1px solid #403f40
+			c cWhite
+			trn(.25s)
+			&:hover
+				background: #403f40
+
+		&::-webkit-scrollbar-track
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
+			background-color: cGray
+
+		&::-webkit-scrollbar
+			width: 0px
+			background-color: cGray
+
+		&::-webkit-scrollbar-thumb
+			background-color: cGraySearch

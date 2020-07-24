@@ -1,0 +1,97 @@
+﻿@*@inherits UmbracoViewPage*@
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+@using Umbraco.Plugins.Connector.Models
+<div class="popup-default new-ticket default-offset zoom-anim-dialog" id="new-ticket-anonymous" ng-controller="createTicketAnonymousController as vm">
+    <form name="createTicketAnonymous" ng-submit="vm.submit()" novalidate>
+        <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Help]NewTicket", "New Ticket")</h3>
+        <div class="height-36"></div>
+
+        <div class="item--input-fifty">
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>@Umbraco.GetDictionaryValue("[Help]FirstName", "First Name")</label>
+                </div>
+                <div class="item--input">
+                    <input name="name"
+                           ng-model="vm.ticketAnonymous.name"
+                           ng-class="{'valid-error-input' : createTicketAnonymous.$submitted && createTicketAnonymous.name.$invalid}"
+                           required>
+                    <span class="valid-error" ng-show="createTicketAnonymous.$submitted && createTicketAnonymous.name.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "Field is required")</span>
+                </div>
+            </div>
+
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label>@Umbraco.GetDictionaryValue("[Help]LastName", "Last Name")</label>
+                </div>
+                <div class="item--input">
+                    <input name="surname"
+                           ng-model="vm.ticketAnonymous.surname"
+                           ng-class="{'valid-error-input' : createTicketAnonymous.$submitted && createTicketAnonymous.surname.$invalid}"
+                           required>
+                    <span class="valid-error" ng-show="createTicketAnonymous.$submitted && createTicketAnonymous.surname.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "Field is required")</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="item--input-label">
+            <div class="item--label">
+                <label>@Umbraco.GetDictionaryValue("[Help]EmailAddress", "Email Address")</label>
+            </div>
+            <div class="item--input">
+                <input type="email"
+                       name="emailAddress"
+                       ng-model="vm.ticketAnonymous.emailAddress"
+                       ng-required="!vm.ticketAnonymous.emailAddress && !vm.ticketAnonymous.phoneNumber"
+                       ng-class="{'valid-error-input' : createTicketAnonymous.$submitted && createTicketAnonymous.emailAddress.$invalid}">
+                <span class="valid-error" ng-show="createTicketAnonymous.$submitted && createTicketAnonymous.emailAddress.$invalid">@Umbraco.GetDictionaryValue("[ServerErrors]MobileOrEmailRequired", "Field is Required")</span>
+            </div>
+        </div>
+
+        <div class="item--input-label">
+            <div class="item--label">
+                <label>@Umbraco.GetDictionaryValue("[Help]PhoneNumber", "Phone Number")</label>
+            </div>
+            <div class="item--input">
+                <input name="phoneNumber" ng-model="vm.ticketAnonymous.phoneNumber"
+                       ng-required="!vm.ticketAnonymous.emailAddress && !vm.ticketAnonymous.phoneNumber"
+                       ng-class="{'valid-error-input' : createTicketAnonymous.$submitted && createTicketAnonymous.phoneNumber.$invalid}">
+                <span class="valid-error" ng-show="createTicketAnonymous.$submitted && createTicketAnonymous.phoneNumber.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]MobileOrEmailRequired", "Field is Required")</span>
+            </div>
+        </div>
+
+        <div class="item--input-label">
+            <div class="item--label">
+                <label>@Umbraco.GetDictionaryValue("[Help]Subject","Subject")</label>
+            </div>
+            <div class="item--input">
+                <input name="title" ng-model="vm.ticketAnonymous.title"
+                       ng-class="{'valid-error-input' : createTicketAnonymous.$submitted && createTicketAnonymous.title.$invalid}"
+                       required>
+                <span class="valid-error" ng-show="createTicketAnonymous.$submitted && createTicketAnonymous.title.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "Field is Required")</span>
+            </div>
+        </div>
+        <div class="item--input-label small-offset">
+            <div class="item--label">
+                <label>@Umbraco.GetDictionaryValue("[Help]Message","Message")</label>
+            </div>
+            <div class="item--input">
+                <textarea name="description"
+                          ng-model="vm.ticketAnonymous.description"
+                          ng-class="{'valid-error-input' : createTicketAnonymous.$submitted && createTicketAnonymous.description.$invalid}"
+                          required></textarea>
+                <span class="valid-error" ng-show="createTicketAnonymous.$submitted && createTicketAnonymous.description.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "Field is Required")</span>
+            </div>
+        </div>
+
+        @Html.Partial("_file_controller")
+
+        <div class="item--input-label small-offset">
+            <button class="popup-button button" ng-class="{'disabled' : vm.disableBtn}" type="submit">@Umbraco.GetDictionaryValue("[Help]Send","Send")</button>
+        </div>
+
+        @Html.Partial("_processing_angular")
+    </form>
+</div>

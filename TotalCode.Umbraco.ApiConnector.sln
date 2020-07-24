@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postman", "Postman", "{DDC44E8D-A822-4888-8364-6E09E831ECE4}"
+	ProjectSection(SolutionItems) = preProject
+		Postman\Create Tenant.html = Postman\Create Tenant.html
+		Postman\Create Tenant.md = Postman\Create Tenant.md
+		Postman\Edit Tenant.html = Postman\Edit Tenant.html
+		Postman\Edit Tenant.md = Postman\Edit Tenant.md
+		Postman\Refresh token.postman_collection.json = Postman\Refresh token.postman_collection.json
+		Umbraco.Cms.Web.8.0.2\Total Code Umbraco Api Json-rpc.postman_collection.json = Umbraco.Cms.Web.8.0.2\Total Code Umbraco Api Json-rpc.postman_collection.json
+		Postman\Total Code Umbraco Api Json-rpc.postman_collection.json = Postman\Total Code Umbraco Api Json-rpc.postman_collection.json
+		Postman\Total Code Umbraco Api non JsonRPC.postman_collection.json = Postman\Total Code Umbraco Api non JsonRPC.postman_collection.json
+		Postman\Total Code Umbraco Json-rpc Api Documented With Tenant Preferences And Dummy Data.postman_collection.json = Postman\Total Code Umbraco Json-rpc Api Documented With Tenant Preferences And Dummy Data.postman_collection.json
+		Postman\Total Code Umbraco Json-rpc Api Documented With Tenant Preferences and Payment Methods.postman_collection.json = Postman\Total Code Umbraco Json-rpc Api Documented With Tenant Preferences and Payment Methods.postman_collection.json
+		Postman\Total Code Umbraco Json-rpc Api Documented With Tenant Preferences.postman_collection.json = Postman\Total Code Umbraco Json-rpc Api Documented With Tenant Preferences.postman_collection.json
+		Postman\Total Code Umbraco Json-rpc Api Documented.postman_collection.json = Postman\Total Code Umbraco Json-rpc Api Documented.postman_collection.json
+		Postman\Umbraco Login.postman_collection.json = Postman\Umbraco Login.postman_collection.json
+		Postman\Umbraco Registration.postman_collection.json = Postman\Umbraco Registration.postman_collection.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Reflection.Helpers", "System.Reflection.Helpers\System.Reflection.Helpers.csproj", "{13708EE0-876A-4B61-95C0-E249046D5DC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Plugins.Connector", "Umbraco.Plugins.Connector\Umbraco.Plugins.Connector.csproj", "{BFCC0F64-4EE6-4E88-830A-3D46DB240A7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Plugins.Connector.Tests", "Umbraco.Plugins.Connector.Tests\Umbraco.Plugins.Connector.Tests.csproj", "{6F42A645-6368-494B-A61C-50B48FC1FFA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Cms.Web.8.0.2", "Umbraco.Cms.Web.8.0.2\Umbraco.Cms.Web.8.0.2.csproj", "{DE28E363-6F45-480A-9BD7-6B0D01070925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalCode.Core", "TotalCode.Core\TotalCode.Core.csproj", "{FF7BBFD1-7530-4175-A842-F1EDD3E33496}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{9DA528E2-7FFD-41EF-8E28-19125DA7C3E1}"
+	ProjectSection(SolutionItems) = preProject
+		Language Selector Razor.txt = Language Selector Razor.txt
+		README.md = README.md
+		Website Tree Structure.txt = Website Tree Structure.txt
+	EndProjectSection
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "MockCustomerPortal", "MockCustomerPortal\MockCustomerPortal.njsproj", "{A540B66B-3F95-4CE2-961B-D6B39A2CADB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13708EE0-876A-4B61-95C0-E249046D5DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13708EE0-876A-4B61-95C0-E249046D5DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13708EE0-876A-4B61-95C0-E249046D5DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13708EE0-876A-4B61-95C0-E249046D5DC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFCC0F64-4EE6-4E88-830A-3D46DB240A7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFCC0F64-4EE6-4E88-830A-3D46DB240A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFCC0F64-4EE6-4E88-830A-3D46DB240A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFCC0F64-4EE6-4E88-830A-3D46DB240A7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F42A645-6368-494B-A61C-50B48FC1FFA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F42A645-6368-494B-A61C-50B48FC1FFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F42A645-6368-494B-A61C-50B48FC1FFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F42A645-6368-494B-A61C-50B48FC1FFA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE28E363-6F45-480A-9BD7-6B0D01070925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE28E363-6F45-480A-9BD7-6B0D01070925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE28E363-6F45-480A-9BD7-6B0D01070925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE28E363-6F45-480A-9BD7-6B0D01070925}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF7BBFD1-7530-4175-A842-F1EDD3E33496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF7BBFD1-7530-4175-A842-F1EDD3E33496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF7BBFD1-7530-4175-A842-F1EDD3E33496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF7BBFD1-7530-4175-A842-F1EDD3E33496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A540B66B-3F95-4CE2-961B-D6B39A2CADB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A540B66B-3F95-4CE2-961B-D6B39A2CADB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A540B66B-3F95-4CE2-961B-D6B39A2CADB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49F6E08F-1B4F-4259-90ED-DABFF81FFBA7}
+	EndGlobalSection
+EndGlobal

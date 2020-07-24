@@ -1,0 +1,127 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.GenericPageViewModel>
+@using Umbraco.Plugins.Connector
+@{
+    Layout = "totalCodeLayout.cshtml";
+    ViewBag.Title = Model.Title;
+    var currency = Model.CustomerSummary != null ? Model.CustomerSummary.CurrencyCode : "EUR";
+    var liveLogin = Model.CustomerSummary != null ? "true" : "false";
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('footer').hide();
+            var username = Cookies.get('username');
+            var token = Cookies.get('token');
+            var liveLogin = @liveLogin;
+            var iframeWindow = document.getElementById('sport-iframe');
+            if (username !== undefined && liveLogin) {
+                $('#sport-iframe').ready(function () {
+                    setTimeout(function () {
+                        iframeWindow.contentWindow.postMessage({ "method": "login", "payload": { "token": token, "currency": '@currency', "odds": "Decimal", "language": "@Model.CurrentLanguage.TwoLetterISOLanguageName" } }, '*');
+                    }, 5 * 1000);
+                });
+
+            }
+            else {
+                    iframeWindow.contentWindow.postMessage({ "method": "logout", "payload": username }, '*');
+
+            }
+
+            window.onmessage = function(event) {
+                if (event.data && event.data.method) {
+                    if (event.data.method === 'authentication') {
+                        try {
+                            if(token !== undefined){
+                            iframeWindow.contentWindow.postMessage({ "method": "login", "payload": { "token": token, "currency": '@currency', "odds": "Decimal", "language": "@Model.CurrentLanguage.TwoLetterISOLanguageName" } }, '*');
+                            }
+                            else {
+                                $("#popup-login").modal();
+                            }
+                        } catch (e) {
+                            alert('@Umbraco.GetDictionaryValue("[IFrameErrors]ErrorLogginIn", "Error while logging in, please refresh the page!")');
+                            //console.log(e);
+                        }
+                    }
+                }
+            };
+
+        // TODO: resize body to hide scroll
+            $('a[data-game=InPlay],a[data-game=Sport]').click(function (e) {
+                e.preventDefault();
+                var url = $('#sport-iframe').attr('src');
+                var game = '';
+                var data = $(e.currentTarget).data('game');
+                switch (data) {
+                    case "InPlay": game = "in-play";
+                        break;
+                    case "Sport": game = "sport";
+                        break;
+                    default: game = "";
+                        break;
+                }
+                $('#sport-iframe').attr('src', url.replace(/view=\d+/, `view=${game}`));
+                $('a[data-game=InPlay],a[data-game=Sport]').parent().removeClass("is-active");
+                $(this).parent().addClass("is-active");
+                history.pushState(null, '', $(this).attr('href'));
+            });
+        });
+    </script>
+}
+<div class="transparent-iframe show-menus container">
+    <iframe src="@(Model.IframeUrl)/main?id=@Model.TenantUid&langId=@Model.CurrentLanguage.TwoLetterISOLanguageName&serviceUrl=@Model.ServiceUrl&view=@Model.View" id="sport-iframe" frameborder="0" allowfullscreen></iframe>
+</div>
+
+
+@*Simple version of External Api Consumption of Sports Feed (PoC) using html and angular 1.7*@
+@*@section Scripts{
+        <script type="text/javascript" src="~/scripts/sports-feed.controller.js"></script>
+    }
+    <main class="section-main" role="main">
+        <section class="black-main--full">
+            <h1 class="black-main--head">@Umbraco.GetDictionaryValue("[Pages]SportEvents", "Sport Events")</h1>
+            <div class="height-50"></div>
+            <div class="popup-text--gray">
+                <div ng-controller="SportsFeedController as vm">
+                    <table class="feed">
+                        <tr>
+                            <th>@Umbraco.GetDictionaryValue("[Pages]SportEventsEventName", "Name")</th>
+                            <th>@Umbraco.GetDictionaryValue("[Pages]SportEventsEventScheduleTime", "Scheduled Time")</th>
+                            <th>@Umbraco.GetDictionaryValue("[Pages]SportEventsEventStatusDescription", "Status")</th>
+                            <th>@Umbraco.GetDictionaryValue("[Pages]SportEventsEventTournament", "Tournament")</th>
+                            <th>@Umbraco.GetDictionaryValue("[Pages]SportEventsEventCategory", "Category")</th>
+                            <th>@Umbraco.GetDictionaryValue("[Pages]SportEventsEventCategorySport", "Sport")</th>
+                        </tr>
+
+                        <tr ng-show="vm.feeds.length === 0"><td colspan="6" class="text-center">@Umbraco.GetDictionaryValue("[Pages]SportEventsNoEvents", "No Events")</td></tr>
+
+                        <tr ng-repeat="feed in vm.feeds">
+                            <td>{{feed.name}}</td>
+                            <td>{{feed.scheduledStartTime}}</td>
+                            <td>{{feed.statusDescription}}</td>
+                            <td>{{feed.tournament.name}}</td>
+                            <td>{{feed.tournament.category.name}}</td>
+                            <td>{{feed.tournament.category.sport.name}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>*@
+@*PoC for full Angular 7 app*@
+@*
+    @section Scripts {
+        <script type="text/javascript" src="~/scripts/libs/runtime.js"></script>
+        <script type="text/javascript" src="~/scripts/libs/polyfills.js"></script>
+        <script type="text/javascript" src="~/scripts/libs/styles.js"></script>
+        <script type="text/javascript" src="~/scripts/libs/vendor.js"></script>
+        <script type="text/javascript" src="~/scripts/libs/main.js"></script>
+    }
+    <main class="section-main" role="main">
+        <section class="black-main--full">
+            <h1 class="black-main--head">@Umbraco.GetDictionaryValue("[Pages]SportEvents", "Sport Events")</h1>
+            <div class="height-50"></div>
+            <div class="popup-text--gray">
+                <app-root></app-root>
+            </div>
+        </section>
+    </main>*@

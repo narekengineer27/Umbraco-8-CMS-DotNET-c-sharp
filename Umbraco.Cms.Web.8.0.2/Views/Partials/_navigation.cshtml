@@ -1,0 +1,371 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+@using Umbraco.Plugins.Connector.Models
+@using Umbraco.Plugins.Connector.Helpers
+@using TotalCode.Core.Models;
+@{
+    TenantPreferences preferences = Model.Preferences;
+    var currentLanguage = Model.CurrentLanguage.TwoLetterISOLanguageName;
+    var timeZones = Model.TimeZones;
+    var currentPage = Umbraco.Content(Model.CurrentPageId);
+    var gameType = String.Empty;
+    var secondaryMenu = String.Empty;
+    IPublishedContent secondaryPage;
+    IEnumerable<PageMenuViewModel> secondaryPageMenu;
+    if (currentPage.HasProperty("gameType") && currentPage.GetProperty("gameType") != null)
+    {
+        gameType = currentPage.GetProperty("gameType").Value<string>();
+        if (gameType == "InPlay")
+        {
+            secondaryMenu = "Sport";
+        }
+        if (gameType == "Sport")
+        {
+            secondaryMenu = "InPlay";
+        }
+    }
+}
+@*@RenderAccountSummaryDebug()*@
+
+<div class="mobile-menu" ng-controller="mobileMenuController as vm">
+    <div class="flex flex-col">
+        <div>
+            <div class="flex justify-evenly tabs">
+                <div class="tab" ng-click="vm.activateTab(vm.tabs.tab1)" ng-class="{'active' : vm.tabs.tab1.active}">
+                    <div class="flex justify-center flex-col items-center">
+                        <svg class="land-icon icons-sport"><use xlink:href="/img/sprite-menu.svg#icon-sport"></use></svg>
+                        <span>@Umbraco.GetDictionaryValue("[Menu]Gaming", "Gaming")</span>
+                    </div>
+                </div>
+                <div class="tab" ng-click="vm.activateTab(vm.tabs.tab2)" ng-class="{'active' : vm.tabs.tab2.active}">
+                    <div class="flex justify-center flex-col items-center">
+                        <svg class="land-icon icons-in-play"><use xlink:href="/img/sprite-menu.svg#icon-in-play"></use></svg>
+                        <span>@Umbraco.GetDictionaryValue("[Menu]Extras", "Extras")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul ng-show="vm.tabs.tab1.active">
+
+            <li>
+                <div class="settings-item">
+                    <div class="label">
+                        <span>@Umbraco.GetDictionaryValue("[Menu]Languages", "Languages")</span>
+                    </div>
+                    <div class="custom-select">
+                        <select class="language-selector">
+                            <option value="@Model.CurrentLanguage.Url" data-link="@Model.CurrentLanguage.Url" data-language="@Model.CurrentLanguage.TwoLetterISOLanguageName">@Model.CurrentLanguage.Title</option>
+                            @if (Model.Languages.Count() > 1)
+                            {
+                                foreach (var language in Model.Languages)
+                                {
+                                    var isLocal = ContextHelper.Local(language.Url);
+                                    var url = language.Url;
+                                    url += Request.QueryString.Count > 0 ? $"?{Request.QueryString}" : string.Empty;
+                                    <option data-link="@url" data-language="@language.TwoLetterISOLanguageName">@(language.Title)@isLocal</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </li>
+
+            @foreach (var page in Model.TopMenu)
+            {
+                <li><a href="@page.Url">@page.Title</a></li>
+            }
+            @if (Model.TopMenuExternalLinks.Any())
+            {
+                foreach (var link in Model.TopMenuExternalLinks)
+                {
+                    <li><a href="@link.Url" target="@link.Target">@link.Name</a></li>
+                }
+            }
+        </ul>
+
+        <ul ng-show="vm.tabs.tab2.active">
+            @if (Model.Extras.Any())
+            {
+                foreach (var link in Model.Extras)
+                {
+                    <li><a href="@link.Url" target="@link.Target">@link.Name</a></li>
+                }
+            }
+            else
+            {
+                <li>
+                    <a href="@Model.SettingsUrl">@Umbraco.GetDictionaryValue("[Menu]Settings", "Settings")</a>
+                </li>
+                <li>
+                    <a href="@Model.ContactUsUrl">@Umbraco.GetDictionaryValue("[Menu]ContactUs", "Contact Us")</a>
+                </li>
+                <li>
+                    <a href="@Model.HelpUrl">@Umbraco.GetDictionaryValue("[Menu]Help", "Help")</a>
+                </li>
+            }
+        </ul>
+
+
+    </div>
+
+    @*<ul>
+
+    *@
+</div>
+
+<header class="header">
+    <section class="top-line">
+        <div class="container">
+            <div class="flex-wrapper">
+                <div class="top-line--left">
+                    <div class="burger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="logo-top">
+                        <a class="logo-top__link" href="@Model.AccountLandingPageUrl">
+                            @if (Model.LogoIsSvg)
+                            {
+                                @Html.Raw(Model.LogoContent)
+                            }
+                            else
+                            {
+                                <img src="@Model.LogoContent" alt="@Model.WebsiteName" />
+                            }
+                        </a>
+                    </div>
+                    <div class="menu-header">
+                        <nav class="nav-top">
+                            <ul class="nav-top__list">
+                                @foreach (var page in Model.TopMenu)
+                                {
+                                    <li class="nav-top__list-li @(page.Id == Model.Content.Id ? "is-active" : "")">
+                                        <a href="@page.Url" data-game="@page.GameType">@page.Title</a>
+                                    </li>
+                                }
+                                @if (Model.TopMenuExternalLinks.Any())
+                                {
+                                    foreach (var link in Model.TopMenuExternalLinks)
+                                    {
+                                        <li class="nav-top__list-li"><a href="@link.Url" target="@link.Target">@link.Name</a></li>
+                                    }
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="top-line--login">
+
+                    @if (Model.IsLoggedIn)
+                    {
+                        <form>
+                            @{
+                                string customerGuid = Model.CustomerSummary.CustomerGuid.ToString();
+                            }
+                            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                            <div class="wrapper--user-login">
+                                <div class="user-login" ng-controller="userBalanceController as vm">
+                                    <div class="wrapper--user-login" id="open--menu-user">
+                                        <div class="user-login--name">
+                                            <p ng-class="{'mt-10' : !vm.showUserBalance}">@Model.CustomerSummary.Username</p>
+                                            <span ng-show="vm.showUserBalance" class="deposit-sum" title="@Model.CustomerSummary.CurrencyCode"><span class="currency-symbol">@Model.CurrencySymbol</span><span class="current-balance currency-format">@Model.CustomerSummary.Balance.CurrentBalance</span></span>
+                                        </div>
+                                        <div class="user-login--images"><img src="/img/user.svg" alt="User"></div>
+                                    </div>
+                                    <div class="drop--menu-user" id="drop--menu-user">
+                                        <div class="full--item-user items-balanse" ng-show="vm.showUserBalance">
+                                            <p class="name-option">Balance</p>
+                                            <p class="sum-option sum-option__big">
+                                                <span>
+                                                    <span class="balanse-main" title="@Model.CustomerSummary.CurrencyCode"><span class="currency-symbol">@Model.CurrencySymbol</span>&nbsp; <span class="current-balance-dg currency-format">@Model.CustomerSummary.Balance.CurrentBalance</span></span>
+                                                </span>
+                                                <span class="reload"><img src="/img/reload.svg" id="update_balance" alt="" ng-click="vm.updateBalance($event)"></span>
+                                            </p>
+                                        </div>
+                                        <div class="wrapper--fifty-user" ng-show="vm.showUserBalance">
+
+                                            <div class="fifty--item-user">
+                                                <p class="name-option">@Umbraco.GetDictionaryValue("[Menu]Withdrawable", "Withdrawable")</p>
+                                                <p class="sum-option dialog" title="@Model.CustomerSummary.CurrencyCode"><span class="currency-symbol">@Model.CurrencySymbol</span>&nbsp; <span class="current-withdrawable currency-format">@Model.CustomerSummary.Balance.Withdrawable</span></p>
+                                            </div>
+                                            <div class="fifty--item-user right-border">
+                                                <p class="name-option">@Umbraco.GetDictionaryValue("[Menu]Bonus", "Bonus")</p>
+                                                <p class="sum-option" title="@Model.CustomerSummary.CurrencyCode"><span class="currency-symbol">@Model.CurrencySymbol</span>&nbsp; <span class="current-bonus currency-format">@Model.CustomerSummary.Balance.Bonus</span></p>
+                                            </div>
+
+                                        </div>
+                                        <div class="full--item-user show-balanse">
+                                            <p class="sum-option">@Umbraco.GetDictionaryValue("[Menu]ShowBalance", "Show Balance")</p>
+                                            <div class="checked-item">
+                                                <label class="checkbox-default">
+                                                    <input type="checkbox" ng-model="vm.showUserBalance" ng-change="vm.updateShowBalanceCookie()">
+                                                    <div class="checkbox__text noselect"></div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="full--item-user menu-user">
+                                            <nav>
+                                                <ul class="list--menu-user">
+                                                    @foreach (var page in Model.AccountMenu)
+                                                    {
+                                                        <li><a href="@page.Url">@page.Title</a></li>
+                                                    }
+                                                    @if (Model.AccountMenuExternalLinks.Any())
+                                                    {
+                                                        foreach (var link in Model.AccountMenuExternalLinks)
+                                                        {
+                                                            <li><a href="@link.Url" target="@link.Target">@link.Name</a></li>
+                                                        }
+                                                    }
+                                                    <li>
+                                                        @Html.Partial("Forms/_TotalCodeLogout")
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div><a class="button deposit-head" href="@Model.DepositPageUrl">@Umbraco.GetDictionaryValue("[Menu]Deposit", "Deposit")</a>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="nav navigate-login">
+                            <ul>
+                                <li><a class="link-data popup" href="#popup-login" rel="modal:open">@Umbraco.GetDictionaryValue("[Menu]Login", "Login")</a></li>
+                                @{
+                                    string initialStep = preferences.Mobile.IsUsed ? "registration-step1" : "registration-step3";
+                                    //string initialStep =  "registration-step3";
+                                }
+                                <li><a class="link-data popup" href="#@initialStep" rel="modal:open" onclick="document.getElementById('phone-number phone-main').value = ''" id="popups">@Umbraco.GetDictionaryValue("[Menu]Register", "Register")</a></li>
+                            </ul>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="top-info">
+        <div class="container">
+            <div class="top-info--wrapper">
+                <div class="top-info__left head-search">
+                    <div class="head-search__search"><a class="search-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><g><g><path d="M2.018 6.016a3.999 3.999 0 1 1 7.997 0 3.999 3.999 0 0 1-7.997 0zm8.87 3.457a5.998 5.998 0 1 0-1.414 1.414l4.964 4.966a.5.5 0 0 0 .708 0l.707-.707a.5.5 0 0 0 0-.708z" /></g></g></svg><span class="closed--search-form"><span></span><span></span></span></a></div>
+                    <div class="head-search__menu">
+                        <div class="search-form--head">
+                            <form method="get" action="@Model.HelpUrl">
+                                <div class="search-form__wrapper">
+                                    <input class="search-input" type="search" name="q" placeholder="@Umbraco.GetDictionaryValue("[Menu]Search", "Search")..." id="search-input">
+                                    <button class="search-submit" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><g><g><path d="M2.018 6.016a3.999 3.999 0 1 1 7.997 0 3.999 3.999 0 0 1-7.997 0zm8.87 3.457a5.998 5.998 0 1 0-1.414 1.414l4.964 4.966a.5.5 0 0 0 .708 0l.707-.707a.5.5 0 0 0 0-.708z" /></g></g></svg></button><span class="cancel" id="cancel"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g><g><path d="M4.525 3.818a.5.5 0 0 1 .707 0L7 5.586l1.768-1.768a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1 0 .707L8.414 7l1.768 1.768a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707 0L7 8.414l-1.768 1.768a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707L5.586 7 3.818 5.232a.5.5 0 0 1 0-.707zM7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14z" /></g></g></svg></span>
+                                </div>
+                            </form>
+                        </div>
+
+                        <nav>
+                            <ul class="menu--top-info" id="menu-@gameType">
+                                @foreach (var page in Model.MainMenu)
+                                {
+                                    <li class="@(Model.Content.Id == page.Id ? "is-active" : "")"><a href="@page.Url">@page.Title</a></li>
+                                }
+                                @if (Model.MainMenuExternalLinks.Any())
+                                {
+                                    foreach (var link in Model.MainMenuExternalLinks)
+                                    {
+                                        <li><a href="@link.Url" target="@link.Target">@link.Name</a></li>
+                                    }
+                                }
+                            </ul>
+                            @if (!String.IsNullOrEmpty(secondaryMenu))
+                            {
+                                secondaryPage = Umbraco.Content(currentPage.Parent.Id).Children.FirstOrDefault(x => x.Value<string>("gameType") == secondaryMenu);
+                                secondaryPageMenu = secondaryPage.HasProperty("mainMenu") && secondaryPage.HasValue("mainMenu") ? secondaryPageMenu = secondaryPage.GetValueAsViewModels<PageMenuViewModel>("mainMenu") : secondaryPage.Parent.GetValueAsViewModels<PageMenuViewModel>("mainMenu", Model.DefaultLanguage);
+                                <ul class="menu--top-info" id="menu-@secondaryMenu" style="display:none;">
+                                    @foreach (var page in secondaryPageMenu)
+                                    {
+                                        <li class="@(Model.Content.Id == page.Id ? "is-active" : "")"><a href="@page.Url">@page.Title</a></li>
+                                    }
+                                </ul>
+                            }
+                        </nav>
+                    </div>
+                </div>
+                <div class="top-info__right">
+                    <div class="top-info--items">
+                        <div class="custom-select">
+                            <select class="language-selector">
+                                <option value="@Model.CurrentLanguage.Url" data-link="@Model.CurrentLanguage.Url" data-language="@Model.CurrentLanguage.TwoLetterISOLanguageName">@Model.CurrentLanguage.Title</option>
+                                @foreach (var language in Model.Languages)
+                                {
+                                    var isLocal = ContextHelper.Local(language.Url);
+                                    //string fullUrl = ContextHelper.CurrentLocalizationMenuUrl(language.Url, Model.Content.Url, Model.IsHomePage);
+                                    @*<option data-link="@(fullUrl)">@(language.Title)@isLocal</option>*@
+                                    var url = language.Url;
+                                    url += Request.QueryString.Count > 0 ? $"?{Request.QueryString}" : string.Empty;
+                                    <option data-link="@url" data-language="@language.TwoLetterISOLanguageName">@(language.Title)@isLocal</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    @if (preferences.Preferences.OddsDisplay.IsUsed)
+                    {
+                        <div class="top-info--items">
+                            <span>Odds:</span>
+                            <div class="custom-select">
+                                <select id="global-odds-selector">
+                                    @{
+                                        var currentOddDisplay = Model.CustomerSummary != null ? Model.CustomerSummary.OddsDisplayName : Model.Odds[0];
+                                        <option value="@currentOddDisplay">@currentOddDisplay</option>
+                                        foreach (var odd in Model.Odds)
+                                        {
+                                            <option value="@odd">@odd</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    <div class="top-info--items info-time">
+                        <p class="time-head" id="clock">@DateTime.Now.ToString("HH:mm:ss") </p>
+                        <div class="custom-select">
+                            <select id="global-timezone-selector">
+                                @{
+                                    var curentTimeZone = Model.CustomerSummary != null ? DefaultAllowedValues.GetTimeZoneByCode(Model.CustomerSummary.TimeZone) : timeZones[0];
+                                    <option value="@curentTimeZone.UtcOffsetMinutes">@curentTimeZone.SimpleDisplayName</option>
+                                    foreach (var zone in timeZones)
+                                    {
+                                        <option value="@zone.UtcOffsetMinutes">@zone.SimpleDisplayName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="top-info--items info-date">
+                        <p class="date-head">@DateTime.Now.ToString("ddd, dd MMM")</p>
+                    </div>
+                </div>
+                <div class="settings-head">
+                    <ul class="settings-head--menu">
+                        <li><a href="@Model.SettingsUrl">@Umbraco.GetDictionaryValue("[Menu]Settings", "Settings")</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>
+
+
+@helper RenderAccountSummaryDebug()
+{
+    if (Model.CustomerSummary != null && !Model.CustomerSummary.Balance.IsLiveBalance)
+    {
+        <p style="color:#ccc; font-size:0.6em;margin:5px 0 0 5px;">
+            Local Logged in:@LoginSession.LoggedIn
+            <br />
+            Username: @Model.CustomerSummary.Username
+            <br />
+            Token expired: @(!Model.CustomerSummary.Balance.IsLiveBalance)
+        </p>
+    }
+}

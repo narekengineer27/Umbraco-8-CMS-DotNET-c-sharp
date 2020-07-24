@@ -1,0 +1,51 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.GenericPageViewModel>
+@using Umbraco.Plugins.Connector
+@{
+    Layout = "totalCodeLayout.cshtml";
+    ViewBag.Title = Umbraco.GetDictionaryValue("[Pages]BettingHistory", "Betting History");
+    var currency = Model.CustomerSummary != null ? Model.CustomerSummary.CurrencyCode : "EUR";
+    var liveLogin = Model.CustomerSummary != null ? "true" : "false";
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('footer').hide();
+            var username = Cookies.get('username');
+            var token = Cookies.get('token');
+            var liveLogin = @liveLogin;
+            var iframeWindow = document.getElementById('bethistory-iframe');
+            if (username !== undefined && liveLogin) {
+                $('#bethistory-iframe').ready(function () {
+                    setTimeout(function () {
+                        iframeWindow.contentWindow.postMessage({ "method": "login", "payload": { "token": token, "currency": '@currency', "odds": "Decimal", "language": "@Model.CurrentLanguage.TwoLetterISOLanguageName" } }, '*');
+                    iframeWindow.contentWindow.postMessage({ "method": "bet-history" }, '*');
+                    }, 5 * 1000);
+                });
+
+            }
+            else {
+                    iframeWindow.contentWindow.postMessage({ "method": "logout", "payload": username }, '*');
+
+            }
+
+            window.onmessage = (event) => {
+                if (event.data && event.data.method) {
+                    if (event.data.method === 'authentication') {
+                        try {
+                            iframeWindow.contentWindow.postMessage({ "method": "login", "payload": { "token": token, "currency": '@currency', "odds": "Decimal", "language": "@Model.CurrentLanguage.TwoLetterISOLanguageName" } }, '*');
+                            iframeWindow.contentWindow.postMessage({ "method": "bet-history" }, '*');
+                        } catch (e) {
+                            alert('Error while logging in, please refresh the page!');
+                            //console.log(e);
+                        }
+                    }
+                }
+            };
+
+        // TODO: resize body to hide scroll
+        });
+    </script>
+}
+<div class="transparent-iframe container">
+    <iframe src="@IframeUrls.SportIframeUrl/main?id=@Model.TenantUid" id="bethistory-iframe" frameborder="0" allowfullscreen></iframe>
+</div>

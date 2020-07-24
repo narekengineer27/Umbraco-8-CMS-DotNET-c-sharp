@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.TermsPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+}
+
+<section class="black-main--big">
+    <div class="terms-content">
+        <a class="link-back text-back" href="@Model.BackUrl"><span>@Umbraco.GetDictionaryValue("[Others]Back", "Back")</span></a>
+        <div class="height-36"></div>
+        <h1 class="black-main--head">@Model.Title</h1>
+        <div class="content">
+            @Html.Raw(Model.Body)
+        </div>
+    </div>
+</section>

@@ -1,0 +1,87 @@
+.filter-button--wrapper
+	position relative
+
+.checkout-status
+	display flex
+	flex-direction row
+	flex-wrap wrap
+	&--items
+		width 50%
+		margin-bottom 20px
+		&:nth-last-child(-n+2)
+			margin-bottom 0
+		.checkbox-static--text:before
+			background: #403f40
+
+.filter-date
+	display flex
+	flex-direction row
+	&.datapicker
+		background: #403f40
+	&--items
+		width 50%
+		&:not(:last-child)
+			margin-right 16px
+	.default-label
+		margin-bottom 14px
+
+.filter-hidden
+	position absolute
+	top calc(100% + 30px)
+	right 0
+	width 384px
+	box-shadow: 0 5px 30px rgba(5, 5, 5, 0.35)
+	border: 1px solid #403f40
+	background-color: #2f2d2f
+	brr(6px)
+	opacity 0
+	visibility hidden
+	trn(.25s)
+	z-index 10
+	&.is-active
+		top calc(100% + 16px)
+		opacity 1
+		visibility visible
+	&:before
+		position absolute
+		top -5px
+		right 24px
+		content ""
+		display block
+		width 8px
+		height 8px
+		background: #2f2d2f
+		background-position center !important
+		border-style: solid
+		border-width: 1px 0 0 1px
+		border-color: #403f40
+		transform rotateZ(45deg)
+	
+	&--items
+		padding 20px 24px 28px
+		&:not(:last-child)
+			border-bottom: 1px solid #403f40
+		&:last-child
+			padding 20px 24px
+		.status-filter
+			fsR(14px)
+			margin-bottom 24px
+
+.filter-buttons
+	display flex
+	flex-direction row
+	justify-content space-between
+	.send-button
+		height 48px
+		padding 15px 30px
+	
+button.reset
+	fsSB(14px)
+	c cGrayL
+	margin-right 9px
+	trn(.25s)
+	&:hover
+		c cWhite
+
+.mobile-filter
+	display none

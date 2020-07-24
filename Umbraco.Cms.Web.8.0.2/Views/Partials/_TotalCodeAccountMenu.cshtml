@@ -1,0 +1,26 @@
+﻿@inherits UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+@using Umbraco.Plugins.Connector.Content
+<nav class="account-menu">
+    <ul>
+        @foreach (var page in Model.AccountMenu)
+        {
+            <li>
+                <a href="@page.Url" class="@(page.Id == Model.Content.Id ? "is-active" : "")">@page.Title</a>
+                @if (page.Children != null && (Model.Content.Id == page.Id || page.Children.Select(x => x.Id).Contains(Model.Content.Id)))
+                {
+                    <ul class="account-menu--sub">
+                        <li>
+                            <a href="@page.Url" class="@(page.Id == Model.Content.Id ? "is-active" : "")">@page.Title</a>
+                        </li>
+                        @foreach (var sub in page.Children.Where(x=>x.Alias!= _09_EditAccountDocumentType.DOCUMENT_TYPE_ALIAS))
+                        {
+                            <li>
+                                <a href="@sub.Url" class="@(sub.Id == Model.Content.Id ? "is-active" : "")">@sub.Title</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+</nav>

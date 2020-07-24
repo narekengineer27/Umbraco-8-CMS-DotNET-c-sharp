@@ -1,0 +1,88 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.WithdrawPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+}
+
+@Html.Partial("_depositAndWithdraw", Model)
+
+    <div style="display:none;">
+        <div class="popup-default verification-emeil--you default-offset zoom-anim-dialog" id="verification-email-sent-auto">
+            <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+            <h3 class="heading-default text-center">
+                @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToTitle", "Email verification has been sent to your email")
+            </h3>
+            <p class="gray--text-info">
+                @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentTo", "We now need to verify your email address.We’ve sent an email to") <span class="email-holder"></span> @Umbraco.GetDictionaryValue("[Register]VerifyEmailSentToPleaseClick", "to verify your address. Please click the link in that email to continue.")
+            </p>
+
+            <div class="wrap--send-button text-center">
+                <a class="popup popup-button button" href="#" rel="modal:close">@Umbraco.GetDictionaryValue("[Others]Close", "Close")</a>
+            </div>
+        </div>
+    </div>
+
+@section Scripts {
+    @if (Model.ShowReceipt)
+    {
+        <script>
+            $('#popup-reciept').modal();
+        </script>
+    }
+
+    <script>
+        var TRANSACTION = {
+            fields: 'WithdrawalFields',
+            type: 'withdraw',
+            submitText: `${dictionary.withdraw}`
+        }
+    </script>
+
+    @if (Model.PredefinedAmounts != null && Model.PredefinedAmounts.Any())
+    {
+        <script>
+            TRANSACTION.predefinedAmounts = [@string.Join(",", Model.PredefinedAmounts)]
+        </script>
+    }
+
+    <script type="text/javascript">
+        var email = '';
+        function getCustomerEmail() {
+            var url = '/umbraco/surface/account/getcustomeremail';
+            var data = {
+                "tenantUid": settings.tenantUid,
+                "customerGuid": settings.customerGuid
+            }
+            $.get(url, data,
+                function (response) {
+                    if (response.Success) {
+                        response.Payload.forEach((item) => {
+                            if (!item.IsVerified) {
+                                email = item.Email;
+                            }
+                        });
+                    }
+                }).fail(function (data) {
+                    //console.log(data);
+                });
+        }
+
+        function sendVerifEmail() {
+            var url = '/umbraco/surface/account/sendverificationemail';
+            var data = {
+                "tenantUid": settings.tenantUid,
+                "email": email,
+                "language": settings.language
+            }
+            $.post(url, data,
+                function (response) {
+                    if (response.Success) {
+                        $("#verification-email-sent-auto").modal("show");
+                    }
+                }).fail(function (data) {
+                    //console.log(data);
+                });
+        }
+
+        getCustomerEmail();
+    </script>
+}

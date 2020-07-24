@@ -1,0 +1,120 @@
+.help-page
+	width 100%
+	padding-left 48px
+
+.form--search-help
+	position relative
+	margin-bottom 16px
+	input
+		position relative
+		width 100%
+		height 48px
+		brr(6px)
+		background: cGraySearch
+		font-size 14px
+		ffa(fR)
+		ls(-0.1px)
+		c cWhite
+		text-align center
+		padding-left 48px
+		padding-right 48px
+	.search-submit
+		position absolute
+		top calc(50% + 2px)
+		left 16px
+		tt(0, -50%)
+		svg
+			fill cGray
+			trn(.25s)
+			&:hover
+				fill cWhite
+	.cancel-default
+		position absolute
+		right 16px
+		top 50%
+		padding-top 4px
+		tt(0, -50%)
+		cursor pointer
+		opacity 0
+		visibility hidden
+		trn(.25s)
+		&.show-cancel
+			opacity 1
+			visibility visible
+		svg
+			trn(.25s)
+
+// Category
+
+.wrapper--category
+	display flex
+	flex-direction row
+	flex-wrap wrap
+	margin 0 -8px
+	.category-item
+		max-width 200px
+		width calc(25% - 16px)
+		background: cBlackD
+		brr(6px)
+		margin 8px
+		text-align center
+		trn(.25s)
+		&:hover
+			background: cGrayD
+			.category-item--img
+				background: cBlackD
+	.category-item--link
+		display block
+		padding 48px 20px 44px
+	.category-item--img
+		display flex
+		justify-content center
+		align-items center
+		width 56px
+		height 56px
+		background: cGraySearch
+		brr(50%)
+		margin 0 auto 36px
+		trn(.25s)
+		
+	.text-category
+		display block
+		width 100%
+		.name-category
+			display block
+			fsR(14px)
+			line-height: 16px
+			margin-bottom 8px
+		.count-articles
+			font-size 12px
+			ffa(fR)
+			c cGray
+			ls(-0.09px)
+
+// Help Search
+
+.search-help--result
+	margin-top 24px
+
+.result-def--item
+	background: cBlackD
+	brr(6px)
+	padding 26px 30px
+	margin-top 8px
+	trn(.25s)
+	&:hover
+		background: cGrayD
+	.result-name
+		fsR(14px)
+		line-height 20px
+		display block
+		margin-bottom 16px
+		span
+			c cYellow
+	.result-desc
+		font-size 12px
+		ffa(fR)
+		line-height 16px
+		c cGray
+		span
+			c cYellow

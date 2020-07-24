@@ -1,0 +1,176 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.GamePageViewModel>
+@using Umbraco.Plugins.Connector.Helpers;
+@using Newtonsoft.Json;
+@using System;
+@using System.Collections.Generic;
+@{
+    Layout = "totalCodeLayout.cshtml";
+    ViewBag.Title = Model.Title;
+    var liveLogin = Model.CustomerSummary != null ? "true" : "false";
+    var currency = Model.CustomerSummary != null ? Model.CustomerSummary.CurrencyCode : "EUR";
+}
+@if (string.IsNullOrEmpty(Model.GameUrl) || (Model.OpenPopup && Model.HasDemoMode) || Model.GameMode == GameMode.Choose)
+{
+    @section Scripts{
+        <script type="text/javascript" src="~/scripts/owl.carousel.min.js"></script>
+        <script type="text/javascript">
+            var isMobile = @Model.IsMobileBrowser.ToString().ToLower();
+            var openPopup = @Model.OpenPopup.ToString().ToLower();
+        </script>
+        <script type="text/javascript">
+            if (window.location !== window.parent.location) {
+                window.top.location.href = '';
+            } else { }
+        </script>
+    }
+    @section AdditionalHeaders{
+
+    }
+    <section class="landing" ng-controller="GameGridController as vm" ng-init="vm.init('@Model.Category','@Model.TenantUid', '@Model.CurrentLanguage.TwoLetterISOLanguageName')">
+
+        <div class="wrapper-landing">
+            @if (Model.Slider.Any())
+            {
+                <div class="top-slider">
+                    <div class="owl-carousel slider-big">
+                        @foreach (var slider in Model.Slider)
+                        {
+                            <div class="item">
+                                <div class="items-text">
+                                    @if (!string.IsNullOrEmpty(slider.ButtonLabel))
+                                    {
+                                        <a class="button-land" href="@slider.Url">@slider.ButtonLabel</a>
+                                    }
+                                    <p>@Html.Raw(slider.Title)</p>
+                                    <p class="texts-gray">@Html.Raw(slider.Subtitle)</p>
+                                </div><a class="items-cont" href="@slider.Url">
+                                    <div class="img-container"><img src="@slider.Image" alt="@slider.ButtonLabel"></div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                    @*<p class="terms-text">@Umbraco.GetDictionaryValue("[Home]TermsApply", "Terms Apply:  18+")</p>*@
+                </div>
+            }
+            @if (Model.ShowSubCategoryFilter)
+            {
+                @Html.Partial("_gameGrid-subcategories")
+            }
+            @if (Model.ShowProvidersFilter)
+            {
+                @Html.Partial("_gameGrid-providers")
+            }
+            @if (Model.ShowSeachFilter)
+            {
+                @Html.Partial("_gameGrid-search")
+
+            }
+
+            @if (Model.Category == "Live Casino")
+            {
+                @Html.Partial("_gameGrid-live-casino")
+            }
+            else
+            {
+                @Html.Partial("_gameGrid")
+            }
+
+        </div>
+    </section>
+    if (!string.IsNullOrEmpty(Model.PageContent))
+    {
+        <section class="container">
+            <div class="height-36"></div>
+            <div class="content">
+                @Html.Raw(Model.PageContent)
+            </div>
+        </section>
+    }
+}
+else
+{
+    @section AdditionalHeaders{
+        @if (Model.Category == "Live Casino" || Model.Category == "lottery" || Model.Category == "Board Games")
+        {
+            <style>
+                header {
+                    display: block;
+                }
+                footer {
+                    display: none;
+                }
+            </style>
+        }
+        else
+        {
+            <style>
+                footer, header {
+                    display: none;
+                }
+            </style>
+        }
+    }
+    @section Scripts{
+        <script type="text/javascript">
+            $(function() {
+                @(Model.Category == "casino" ? Html.Raw("$('footer').hide();") : null)
+                var username = Cookies.get('username');
+                var token = Cookies.get('token');
+                var liveLogin = @liveLogin;
+                var iframeWindow = document.getElementById('game-iframe');
+                if (username !== undefined && liveLogin) {
+                    $('#game-iframe').ready(function() {
+                        setTimeout(function() {
+                            iframeWindow.contentWindow.postMessage({ "method": "login", "payload": { "token": token, "currency": '@currency', "odds": "Decimal", "language": "@Model.CurrentLanguage.TwoLetterISOLanguageName", "returnUrl": '@ContentHelper.EncodeUrl(Model.ReturnUrl)' } }, '*');
+                        }, 5 * 1000);
+                    });
+                } else {
+                    iframeWindow.contentWindow.postMessage({ "method": "logout", "payload": username }, '*');
+                }
+                window.onmessage = (event) => {
+                    if (event.data && event.data.method) {
+                        if (event.data.method === 'authentication') {
+                            try {
+                                iframeWindow.contentWindow.postMessage({ "method": "login", "payload": { "token": token, "currency": '@currency', "odds": "Decimal", "language": "@Model.CurrentLanguage.TwoLetterISOLanguageName", "returnUrl": '@ContentHelper.EncodeUrl(Model.ReturnUrl)' } }, '*');
+                            } catch (e) {
+                                alert('@Umbraco.GetDictionaryValue("[IFrameErrors]ErrorLogginIn", "Error while logging in, please refresh the page!")');
+                                //console.log(e);
+                            }
+                        }
+                    }
+                };
+                // TODO: resize body to hide scroll
+            });
+        </script>
+
+    }
+    if (Model.GameLoadSuccess)
+    {
+        string frame = "fullscreen-iframe";
+        if (Model.Category == "Live Casino" || Model.Category == "lottery" || Model.Category == "Board Games")
+        {
+            frame = "lottery-iframe";
+        }
+        <script>
+            setInterval(function () {
+                var chatWindow = $('#help-desk-container');
+                if (chatWindow != null) {
+                    chatWindow.remove();
+                }
+            }, 1 * 1000);
+        </script>
+
+
+        <div class="transparent-iframe @frame" id="@(Model.Category == "casino" ? "game-iframe-container" : null)">
+            <iframe src="@(Html.Raw(Model.GameUrl))" id="game-iframe" frameborder="0" allowfullscreen></iframe>
+        </div>
+    }
+    else
+    {
+        <section class="landing">
+            <div class="wrapper-landing">
+                <div class="alert alert-danger">@Umbraco.GetDictionaryValue("[Games]ErrorLoadingGame", "Error Loading Game")</div>
+            </div>
+        </section>
+    }
+}

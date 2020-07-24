@@ -1,0 +1,1000 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\uSync.8.0.1\build\uSync.props" Condition="Exists('..\packages\uSync.8.0.1\build\uSync.props')" />
+  <Import Project="..\packages\UmbracoCms.8.0.2\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.8.0.2\build\UmbracoCms.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DE28E363-6F45-480A-9BD7-6B0D01070925}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Umbraco.Cms.Web._8._0._2</RootNamespace>
+    <AssemblyName>Umbraco.Cms.Web.8.0.2</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44323</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.4</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AustinHarris.JsonRpc, Version=1.1.70.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AustinHarris.JsonRpc.1.1.70\lib\net40\AustinHarris.JsonRpc.dll</HintPath>
+    </Reference>
+    <Reference Include="AustinHarris.JsonRpc.AspNet, Version=1.1.70.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AustinHarris.JsonRpc.AspNet.1.1.70\lib\net40\AustinHarris.JsonRpc.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="ClientDependency.Core, Version=1.9.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClientDependency.1.9.7\lib\net45\ClientDependency.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ClientDependency.Core.Mvc, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClientDependency-Mvc5.1.8.0.0\lib\net45\ClientDependency.Core.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Examine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Examine.1.0.0\lib\net452\Examine.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.8.14.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.14\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageProcessor, Version=2.7.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.7.0.100\lib\net452\ImageProcessor.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageProcessor.Web, Version=4.10.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.Web.4.10.0.100\lib\net452\ImageProcessor.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.5.4.0\lib\net46\LightInject.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject.Annotation, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Annotation.1.1.0\lib\net46\LightInject.Annotation.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject.Mvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Mvc.2.0.0\lib\net46\LightInject.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject.Web, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Web.2.0.0\lib\net46\LightInject.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="LightInject.WebApi, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.WebApi.2.0.0\lib\net46\LightInject.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Markdown, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdown.2.2.1\lib\net451\Markdown.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.15.1.1012\lib\net46\Microsoft.Build.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Framework.15.1.1012\lib\net46\Microsoft.Build.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Tasks.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Tasks.Core.15.1.1012\lib\net46\Microsoft.Build.Tasks.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Utilities.Core.15.1.1012\lib\net46\Microsoft.Build.Utilities.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis, Version=2.10.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.2.10.0\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.2.10.0\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.2.2\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.4.0.138\lib\net461\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler.Shared, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.Shared.4.0.138\lib\net461\MiniProfiler.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPoco, Version=3.9.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPoco.3.9.4\lib\net45\NPoco.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Semver, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Semver.2.0.4\lib\net452\Semver.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.8.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Enrichers.Process, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Enrichers.Process.2.0.1\lib\net45\Serilog.Enrichers.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Enrichers.Thread, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Enrichers.Thread.3.0.0\lib\net45\Serilog.Enrichers.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Filters.Expressions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Filters.Expressions.2.0.0\lib\net45\Serilog.Filters.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Formatting.Compact, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Formatting.Compact.1.0.0\lib\net45\Serilog.Formatting.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Formatting.Compact.Reader, Version=1.0.3.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Formatting.Compact.Reader.1.0.3\lib\net45\Serilog.Formatting.Compact.Reader.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Settings.AppSettings, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Settings.AppSettings.2.2.2\lib\net45\Serilog.Settings.AppSettings.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Superpower, Version=1.0.0.0, Culture=neutral, PublicKeyToken=aec39280ded1b3a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Superpower.2.0.0\lib\net45\Superpower.dll</HintPath>
+    </Reference>
+    <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net463\System.AppContext.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Umbraco.SqlServerCE.4.0.0.1\lib\net472\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Umbraco.SqlServerCE.4.0.0.1\lib\net472\System.Data.SqlServerCe.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.FileVersionInfo, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.FileVersionInfo.4.3.0\lib\net46\System.Diagnostics.FileVersionInfo.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.StackTrace, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.StackTrace.4.3.0\lib\net46\System.Diagnostics.StackTrace.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Expressions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Expressions.4.3.0\lib\net463\System.Linq.Expressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.6.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.4.3.0\lib\net46\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.9.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.XmlDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.XmlDocument.4.3.0\lib\net46\System.Xml.XmlDocument.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.XPath, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.XPath.4.3.0\lib\net46\System.Xml.XPath.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.XPath.XDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.XPath.XDocument.4.3.0\lib\net46\System.Xml.XPath.XDocument.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Core.8.0.2\lib\net472\Umbraco.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Examine, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Examine.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.ModelsBuilder, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Umbraco.ModelsBuilder.8.0.4\lib\net472\Umbraco.ModelsBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UmbracoCms.Web.8.0.2\lib\net472\Umbraco.Web.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="uSync8.BackOffice, Version=8.0.1.611, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.8.0.1\lib\net472\uSync8.BackOffice.dll</HintPath>
+    </Reference>
+    <Reference Include="uSync8.Core, Version=8.0.1.611, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.Core.8.0.1\lib\net472\uSync8.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\controller.js" />
+    <EmbeddedResource Include="App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\edit.html" />
+    <EmbeddedResource Include="App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\style.css" />
+    <EmbeddedResource Include="App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\controller.js" />
+    <EmbeddedResource Include="App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\edit.html" />
+    <EmbeddedResource Include="App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\style.css" />
+    <EmbeddedResource Include="App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\wysiwyg.html" />
+    <EmbeddedResource Include="App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\codeflask.min.js" />
+    <EmbeddedResource Include="App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\codeflask.module.js" />
+    <Content Include="App_Plugins\ApiSettingsSurface\backoffice\ApiSettings\wysiwyg.js" />
+    <Content Include="App_Plugins\ColorPickerU8\ColorPicker.html" />
+    <Content Include="App_Plugins\ColorPickerU8\ColorPickerController.js" />
+    <Content Include="App_Plugins\ColorPickerU8\lib\prevalue\preferredFormat.html" />
+    <Content Include="App_Plugins\ColorPickerU8\lib\spectrum\spectrum.css" />
+    <Content Include="App_Plugins\ColorPickerU8\lib\spectrum\spectrum.js" />
+    <EmbeddedResource Include="App_Plugins\StylesheetBulkUploadSurface\backoffice\StylesheetBulkUpload\controller.js" />
+    <EmbeddedResource Include="App_Plugins\StylesheetBulkUploadSurface\backoffice\StylesheetBulkUpload\dashboard.html" />
+    <EmbeddedResource Include="App_Plugins\StylesheetBulkDownloadSurface\backoffice\StylesheetBulkDownload\controller.js" />
+    <EmbeddedResource Include="App_Plugins\StylesheetBulkDownloadSurface\backoffice\StylesheetBulkDownload\dashboard.html" />
+    <EmbeddedResource Include="App_Plugins\StylesheetBulkDownloadSurface\backoffice\StylesheetBulkDownload\style.css" />
+    <EmbeddedResource Include="App_Plugins\StylesheetBulkDownloadSurface\backoffice\StylesheetBulkDownload\overlay.html" />
+    <Content Include="App_Plugins\SvgCustomViewer\style.css" />
+    <Content Include="App_Plugins\SvgCustomViewer\controller.js" />
+    <Content Include="App_Plugins\SvgCustomViewer\view.html" />
+    <Content Include="App_Plugins\SvgIconPicker\lang\en-gb.xml" />
+    <Content Include="App_Plugins\SvgIconPicker\lang\en-US.xml" />
+    <Content Include="App_Plugins\SvgIconPicker\package.manifest" />
+    <Content Include="App_Plugins\SvgIconPicker\Scripts\Controllers\IconPicker.js" />
+    <Content Include="App_Plugins\SvgIconPicker\Scripts\Controllers\IconPickerOverlay.js" />
+    <Content Include="App_Plugins\SvgIconPicker\Scripts\Directives\Svg.js" />
+    <Content Include="App_Plugins\SvgIconPicker\styles\iconPicker.css" />
+    <Content Include="App_Plugins\SvgIconPicker\styles\iconPicker.min.css" />
+    <Content Include="App_Plugins\SvgIconPicker\views\iconpicker.html" />
+    <Content Include="App_Plugins\SvgIconPicker\views\IconPickerOverlay.html" />
+    <Content Include="App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\import.js" />
+    <Content Include="App_Plugins\DictionarySettingsSurface\backoffice\DictionarySettings\import.html" />
+    <Content Include="css\custom2.css" />
+    <Content Include="css\flatpickr.min.css" />
+    <Content Include="css\flatpickr_rtl.css" />
+    <Content Include="css\fontiran.css" />
+    <Content Include="css\index_RTL.css" />
+    <Content Include="css\owl.carousel.min.css" />
+    <Content Include="css\toastr.css" />
+    <Content Include="css\whhg.css" />
+    <Content Include="Deployment\app_offline.htm" />
+    <Content Include="App_Plugins\TenantPreferences\view.css" />
+    <Content Include="App_Plugins\TenantPreferences\view.html" />
+    <Content Include="App_Plugins\TenantPreferences\view.js" />
+    <Content Include="App_Plugins\uSync8\backoffice\uSync8\dashboard.html" />
+    <Content Include="App_Plugins\uSync8\backoffice\uSync8\uSyncDashboardController.js" />
+    <Content Include="App_Plugins\uSync8\changeDialog.html" />
+    <Content Include="App_Plugins\uSync8\changeDialogController.js" />
+    <Content Include="App_Plugins\uSync8\lang\en-US.xml" />
+    <Content Include="App_Plugins\uSync8\settings\default.html" />
+    <Content Include="App_Plugins\uSync8\settings\expansion.html" />
+    <Content Include="App_Plugins\uSync8\settings\expansionController.js" />
+    <Content Include="App_Plugins\uSync8\settings\settings.html" />
+    <Content Include="App_Plugins\uSync8\settings\settingsController.js" />
+    <Content Include="App_Plugins\uSync8\settings\uSyncController.js" />
+    <Content Include="App_Plugins\uSync8\usync.css" />
+    <Content Include="App_Plugins\uSync8\uSyncHub.js" />
+    <Content Include="App_Plugins\uSync8\uSyncService.js" />
+    <Content Include="config\grid.editors.config.js" />
+    <Content Include="config\Lang\cs-CZ.user.xml" />
+    <Content Include="config\Lang\da-DK.user.xml" />
+    <Content Include="config\Lang\de-DE.user.xml" />
+    <Content Include="config\Lang\en-GB.user.xml" />
+    <Content Include="config\Lang\en-US.user.xml" />
+    <Content Include="config\Lang\es-ES.user.xml" />
+    <Content Include="config\Lang\fr-FR.user.xml" />
+    <Content Include="config\Lang\he-IL.user.xml" />
+    <Content Include="config\Lang\it-IT.user.xml" />
+    <Content Include="config\Lang\ja-JP.user.xml" />
+    <Content Include="config\Lang\ko-KR.user.xml" />
+    <Content Include="config\Lang\nb-NO.user.xml" />
+    <Content Include="config\Lang\nl-NL.user.xml" />
+    <Content Include="config\Lang\pl-PL.user.xml" />
+    <Content Include="config\Lang\pt-BR.user.xml" />
+    <Content Include="config\Lang\ru-RU.user.xml" />
+    <Content Include="config\Lang\sv-SE.user.xml" />
+    <Content Include="config\Lang\zh-CN.user.xml" />
+    <Content Include="config\logviewer.searches.config.js" />
+    <Content Include="css\custom.css" />
+    <Content Include="css\index.css" />
+    <Content Include="css\jquery.modal.css" />
+    <Content Include="errors\error500.html" />
+    <Content Include="errors\generic.html" />
+    <Content Include="fonts\Inter-ExtraBold\Inter-ExtraBold.svg" />
+    <Content Include="fonts\Inter-Regular\Inter-Regular.svg" />
+    <Content Include="fonts\Inter-SemiBold\Inter-SemiBold.svg" />
+    <Content Include="fonts\webhostinghub-glyphs.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="img\3-call-center-operator.svg" />
+    <Content Include="img\arrow-default.svg" />
+    <Content Include="img\arrow-left.svg" />
+    <Content Include="img\betcloob-user.svg" />
+    <Content Include="img\blur-font.png" />
+    <Content Include="img\blur.svg" />
+    <Content Include="img\captcha.jpg" />
+    <Content Include="img\checked.svg" />
+    <Content Include="img\close-small.svg" />
+    <Content Include="img\closed-popup.svg" />
+    <Content Include="img\closed.svg" />
+    <Content Include="img\credit-card--ame.svg" />
+    <Content Include="img\credit-card--icon.svg" />
+    <Content Include="img\credit-card--mc.svg" />
+    <Content Include="img\credit-card--paypal.svg" />
+    <Content Include="img\credit-card--visa.svg" />
+    <Content Include="img\favicon\apple-touch-icon-114x114.png" />
+    <Content Include="img\favicon\apple-touch-icon-72x72.png" />
+    <Content Include="img\favicon\apple-touch-icon.png" />
+    <Content Include="img\favicon\favicon.ico" />
+    <Content Include="img\file-icon.png" />
+    <Content Include="img\file-icon.svg" />
+    <Content Include="img\foot-logo3.svg" />
+    <Content Include="img\foot-logo4.svg" />
+    <Content Include="img\gambling.svg" />
+    <Content Include="img\icon-money.svg" />
+    <Content Include="img\img-slice.jpg" />
+    <Content Include="img\line.png" />
+    <Content Include="img\link.svg" />
+    <Content Include="img\logo-footer.svg" />
+    <Content Include="img\logo.svg" />
+    <Content Include="img\mastercard.png" />
+    <Content Include="img\plus.svg" />
+    <Content Include="img\qr-code.png" />
+    <Content Include="img\reload.svg" />
+    <Content Include="img\search.svg" />
+    <Content Include="img\slider-big1.jpg" />
+    <Content Include="img\slider-big2.jpg" />
+    <Content Include="img\slider-big3.jpg" />
+    <Content Include="img\slider-small1.jpg" />
+    <Content Include="img\slider-small2.jpg" />
+    <Content Include="img\slider-small3.jpg" />
+    <Content Include="img\slider-small4.jpg" />
+    <Content Include="img\social-icon1.svg" />
+    <Content Include="img\social-icon2.svg" />
+    <Content Include="img\social-icon3.svg" />
+    <Content Include="img\spinner.png" />
+    <Content Include="img\sprite-menu.svg" />
+    <Content Include="img\sprite-sports.svg" />
+    <Content Include="img\sprite.svg" />
+    <Content Include="img\login.svg" />
+    <Content Include="img\svg\icon-board.svg" />
+    <Content Include="img\svg\icon-casino.svg" />
+    <Content Include="img\svg\icon-in-play.svg" />
+    <Content Include="img\svg\icon-live-casino.svg" />
+    <Content Include="img\svg\icon-lottery.svg" />
+    <Content Include="img\svg\icon-poker.svg" />
+    <Content Include="img\svg\icon-sport.svg" />
+    <Content Include="img\svg\icon-vegas.svg" />
+    <Content Include="img\user.svg" />
+    <Content Include="img\year-18.svg" />
+    <Content Include="Media\icons\d-cloud.png" />
+    <Content Include="Media\icons\ic-arc.png" />
+    <Content Include="Media\icons\ic-camera.png" />
+    <Content Include="Media\icons\ic-case.png" />
+    <Content Include="Media\icons\ic-coffee-cup.png" />
+    <Content Include="Media\icons\ic-discount.png" />
+    <Content Include="Media\icons\ic-doc.png" />
+    <Content Include="Media\icons\ic-enigma.png" />
+    <Content Include="Media\icons\ic-graph.png" />
+    <Content Include="Media\icons\ic-lamp.png" />
+    <Content Include="Media\icons\ic-like.png" />
+    <Content Include="Media\icons\ic-location.png" />
+    <Content Include="Media\icons\ic-mail.png" />
+    <Content Include="Media\icons\ic-mouse.png" />
+    <Content Include="Media\icons\ic-people.png" />
+    <Content Include="Media\icons\ic-phone-footer.png" />
+    <Content Include="Media\icons\ic-phone.png" />
+    <Content Include="Media\icons\ic-pointer.png" />
+    <Content Include="Media\icons\ic-rub.png" />
+    <Content Include="Media\icons\ic-rupor.png" />
+    <Content Include="Media\icons\ic-shop.png" />
+    <Content Include="Media\icons\ic-skype.png" />
+    <Content Include="Media\icons\ic-student.png" />
+    <Content Include="Media\icons\ic-wing-cyan.png" />
+    <Content Include="Media\icons\ic-wing.png" />
+    <Content Include="Media\icons\ic-world.png" />
+    <Content Include="Media\img\arrow-default.svg" />
+    <Content Include="Media\img\arrow-left.svg" />
+    <Content Include="Media\img\betcloob-user.svg" />
+    <Content Include="Media\img\blur-font.png" />
+    <Content Include="Media\img\captcha.jpg" />
+    <Content Include="Media\img\checked.svg" />
+    <Content Include="Media\img\close-small.svg" />
+    <Content Include="Media\img\closed-popup.svg" />
+    <Content Include="Media\img\closed.svg" />
+    <Content Include="Media\img\credit-card--ame.svg" />
+    <Content Include="Media\img\credit-card--icon.svg" />
+    <Content Include="Media\img\credit-card--paypal.svg" />
+    <Content Include="Media\img\credit-card--visa.svg" />
+    <Content Include="Media\img\favicon.apple-touch-icon-114x114.png" />
+    <Content Include="Media\img\favicon.apple-touch-icon-72x72.png" />
+    <Content Include="Media\img\favicon.apple-touch-icon.png" />
+    <Content Include="Media\img\favicon.favicon.ico" />
+    <Content Include="Media\img\favicon\apple-touch-icon-114x114.png" />
+    <Content Include="Media\img\favicon\apple-touch-icon-72x72.png" />
+    <Content Include="Media\img\favicon\apple-touch-icon.png" />
+    <Content Include="Media\img\favicon\favicon.ico" />
+    <Content Include="Media\img\file-icon.png" />
+    <Content Include="Media\img\file-icon.svg" />
+    <Content Include="Media\img\foot-logo3.svg" />
+    <Content Include="Media\img\foot-logo4.svg" />
+    <Content Include="Media\img\gambling.svg" />
+    <Content Include="Media\img\icon-money.svg" />
+    <Content Include="Media\img\line.png" />
+    <Content Include="Media\img\logo-footer.svg" />
+    <Content Include="Media\img\logo.svg" />
+    <Content Include="Media\img\plus.svg" />
+    <Content Include="Media\img\reload.svg" />
+    <Content Include="Media\img\search.svg" />
+    <Content Include="Media\img\social-icon1.svg" />
+    <Content Include="Media\img\social-icon2.svg" />
+    <Content Include="Media\img\social-icon3.svg" />
+    <Content Include="Media\img\tail-spin.svg" />
+    <Content Include="Media\img\user.svg" />
+    <Content Include="Media\img\year-18.svg" />
+    <Content Include="scripts\angular.min.js" />
+    <Content Include="scripts\bootstrap-3.4.1.min.js" />
+    <Content Include="scripts\cleave-angular.min.js" />
+    <Content Include="scripts\controllers.js" />
+    <Content Include="scripts\datepickerlang\datepicker-af.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ar-DZ.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ar.js" />
+    <Content Include="scripts\datepickerlang\datepicker-az.js" />
+    <Content Include="scripts\datepickerlang\datepicker-be.js" />
+    <Content Include="scripts\datepickerlang\datepicker-bg.js" />
+    <Content Include="scripts\datepickerlang\datepicker-bs.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ca.js" />
+    <Content Include="scripts\datepickerlang\datepicker-cs.js" />
+    <Content Include="scripts\datepickerlang\datepicker-cy-GB.js" />
+    <Content Include="scripts\datepickerlang\datepicker-da.js" />
+    <Content Include="scripts\datepickerlang\datepicker-de.js" />
+    <Content Include="scripts\datepickerlang\datepicker-el.js" />
+    <Content Include="scripts\datepickerlang\datepicker-en-AU.js" />
+    <Content Include="scripts\datepickerlang\datepicker-en-GB.js" />
+    <Content Include="scripts\datepickerlang\datepicker-en-NZ.js" />
+    <Content Include="scripts\datepickerlang\datepicker-eo.js" />
+    <Content Include="scripts\datepickerlang\datepicker-es.js" />
+    <Content Include="scripts\datepickerlang\datepicker-et.js" />
+    <Content Include="scripts\datepickerlang\datepicker-eu.js" />
+    <Content Include="scripts\datepickerlang\datepicker-fa.js" />
+    <Content Include="scripts\datepickerlang\datepicker-fi.js" />
+    <Content Include="scripts\datepickerlang\datepicker-fo.js" />
+    <Content Include="scripts\datepickerlang\datepicker-fr-CA.js" />
+    <Content Include="scripts\datepickerlang\datepicker-fr-CH.js" />
+    <Content Include="scripts\datepickerlang\datepicker-fr.js" />
+    <Content Include="scripts\datepickerlang\datepicker-gl.js" />
+    <Content Include="scripts\datepickerlang\datepicker-he.js" />
+    <Content Include="scripts\datepickerlang\datepicker-hi.js" />
+    <Content Include="scripts\datepickerlang\datepicker-hr.js" />
+    <Content Include="scripts\datepickerlang\datepicker-hu.js" />
+    <Content Include="scripts\datepickerlang\datepicker-hy.js" />
+    <Content Include="scripts\datepickerlang\datepicker-id.js" />
+    <Content Include="scripts\datepickerlang\datepicker-is.js" />
+    <Content Include="scripts\datepickerlang\datepicker-it-CH.js" />
+    <Content Include="scripts\datepickerlang\datepicker-it.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ja.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ka.js" />
+    <Content Include="scripts\datepickerlang\datepicker-kk.js" />
+    <Content Include="scripts\datepickerlang\datepicker-km.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ko.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ky.js" />
+    <Content Include="scripts\datepickerlang\datepicker-lb.js" />
+    <Content Include="scripts\datepickerlang\datepicker-lt.js" />
+    <Content Include="scripts\datepickerlang\datepicker-lv.js" />
+    <Content Include="scripts\datepickerlang\datepicker-mk.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ml.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ms.js" />
+    <Content Include="scripts\datepickerlang\datepicker-nb.js" />
+    <Content Include="scripts\datepickerlang\datepicker-nl-BE.js" />
+    <Content Include="scripts\datepickerlang\datepicker-nl.js" />
+    <Content Include="scripts\datepickerlang\datepicker-nn.js" />
+    <Content Include="scripts\datepickerlang\datepicker-no.js" />
+    <Content Include="scripts\datepickerlang\datepicker-pl.js" />
+    <Content Include="scripts\datepickerlang\datepicker-pt-BR.js" />
+    <Content Include="scripts\datepickerlang\datepicker-pt.js" />
+    <Content Include="scripts\datepickerlang\datepicker-rm.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ro.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ru.js" />
+    <Content Include="scripts\datepickerlang\datepicker-sk.js" />
+    <Content Include="scripts\datepickerlang\datepicker-sl.js" />
+    <Content Include="scripts\datepickerlang\datepicker-sq.js" />
+    <Content Include="scripts\datepickerlang\datepicker-sr-SR.js" />
+    <Content Include="scripts\datepickerlang\datepicker-sr.js" />
+    <Content Include="scripts\datepickerlang\datepicker-sv.js" />
+    <Content Include="scripts\datepickerlang\datepicker-ta.js" />
+    <Content Include="scripts\datepickerlang\datepicker-th.js" />
+    <Content Include="scripts\datepickerlang\datepicker-tj.js" />
+    <Content Include="scripts\datepickerlang\datepicker-tr.js" />
+    <Content Include="scripts\datepickerlang\datepicker-uk.js" />
+    <Content Include="scripts\datepickerlang\datepicker-vi.js" />
+    <Content Include="scripts\datepickerlang\datepicker-zh-CN.js" />
+    <Content Include="scripts\datepickerlang\datepicker-zh-HK.js" />
+    <Content Include="scripts\datepickerlang\datepicker-zh-TW.js" />
+    <Content Include="scripts\edit-customer-popups.js" />
+    <Content Include="scripts\edit-customer.js" />
+    <Content Include="scripts\custom.js" />
+    <Content Include="scripts\directives.js" />
+    <Content Include="scripts\fa.js" />
+    <Content Include="scripts\flatpickr.min.js" />
+    <Content Include="scripts\hubconnection.js" />
+    <EmbeddedResource Include="App_Plugins\StylesheetBulkUploadSurface\package.manifest" />
+    <EmbeddedResource Include="App_Plugins\StylesheetBulkDownloadSurface\package.manifest" />
+    <None Include="scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="scripts\jdate.min.js" />
+    <Content Include="scripts\jquery-1.6.4.js" />
+    <Content Include="scripts\jquery-1.6.4.min.js" />
+    <Content Include="scripts\jquery-ui.js" />
+    <Content Include="scripts\jquery.mask.min.js" />
+    <Content Include="scripts\jquery.maskedinput.min.js" />
+    <Content Include="scripts\jquery.min.js" />
+    <Content Include="scripts\jquery.modal.min.js" />
+    <Content Include="scripts\jquery.overlayScrollbars.js" />
+    <Content Include="scripts\jquery.payment.min.js" />
+    <Content Include="scripts\jquery.signalR-2.2.1.js" />
+    <Content Include="scripts\jquery.signalR-2.2.1.min.js" />
+    <Content Include="scripts\jquery.validate.min.js" />
+    <Content Include="scripts\js.cookies.js" />
+    <Content Include="scripts\login.js" />
+    <Content Include="scripts\ng-file-upload-shim.min.js" />
+    <Content Include="scripts\ng-file-upload.min.js" />
+    <Content Include="scripts\owl.carousel.min.js" />
+    <Content Include="scripts\PageScroll2id.min.js" />
+    <Content Include="scripts\register.js" />
+    <Content Include="scripts\scripts.js" />
+    <Content Include="scripts\select.js" />
+    <Content Include="scripts\select2.full.js" />
+    <Content Include="scripts\services.js" />
+    <Content Include="scripts\shape-overlays.js" />
+    <Content Include="scripts\signalr.js" />
+    <Content Include="scripts\slick-lightbox.min.js" />
+    <Content Include="scripts\slick.min.js" />
+    <Content Include="scripts\sports-feed.controller.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="scripts\toastr.js" />
+    <Content Include="scripts\toastr.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup\Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\imageprocessor\security.config" />
+    <Content Include="config\imageprocessor\processing.config" />
+    <Content Include="config\imageprocessor\cache.config" />
+    <Content Include="Media\Web.config" />
+    <Content Include="config\umbracoSettings.config" />
+    <Content Include="config\tinyMceConfig.config" />
+    <Content Include="config\serilog.user.config" />
+    <Content Include="config\serilog.config" />
+    <Content Include="config\HealthChecks.config" />
+    <Content Include="config\ClientDependency.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\BackOfficeTours\getting-started.json" />
+    <EmbeddedResource Include="App_Plugins\ApiSettingsSurface\package.manifest" />
+    <Content Include="Media\img\gambling.webp" />
+    <Content Include="App_Plugins\TenantPreferences\package.manifest" />
+    <Content Include="Media\img\gambling.webp" />
+    <Content Include="config\uSync8.config" />
+    <Content Include="App_Plugins\uSync8\package.manifest" />
+    <Content Include="App_Plugins\uSync8\addons.json" />
+    <Content Include="fonts\Inter-ExtraBold\Inter-ExtraBold.eot" />
+    <Content Include="fonts\Inter-ExtraBold\Inter-ExtraBold.ttf" />
+    <Content Include="fonts\Inter-ExtraBold\Inter-ExtraBold.woff" />
+    <Content Include="fonts\Inter-Regular\Inter-Regular.eot" />
+    <Content Include="fonts\Inter-Regular\Inter-Regular.ttf" />
+    <Content Include="fonts\Inter-Regular\Inter-Regular.woff" />
+    <Content Include="fonts\Inter-SemiBold\Inter-SemiBold.eot" />
+    <Content Include="fonts\Inter-SemiBold\Inter-SemiBold.ttf" />
+    <Content Include="fonts\Inter-SemiBold\Inter-SemiBold.woff" />
+    <EmbeddedResource Include="App_Plugins\DictionarySettingsSurface\package.manifest" />
+    <Content Include="img\gambling.webp" />
+    <Content Include="App_Plugins\SvgCustomViewer\package.manifest" />
+    <Content Include="fonts\webhostinghub-glyphs.eot" />
+    <Content Include="fonts\webhostinghub-glyphs.ttf" />
+    <Content Include="fonts\eot\IRANSansWeb.eot" />
+    <Content Include="fonts\eot\IRANSansWeb_Black.eot" />
+    <Content Include="fonts\eot\IRANSansWeb_Bold.eot" />
+    <Content Include="fonts\eot\IRANSansWeb_Light.eot" />
+    <Content Include="fonts\eot\IRANSansWeb_Medium.eot" />
+    <Content Include="fonts\eot\IRANSansWeb_UltraLight.eot" />
+    <Content Include="fonts\ttf\IRANSansWeb.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb_Black.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb_Bold.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb_Light.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb_Medium.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb_UltraLight.ttf" />
+    <Content Include="fonts\woff2\IRANSansWeb.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb_Black.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb_Bold.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb_Light.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb_Medium.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb_UltraLight.woff2" />
+    <Content Include="fonts\woff\IRANSansWeb.woff" />
+    <Content Include="fonts\woff\IRANSansWeb_Black.woff" />
+    <Content Include="fonts\woff\IRANSansWeb_Bold.woff" />
+    <Content Include="fonts\woff\IRANSansWeb_Light.woff" />
+    <Content Include="fonts\woff\IRANSansWeb_Medium.woff" />
+    <Content Include="fonts\woff\IRANSansWeb_UltraLight.woff" />
+    <Content Include="css\custom2.scss" />
+    <Content Include="App_Plugins\ColorPickerU8\package.manifest" />
+    <Content Include="App_Plugins\SvgCustomViewer\package.manifest" />
+    <None Include="packages.config" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Partials\_register-popup.cshtml" />
+    <Content Include="Views\Partials\_footer.cshtml" />
+    <Content Include="Views\Partials\_navigation.cshtml" />
+    <Content Include="Views\totalCodeAccountPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeArticlePageTemplate.cshtml" />
+    <Content Include="Views\totalCodeCategoriesPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeCategoryPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeDepositBankPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeDepositHistoryPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeDepositPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeDocumentPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeGenericPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeHelpPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeHomePageTemplate.cshtml" />
+    <Content Include="Views\totalCodeLayout.cshtml" />
+    <Content Include="Views\totalCodeMarketingPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeTermsPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeTicketPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeTicketsPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeTransactionHistoryPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeWithdrawBankPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeWithdrawHistoryPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeWithdrawPageTemplate.cshtml" />
+    <Content Include="Views\Partials\Forms\_TotalCodeLogin.cshtml" />
+    <Content Include="Views\Partials\Forms\_TotalCodeLogout.cshtml" />
+    <Content Include="Views\Partials\Forms\_MobileVerification.cshtml" />
+    <Content Include="Views\Partials\_TotalCodeAccountMenu.cshtml" />
+    <Content Include="Views\Partials\_TotalCodeMobilePageMenu.cshtml" />
+    <Content Include="Views\TotalCodeTenantConfirmEmail.cshtml" />
+    <Content Include="Views\Partials\_reset-password-popup.cshtml" />
+    <Content Include="Views\Partials\_forgot-username-popup.cshtml" />
+    <Content Include="Views\Partials\_server-errors.cshtml" />
+    <Content Include="Views\Partials\_server-errors-display.cshtml" />
+    <Content Include="Views\Partials\_processing.cshtml" />
+    <Content Include="Views\Partials\_hidden-values.cshtml" />
+    <Content Include="Views\TotalCodeTenantResetPassword.cshtml" />
+    <Content Include="Views\totalCodeSportsFeedPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeDebugPageTemplate.cshtml" />
+    <Content Include="Views\Partials\_create-message-popup.cshtml" />
+    <Content Include="Views\Partials\_processing_angular.cshtml" />
+    <Content Include="Views\Partials\_create-ticket-anonymous.cshtml" />
+    <Content Include="Views\Partials\_create-ticket.cshtml" />
+    <Content Include="Views\Partials\_file_controller.cshtml" />
+    <Content Include="Views\Partials\_add-card.cshtml" />
+    <Content Include="Views\Partials\_add-card-withdraw.cshtml" />
+    <Content Include="Views\Partials\_add-iban.cshtml" />
+    <Content Include="Views\Partials\_edit-card.cshtml" />
+    <Content Include="Views\totalCodeAccountEditPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeCasinoPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeBettingHistoryPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeGamePageTemplate.cshtml" />
+    <Content Include="Views\totalCodeGamePageSingleTemplate.cshtml" />
+    <Content Include="Views\Partials\_depositAndWithdraw.cshtml" />
+    <Content Include="Views\Partials\_gameGrid.cshtml" />
+    <Content Include="Views\Partials\_gameGrid-live-casino.cshtml" />
+    <Content Include="Views\Partials\_gameGrid-search.cshtml" />
+    <Content Include="Views\Partials\_gameGrid-subcategories.cshtml" />
+    <Content Include="Views\Partials\_gameGrid-providers.cshtml" />
+    <Content Include="Views\totalCodeSettingsPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeAffiliatePageTemplate.cshtml" />
+    <Content Include="Views\totalCodeBonusHistoryPageTemplate.cshtml" />
+    <Content Include="Views\Partials\_TotalCodeTicketMessageList.cshtml" />
+    <Content Include="Views\totalCodeGenericInfoPageTemplate.cshtml" />
+    <Content Include="Views\totalCodeLoginPageTemplate.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TotalCode.Core\TotalCode.Core.csproj">
+      <Project>{ff7bbfd1-7530-4175-a842-f1edd3e33496}</Project>
+      <Name>TotalCode.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Umbraco.Plugins.Connector\Umbraco.Plugins.Connector.csproj">
+      <Project>{bfcc0f64-4ee6-4e88-830a-3d46db240a7b}</Project>
+      <Name>Umbraco.Plugins.Connector</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Plugins\ModelsBuilder\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2766</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2766/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets'))" />
+    <Error Condition="!Exists('..\packages\UmbracoCms.8.0.2\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.0.2\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\packages\UmbracoCms.8.0.2\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.0.2\build\UmbracoCms.targets'))" />
+    <Error Condition="!Exists('..\packages\uSync.8.0.1\build\uSync.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\uSync.8.0.1\build\uSync.props'))" />
+    <Error Condition="!Exists('..\packages\uSync.8.0.1\build\uSync.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\uSync.8.0.1\build\uSync.targets'))" />
+  </Target>
+  <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
+  <Import Project="..\packages\UmbracoCms.8.0.2\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.8.0.2\build\UmbracoCms.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
+  <Import Project="..\packages\uSync.8.0.1\build\uSync.targets" Condition="Exists('..\packages\uSync.8.0.1\build\uSync.targets')" />
+</Project>

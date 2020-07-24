@@ -1,0 +1,96 @@
+.account-info--black
+	background: cBlackD
+	brr(10px)
+	padding 50px 64px 50px 68px
+	notB(8px)
+	
+	&.small-offset
+		padding: 37px 64px 37px 68px
+
+.account-wrap--button
+	margin-top 40px
+
+.list--info-account
+	li
+		display flex
+		flex-direction row
+		justify-content space-between
+		position relative
+		&:not(:last-child)
+			margin-bottom 34px
+		&:before
+			position absolute
+			bottom 5px
+			left 0
+			content ""
+			display block
+			width 100%
+			height 1px
+			background-image: url(../img/line.png)
+			background-repeat repeat-x
+		span
+			position relative
+			fsR(14px)
+			line-height 20px
+			c cGray
+			background: cBlackD
+		.name-option
+			padding-right 20px
+		.result-option
+			c cWhite
+			padding-left 20px
+
+.my-information
+	display flex
+	flex-direction row
+	justify-content space-between
+	align-items center
+	.my-info--main
+		fsR(14px)
+		c cWhite
+		.my-info--name
+			c cGray
+			margin-bottom 8px
+
+.mobile--marketing-preferences
+	display none
+	margin-top 16px
+	text-align center
+	margin-bottom 10px
+	.change-link
+		display inline-block
+		margin-top 32px
+
+.my-information--checked
+	display flex
+	flex-direction row
+	justify-content space-between
+	align-items center
+	.info-checked
+		.checked--name
+			fsR(14px)
+			margin-bottom 19px
+		.checked--result
+			font-size 12px
+			ffa(fR)
+			letter-spacing: -0.09px
+			line-height: 16px
+			c cGray
+
+.my-info--head
+	width 100%
+	display flex
+	flex-direction row
+	justify-content space-between
+	align-items center
+	.my-info--head-name
+		p
+			fsR(14px)
+			c cWhite
+			.desc
+				padding-left 14px
+				font-size 12px
+				ffa(fR)
+				line-height 16px
+				ls(-0.09px)
+				c cGray

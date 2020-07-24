@@ -1,0 +1,26 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.CategoryPageViewModel>
+    @{
+        Layout = "totalCodeLayout.cshtml";
+    }
+
+    <section class="black-main--default">
+        <div class="login-problems">
+            <a class="link-back text-back" href="@Model.BackUrl"><span class="mobile-none">@Umbraco.GetDictionaryValue("[Others]Back")</span></a>
+            <h1 class="black-main--head">@Model.Title</h1>
+            <div class="height-36"></div>
+            <div class="content">
+                @Html.Raw(Model.Body)
+            </div>
+            <div class="login-problems--main">
+
+                @foreach (var article in Model.Articles)
+                {
+                    <div class="result-def--item">
+                        <a class="result-name" href="@article.Url">@article.Title</a>
+                        <p class="result-desc">@article.Summary</p>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,89 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.BasePageViewModel>
+@using Umbraco.Plugins.Connector.Models
+@{
+
+    TenantPreferences preferences = Model.Preferences;
+    var currencies = Model.Currencies;
+    var defaultLanguage = Model.DefaultLanguage;
+    var currentLanguage = Model.CurrentLanguage.TwoLetterISOLanguageName;
+    var currentLanguageLocalization = Model.CurrentLanguage.ISOLanguangeName;
+}
+
+<div class="popup-default name-email default-offset zoom-anim-dialog" id="name-email">
+    <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+    <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Others]ForgotUsernameEmail", "Forgot Username")</h3>
+    <p>@Html.Raw(Umbraco.GetDictionaryValue("[Forgot]ForgotUsernameInstructions", "Enter either your email or mobile phone. <br/> If you enter an email, your username will be sent to your inbox. <br/> If you enter your mobile number, an SMS will be sent to your mobile device."))</p>
+    <div class="height-36"></div>
+    <form id="forgot-username">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+        <input type="hidden" name="language" value="@currentLanguage" />
+
+        <div class="item--input-label">
+            <div class="item--label">
+                <label for="email-forgot-username">@Umbraco.GetDictionaryValue("[Register]Email", "Email")</label>
+            </div>
+            <div class="item--input">
+                <input id="email-forgot-username" name="email" placeholder="@Umbraco.GetDictionaryValue("[Register]EmailPlaceholder", "johndoe@email.com")" class="validate-target duo-required" data-validate-expression="@preferences.Email.Validation" data-validation-message="error-message-email-forgot-username" data-no-value="valid-error-email-forgot-username" min="@preferences.Email.MinValue" max="@preferences.Email.MaxValue" type="text">
+                <span class="valid-error valid-error-email-forgot-username" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Email", "Email")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsMandatory", " is required")</span>
+                <span class="error-message error-message-email-forgot-username" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Email", "Email")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsInvalid", " is invalid")</span>
+            </div>
+        </div>
+
+        <div class="item--input-label">
+            <div class="item--label">
+                <label for="phone-number">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")</label>
+            </div>
+            <div class="item--input phone-checked">
+                <div class="custom-select select-bold float">
+                    <select class="select-phone select-black" name="countryCode">
+                        <option disabled>xx</option>
+                        @{
+                            foreach (var countryCode in Model.PhoneCountryCodes)
+                            {
+                                <option value="@countryCode">@countryCode</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <input id="phone-number-forgot-username" placeholder="@Umbraco.GetDictionaryValue("[Register]PhoneNumberPlaceholder", "555-5555")" name="mobile" class="validate-target phone-number duo-required" data-validate-expression="@preferences.Mobile.Validation" data-validation-message="error-message" data-no-value="valid-error" min="@preferences.Mobile.MinValue" max="@preferences.Mobile.MaxValue" type="tel" pattern="@preferences.Mobile.Validation">
+                <span class="valid-error" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsMandatory", " is required")</span>
+                <span class="error-message" style="display:none;">@Umbraco.GetDictionaryValue("[Register]PhoneNumber", "Phone Number")&nbsp;@Umbraco.GetDictionaryValue("[Register]IncorrectOrInvalid", " is incorrect or invalid")</span>
+            </div>
+        </div>
+
+        @*<div class="item--input-label">
+                <div class="item--label">
+                    <label for="enter-captcha-forgot-username">@Umbraco.GetDictionaryValue("[Forgot]EnterCaptcha", "Enter Captcha Code")</label>
+                </div>
+                <div class="captcha--wrapper">
+                    <div class="items--captcha-popup">
+                        <input class="validate-target input-black" type="text" id="enter-captcha" name="captcha" data-validate-expression="^[a-zA-Z0-9]{0,5}$" data-validation-message="error-message-captcha" data-no-value="valid-error-captcha">
+                        <span class="valid-error valid-error-captcha" style="display:none;">@Umbraco.GetDictionaryValue("[Forgot]Captcha", "Captcha")&nbsp;@Umbraco.GetDictionaryValue("[Register]IsMandatory", " is required")</span>
+                        <span class="error-message error-message-captcha" style="display:none;">@Umbraco.GetDictionaryValue("[Forgot]Captcha", "Captcha")&nbsp;@Umbraco.GetDictionaryValue("[Register]IncorrectOrInvalid", " is incorrect or invalid")</span>
+                    </div>
+                    <div class="captcha-main"><img src="/media/img/captcha.jpg" alt=""></div>
+                </div>
+            </div>*@
+
+        <div class="item--input-label">
+            <a class="popup popup-button button validate" href="#username-request-successfully" data-method="forgotUsername" data-form="forgot-username">@Umbraco.GetDictionaryValue("[Register]Continue","Continue")</a>
+        </div>
+        @Html.Partial("_processing")
+        <p class="popup-text--gray">@Html.Raw(Umbraco.GetDictionaryValue("[Others]EnterMobileSendUsername"))</p>
+        <div class="item--input-label text-center">
+            <div class="response-success" style="display:none;">@Umbraco.GetDictionaryValue("[Forgot]ForgotUsernameSuccess", "Your username has been sent.")</div>
+            <div class="response-failure" style="display:none;">@Umbraco.GetDictionaryValue("[Forgot]ForgotUsernameFailure", "Error sending your username")</div>
+            @*<a class="link-data popup back-to-login" href="#popup-login" rel="modal:open" style="display:none;">@Umbraco.GetDictionaryValue("[Others]Login", "Login")</a>*@
+            @Html.Partial("_server-errors-display")
+        </div>
+    </form>
+</div>
+
+<div class="popup-default popup-send default-offset zoom-anim-dialog message-status" id="username-request-successfully">
+    <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+    <h3 class="heading-default text-center">
+        @Html.Raw(Umbraco.GetDictionaryValue("[Forgot]UsernameRequestSuccessful", "Your username has been sent to you."))
+    </h3>
+    <div class="wrap--send-button text-center"><a class="popup popup-button button" href="#popup-login" rel="modal:open">@Umbraco.GetDictionaryValue("[Others]GotIt", "Got It")</a></div>
+</div>

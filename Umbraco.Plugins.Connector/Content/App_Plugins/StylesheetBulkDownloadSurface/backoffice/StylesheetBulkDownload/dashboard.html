@@ -1,0 +1,39 @@
+﻿<div ng-controller="StylesheetBulkDownloadController as vm">
+    <umb-editor-view footer="false">
+        <umb-editor-header name="vm.page.title"
+                           name-locked="true"
+                           hide-alias="true"
+                           hide-description="true"
+                           hide-icon="true">
+
+        </umb-editor-header>
+        <umb-editor-container class="form-horizontal">
+            <div class="download-btn-container">
+                <umb-button ng-if="vm.selectedItems.length > 0"
+                            type="button"
+                            button-style="primary"
+                            label="Download Selected Theme Folder/s"
+                            action="vm.downloadFiles()">
+                </umb-button>
+            </div>
+            <umb-box>
+                <umb-table items="vm.items"
+                           allow-select-all="true"
+                           item-properties="vm.options.includeProperties"
+                           on-select="vm.selectItem(item, $index, $event)"
+                           on-click="vm.clickItem(item)"
+                           on-select-all="vm.selectAll($event)"
+                           on-selected-all="vm.isSelectedAll()"
+                           on-sorting-direction="vm.isSortDirection(col, direction)"
+                           on-sort="vm.sort(field, allow, isSystem)">
+                </umb-table>
+                <div ng-if="vm.items.length == 0" style="padding: 15px;">No Theme Folder Found</div>
+                <umb-overlay ng-if="vm.overlay.show"
+                             model="vm.overlay"
+                             view="vm.overlay.view"
+                             position="center">
+                </umb-overlay>
+            </umb-box>
+        </umb-editor-container>
+    </umb-editor-view>
+</div>

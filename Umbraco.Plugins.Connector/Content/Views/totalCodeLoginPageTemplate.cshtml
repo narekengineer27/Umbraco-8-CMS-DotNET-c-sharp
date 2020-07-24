@@ -1,0 +1,369 @@
+﻿@using ClientDependency.Core.Mvc
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.LoginPageViewModel>
+@{
+                /**/
+
+                Layout = null;
+
+                var currentLanguage = Model.CurrentLanguage.TwoLetterISOLanguageName;
+                var pageName = !string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title : Model.BrandName;
+                var theme = Model.Theme;
+                var homePage = Umbraco.Content(Model.PageId).Root();
+                var CurrentPage = Umbraco.Content(Model.CurrentPageId);
+                var customJS = homePage.HasValue("customJS") ? homePage.Value<string>("customJS") : string.Empty;
+                var headJS = homePage.HasValue("headJS") ? homePage.Value<string>("headJS") : string.Empty;
+
+
+                if (!String.IsNullOrEmpty(theme))
+                {
+                    Html
+                        .RequiresCss("~/css/" + theme + "/index.css")
+                        .RequiresCss("~/css/" + theme + "/custom.css")
+                        .RequiresCss("~/css/" + theme + "/custom2.css")
+                        .RequiresCss("~/css/" + theme + "/jquery.modal.css")
+                        .RequiresCss("~/css/" + theme + "/owl.carousel.min.css")
+                        .RequiresCss("~/css/" + theme + "/theme.css");
+                    //.RequiresCss("~/css/whhg.css");
+                }
+                else
+                {
+                    Html
+                        .RequiresCss("~/css/index.css")
+                        .RequiresCss("~/css/custom.css")
+                        .RequiresCss("~/css/custom2.css")
+                        .RequiresCss("~/css/jquery.modal.css")
+                        .RequiresCss("~/css/owl.carousel.min.css");
+                }
+
+                Html
+                    .RequiresCss("~/css/flatpickr.min.css")
+                    .RequiresCss("~/css/flatpickr_rtl.css")
+                    .RequiresCss("~/css/toastr.css")
+
+                    .RequiresJs("~/scripts/angular.min.js")
+                    .RequiresJs("~/scripts/ng-file-upload-shim.min.js")
+                    .RequiresJs("~/scripts/ng-file-upload.min.js")
+                    .RequiresJs("~/scripts/cleave-angular.min.js")
+                    .RequiresJs("~/scripts/jquery.min.js")
+                    .RequiresJs("~/scripts/jquery-ui.js")
+                    .RequiresJs("~/scripts/signalr.js");
+
+                if (currentLanguage != "en")
+                {
+                    Html.RequiresJs($"~/scripts/datepickerlang/datepicker-{currentLanguage}.js");
+                }
+
+                Html
+                    .RequiresJs("~/scripts/select.js")
+                    .RequiresJs("~/scripts/select2.full.js")
+                    .RequiresJs("~/scripts/jquery.modal.min.js")
+                    .RequiresJs("~/scripts/jquery.payment.min.js")
+                    .RequiresJs("~/scripts/jquery.mask.min.js")
+                    .RequiresJs("~/scripts/js.cookies.js")
+                    .RequiresJs("~/scripts/scripts.js")
+                    .RequiresJs("~/scripts/register.js")
+                    .RequiresJs("~/scripts/controllers.js")
+                    .RequiresJs("~/scripts/directives.js")
+                    .RequiresJs("~/scripts/services.js")
+                    .RequiresJs("~/scripts/toastr.js")
+                    .RequiresJs("~/scripts/custom.js")
+                    .RequiresJs("~/scripts/flatpickr.min.js")
+                    .RequiresJs("~/scripts/jdate.min.js")
+                    .RequiresJs("~/scripts/fa.js")
+                    .RequiresJs("~/scripts/login.js");
+}
+
+<!DOCTYPE html>
+<html lang="@currentLanguage">
+<head>
+    <title>@(!string.IsNullOrEmpty(Model.WebsiteName) && !Model.IsHomePage ? $"{Model.WebsiteName} - " : string.Empty)@pageName</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="@Model.MetaDescription">
+    <meta name="copyright" content="@Model.MetaCopyright">
+    <meta name="keywords" content="@Model.MetaKeywords">
+    <meta name="author" content="@Model.MetaAuthor">
+    <meta name="robots" content="@Model.MetaRobots">
+    @*<link rel="shortcut icon" href="/media/img/favicon/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon.png" type="image/x-icon">
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-72x72.png" type="image/x-icon">
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-144x144.png" type="image/x-icon">*@
+    @if (!string.IsNullOrEmpty(Model.FaviconIco))
+    {
+        <link rel="shortcut icon" href="@Model.FaviconIco" type="image/x-icon">
+    }
+    else
+    {
+        <link rel="shortcut icon" href="/media/img/favicon/favicon.ico" type="image/x-icon">
+    }
+    @if (!string.IsNullOrEmpty(Model.Favicon32x32))
+    {
+        <link rel="shortcut icon" href="@Model.Favicon32x32" type="image/x-icon">
+    }
+    else
+    {
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon.png" type="image/x-icon">
+    }
+    @if (!string.IsNullOrEmpty(Model.Favicon72x72))
+    {
+        <link rel="shortcut icon" href="@Model.Favicon72x72" type="image/x-icon">
+    }
+    else
+    {
+        <link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-72x72.png" type="image/x-icon">
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Favicon144x144))
+    {
+        <link rel="shortcut icon" href="@Model.Favicon144x144" type="image/x-icon">
+    }
+    else
+    {
+        @*<link rel="shortcut icon" href="/media/img/favicon/apple-touch-icon-144x1k44.png" type="image/x-icon">*@
+    }
+
+    @Html.RenderCssHere()
+
+    @if (currentLanguage == "fa")
+    {
+        <link rel="stylesheet" href="~/css/index_RTL.css" />
+    }
+
+    <meta name="theme-color" content="#161516">
+    <meta name="msapplication-navbutton-color" content="#161516">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#161516">
+    <style>
+        .item--label > label {
+            color: white !important;
+        }
+    </style>
+
+</head>
+<body style="display: none" ng-app="Gamingplatformapp">
+    <div class="loader">
+        <div class="img-wrapper">
+            @if (Model.SpinnerImage != null)
+            {
+                <img src="@Model.SpinnerImage.Url" />
+            }
+            else
+            {
+                <img src="~/img/spinner.png" />
+            }
+        </div>
+    </div>
+    <div id="overlayer"></div>
+
+
+    <main class="section-main " role="main">
+        <section class="black-main--default">
+            <h1 class="black-main--head" style="float:none !important;text-align:center;">@Model.LoginPageTitle</h1>
+            <br />
+            <form id="login-formPage">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="tenantUidForm" value="@homePage.GetProperty("tenantUid").Value()" />
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="login-userForm">@Umbraco.GetDictionaryValue("[Login]EmailUsernameOrPhone", "Email or Username")</label>
+                        <a class="popup" href="#name-email" rel="modal:open">@Umbraco.GetDictionaryValue("[Others]ForgotUsernameEmail", "Forgot username or email?")</a>
+                    </div>
+                    <div class="item--input">
+                        <input id="login-userForm" type="text" placeholder="@Umbraco.GetDictionaryValue("[Login]EmailUsernameOrPhonePlaceholder", "email, username or mobile phone")" name="credentialForm" required tabindex="1" autocomplete="on">
+                    </div>
+
+                    <span class="error-message login-userForm" style="display:none;">@Umbraco.GetDictionaryValue("[Login]EmailUsernameOrPhone", "Credential")&nbsp;@Umbraco.GetDictionaryValue("[Register]IncorrectOrInvalid", " is incorrect or invalid")</span>
+                </div>
+                <div class="item--input-label">
+                    <div class="item--label">
+                        <label for="login-passwordForm">@Umbraco.GetDictionaryValue("[Login]Password", "Password")</label>
+                        <a class="popup" href="#forgot-password" rel="modal:open">@Umbraco.GetDictionaryValue("[Login]ForgotPassword", "Forgot Password?")</a>
+                    </div>
+                    <div class="item--input">
+                        <input id="login-passwordForm" placeholder="*********" name="passwordForm" required type="password" tabindex="2" autocomplete="on">
+                    </div>
+
+                    <span class="error-message login-passwordForm" style="display:none;">@Umbraco.GetDictionaryValue("[Login]Password", "Password")&nbsp;@Umbraco.GetDictionaryValue("[Register]IncorrectOrInvalid", " is incorrect or invalid")</span>
+                </div>
+                <div class="item--input-label">
+                    <label class="checkbox-static">
+                        <input class="checkbox-static--input" type="checkbox" name="rememberme" tabindex="3">
+                        <p class="checkbox-static--text">@Umbraco.GetDictionaryValue("[Login]RememberMe", "Remember Me")</p>
+                    </label>
+                </div>
+                <div class="item--input-label">
+                    <input type="submit" class="popup-button button" value="@Umbraco.GetDictionaryValue("[Login]Login", "Login")" tabindex="4">
+                </div>
+                @Html.Partial("_processing")
+                @Html.Partial("_server-errors-display")
+                <div class="text-center"><a class="popup dont-account link-data" href="#registration-step1" data-mobilelink="mobile--registration-step1.html" rel="modal:open">@Umbraco.GetDictionaryValue("[Login]DontHaveAccount", "Don’t have an account?")</a></div>
+                <div class="response-success" style="display:none;">@Umbraco.GetDictionaryValue("[Login]LoginSuccess", "Login successful, please wait.")</div>
+                <div class="response-failure" style="display:none;">@Umbraco.GetDictionaryValue("[Login]LoginFailure", "Login failure, please check your credentials")</div>
+                <div class="resend-time" style="display:none;">@Umbraco.GetDictionaryValue("[Register]Wait", "Wait") <span class="wait"></span></div>
+            </form>
+        </section>
+    </main>
+    <div class="hidden">
+        @if (!Model.IsLoggedIn)
+        {
+            @Html.Partial("_register-popup")
+            @Html.Partial("_reset-password-popup")
+            @Html.Partial("_forgot-username-popup")
+        }
+        @Html.Partial("_hidden-values")
+
+
+
+        @Html.Partial("Forms/_MobileVerification")
+
+
+    </div>
+
+    @Html.Partial("_server-errors")
+
+    @Html.RenderJsHere()
+
+
+    @{
+        string customerGuid = String.Empty;
+        if (Model.IsLoggedIn)
+        {
+            customerGuid = Model.CustomerSummary.CustomerGuid.ToString();
+        }
+    }
+    <script>
+        var settings = {
+            tenantUid: '@Model.TenantUid',
+            viewTicketUrl: '@Model.ViewTicketUrl',
+            contactUsUrl: '@Model.ContactUsUrl',
+            withdrawUrl: '@Model.WithdrawUrl',
+            depositUrl: '@Model.DepositPageUrl',
+            depositUrlAbsolute: '@Model.DepositPageUrlAbsolute',
+            rootGuid: '@Model.RootGuid',
+            currencySymbol: '@Model.CurrencySymbol',
+            customerCurrency: '@(Model.CustomerSummary?.CurrencyCode)',
+            tenantCurrency: '@Model.Preferences.Preferences.DefaultCurrency.AllowedValues.FirstOrDefault().ToString()',
+            customerToken: Cookies.get('token'),
+            balanceApi: '@Model.BalanceApiUrl',
+            customerGuid: '@customerGuid',
+            pageId: '@Model.CurrentPageId',
+            language: '@currentLanguage'
+        };
+
+        var dictionary = {
+            accountHolderName: '@Umbraco.GetDictionaryValue("[Others]AccountHolderName","Account Holder Name")',
+            action: '@Umbraco.GetDictionaryValue("[Others]Action","Action")',
+            amount:'@Umbraco.GetDictionaryValue("[Cards]Amount", "Amount-en")',
+            belowMinimumWithdrawalAmount: '@Umbraco.GetDictionaryValue("[ServerErrors]BelowMinimumWithdrawalAmount","Below minimum withdraw amount")',
+            cancelled: '@Umbraco.GetDictionaryValue("[Others]Cancelled","Cancelled")',
+            cancelWithdrawConfirm: '@Umbraco.GetDictionaryValue("[Others]CancelWithdrawConfirm","Confirm withdraw cancellation?")',
+            cancelWithdrawSuccess: '@Umbraco.GetDictionaryValue("[Others]The withdrawal has been successfully cancelled")',
+            cardName: '@Umbraco.GetDictionaryValue("[Cards]CardName","Card Name-en")',
+            cardNumber16Digits: '@Umbraco.GetDictionaryValue("[Cards]CardNumber","Card Number-en")',
+            cardCVV: '@Umbraco.GetDictionaryValue("[Cards]CardCVV", "CVV-en")',
+            cardExpiration: '@Umbraco.GetDictionaryValue("[Cards]CardExpiration", "Expiration-en")',
+            closeTicketMessage: '@Umbraco.GetDictionaryValue("[Others]CloseTicketMessage", "Closed by customer")',
+            completed: '@Umbraco.GetDictionaryValue("[Others]Completed","Completed")',
+            currencyFormat: '@Model.CurrencyFormat',
+            dateAndTime: '@Umbraco.GetDictionaryValue("[Others]DateAndTime","Date and Time")',
+            dateTimeFormat: '@Umbraco.GetDictionaryValue("[Formats]DateTime","11 111 1111")',
+            deposit: '@Umbraco.GetDictionaryValue("[Others]Deposit","Deposit")',
+            depositAdd: '@Umbraco.GetDictionaryValue("[Others]DepositAdd", "Add")',
+            depositAmount: '@Umbraco.GetDictionaryValue("[Others]DepositAmount", "amount")',
+            depositToMyAccount: '@Umbraco.GetDictionaryValue("[Others]DepositToMyAccount", "to my account")',
+            edit: '@Umbraco.GetDictionaryValue("[Others]Edit", "Edit")',
+            failed: '@Umbraco.GetDictionaryValue("[Others]Failed","Failed")',
+            gotIt: '@Umbraco.GetDictionaryValue("[Others]GotIt", "Got it")',
+            inProgress: '@Umbraco.GetDictionaryValue("[Others]InProgress","In progress")',
+            insufficientBalance: '@Umbraco.GetDictionaryValue("[ServerErrors]InsufficientBalance","Insufficient Balance")',
+            method: '@Umbraco.GetDictionaryValue("[Others]Method","Method")',
+            no: '@Umbraco.GetDictionaryValue("[Others]No","No")',
+            paymentMethod: '@Umbraco.GetDictionaryValue("[Others]PaymentMethod","Payment Method")',
+            paymentMethodAdded: '@Umbraco.GetDictionaryValue("[Others]NewPaymentMethodAdded", "New payment method has been successfully added.")',
+            paymentMethodDeleted: '@Umbraco.GetDictionaryValue("[Others]PaymentMethodDeleted", "Payment method has been successfully deleted.")',
+            paymentMethodUpdated: '@Umbraco.GetDictionaryValue("[Others]PaymentMethodUpdated", "Payment method has been successfully updated.")',
+            phoneFormat: '@Umbraco.GetDictionaryValue("[Formats]Phone","(000) 000-0000")',
+            phoneFullFormat: '@Umbraco.GetDictionaryValue("[Formats]FullPhone","+00 (000) 000-0000")',
+            save: '@Umbraco.GetDictionaryValue("[Others]Save", "Save")',
+            ticketHasBeenClosed: '@Umbraco.GetDictionaryValue("[Others]TicketHasBeenClosed", "The ticket has been closed.")',
+            ticketSentToAdmin: '@Umbraco.GetDictionaryValue("[Others]TicketSentToAdmin","Ticket sent to Administrator")',
+            withdraw: '@Umbraco.GetDictionaryValue("[Others]Withdraw","Withdraw")',
+            withdrawBelowMinimum: '@Umbraco.GetDictionaryValue("[Others]WithdrawBelowMinimum", "Below minimum withdrawal amount!")',
+            withdrawInsufficientBalance: '@Umbraco.GetDictionaryValue("[Others]WithdrawInsufficientBalance", "Insufficient balance!")',
+            yesCancel: '@Umbraco.GetDictionaryValue("[Others]YesCancel","Confirm or Cancel")',
+            depositbonus: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Deposit Bonus","Deposit Bonus")',
+            active: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Active","Active")',
+            closed: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Closed","Closed")',
+            completed: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Completed","Completed")',
+            incomplete: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]Incomplete","Incomplete")',
+            totalBetAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalBetAmount","Total Bet Amount")',
+            totalSportsbookAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalSportsbookAmount","Total Sportsbook Amount")',
+            totalPokerAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalPokerAmount","Total Poker Amount")',
+            totalDepositAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalDepositAmount","Total Deposit Amount")',
+            totalCasinoAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalCasinoAmount","Total Casino Amount")',
+            totalLiveCasinoAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalLiveCasinoAmount","Total Live Casino Amount")',
+            totalLotteryAmount: '@Umbraco.GetDictionaryValue("[BonusTransactionHistory]TotalLotteryAmount","Total Lottery Amount")',
+        };
+
+        $(function () {
+            if ($('.currency-format').length) {
+                $('.currency-format').mask(dictionary.currencyFormat , { reverse: true });
+            }
+            if ($('.date-format').length) {
+                $('.date-format').mask(dictionary.dateFormat);
+            }
+            @*
+            //if ($('.phone-format').length) {
+            //    $('.phone-format').mask(dictionary.phoneFormat);
+            //}
+            //if ($('.full-phone-format').length) {
+            //    $('.full-phone-format').mask(dictionary.phoneFullFormat);
+            //}*@
+        });
+    </script>
+    @if (Model.IsLoggedIn)
+    {
+        <script>
+            $(window).on("load", function () {
+
+                AutoUpdate('@CurrentPage.ContentType.Alias','@Model.CurrentPageId','@currentLanguage','@Model.notificationBgColor','@Model.notificationWidth');
+            });
+        </script>
+    }
+    else
+    {
+        <script>
+            $(window).on("load", function () {
+
+                AutoUpdateAnonymous('@CurrentPage.ContentType.Alias','@Model.CurrentPageId','@currentLanguage','@Model.notificationBgColor','@Model.notificationWidth');
+            });
+        </script>
+    }
+
+    @*<script type="text/javascript" src="~/scripts/hubconnection.js"></script>*@
+
+    <input type="hidden" id="tenantUid-root" value="@Model.TenantUid" />
+    @*</div>*@
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "@Model.notificationPosition",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": false,
+            "hideDuration": false,
+            "timeOut": 0,
+            "extendedTimeOut": false,
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
+            "tapToDismiss": false,
+            "closeOnHover":false
+        };
+    </script>
+</body>
+</html>

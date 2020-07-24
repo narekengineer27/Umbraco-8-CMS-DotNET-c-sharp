@@ -1,0 +1,514 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.EditAccountPageViewModel>
+@using Umbraco.Plugins.Connector.Helpers
+@{
+    Layout = "totalCodeLayout.cshtml";
+    ViewBag.Title = Umbraco.GetDictionaryValue("[EditPage]AccountEditPageTitle", "Edit Account Details");
+    var customerInfo = Model.Customer;
+    var preferences = Model.Preferences;
+    var defaultLanguage = Model.DefaultLanguage;
+    string required = string.Empty;
+    string requiredMessage = string.Empty;
+    string invalidMessage = string.Empty;
+    string asterisk = string.Empty;
+    // ignore for now
+    //var wallet = Model.CustomerWallet.Wallets[0]; // select first wallet???
+    var alertType = TempData["alertType"];
+    var status = TempData["status"];
+    var editWhat = Request.QueryString["edit"];
+}
+@section Scripts{
+    <script src="~/scripts/edit-customer.js"></script>
+}
+<section class="black-main" ng-controller="EditCustomer as vm">
+    <div class="left-sidebar">
+        @Html.Partial("_TotalCodeAccountMenu")
+    </div>
+    <div class="main-container">
+        <div class="heading--main-container">
+            <h1 class="black-main--head">@Model.Title</h1>
+        </div>
+        @Html.Partial("_TotalCodeMobilePageMenu")
+        <div class="account-info--black">
+            <form id="editCustomer">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                <input type="hidden" name="notify" value="@Model.Customer.NotificationPreferences.IsSelected.ToString().ToLower()" />
+                <input type="hidden" name="language" value="@Model.CurrentLanguage.TwoLetterISOLanguageName" />
+
+                @if (editWhat == "customer")
+                {
+                    if (preferences.Title.IsUsed)
+                    {
+                        required = preferences.Title.IsMandatory ? "required" : string.Empty; requiredMessage = preferences.Title.IsMandatory ? "valid-error-title" : string.Empty; invalidMessage = preferences.Title.Validation != null ? "error-message-title" : string.Empty; asterisk = preferences.Title.IsMandatory ? "*" : string.Empty;<div class="item--input-label">
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[EditPage]Title", "Title") @asterisk</label>
+                            </div>
+                            <div class="flex--custom-select">
+                                <div class="custom-select select-bold">
+                                    <select name="title" @required class="validate-target" data-validate-expression="@preferences.Title.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                        <option value="">@Umbraco.GetDictionaryValue("[EditPage]Title", "Title")</option>
+                                        @foreach (var title in Model.Titles)
+                                        {
+                                            var selected = customerInfo.Title.Equals(title) ? "selected" : string.Empty;
+                                            <option value="@title" @selected>@title</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Title", "Title")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Title", "Title")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                        </div>
+                    }
+                    if (preferences.FirstName.IsUsed)
+                    {
+                        required = preferences.FirstName.IsMandatory ? "required" : string.Empty;
+                        requiredMessage = preferences.FirstName.IsMandatory ? "valid-error-firstname" : string.Empty;
+                        invalidMessage = preferences.FirstName.Validation != null ? "error-message-firstname" : string.Empty;
+                        asterisk = preferences.FirstName.IsMandatory ? "*" : string.Empty;
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[EditPage]FirstName", "First Name") @asterisk</label>
+                            </div>
+                            <div class="item--input">
+                                <input name="firstname" @required placeholder="@Umbraco.GetDictionaryValue("[EditPage]FirstNamePlaceholder", "John")" class="validate-target" data-validate-expression="@preferences.FirstName.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.FirstName.MinValue" max="@preferences.FirstName.MaxValue" value="@customerInfo.FirstName">
+                                <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]FirstName", "First Name")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                                <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]FirstName", "First Name")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                            </div>
+                        </div>
+                    }
+                    if (preferences.LastName.IsUsed)
+                    {
+                        required = preferences.LastName.IsMandatory ? "required" : string.Empty;
+                        requiredMessage = preferences.LastName.IsMandatory ? "valid-error-lastname" : string.Empty;
+                        invalidMessage = preferences.LastName.Validation != null ? "error-message-lastname" : string.Empty;
+                        asterisk = preferences.LastName.IsMandatory ? "*" : string.Empty;
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[EditPage]LastName", "Last Name") @asterisk</label>
+                            </div>
+                            <div class="item--input">
+                                <input name="lastname" @required placeholder="@Umbraco.GetDictionaryValue("[EditPage]LastNamePlaceholder", "Doe")" class="validate-target" data-validate-expression="@preferences.LastName.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.LastName.MinValue" max="@preferences.LastName.MaxValue" value="@customerInfo.LastName">
+                                <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]LastName", "Last Name")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                                <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]LastName", "Last Name")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                            </div>
+                        </div>
+                    }
+                    if (preferences.Gender.IsUsed)
+                    {
+                        required = preferences.Gender.IsMandatory ? "required" : string.Empty;
+                        requiredMessage = preferences.Gender.IsMandatory ? "valid-error-gender" : string.Empty;
+                        invalidMessage = preferences.Gender.Validation != null ? "error-message-gender" : string.Empty;
+                        asterisk = preferences.Gender.IsMandatory ? "*" : string.Empty;
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label>
+                                    @Umbraco.GetDictionaryValue("[EditPage]Gender", "Gender") @asterisk
+                                </label>
+                            </div>
+                            <div class="payment--select-price payment--gender-full">
+                                @foreach (var gender in Model.Genders)
+                                {
+                                    var selected = customerInfo.Gender != null && customerInfo.Gender.Equals(DefaultAllowedValues.GetGenderCode(gender)) ? "checked" : string.Empty;
+                                    <label class="radio--select-price">
+                                        <input type="radio" name="gender" value="@DefaultAllowedValues.GetGenderCode(gender)" @required class="validate-target" data-validate-expression="@preferences.Gender.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" @selected ng-click="vm.selectGender($event)">
+                                        <span class="text--select-price">@Umbraco.GetDictionaryValue(gender, "Gender")</span>
+                                    </label>
+                                }
+                            </div>
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Gender", "Gender")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Gender", "Gender")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                        </div>
+                    }
+                    if (preferences.DateOfBirth.IsUsed)
+                    {
+                        required = preferences.DateOfBirth.IsMandatory ? "required" : string.Empty;
+                        requiredMessage = preferences.DateOfBirth.IsMandatory ? "valid-error-dob" : string.Empty;
+                        invalidMessage = preferences.DateOfBirth.Validation != null ? "error-message-dob" : string.Empty;
+                        asterisk = preferences.DateOfBirth.IsMandatory ? "*" : string.Empty;
+                        string day = customerInfo.DOB.Value.Day.ToString();
+                        string month = customerInfo.DOB.Value.Month.ToString();
+                        string year = customerInfo.DOB.Value.Year.ToString();
+                        if (customerInfo.DOB == DateTime.MinValue)
+                        {
+                            day = string.Empty;
+                            month = string.Empty;
+                            year = string.Empty;
+                        }
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[EditPage]DateOfBirth", "Date of Birth") @asterisk</label>
+                            </div>
+                            <div class="flex--custom-select thirds">
+                                <div class="custom-select select-bold">
+                                    <select name="day" @required class="validate-target" data-validate-expression="@preferences.DateOfBirth.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                        <option value="">@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthDay", "Day")</option>
+                                        @for (int i = 1; i <= 31; i++)
+                                        {
+                                            var selected = day.Equals(i) ? "selected" : string.Empty;
+                                            <option value="@i" @selected>@i</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="custom-select select-bold mounth">
+                                    <select name="month" @required class="validate-target" data-validate-expression="@preferences.DateOfBirth.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                        <option value="">@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonth", "Month")</option>
+                                        @for (int i = 1; i <= 12; i++)
+                                        {
+                                            var selected = month.Equals(i) ? "selected" : string.Empty;
+                                            <option value="@i" @selected>@MonthDictionaryString(i)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="custom-select select-bold">
+                                    <select name="year" @required class="validate-target" data-validate-expression="@preferences.DateOfBirth.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                        <option value="">
+                                            @Umbraco.GetDictionaryValue("[EditPage]DateOfBirthYear", "Year")
+                                        </option>
+                                        @for (int i = 0; i < Model.Years.Length; i++)
+                                        {
+                                            var selected = year.ToString().Equals(Model.Years[i]) ? "selected" : string.Empty;
+                                            <option value="@Model.Years[i]" @selected>@Model.Years[i]</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]DateOfBirth", "Date of Birth")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]DateOfBirth", "Date of Birth")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                        </div>
+                    }
+                    if (preferences.Country.IsUsed)
+                    {
+                        required = preferences.Country.IsMandatory ? "required" : string.Empty;
+                        requiredMessage = preferences.Country.IsMandatory ? "valid-error-country" : string.Empty;
+                        invalidMessage = preferences.Country.Validation != null ? "error-message-country" : string.Empty;
+                        asterisk = preferences.Country.IsMandatory ? "*" : string.Empty;
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[EditPage]PreferredCountry", "Preferred Country") @asterisk</label>
+                            </div>
+                            <div class="flex--custom-select">
+                                <div class="custom-select select-bold">
+                                    <select name="countrycode" @required class="validate-target" data-validate-expression="@preferences.Title.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                        <option value="">@Umbraco.GetDictionaryValue("[EditPage]Country", "Country")</option>
+                                        @foreach (var country in Model.Countries)
+                                        {
+                                            var selected = customerInfo.CountryCode.Equals(country.Code) ? "selected" : string.Empty;
+                                            <option value="@country.Code" @selected>@country.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Country", "Country")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                            <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Country", "Country")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                        </div>
+                    }
+                    @*@if (preferences.Preferences.DefaultCurrency.IsUsed)
+            {
+                var requiredDefaultCurrency = preferences.Preferences.DefaultCurrency.IsMandatory ? "required" : string.Empty;
+                var requiredMessageDefaultCurrency = preferences.Preferences.DefaultCurrency.IsMandatory ? "valid-error-defaultcurrency" : string.Empty;
+                var invalidMessageDefaultCurrency = preferences.Preferences.DefaultCurrency.Validation != null ? "error-message-defaultcurrency" : string.Empty;
+                asterisk = preferences.Preferences.DefaultCurrency.IsMandatory ? "*" : string.Empty;
+
+                <div class="item--input-label">
+                    <div class="flex--custom-select">
+                        <div class="item--label">
+                            <label>@Umbraco.GetDictionaryValue("[EditPage]Currency", "Currency") @asterisk</label>
+                        </div>
+                    </div>
+                    <div class="custom-select select-bold" data-validation-message="@invalidMessage">
+                        <select name="currency" @requiredDefaultCurrency class="validate-target" data-validate-expression="@preferences.Preferences.DefaultCurrency.Validation" data-validation-message="@invalidMessageDefaultCurrency" data-no-value="@requiredMessageDefaultCurrency" data-prepopulated="true">
+                            <option value="">@Umbraco.GetDictionaryValue("[EditPage]Currency", "Currency")</option>
+
+                            @foreach (var currency in Model.Currencies)
+                            {
+                                var selected = preferences.Preferences.DefaultCurrency != null && preferences.Preferences.DefaultCurrency.AllowedValues != null && preferences.Preferences.DefaultCurrency.AllowedValues[0].Equals(currency.Code) ? "selected" : string.Empty;
+                                <option value="@currency.Code" @selected>@currency.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }*@
+                    if (preferences.Preferences.TimeZone.IsUsed)
+                    {
+                        var requiredTimeZone = preferences.Preferences.TimeZone.IsMandatory ? "required" : string.Empty;
+                        var requiredMessageTimeZone = preferences.Preferences.TimeZone.IsMandatory ? "valid-error-timezone" : string.Empty;
+                        var invalidMessageTimeZone = preferences.Preferences.TimeZone.Validation != null ? "error-message-timezone" : string.Empty;
+                        asterisk = preferences.Preferences.TimeZone.IsMandatory ? "*" : string.Empty;
+
+                        <div class="item--input-label">
+                            <div class="flex--custom-select">
+                                <div class="item--label">
+                                    <label>
+                                        @Umbraco.GetDictionaryValue("[EditPage]TimeZone", "Time Zone") @asterisk
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="custom-select select-bold" data-validation-message="@invalidMessage">
+                                <select name="timezone" @requiredTimeZone class="validate-target" data-validate-expression="@preferences.Preferences.TimeZone.Validation" data-validation-message="@invalidMessageTimeZone" data-no-value="@requiredMessageTimeZone">
+                                    <option value="">
+                                        @Umbraco.GetDictionaryValue("[EditPage]TimeZone", "Time Zone")
+                                    </option>
+                                    @foreach (var zone in Model.TimeZones)
+                                    {
+                                        var selected = customerInfo.TimeZoneCode.Equals(zone.Code) ? "selected" : string.Empty;
+                                        <option value="@zone.Code" @selected>@zone.DisplayName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    if (preferences.Preferences.OddsDisplay.IsUsed)
+                    {
+                        var requiredOdds = preferences.Preferences.OddsDisplay.IsMandatory ? "required" : string.Empty;
+                        var requiredMessageOdds = preferences.Preferences.OddsDisplay.IsMandatory ? "valid-error-oddsdisplay" : string.Empty;
+                        var invalidMessageOdds = preferences.Preferences.OddsDisplay.Validation != null ? "error-message-oddsdisplay" : string.Empty;
+                        asterisk = preferences.Preferences.OddsDisplay.IsMandatory ? "*" : string.Empty;
+                        <div class="item--input-label">
+                            <div class="flex--custom-select">
+                                <div class="item--label">
+                                    <label>@Umbraco.GetDictionaryValue("[EditPage]OddsDisplay", "Odds Display") @asterisk</label>
+                                </div>
+                            </div>
+                            <div class="custom-select select-bold" data-validation-message="@invalidMessage">
+                                <select name="odds" @requiredOdds class="validate-target" data-validate-expression="@preferences.Preferences.OddsDisplay.Validation" data-validation-message="@invalidMessageOdds" data-no-value="@requiredMessageOdds">
+                                    <option value="">
+                                        @Umbraco.GetDictionaryValue("[EditPage]OddsDisplay", "Odds Display")
+                                    </option>
+                                    @foreach (var odd in Model.Odds)
+                                    {
+                                        var selected = customerInfo.OddsDisplay.Equals(OddsDisplayHelper.Value(odd)) ? "selected" : string.Empty;
+                                        <option value="@OddsDisplayHelper.Value(odd)" @selected>@odd</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                    }
+                    if (preferences.Preferences.DefaultLanguage.IsUsed && !string.IsNullOrEmpty(customerInfo.LanguageCode))
+                    {
+                        var requiredDefaultLanguage = preferences.Preferences.DefaultLanguage.IsMandatory ? "required" : string.Empty;
+                        var requiredMessageDefaultLanguage = preferences.Preferences.DefaultLanguage.IsMandatory ? "valid-error-defaultlanguage" : string.Empty;
+                        var invalidMessageDefaultLanguage = preferences.Preferences.DefaultLanguage.Validation != null ? "error-message-defaultlanguage" : string.Empty;
+
+                        asterisk = preferences.Preferences.DefaultLanguage.IsMandatory ? "*" : string.Empty;
+                        <div class="item--input-label">
+                            <div class="flex--custom-select">
+                                <div class="item--label">
+                                    <label>@Umbraco.GetDictionaryValue("[EditPage]Language", "Language") @asterisk</label>
+                                </div>
+                            </div>
+                            <div class="custom-select select-bold" data-validation-message="@invalidMessage">
+                                <select name="language" @requiredDefaultLanguage class="validate-target" data-validate-expression="@preferences.Preferences.DefaultLanguage.Validation" data-validation-message="@invalidMessageDefaultLanguage" data-no-value="@requiredMessageDefaultLanguage" data-prepopulated="true">
+                                    <option value="">@Umbraco.GetDictionaryValue("[EditPage]Language", "Language")</option>
+                                    @foreach (var language in Model.Languages)
+                                    {
+                                        var selected = customerInfo.LanguageCode.Equals(language.ISOLanguangeName) ? "selected" : string.Empty;
+                                        // TODO: remove omission of language variation
+                                        <option value="@language.TwoLetterISOLanguageName" @selected>@language.Title</option>
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                    }
+                    <input type="hidden" value="@customerInfo.Address.AddressLine1" name="address1" />
+                    <input type="hidden" value="@customerInfo.Address.AddressLine2" name="address2" />
+                    <input type="hidden" value="@customerInfo.Address.AddressLine3" name="address3" />
+                    <input type="hidden" value="@customerInfo.Address.Town" name="town" />
+                    <input type="hidden" value="@customerInfo.Address.PostCode" name="postalcode" />
+                    <input type="hidden" value="@customerInfo.Address.Country" name="country" />
+                }
+                else if (editWhat == "address")
+                {
+                    string day = customerInfo.DOB.Value.Day.ToString();
+                    string month = customerInfo.DOB.Value.Month.ToString();
+                    string year = customerInfo.DOB.Value.Year.ToString();
+                    if (customerInfo.DOB == DateTime.MinValue)
+                    {
+                        day = string.Empty;
+                        month = string.Empty;
+                        year = string.Empty;
+                    }
+
+                    <input type="hidden" value="@customerInfo.Title" name="title" />
+                    <input type="hidden" value="@customerInfo.FirstName" name="firstname" />
+                    <input type="hidden" value="@customerInfo.LastName" name="lastname" />
+                    <input type="hidden" value="@customerInfo.Gender" name="gender" />
+                    <input type="hidden" value="@day" name="day" />
+                    <input type="hidden" value="@month" name="month" />
+                    <input type="hidden" value="@year" name="year" />
+                    <input type="hidden" value="@customerInfo.CountryCode" name="countrycode" />
+                    <input type="hidden" value="@customerInfo.TimeZoneCode" name="timezone" />
+                    <input type="hidden" value="@customerInfo.OddsDisplay" name="odds" />
+                    <input type="hidden" value="@customerInfo.LanguageCode" name="language" />
+
+                    <div class="my-information">
+                        <div class="my-info--main">
+                            <p class="my-info--name">@Umbraco.GetDictionaryValue("[EditPage]Addresses", "Addresses")</p>
+                        </div>
+                    </div>
+                    if (preferences.Address.AddressLine1.IsUsed)
+                    {
+                        required = preferences.Address.AddressLine1.IsMandatory ? "required" : string.Empty;
+                        requiredMessage = preferences.Address.AddressLine1.IsMandatory ? "valid-error-address1" : string.Empty;
+                        invalidMessage = preferences.Address.AddressLine1.Validation != null ? "error-message-address1" : string.Empty;
+                        asterisk = preferences.Address.AddressLine1.IsMandatory ? "*" : string.Empty;
+                        <div class="item--input-label">
+                            <div class="item--label">
+                                <label>@Umbraco.GetDictionaryValue("[EditPage]Address1", "Address") @asterisk</label>
+                            </div>
+                            <div class="item--input">
+                                <input name="address1" @required placeholder="@Umbraco.GetDictionaryValue("[EditPage]Address1Placeholder", "123 Sesame St")" class="validate-target" data-validate-expression="@preferences.Address.AddressLine1.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.AddressLine1.MinValue" max="@preferences.Address.AddressLine1.MaxValue" value="@customerInfo.Address.AddressLine1">
+                                <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Address1", "Address1")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                                <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Address1", "Address1")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                            </div>
+                        </div>
+                    }
+                    <div class="item--input-fifty">
+                        @if (preferences.Address.AddressLine2.IsUsed)
+                        {
+                            required = preferences.Address.AddressLine2.IsMandatory ? "required" : string.Empty;
+                            requiredMessage = preferences.Address.AddressLine2.IsMandatory ? "valid-error-address2" : string.Empty;
+                            invalidMessage = preferences.Address.AddressLine2.Validation != null ? "error-message-address2" : string.Empty;
+                            asterisk = preferences.Address.AddressLine2.IsMandatory ? "*" : string.Empty;
+                            <div class="item--input-label">
+                                <div class="item--label">
+                                    <label>@Umbraco.GetDictionaryValue("[EditPage]Address2", "Address 2") @asterisk</label>
+                                </div>
+                                <div class="item--input">
+                                    <input name="address2" @required placeholder="@Umbraco.GetDictionaryValue("[EditPage]Address2Placeholder", "Apt. 33")" class="validate-target" data-validate-expression="@preferences.Address.AddressLine2.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.AddressLine2.MinValue" max="@preferences.Address.AddressLine2.MaxValue" value="@customerInfo.Address.AddressLine2">
+                                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Address2", "Address 2")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                                    <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Address2", "Address 2")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                                </div>
+                            </div>
+                        }
+                        @if (preferences.Address.AddressLine3.IsUsed)
+                        {
+                            required = preferences.Address.AddressLine3.IsMandatory ? "required" : string.Empty;
+                            requiredMessage = preferences.Address.AddressLine3.IsMandatory ? "valid-error-address3" : string.Empty;
+                            invalidMessage = preferences.Address.AddressLine3.Validation != null ? "error-message-address3" : string.Empty;
+                            asterisk = preferences.Address.AddressLine3.IsMandatory ? "*" : string.Empty;
+                            <div class="item--input-label">
+                                <div class="item--label">
+                                    <label>@Umbraco.GetDictionaryValue("[EditPage]Address3", "Address 3") @asterisk</label>
+                                </div>
+                                <div class="item--input">
+                                    <input name="address3" @required placeholder="@Umbraco.GetDictionaryValue("[EditPage]Address3Placeholder", "block b")" class="validate-target" data-validate-expression="@preferences.Address.AddressLine3.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.AddressLine3.MinValue" max="@preferences.Address.AddressLine3.MaxValue" value="@customerInfo.Address.AddressLine3">
+                                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Address3", "Address 3")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                                    <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Address3", "Address 3")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="item--input-fifty">
+                        @if (preferences.Address.CityOrTown.IsUsed)
+                        {
+                            required = preferences.Address.CityOrTown.IsMandatory ? "required" : string.Empty;
+                            requiredMessage = preferences.Address.CityOrTown.IsMandatory ? "valid-error-town" : string.Empty;
+                            invalidMessage = preferences.Address.CityOrTown.Validation != null ? "error-message-town" : string.Empty;
+                            asterisk = preferences.Address.CityOrTown.IsMandatory ? "*" : string.Empty;
+                            <div class="item--input-label">
+                                <div class="item--label">
+                                    <label>@Umbraco.GetDictionaryValue("[EditPage]CityOrTown", "Town") @asterisk</label>
+                                </div>
+                                <div class="item--input">
+                                    <input name="town" @required placeholder="@Umbraco.GetDictionaryValue("[EditPage]CityOrTownPlaceholder", "Miami")" class="validate-target" data-validate-expression="@preferences.Address.CityOrTown.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.CityOrTown.MinValue" max="@preferences.Address.CityOrTown.MaxValue" value="@customerInfo.Address.Town">
+                                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]CityOrTown", "Town")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                                    <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]CityOrTown", "Town")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                                </div>
+                            </div>
+                        }
+                        @if (preferences.Address.PostalCode.IsUsed)
+                        {
+                            required = preferences.Address.PostalCode.IsMandatory ? "required" : string.Empty;
+                            requiredMessage = preferences.Address.PostalCode.IsMandatory ? "valid-error-postalcode" : string.Empty;
+                            invalidMessage = preferences.Address.PostalCode.Validation != null ? "error-message-postalcode" : string.Empty;
+                            asterisk = preferences.Address.PostalCode.IsMandatory ? "*" : string.Empty;
+                            <div class="item--input-label">
+                                <div class="item--label">
+                                    <label for="registration-postalcode">@Umbraco.GetDictionaryValue("[EditPage]PostalCode", "Postal Code") @asterisk</label>
+                                </div>
+                                <div class="item--input">
+                                    <input name="postalcode" @required placeholder="@Umbraco.GetDictionaryValue("[EditPage]PostalCodePlaceholder", "33324")" class="validate-target" data-validate-expression="@preferences.Address.PostalCode.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage" min="@preferences.Address.PostalCode.MinValue" max="@preferences.Address.PostalCode.MaxValue" value="@customerInfo.Address.PostCode">
+                                    <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]PostalCode", "Postal Code")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                                    <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]PostalCode", "Postal Code")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    required = preferences.Country.IsMandatory ? "required" : string.Empty;
+                    requiredMessage = preferences.Country.IsMandatory ? "valid-error-address-country" : string.Empty;
+                    invalidMessage = preferences.Country.Validation != null ? "error-message-address-country" : string.Empty;
+                    asterisk = preferences.Country.IsMandatory ? "*" : string.Empty;
+                    <div class="item--input-label">
+                        <div class="item--label">
+                            <label>@Umbraco.GetDictionaryValue("[EditPage]Country", "Country") @asterisk</label>
+                        </div>
+                        <div class="flex--custom-select">
+                            <div class="custom-select select-bold">
+                                <select name="country" @required class="validate-target" data-validate-expression="@preferences.Title.Validation" data-validation-message="@invalidMessage" data-no-value="@requiredMessage">
+                                    <option value="">@Umbraco.GetDictionaryValue("[EditPage]Country", "Country")</option>
+                                    @foreach (var country in Model.Countries)
+                                    {
+                                        var selected = (customerInfo.Address != null && !string.IsNullOrEmpty(customerInfo.Address.Country) && customerInfo.Address.Country.Equals(country.Code)) ? "selected" : string.Empty;
+                                        <option value="@country.Code" @selected>@country.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <span class="valid-error @requiredMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Country", "Country")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsMandatory", " is required")</span>
+                        <span class="error-message @invalidMessage" style="display:none;">@Umbraco.GetDictionaryValue("[EditPage]Country", "Country")&nbsp;@Umbraco.GetDictionaryValue("[EditPage]IsInvalid", " is invalid")</span>
+                    </div>
+                }
+                <div class="account-wrap--button text-right">
+                    <a class="button button-gray" href="#" data-mobilelink="mobile--myaccoun-edit.html" ng-click="vm.submit($event)" data-form="editCustomer">
+                        @Umbraco.GetDictionaryValue("[Others]Save", "Save")
+                    </a>
+                    &nbsp;
+                    <a href="@Model.MyAccountUrl">
+                        @Umbraco.GetDictionaryValue("[Others]Back", "Back")
+                    </a>
+                </div>
+                <br />
+                <input type="hidden" value="@customerInfo.Username" name="Username" />
+                @Html.Partial("_processing")
+                <div class="item--input">
+                    <div class="response-success" style="display:none;">@Umbraco.GetDictionaryValue("[Account]Saved", "Saved!")</div>
+                    <div class="response-failure" style="display:none;">@Umbraco.GetDictionaryValue("[Account]ErrorSaving", "There was an error saving.")</div>
+                    @Html.Partial("_server-errors-display")
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@helper MonthDictionaryString(int month)
+{
+    switch (month)
+    {
+        case 1:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthJanuary", "January");
+        break;
+    case 2:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthFebruary", "February");
+    break;
+case 3:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthMarch", "March");
+break;
+case 4:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthApril", "April");
+break;
+case 5:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthMay", "May");
+break;
+case 6:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthJune", "June");
+break;
+case 7:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthJuly", "July");
+break;
+case 8:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthAugust", "August");
+break;
+case 9:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthSeptember", "September");
+break;
+case 10:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthOctober", "October");
+break;
+case 11:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthNovember", "November");
+break;
+case 12:@Umbraco.GetDictionaryValue("[EditPage]DateOfBirthMonthDecember", "December");
+break;
+}
+}

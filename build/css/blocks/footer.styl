@@ -1,0 +1,90 @@
+.footer
+	position absolute
+	bottom 0
+	left 0
+	width 100%
+	background cBlackD
+	padding-top 80px
+	padding-bottom 44px
+	@media screen and (max-width: 718px)
+		display none
+	
+	.container
+		max-width 964px
+	
+	.footer-head
+		margin-bottom 94px
+	
+	.logo-foot
+		&__link
+			display inline-block
+			margin-bottom 24px
+	
+	.flex-wrapper
+		display flex
+		flex-direction row
+		justify-content space-between
+	
+	.copyright
+		p
+			font-size 12px
+			line-height 16px
+			ffa(fR)
+			ls(-0.09px)
+			c cGray
+	
+	.footer-head__category
+		display flex
+		flex-direction row
+		.footer--category-items
+			&:not(:last-child)
+				margin-right 60px
+			.heading-category
+				font-size 13px
+				ffa(fSB)
+				ls(-0.09px)
+				c cWhite
+				margin-bottom 33px
+			
+			.nav-footer__list
+				min-width 145px
+				li
+					&:not(:last-child)
+						margin-bottom 30px
+					a
+						font-size 14px
+						ffa(fR)
+						c cGray
+						ls(-0.1px)
+						text-decoration none
+						trn(.25s)
+						&:hover
+							c cWhite
+
+.footer-bottom
+	.container
+		padding-top 55px
+		border-top 1px solid cGrayD
+	.list-social,
+	.list-logos
+		svg
+			fill cGray
+			trn(.25s)
+			&:hover
+				fill cWhite
+	
+	.list-social
+		display flex
+		flex-direction row
+		align-items center
+		li
+			&:not(:last-child)
+				margin-right 36px
+	
+	.list-logos
+		display flex
+		flex-direction row
+		align-items center
+		li
+			&:not(:last-child)
+				margin-right 40px

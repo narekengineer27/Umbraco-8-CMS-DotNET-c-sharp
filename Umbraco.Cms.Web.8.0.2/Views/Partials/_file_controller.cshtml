@@ -1,0 +1,29 @@
+﻿@inherits UmbracoViewPage
+<div ng-controller="fileController as vm">
+    <div class="item--input-label" ng-show="vm.items.length > 0">
+        <div class="upload-file--send">
+            <div class="upload-file is-message mr-10" ng-repeat="item in vm.items">
+                <div class="upload-file--name">
+                    <div>
+                        <a ng-href="{{ item.path }}" target="_blank">
+                            <img src="/img/file-icon.svg" alt="">
+                        </a>
+                        <p><span ng-show="vm.progressPercentage < 100">@Umbraco.GetDictionaryValue("[Upload]Uploading","Uploading..") </span>{{ item.name }}</p>
+                    </div>
+                    <button type="button" class="delete-file" ng-click="vm.remove(item)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><g><g><path d="M4.525 3.818a.5.5 0 0 1 .707 0L7 5.586l1.768-1.768a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1 0 .707L8.414 7l1.768 1.768a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707 0L7 8.414l-1.768 1.768a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707L5.586 7 3.818 5.232a.5.5 0 0 1 0-.707zM7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14z" /></g></g></svg>
+                    </button>
+                </div>
+                <div ng-show="vm.progressPercentage < 100" class="load-progress"><span style="width:{{ file.progressPercentage }}%;"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="item--input-label small-offset">
+        <div class="file-input-wrapper">
+            <div class="button popup-button attach-file" ngf-select="vm.upload($file)" ngf-multiple="false" ngf-pattern="'image/*,application/pdf'">
+                @Umbraco.GetDictionaryValue("[Uploading]AttachFile","Attach File")<svg xmlns="http://www.w3.org/2000/svg" class="pluss-icon" width="12" height="12" viewBox="0 0 12 12"><g><g><path fill="#161516" d="M0 5.5A.5.5 0 0 1 .5 5H5V.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V5h4.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H7v4.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V7H.5a.5.5 0 0 1-.5-.5z" /></g></g></svg>
+            </div>
+        </div>
+    </div>
+</div>

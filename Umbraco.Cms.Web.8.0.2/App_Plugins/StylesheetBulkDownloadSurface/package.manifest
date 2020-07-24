@@ -1,0 +1,9 @@
+{
+  "javascript": [
+    "~/App_Plugins/StylesheetBulkDownloadSurface/backoffice/StylesheetBulkDownload/controller.js"
+  ],
+
+  "css": [
+    "~/App_Plugins/StylesheetBulkDownloadSurface/backoffice/StylesheetBulkDownload/style.css"
+  ]
+}

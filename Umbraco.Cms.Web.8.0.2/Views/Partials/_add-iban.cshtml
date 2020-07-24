@@ -1,0 +1,43 @@
+﻿@inherits UmbracoViewPage<Card>
+<div class="popup-default add-iban default-offset zoom-anim-dialog" id="add-iban-@Model.CardNumber">
+    <div ng-controller="addIbanController as vm"
+         ng-init="vm.card.cardNumber = '@Model.CardNumber'; vm.card.iban = '@Model.Iban'">
+        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+        <h3 class="heading-popup">@Umbraco.GetDictionaryValue("[Cards]AddIBAN", "Add IBAN") </h3>
+        <div class="height-36"></div>
+        <form name="addIban" ng-submit="vm.submit()" novalidate>
+            <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+
+            <div class="item--input-label">
+                <div class="item--label">
+                    <label for="edit-iban">@Umbraco.GetDictionaryValue("[Cards]IBAN", "IBAN")</label>
+                </div>
+                <div class="item--input">
+                    <input class="plch-white" id="edit-iban"
+                           ng-model="vm.card.iban"
+                           ng-class="{'valid-error-input' : addIban.$submitted && addIban.iban.$error.required}"
+                           required>
+                    <span class="valid-error" ng-show="addIban.$submitted && addIban.iban.$error.required">@Umbraco.GetDictionaryValue("[ServerErrors]FieldRequired", "This field is required.")</span>
+                </div>
+            </div>
+            <div class="item--input-label">
+                <button class="popup-button button" ng-disabled="vm.processing" ng-class="{'disabled' : vm.processing}">@Umbraco.GetDictionaryValue("[Cards]Save", "Save")</button>
+            </div>
+            <div class="text-center" ng-show="vm.processing">
+                <div class="processing mt-0">
+                    @if (TempData["FormSpinnerImage"] != null)
+                    {
+                        <img src="@TempData["FormSpinnerImage"]" />
+
+                    }
+                    else
+                    {
+                        <img src="~/Media/img/tail-spin.svg" />
+                    }
+                </div>
+            </div>
+            <div class="response-failure" ng-show="vm.data.Errors">{{ vm.data.Errors.ErrorMessage }}</div>
+            <div class="response-success" ng-show="vm.success">{{ vm.success }}</div>
+        </form>
+    </div>
+</div>

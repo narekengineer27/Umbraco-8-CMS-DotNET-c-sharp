@@ -1,0 +1,23 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "paymentSettings",
+      "name": "Payment Settings Viewer",
+      "isReadOnly": true,
+      "icon": "icon-multiple-credit-cards",
+      "editor": {
+        "view": "~/App_Plugins/PaymentSettings/view.html",
+        "valueType": "JSON",
+        "hideLabel": true
+      }
+    }
+  ],
+
+  "javascript": [
+    "~/App_Plugins/PaymentSettings/view.js"
+  ],
+
+  "css": [
+    "~/App_Plugins/PaymentSettings/view.css"
+  ]
+}

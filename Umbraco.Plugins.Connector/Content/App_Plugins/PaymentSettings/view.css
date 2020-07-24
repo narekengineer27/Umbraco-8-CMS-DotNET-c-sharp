@@ -1,0 +1,31 @@
+﻿.payment-settings.table td, .payment-settings.table th {
+    padding: 5px 10px;
+    line-height: 15px !important;
+    text-align: left !important;
+}
+
+th.title {
+    background: #f8f3f3;
+}
+
+.payment-settings-container {
+    border-left: 0 !important;
+}
+
+td.payment-settings-container {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.payment-settings {
+    border: none;
+    width: 100%;
+}
+
+    .payment-settings th, .payment-settings td {
+        border: 1px solid #e9e9eb !important;
+    }
+
+    .payment-settings th, .payment-settings td {
+        padding: 5px 20px !important;
+    }

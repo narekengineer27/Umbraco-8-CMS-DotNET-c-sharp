@@ -1,0 +1,83 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.WithdrawBankPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+    var ctr = 0;
+
+}
+<section class="black-main">
+    <div class="left-sidebar">
+        @Html.Partial("_TotalCodeAccountMenu")
+    </div>
+    <div class="main-container">
+        <div class="heading--main-container">
+            <h1 class="black-main--head">
+                <a href="@Umbraco.Content(Model.CurrentPageId).Parent.Url" class="mobile-back-inline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 2 5 10"><g transform="rotate(45)"><path fill="#8c8b8d" d="M7.95 6.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5V2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4.5z" /></g></svg>
+                </a>
+                @Model.Title
+            </h1>
+        </div>
+        @Html.Partial("_TotalCodeMobilePageMenu")
+        <div class="credit-card--edit-wrapper">
+
+            @if (Model.Cards != null)
+            {
+                foreach (var card in Model.Cards)
+                {
+                    <div class="credit-card--edit">
+                        <div class="payment-card">
+                            <div class="payment-card--card">
+                                <img src="/img/credit-card--@(card.BankName).svg" alt="">
+                                <div class="payment-card--info">
+                                    <p>@*@card.CardNumberLast4Digits*@@card.CardNumberMasked</p><p>@card.Iban</p><span>@Umbraco.GetDictionaryValue("[Withdraw]CreditCard", "Credit Card")</span> <span>(@card.Status)</span>
+                                </div>
+                            </div>
+
+                            <div class="payment-card--button">
+                                @if (card.Status == "Under Review")
+                                {
+                                    <a class="popup button button-gray link-data" rel="modal:open" href="#edit-payment-@card.CardNumber">@Umbraco.GetDictionaryValue("[Withdraw]Edit", "Edit")</a>
+                                }
+                                @if (String.IsNullOrEmpty(card.Iban))
+                                {
+                                    <a class="popup button button-gray link-data" rel="modal:open" href="#add-iban-@card.CardNumber">@Umbraco.GetDictionaryValue("[Cards]AddIBAN", "Add IBAN")</a>
+                                }
+                                <a class="popup button button-black" rel="modal:open" href="#delete-card-@card.CardNumber">@Umbraco.GetDictionaryValue("[Withdraw]Delete", "Delete")</a>
+                            </div>
+
+                        </div>
+                        <div class="hidden">
+                            @Html.Partial("_edit-card", card)
+
+                            @Html.Partial("_add-iban", card)
+
+                            <div class="popup-default default-offset zoom-anim-dialog" id="delete-card-@card.CardNumber">
+                                <div ng-controller="deleteCardConfirmController as vm">
+                                    <form ng-submit="vm.submit('@card.CardNumber')" novalidate>
+                                        <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                                        <div class="top-wrap--popup"><span class="custom-close">X</span></div>
+
+                                        <h3 class="heading-default text-center mb-60">
+                                            @Umbraco.GetDictionaryValue("[Withdraw]DeleteCardConfirm", "Are you sure you want to delete this payment method?")
+                                        </h3>
+                                        <div class="wrap--send-button text-center">
+                                            <button class="button send-button mr-10 mb-20" ng-disabled="vm.processing" ng-class="{'disabled' : vm.processing}" type="submit">@Umbraco.GetDictionaryValue("[Withdraw]Ok", "Ok")</button>
+                                            <button class="button cancel-button" type="button" ng-click="vm.cancel()">@Umbraco.GetDictionaryValue("[Others]Cancel", "Cancel")</button>
+                                            <span class="valid-error" ng-show="vm.hasError">@Umbraco.GetDictionaryValue("[ServerErrors]UnhandledError", "Unhandled Error")</span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ctr++;
+                }
+            }
+            else
+            {
+                <p class="color-white">@Umbraco.GetDictionaryValue("[Withdraw]NoCardsFound", "No cards found.")</p>
+            }
+        </div>
+        <div class="add-card"><a class="popup popup-button button link-data" href="#new-payment" rel="modal:open" data-mobilelink="mobile--new-payment.html">@Umbraco.GetDictionaryValue("[Withdraw]AddNewPaymentMethod", "Add new Payment Method")</a></div>
+    </div>
+</section>

@@ -1,0 +1,87 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.MarketingPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+}
+
+<section class="black-main">
+    <div class="left-sidebar">
+        @Html.Partial("_TotalCodeAccountMenu")
+    </div>
+    <div class="main-container marketing-preferences">
+        <div class="mobile-back"><a class="link-back" href="@Model.BackUrl"></a></div>
+        <div class="heading--main-container">
+            <h1 class="black-main--head">@Model.Title</h1>
+        </div>
+        <div class="account-info--black small-offset">
+            <div class="my-information--checked">
+                <div class="info-checked">
+                    <p class="checked--name">@Model.WebsiteName&nbsp;@Umbraco.GetDictionaryValue("[Marketing]Exclusive", "Exclusive")</p>
+                    <p class="checked--result">@Umbraco.GetDictionaryValue("[Marketing]AccessToExclusivePoints", "Access to Exclusive points")&nbsp;@Model.WebsiteName</p>
+                </div>
+                <div class="my-info--change">
+                    <label class="checkbox-default">
+                        <input type="checkbox" checked>
+                        <div class="checkbox__text noselect"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="account-info--black small-offset">
+            <div class="my-information--checked">
+                <div class="info-checked">
+                    <p class="checked--name">@Model.WebsiteName&nbsp;@Umbraco.GetDictionaryValue("[Marketing]Rewards", "Rewards")</p>
+                    <p class="checked--result">@Umbraco.GetDictionaryValue("[Marketing]AccessToExclusivePoints", "Access to Exclusive points")&nbsp;@Model.WebsiteName</p>
+                </div>
+                <div class="my-info--change">
+                    <label class="checkbox-default">
+                        <input type="checkbox">
+                        <div class="checkbox__text noselect"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="account-info--black small-offset">
+            <div class="my-information--checked">
+                <div class="info-checked">
+                    <p class="checked--name">@Umbraco.GetDictionaryValue("[Marketing]OtherPartners", "Other Partners")</p>
+                    <p class="checked--result">@Umbraco.GetDictionaryValue("[Marketing]AccessToExclusivePoints", "Access to Exclusive points")&nbsp;@Model.WebsiteName</p>
+                </div>
+                <div class="my-info--change">
+                    <label class="checkbox-default">
+                        <input type="checkbox" checked>
+                        <div class="checkbox__text noselect"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="account-info--black small-offset">
+            <div class="my-information--checked">
+                <div class="info-checked">
+                    <p class="checked--name">@Umbraco.GetDictionaryValue("[Marketing]MarketResearch", "Market Research")</p>
+                    <p class="checked--result">@Umbraco.GetDictionaryValue("[Marketing]AccessToExclusivePoints", "Access to Exclusive points")&nbsp;@Model.WebsiteName</p>
+                </div>
+                <div class="my-info--change">
+                    <label class="checkbox-default">
+                        <input type="checkbox">
+                        <div class="checkbox__text noselect"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="account-info--black small-offset">
+            <div class="my-information--checked">
+                <div class="info-checked">
+                    <p class="checked--name">@Umbraco.GetDictionaryValue("[Marketing]Tipping", "Tipping")</p>
+                    <p class="checked--result">@Umbraco.GetDictionaryValue("[Marketing]AccessToExclusivePoints", "Access to Exclusive points")&nbsp;@Model.WebsiteName</p>
+                </div>
+                <div class="my-info--change">
+                    <label class="checkbox-default">
+                        <input type="checkbox" checked>
+                        <div class="checkbox__text noselect"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

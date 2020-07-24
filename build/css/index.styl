@@ -1,0 +1,327 @@
+@import ("../../libs/template/reset.css")
+@import ("../../libs/template/lib")
+@import ("../../libs/template/media")
+
+@import ("libs/*.css")
+@import ("fonts")
+@import ("blocks/**/**")
+
+*
+	box-sizing border-box
+
+html
+	height 100%
+
+body
+	display block !important
+	position relative
+	overflow-x: hidden
+	min-width 320px
+	background: cBlackL
+	min-height 100%
+
+button
+	cursor pointer
+
+input
+	box-shadow: none !important
+
+.no-flex--mobile
+	display block !important
+
+#overlayer
+	// width 100%
+	// height 100%
+	// position fixed
+	// top 0
+	// left 0
+	// z-index 11
+	// background cBlack
+
+.add-new--payment-mobile,
+.custom-popup
+	display block !important
+
+// Height
+.height-36
+	height 36px
+.height-50
+	height 50px
+
+.mobile-none
+	display block
+
+.align-right
+	float right
+.align-left
+	float left
+
+.text-center
+	text-align center
+.text-right
+	text-align right
+
+.noselect
+	-webkit-touch-callout: none
+	-webkit-user-select: none
+	-khtml-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+
+::selection
+	background: #313031
+
+::-moz-selection
+	background: #313031
+
+.default-list
+	li
+		a
+			font-size 14px
+			ffa(fR)
+			lh(24px)
+			text-decoration none
+			c cWhite
+
+.heading-default
+	font-size 27px
+	line-height: 32px
+	c cWhite
+	ls(-0.21px)
+
+h1, h2, h3, h4, h5, h6
+	ffa(fSB)
+
+h1
+	font-size 40px
+h2
+	font-size 28px
+h3
+	// font-size 24px
+h4
+	font-size 24px
+h5
+	font-size 18px
+h6
+	font-size 12px
+
+p
+	ffa(fR)
+
+a
+	c cYellow
+	text-decoration none
+	trn(.25s)
+	&:hover
+		c cYellowL
+
+img
+	max-width 100%
+
+.container
+	box-sizing border-box
+	max-width 1460px
+	width 100%
+	padding-left 10px
+	padding-right 10px
+	margin 0 auto
+
+// Arrow default
+
+.arrow-default
+	position relative
+	display inline-block
+	cursor pointer
+	&:after 
+		position absolute
+		content ""
+		top 1px
+		right 0
+		width 6px
+		height 6px
+		border-style: solid
+		border-width: 0 2px 2px 0
+		border-color: cWhite
+		z-index 2
+		transition all .25s ease-out
+		transform rotate(45deg)
+
+.mobile-back
+	margin-bottom 22px
+	display none
+
+.link-back
+	position relative
+	display inline-block
+	width: 24px
+	height: 24px
+	box-shadow: 0 5px 15px rgba(17, 22, 34, 0.05)
+	border-radius: 6px
+	background-color: #353435
+	text-align center
+	text-decoration none
+	trn(.15s)
+	&.text-back
+		padding-left 24px
+		width auto
+		span
+			display inline-block
+			padding 0px 9px 0px 7px
+			float left
+			height 24px
+			line-height 24px
+			fsSB(14px)
+			c cWhite
+			border-left 1px solid #1d1c1d
+	&:hover
+		background: #403f40
+	&:after
+		position absolute
+		content ""
+		top 8px
+		left 9px
+		width 6px
+		height 6px
+		border-style: solid
+		border-width: 0 0 2px 2px
+		border-color: cWhite
+		z-index 2
+		transition all .25s ease-out
+		transform rotateZ(45deg)
+
+// Text standart
+
+.name-option
+	font-size 12px
+	ffa(fR)
+	ls(-0.09px)
+	lh(16px)
+	c cGray
+
+.sum-option
+	font-size 14px
+	ffa(fR)
+	c cWhite
+	ls(-0.1px)
+	&__big
+		font-size 16px
+
+// CheckBox static
+
+.checkbox-static
+	display block
+	input
+		display none
+		z-index -1
+		opacity 0
+		&:checked
+			& + .checkbox-static--text
+				&:before
+					background: cYellow url(../img/checked.svg)
+					background-repeat no-repeat
+					background-position: center
+.checkbox-static--text
+	position relative
+	font-size 14px
+	ffa(fR)
+	ls(-0.1px)
+	c cWhite
+	line-height: 20px
+	cursor pointer
+	display inline-block
+	padding-left 30px
+	user-select none
+	a
+		c #ffc400
+		text-decoration none
+		trn(.25s)
+		&:hover
+			c cYellowL
+	&:hover
+		&:before
+			border 1px solid rgba(255, 195, 10, 0.5)
+	&:before
+		content ''
+		position absolute
+		top 0px
+		left 0
+		width 18px
+		height 18px
+		border 1px solid transparent
+		brr(6px)
+		background cGraySearch
+		trn(.25s)
+		background-position: center !important
+
+// CheckBox slide
+
+.checkbox-default
+	input
+		position absolute
+		z-index -1
+		opacity 0
+		margin 10px 0 0 20px
+		&:checked 
+			& + .checkbox__text 
+				&:before 
+					background cYellow
+				&:after 
+					left 18px
+.checkbox__text 
+	position relative
+	height 24px
+	cursor pointer
+	font-size 14px
+	ffa(fR)
+	c cWhite
+	ls(-0.1px)
+	span
+		padding-left 50px
+	&:before 
+		content ''
+		position absolute
+		top 0
+		left 0
+		width 40px
+		height 24px
+		border-radius 12px
+		background cGray
+		trn(.25s)
+	&:after 
+		content ''
+		position absolute
+		top 2px
+		left 2px
+		width 18px
+		height 18px
+		border 1px solid rgba(0, 0, 0, 0.04)
+		border-radius 50%
+		background cWhite
+		box-shadow: 0 3px 1px rgba(0, 0, 0, 0.06), 0 3px 8px rgba(0, 0, 0, 0.15)
+		trn(.15s)
+
+// Phone checked
+
+.phone-checked
+	position relative
+	.select2-container
+		position absolute
+		top 0
+		left 0
+	input
+		padding-left 104px !important
+
+.default-label
+	display inline-block
+	fsR(14px)
+	margin-bottom 14px
+
+.default-link
+	fsSB(14px)
+	c cWhite
+	text-decoration none
+	&.resend-code
+		trn(.25s)
+		&:hover
+			c cYellow

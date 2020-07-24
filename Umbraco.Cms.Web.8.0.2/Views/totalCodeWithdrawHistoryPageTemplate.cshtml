@@ -1,0 +1,118 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.WithdrawHistoryPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+}
+
+<section class="black-main" ng-controller="transactionFilterController as vm" ng-init="vm.viewPort = 'desktop'">
+    <div class="left-sidebar">
+        @Html.Partial("_TotalCodeAccountMenu")
+    </div>
+    <div class="main-container">
+        <div class="heading--main-container">
+            <h1 class="black-main--head">
+                <a href="@Umbraco.Content(Model.CurrentPageId).Parent.Url" class="mobile-back-inline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 2 5 10"><g transform="rotate(45)"><path fill="#8c8b8d" d="M7.95 6.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5V2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4.5z" /></g></svg>
+                </a>
+                @Model.Title
+            </h1>
+            <div class="filter-button--wrapper" id="filter-button--wrapper">
+                <button class="button filter-button" id="filter-open" ng-disabled="!vm.ready">@Umbraco.GetDictionaryValue("[WithdrawHistory]Filter", "Filter")<span class="filter-button__count" ng-cloak>{{ vm.filterCount }}</span></button>
+                <div class="filter-hidden">
+                    <form action="">
+                        <input type="hidden" name="tenantUid" value="@Model.TenantUid" />
+                        <div class="filter-hidden--items">
+                            <p class="status-filter">@Umbraco.GetDictionaryValue("[WithdrawHistory]Status", "Status")</p>
+                            <div class="checkout-status">
+                                <div class="checkout-status--items" ng-repeat="status in vm.statuses">
+                                    <label class="checkbox-static">
+                                        <input class="checkbox-static--input" type="checkbox" ng-model="status.checked">
+                                        <p class="checkbox-static--text">{{ status.name }}</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-hidden--items">
+                            <div class="filter-date">
+                                <div class="filter-date--items">
+                                    <div class="item--label">
+                                        <label class="default-label" for="start-date">@Umbraco.GetDictionaryValue("[WithdrawHistory]StartDate", "Start Date")</label>
+                                    </div>
+                                    <div class="item--input">
+                                        <input class="filter-date datapicker input-black" id="start-date" type="text">
+                                    </div>
+                                </div>
+                                <div class="filter-date--items">
+                                    <div class="item--label">
+                                        <label class="default-label" for="end-date">@Umbraco.GetDictionaryValue("[WithdrawHistory]EndDate", "End Date")</label>
+                                    </div>
+                                    <div class="item--input">
+                                        <input class="filter-date datapicker input-black" id="end-date" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-hidden--items">
+                            <div class="filter-buttons">
+                                <button class="button send-button" type="button"
+                                        ng-class="{'disabled' : vm.processing}"
+                                        ng-disabled="vm.processing"
+                                        ng-click="vm.applyFilters()">
+                                    @Umbraco.GetDictionaryValue("[WithdrawHistory]ApplyFilters", "Apply Filters")
+                                </button>
+                                <div class="mt-10" ng-show="vm.processing">
+                                    @if (TempData["FormSpinnerImage"] != null)
+                                    {
+                                        <img src="@TempData["FormSpinnerImage"]" />
+
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Media/img/tail-spin.svg" />
+                                    }
+                                </div>
+                                <button class="reset" type="button" ng-click="vm.resetFilters()">@Umbraco.GetDictionaryValue("[WithdrawHistory]ResetFilters", "Reset Filters")</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("_TotalCodeMobilePageMenu")
+        <div class="mobile-filter">
+            <a class="open-popup button filter-button button-filter--mobile" rel="modal:open" href="#popup-filter--mobile">@Umbraco.GetDictionaryValue("[WithdrawHistory]Filter", "Filter")</a>
+        </div>
+        <div class="table-history--wrapper">
+
+            <table class="table-history" id="tableHistory" ng-controller="withdrawTransactionHistoryTableController as vm" ng-cloak>
+                <thead>
+                    <tr>
+                        <th width="110">@Umbraco.GetDictionaryValue("[WithdrawHistory]DateAndTime", "Date and Time")</th>
+                        <th width="98">@Umbraco.GetDictionaryValue("[WithdrawHistory]Amount", "Amount")</th>
+                        <th width="120">@Umbraco.GetDictionaryValue("[WithdrawHistory]Method", "Method")</th>
+                        <th width="100">@Umbraco.GetDictionaryValue("[WithdrawHistory]Status", "Status")</th>
+                        <th width="100">@Umbraco.GetDictionaryValue("[WithdrawHistory]Action", "Action")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="transaction in vm.transactions | orderBy: '-TransactionDate'">
+                        <td class="date-format">{{ transaction.FormattedDate }}</td>
+                        <td>{{ transaction.TransactionAmount}}</td>
+                        <td>{{ transaction.PaymentSystem}}</td>
+                        <td>{{ transaction.TransactionStatusStrDictionary}}</td>
+                        <td>
+                            <div ng-show="transaction.TransactionStatus === 1">
+                                <a href="#" ng-click="vm.showCancelPopup(transaction.TransactionGuid)">@Umbraco.GetDictionaryValue("[WithdrawHistory]Cancel", "Cancel")</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        var transactionHistoryType = 'withdrawTransaction';
+    </script>
+}

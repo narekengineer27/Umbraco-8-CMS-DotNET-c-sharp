@@ -1,0 +1,1022 @@
+﻿input.disable-link {
+    color: #6f6e70;
+    background: none;
+    font-size: .875rem;
+    font-family: Inter-SemiBold,sans-serif;
+    letter-spacing: -.00625rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+a.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.mr-20 {
+    margin-right: 20px;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+.mb-60 {
+    margin-bottom: 60px;
+}
+
+input[type=button].disabled,
+button.disabled {
+    filter: grayscale(1);
+    cursor: not-allowed;
+    color: grey !important;
+}
+
+.color-white {
+    color: #fff;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none !important;
+}
+
+.hide {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.bitcoin-details {
+    padding: 52px 64px 54px;
+    background: #242324;
+    border-radius: 10px;
+    text-align: center;
+}
+
+    .bitcoin-details .bitcoin-address {
+        font-size: .875rem;
+        font-family: Inter-Regular,sans-serif;
+        letter-spacing: -.00625rem;
+        color: white;
+        border: 4px solid #313031;
+        padding: 12px 18px;
+        display: inline-block;
+        margin-bottom: 25px;
+    }
+
+.currency-info {
+    color: white;
+    font-size: 12px;
+    font-style: inherit;
+    display: block;
+    opacity: 0.5;
+    text-align: right;
+}
+
+.sum-option__big .balanse-main .currency-symbol, .user-login--name .currency-symbol, .sum-option .currency-symbol {
+    float: left;
+}
+
+.user-login--name .currency-symbol {
+    margin-right: 5px;
+}
+
+.menu-language-selector {
+    display: none;
+}
+
+@media screen and (max-width:768px) {
+
+    .sum-option__big {
+        width: 75%;
+    }
+
+    .menu-language-selector {
+        display: block;
+    }
+
+    .sum-option.dialog {
+        font-size: .675rem;
+    }
+
+    .drop--menu-user .reload {
+        float: right;
+    }
+
+    .top-line--login {
+        width: 70%;
+    }
+}
+
+.card-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+    .card-dropdown .arrow-default {
+        top: 46px;
+        right: 0px;
+    }
+
+    .card-dropdown .card-dropdown__inner {
+        position: relative;
+        padding-bottom: 54px;
+    }
+
+
+.tableLimits {
+    background: rgba(0,0,0,.7);
+    font-size: 1.2em;
+    line-height: 1.3em;
+    position: absolute;
+    left: .5em;
+    top: .5em;
+    display: inline-block;
+    bottom: auto;
+    right: auto;
+    padding: .3em .5em .2em;
+    border-radius: 1em;
+    color: #ffdf05;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1;
+}
+.maxValue {
+    display: inline-block;
+    vertical-align: bottom;
+    overflow: hidden;
+    max-width: 0;
+    -webkit-transition: max-width .45s;
+    transition: max-width .45s;
+}
+
+.game-grid {
+    background: #1d1c1d;
+    padding: 20px;
+    min-height: 320px;
+}
+
+    .game-grid .grid {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        transition: all 1s ease-in-out;
+    }
+
+        .game-grid .grid .info-overlay {
+            color: #fff;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0,0,0,.7);
+            top: 0;
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .game-grid .grid .info-overlay-data {
+            padding: 5% 5% 0 5%;
+            font-size: 14px;
+            line-height: 1.2em;
+        }
+
+        .game-grid .grid .info-overlay-block {
+            width: 60px;
+            display: inline-block;
+        }
+
+        .game-grid .grid .info-overlay-color {
+            color: #ffdf05;
+        }
+
+        .game-grid .grid .item {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .game-grid .grid .item .favorite-game, .game-grid .grid .item .game-details, .game-grid .grid .item .game-info, .game-grid .grid .item .new-game, .slider-small .item .favorite-game, .slider-small .item .game-details, .slider-small .item .game-info, .slider-small .item .new-game {
+                z-index: 20;
+                position: absolute
+            }
+
+            .game-grid .grid .item .new-game, .slider-small .item .new-game {
+                top: 10px;
+                right: 70px;
+                color: #3875d7
+            }
+
+            .game-grid .grid .item .favorite-game, .slider-small .item .favorite-game {
+                top: 10px;
+                right: 10px;
+                color: #ffc30a
+            }
+
+            .game-grid .grid .item .game-info, .slider-small .item .game-info {
+                top: 10px;
+                right: 10px;
+                color: #fff
+            }
+
+            .game-grid .grid .item .game-details, .slider-small .item .game-details {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                bottom: 5px;
+                right: 5px;
+                font-size: 10px;
+                color: #ccc;
+                opacity: .9
+            }
+
+                .game-grid .grid .item .game-details li, .slider-small .item .game-details li {
+                    width: 100%
+                }
+
+        .game-grid .grid.show {
+            display: grid !important;
+        }
+
+        .game-grid .grid.centered.show {
+            width: 366px;
+            margin: 0 auto;
+            display: block !important;
+        }
+
+        .game-grid .grid .item {
+            transition: all 0.3s ease-in-out;
+        }
+
+            .game-grid .grid .item, .game-grid .grid .item img {
+                max-width: 376px;
+                width: 280px;
+                height: 280px;
+                margin-right: auto;
+                margin-left: auto;
+                position: relative;
+            }
+
+        .game-grid .grid .live-casino, .game-grid .grid .live-casino img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .e518 {
+                max-height: 100%;
+                width: 50%;
+        }
+
+                .game-grid .grid .item i {
+                    font-size: 25px;
+                    text-shadow: -1px -1px 1px #000, 1px 0px 1px #000, 0px 1px 1px #000, 0px -1px 1px #000, -1px 0px 1px #000;
+                    opacity: 0.8;
+                    transition: all 0.3s ease-in;
+                }
+
+                    .game-grid .grid .item i:hover {
+                        font-size: 26px;
+                        opacity: 1;
+                    }
+
+    .live-casino-result-red {
+        color: #c6372f;
+    }
+
+    .live-casino-result-red-first {
+        color: #fff;
+        background-color: #832d25;
+    }
+
+    .live-casino-result-black {
+        color: #ccc;
+    }
+
+    .live-casino-result-black-first {
+        color: #fff;
+    }
+
+    .live-casino-result-green {
+        color: #03a904;
+    }
+
+    .live-casino-result-green-first {
+        color: #fff;
+        background-color: #03a904;
+    }
+
+    .infoCircle {
+        display: inline-block;
+        float: right;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        padding: 0 2px 0 0;
+        background: #fff;
+        border: 2px solid #666;
+        color: #666;
+        text-align: center;
+        font: 14px;
+        font-style: italic;
+        font-weight: bold;
+        pointer-events: auto;
+    }
+
+        .infoCircle:hover {
+            color: #fff;
+            background: #666;
+        }
+
+    .item:hover .game-title-wrapper {
+        opacity: 1;
+    }
+
+    .item:hover .game-title-wrapper-live-casino {
+        opacity: 1;
+    }
+
+    .item:hover .maxValue {
+        max-width: 200px;
+    }
+
+    .game-title {
+        display: block;
+        padding: 8px 20px;
+        border-radius: 0;
+        line-height: 1.5;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-top: 0 !important;
+    }
+
+    .game-title-wrapper {
+        opacity: 1;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 11;
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .game-title-wrapper-live-casino {
+        opacity: 1;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 11;
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .game-title-wrapper-live-casino .poker {
+            text-align: center;
+            width: 100%;
+        }
+            .game-title-wrapper-live-casino .poker .seat {
+                display: inline-block;
+                width: 10%;
+            }
+                .game-title-wrapper-live-casino .poker .seat .seat-icon-free {
+                    fill: #4b9e3a;
+                    height: 25px;
+                    width: auto;
+                }
+                .game-title-wrapper-live-casino .poker .seat .seat-icon-taken {
+                    fill: #cd0002;
+                    height: 25px;
+                    width: auto;
+                }
+
+        .game-title-wrapper-live-casino .roulette {
+            text-align: center;
+            width: 100%;
+            background-color: #000;
+        }
+            .game-title-wrapper-live-casino .roulette .result {
+                display: inline-block;
+                width: 10%;
+            }
+
+.result-padding {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+    .game-title {
+        color: #000;
+        background: #fff;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .filters, .search, .game-search-input {
+        width: 100%;
+        height: 48px;
+        border-radius: 10px;
+        box-sizing: border-box;
+        position: relative;
+        background: #313031;
+    }
+
+    .filters {
+        padding: 4px 10px 3px 10px;
+        background: #313031;
+        margin-bottom: 5px;
+    }
+
+        .filters .filter {
+            display: none;
+        }
+
+            .filters .filter.show {
+                display: inline table !important;
+            }
+
+        .filters .filter-title {
+            font-size: .875rem;
+            font-family: Inter-SemiBold,sans-serif;
+            letter-spacing: -.00625rem;
+            color: #8c8b8d;
+            margin-right: 20px;
+            margin-left: 15px;
+            max-width: 200px;
+            width: 120px;
+            display: inline-table;
+        }
+
+        .filters label {
+            font-size: .875rem;
+            font-family: Inter-SemiBold,sans-serif;
+            letter-spacing: -.00625rem;
+            color: #8c8b8d;
+            padding: 5px 10px;
+            margin-right: 5px;
+            color: #989898;
+            background: #161516;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-align: center;
+            line-height: 38px;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+
+            .filters label:hover {
+                color: #161516;
+                background: #ffc30a;
+            }
+
+            .filters label input {
+                display: none;
+            }
+
+            .filters label.active {
+                background: #ffc30a;
+                color: #161516;
+            }
+
+    @media screen and (min-width:769px) {
+        .filters label.active:hover {
+            background: #ffc30a;
+            color: #fff;
+        }
+    }
+
+    .filters.show {
+        display: block !important;
+    }
+
+    .search {
+        padding: 0;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+
+        .search.show {
+            display: block !important;
+        }
+
+        .search .game-search-input {
+            padding: 10px 65px 10px 65px;
+            color: #ccc;
+        }
+
+        .search .search-submit {
+            position: absolute;
+            top: 14px;
+            left: 25px;
+            color: #ccc;
+        }
+
+        .search input:focus ~ .search-submit {
+            color: #fff;
+        }
+
+        .search .search-submit svg {
+            color: #ccc;
+        }
+
+        .search .status-filters {
+            position: absolute;
+            top: 12px;
+            right: 0px;
+        }
+
+    .status-filters label.active i {
+        color: #cc9c08;
+    }
+
+    .status-filters label i {
+        color: #ccc;
+        font-size: 1.2em;
+        margin-right: 10px;
+    }
+
+        .status-filters label i:hover {
+            color: #cc9c08;
+        }
+
+    .bounceIn {
+        opacity: 0;
+        animation-name: bounceIn;
+        animation-duration: 450ms;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+    }
+
+    @media screen and (max-width:720px) {
+        .filters, .game-search-input {
+            border-radius: 0;
+        }
+    }
+
+    @media screen and (max-width:786px) {
+        .filters, .game-search-input {
+            height: 48px;
+            overflow: hidden;
+            overflow-x: auto;
+            line-break: strict;
+            white-space: nowrap;
+        }
+
+            .filters .filter-title {
+                width: auto;
+                margin-right: 10px;
+            }
+
+        .search, .game-search-input {
+            height: 48px;
+        }
+
+            .search .search-submit {
+                position: absolute;
+                top: 15px;
+                left: 25px;
+                color: #ccc;
+            }
+
+        .btn-large {
+            font-size: 1em !important;
+            line-height: 1.1em !important;
+        }
+    }
+
+    .content {
+        color: #6f6e70;
+        padding: 30px;
+        margin: 0;
+        background-color: #161516;
+        border-radius: 10px;
+        line-height: 1.5em;
+    }
+
+        .content p {
+            margin-bottom: 18px;
+        }
+
+    .demo-play-wrapper {
+        width: 100%;
+        min-height: 45vh;
+        height: 73vh;
+        margin: 0;
+        padding: 5%;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    .dialog-heading {
+        border-radius: 10px;
+        background: rgba(0,0,0,0.7);
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+
+    .bottom-align {
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .demo-play-buttons {
+        opacity: 0.9;
+        display: flex;
+        justify-content: space-between;
+        vertical-align: baseline;
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #161516;
+        transition: all 0.4s ease-in-out;
+    }
+
+        .demo-play-buttons:hover {
+            opacity: 1;
+        }
+
+        .demo-play-buttons a {
+            width: calc(100% / 2.3);
+        }
+
+    .demo-play-images {
+        opacity: 0.6;
+        width: 80%;
+        margin: 0 auto;
+        background: #1d1c1d;
+        padding: 10px;
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+        transition: all 1s ease-in-out;
+    }
+
+        .demo-play-images:hover {
+            opacity: 1;
+        }
+
+    .btn {
+        padding: 10px 20px;
+        color: #161516;
+        background-color: #cc9c08;
+        border-radius: 6px;
+    }
+
+        .btn:hover {
+            background: #ffc30a;
+            color: #6f6e70;
+        }
+
+    .btn-large {
+        line-height: 48px;
+        text-align: center;
+        font-size: 1.3em;
+    }
+
+        .btn-large[disabled] {
+            background-color: #6f6e70;
+            color: #161516;
+            cursor: not-allowed;
+        }
+
+    .btn-huge {
+        width: 100%;
+        height: 120px;
+        line-height: 120px;
+        text-align: center;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 2em;
+    }
+
+    .item:hover .corner-ribbon {
+        opacity: 1;
+    }
+    /* The ribbons */
+
+    .corner-ribbon {
+        width: 200px;
+        background: #e43;
+        position: absolute;
+        top: 25px;
+        left: -50px;
+        text-align: center;
+        line-height: 30px;
+        letter-spacing: 1px;
+        color: #f0f0f0;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        opacity: 0.8;
+        transition: all 0.2s ease-in-out;
+    }
+
+        /* Custom styles */
+
+        .corner-ribbon.sticky {
+            position: fixed;
+            z-index: 25;
+        }
+
+        .corner-ribbon.shadow {
+            box-shadow: 0 0 3px rgba(0,0,0,.3);
+        }
+
+        /* Different positions */
+
+        .corner-ribbon.top-left {
+            top: 25px;
+            left: -50px;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        .corner-ribbon.top-right {
+            top: 25px;
+            right: -50px;
+            left: auto;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+
+        .corner-ribbon.bottom-left {
+            top: auto;
+            bottom: 25px;
+            left: -50px;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+
+        .corner-ribbon.bottom-right {
+            top: auto;
+            right: -50px;
+            bottom: 25px;
+            left: auto;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        /* Colors */
+
+        .corner-ribbon.white {
+            background: #f0f0f0;
+            color: #555;
+        }
+
+        .corner-ribbon.black {
+            background: #333;
+        }
+
+        .corner-ribbon.grey {
+            background: #999;
+        }
+
+        .corner-ribbon.blue {
+            background: #39d;
+        }
+
+        .corner-ribbon.green {
+            background: #2c7;
+        }
+
+        .corner-ribbon.turquoise {
+            background: #1b9;
+        }
+
+        .corner-ribbon.purple {
+            background: #95b;
+        }
+
+        .corner-ribbon.red {
+            background: #e43;
+        }
+
+        .corner-ribbon.orange {
+            background: #e82;
+        }
+
+        .corner-ribbon.yellow {
+            background: #ec0;
+        }
+
+    .alert {
+        padding: 20px 40px;
+        width: 100%;
+        border-radius: 6px;
+    }
+
+        .alert.alert-danger {
+            background-color: #ffc30a;
+            border: #cc9c08;
+            color: #1d1c1d;
+        }
+
+    .game-terms {
+        font-size: 0.9em;
+        text-align: justify;
+        padding: 20px 0;
+    }
+
+    @keyframes bounceIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.3) translate3d(0,0,0);
+        }
+
+        50% {
+            opacity: 0.9;
+            transform: scale(1.1);
+        }
+
+        80% {
+            opacity: 1;
+            transform: scale(0.89);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1) translate3d(0,0,0);
+        }
+    }
+
+    /* flex utils */
+    .flex {
+        display: flex;
+    }
+
+    .flex-col {
+        flex-direction: column;
+    }
+
+    .justify-center {
+        justify-content: center;
+    }
+
+    .justify-between {
+        justify-content: space-between;
+    }
+
+    .justify-evenly {
+        justify-content: space-evenly;
+    }
+
+    .items-center {
+        align-items: center;
+    }
+
+    .content-center {
+        align-content: center;
+    }
+    /* flex utils end*/
+    .relative {
+        position: relative;
+    }
+
+    .absolute {
+        position: absolute;
+    }
+
+    .loader {
+        display: block;
+        background-color: #313031;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99999;
+        opacity: 0.98;
+    }
+
+    .loader-d-block{
+        display: block !important;
+    }
+
+        .loader img {
+            width: 128px;
+            height: 128px;
+        }
+
+        .loader .img-wrapper {
+            width: 128px;
+            height: 128px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20%;
+        }
+
+    .error-message-content {
+        font-size: 1.2em;
+        color: #ccc;
+        padding: 0;
+        margin-bottom: 50px;
+    }
+	
+	.lottery-iframe {
+	    padding: 0;
+	}
+
+    @media screen and (max-width:786px) {
+        .body,
+        .wrapper {
+            /* Break the flow */
+            position: absolute;
+            top: 0px;
+            /* Give them all the available space */
+            width: 100%;
+            height: 100%;
+            /* Remove the margins if any */
+            margin: 0;
+            /* Allow them to scroll down the document */
+            overflow-y: hidden;
+        }
+
+        .body {
+            /* Sending body at the bottom of the stack */
+            z-index: 1;
+        }
+
+        .wrapper {
+            /* Making the wrapper stack above the body */
+            z-index: 2;
+        }
+    }
+
+@media screen and (min-width: 360px) {
+    .live-casino-iframe {
+        top: 65px;
+    }
+    .live-casino-iframe iframe{
+        height: 40vh;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    .live-casino-iframe {
+        top: 115px;
+    }
+
+        .live-casino-iframe iframe {
+            height: 50vh;
+        }
+}
+
+@media screen and (min-width: 800px) {
+    .live-casino-iframe {
+        top: 135px;
+    }
+
+        .live-casino-iframe iframe {
+            height: 50vh;
+        }
+}
+@media screen and (min-width: 919px) {
+    .live-casino-iframe {
+        top: 155px;
+    }
+
+        .live-casino-iframe iframe {
+            height: 70vh;
+        }
+}
+@media screen and (min-width: 1200px) {
+    .live-casino-iframe {
+        top: 165px;
+    }
+
+        .live-casino-iframe iframe {
+            height: 80vh;
+        }
+}

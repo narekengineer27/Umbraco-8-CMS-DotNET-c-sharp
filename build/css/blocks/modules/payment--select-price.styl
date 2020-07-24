@@ -1,0 +1,65 @@
+.payment--select-price
+	height 56px
+	padding 2px
+	display flex
+	flex-direction row
+	justify-content space-between
+	background: cBlackL
+	brr(6px)
+	margin-bottom 16px
+
+.radio--select-price
+	width 33.3%
+	&:last-child
+		.text--select-price:before
+			display none
+	&:not(:first-child)
+		.text--select-price
+			margin-left -2px
+	input
+		position absolute
+		z-index -1
+		opacity 0
+		margin 10px 0 0 7px
+		display none
+		&:checked 
+			& + .text--select-price
+				background: cGraySearch
+				c cWhite
+.text--select-price
+	position relative
+	height 52px
+	width calc(100% + 2px)
+	color cGray
+	font-size 14px
+	ffa(fSB)
+	text-align center
+	padding 18px 10px
+	cursor pointer
+	brr(6px)
+	trn(.2s)
+	-webkit-touch-callout none
+	-webkit-user-select none
+	-moz-user-select none
+	-ms-user-select none
+	user-select none
+	&:hover
+		c cWhite
+	&:before
+		position absolute
+		display block
+		width 1px
+		height 32px
+		content ""
+		background: cGrayD
+		top 50%
+		right 0
+		margin-top -16px
+
+.payment--gender
+	width 100%
+	max-width 328px
+	background: cBlackD
+	margin-bottom 0
+	.radio--select-price
+		width 50%

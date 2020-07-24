@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "a5baafab-06df-462d-82bc-17db2be4ef9f",
+		"name": "Umbraco-CustomerProfile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Change Email Address",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://umbracotest32.totalbetting.xyz",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \n    \"username\": \"dilek@totalcoding.co.uk\",\n    \"email\": \"string@totalcoding.co.uk\"\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Customer/change-email",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"change-email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Mobile Number",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://umbracotest32.totalbetting.xyz",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"username\": \"dilek@totalcoding.co.uk\",\r\n  \"mobile\": \"+441559223535\"\r\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Customer/change-mobile",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"change-mobile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer Info",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://umbracotest36.totalbetting.xyz",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"username\": \"test4\"\r\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Customer/get-customer",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"get-customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "65f78e88-a709-4d73-b8e0-7480fdbc6243",
+						"exec": [
+							"var newPassword = \"pass\" + Math.floor(Math.random() * 1000);",
+							"postman.setEnvironmentVariable(\"newPassword\", newPassword); "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d7f8c32-7948-4fea-826d-4e3ea9258517",
+						"exec": [
+							"//var jsonData = JSON.parse(responseBody);",
+							"",
+							"//pm.test(\"Password changed successfully \", function () {",
+							"//   pm.response.to.be.ok;",
+							"//});",
+							"",
+							"pm.test(\"Change password successful!\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Change password successful!\");",
+							"});",
+							"",
+							"",
+							"var newPassword = postman.getEnvironmentVariable(\"newPassword\")",
+							"postman.setEnvironmentVariable(\"password\", newPassword);",
+							"",
+							"console.log(\"newPassword\", newPassword);",
+							"//console.log(\"Password\", password);",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://umbracotest32.totalbetting.xyz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"username\": \"dilek@totalcoding.co.uk\",\r\n  \"oldPassword\": \"P@ss0000\",\r\n  \"newPassword\": \"P@ss1111\"\r\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Account/change-password",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Account",
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Settings",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "65f78e88-a709-4d73-b8e0-7480fdbc6243",
+						"exec": [
+							"var newPassword = \"pass\" + Math.floor(Math.random() * 1000);",
+							"postman.setEnvironmentVariable(\"newPassword\", newPassword); "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d7f8c32-7948-4fea-826d-4e3ea9258517",
+						"exec": [
+							"//var jsonData = JSON.parse(responseBody);",
+							"",
+							"//pm.test(\"Password changed successfully \", function () {",
+							"//   pm.response.to.be.ok;",
+							"//});",
+							"",
+							"pm.test(\"Change password successful!\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Change password successful!\");",
+							"});",
+							"",
+							"",
+							"var newPassword = postman.getEnvironmentVariable(\"newPassword\")",
+							"postman.setEnvironmentVariable(\"password\", newPassword);",
+							"",
+							"console.log(\"newPassword\", newPassword);",
+							"//console.log(\"Password\", password);",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "{{Origin}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \r\n  \"username\": \"test1560502756@totalcoding.co.uk\",\r\n  \"oddsDisplay\": 1,\r\n  \"timeZoneCode\": \"IRST\",\r\n  \"languageCode\": \"TR\"\r\n}"
+				},
+				"url": {
+					"raw": "http://customer-management-service-api.totalcoding-test1.com/api/Customer/change-settings",
+					"protocol": "http",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"change-settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Customer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "df551fec-a605-4505-a574-098a9e37d96d",
+						"exec": [
+							"",
+							"//var password = \"P@ss\" + Math.floor(Math.random() * 1000);",
+							"var password = \"P@ss0000\";",
+							"console.log(\"password is set to\", password);",
+							"postman.setEnvironmentVariable(\"password\", password); ",
+							"",
+							"var UnsuccessfulLogin = 0;",
+							"postman.setEnvironmentVariable(\"UnsuccessfulLogin\", UnsuccessfulLogin); ",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c15e68b4-0943-4bc7-86eb-aafa03f4adff",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var username = jsonData.payload.username;",
+							"",
+							"pm.environment.set(\"username\", jsonData.payload.username);",
+							"console.log(\"username\", username);",
+							"",
+							"var emailAddress = jsonData.payload.emails[0].emailAddress;",
+							"pm.environment.set(\"emailAddress\", jsonData.payload.emails[0].emailAddress);",
+							"console.log(\"emailAddress\", emailAddress);",
+							"",
+							"var mobileNumber = jsonData.payload.phoneNumbers[0].number;",
+							"pm.environment.set(\"mobileNumber\", jsonData.payload.phoneNumbers[0].number);",
+							"console.log(\"mobileNumber\", mobileNumber);",
+							"",
+							"pm.test(\"Success\", function () {",
+							"   pm.response.to.be.ok;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://umbracotest32.totalbetting.xyz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"dilek@totalcoding.co.uk\",\n  \"fields\": {\n    \"Title\": \"Msasasdasd\",\n    \"FirstName\": \"Dilek\",\n    \"LastName\": \"Demirel\",\n    \"Gender\": \"F\",\n    \"DOB\": \"2000-12-07\",\n  \n  \n    \"AddressLine1\": \"Adres 1\",\n    \"AddressLine2\": \"asasdasd\",\n    \"AddressLine3\": \"asasdasd\",\n    \"Town\": \"asasdasd\",\n    \"County\": \"asasdasd\",\n    \"Postcode\": \"asasdasd\",\n  \n    \"Language\": \"EN\",\n    \"Country\": \"IRN\",\n    \"TimeZone\": \"GMT\"\n}\n}\n"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Customer/edit-customer",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"edit-customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Account Balance",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://umbracotest36.totalbetting.xyz",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerGuid\": \"7840d7e9-46bd-40f7-8512-f796c389769e\"\n}"
+				},
+				"url": {
+					"raw": "https://sit-financial-management-service-api.totalcoding-test1.com/api/Wallet/get-account-balance",
+					"protocol": "https",
+					"host": [
+						"sit-financial-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Wallet",
+						"get-account-balance"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9346adcf-0f19-4cea-8e60-0eb46e351e0a",
+				"type": "text/javascript",
+				"exec": [
+					"pm.sendRequest({",
+					"    url: \"https://sit-user-management-service-api.totalcoding-test1.com/api/StaffUser/api-key-login\",",
+					"    method: 'POST',",
+					"    header: {",
+					"        'content-type': 'application/json-patch+json'",
+					"        ",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"   \"apiKey\": \"api_key_customer_management\",",
+					"  \"platformGuid\": \"CustomerManagementGuid\"",
+					"})",
+					"    }",
+					"}, function (err, res) {",
+					"    pm.variables.set('token', res.json().accessToken)",
+					"});  ",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b9e0e613-4fee-4b6d-bb2b-d158d7bfd11b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

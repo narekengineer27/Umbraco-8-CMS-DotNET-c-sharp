@@ -1,0 +1,65 @@
+.select-black
+	& + .select2-container--default
+		.select2-selection--single
+			position relative
+			min-width 84px
+			min-height 56px
+			background: cGraySearch 
+			c cWhite
+			border none
+			border-right: 1px solid #222022
+			border-radius: 10px 0px 0 10px
+			.select2-selection__rendered
+				display inline-block
+				padding-right 36px
+				padding-left 20px
+				min-height 56px
+				fsR(14px)
+				line-height 54px
+			.select2-selection__arrow
+				right 0
+				trn(.25s)
+				&:after
+					position absolute
+					content ""
+					top 24px
+					right 23px
+					width 4px
+					height 4px
+					border-style: solid
+					border-width: 0 2px 2px 0
+					border-color: cWhite
+					z-index 2
+					pointer-events none
+					transition all .25s ease-out
+					transform rotate(45deg) translate(0,-50%)
+				b
+					display none
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow
+	&:after
+		transform rotate(-135deg)
+		top 24px
+		right 20px
+
+.select2-dropdown
+	min-width 84px
+	fsR(14px)
+	background: cGraySearch 
+	border none
+	border-radius: 0 0 10px 10px
+	box-shadow: 0 5px 30px rgba(5, 5, 5, 0.35)
+
+.select2-container--default .select2-results__option
+	min-height 40px
+	line-height 28px
+	border-top 1px solid #403f40
+	&:hover
+		background: #403f40
+	&[aria-selected=true]
+		background: #403f40
+
+.select2-results__option--highlighted[aria-selected]
+	background: #403f40
+.select2-container--default .select2-results>.select2-results__options
+	max-height 100%

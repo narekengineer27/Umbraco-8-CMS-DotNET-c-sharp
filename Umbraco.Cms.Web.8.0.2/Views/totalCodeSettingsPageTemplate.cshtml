@@ -1,0 +1,71 @@
+﻿@using Umbraco.Plugins.Connector.Helpers
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.SettingsPageViewModel>
+@{
+    Layout = "totalCodeLayout.cshtml";
+    TenantPreferences preferences = Model.Preferences;
+    var timeZones = Model.TimeZones;
+}
+
+<section class="black-main--big">
+    <div class="terms-content h-100vh">
+        <a class="link-back text-back" href="@Model.BackUrl"><span>@Umbraco.GetDictionaryValue("[Others]Back", "Back")</span></a>
+        <div class="height-36"></div>
+        <h1 class="black-main--head">@Model.Title</h1>
+
+        @if (preferences.Preferences.OddsDisplay.IsUsed)
+        {
+            <div class="settings-item">
+                <div class="label">
+                    <span>Odds Display</span>
+                </div>
+                <div class="custom-select">
+                    <select id="global-odds-selector">
+                        @{
+                            var currentOddDisplay = Model.CustomerSummary != null ? Model.CustomerSummary.OddsDisplayName : Model.Odds[0];
+                            <option value="@currentOddDisplay">@currentOddDisplay</option>
+                            foreach (var odd in Model.Odds)
+                            {
+                                <option value="@odd">@odd</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        }
+
+        <div class="settings-item">
+            <div class="label">
+                <span>Language</span>
+            </div>
+            <div class="custom-select">
+                <select class="language-selector">
+                    <option value="@Model.CurrentLanguage.Url" data-link="@Model.CurrentLanguage.Url" data-language="@Model.CurrentLanguage.TwoLetterISOLanguageName">@Model.CurrentLanguage.Title</option>
+                    @foreach (var language in Model.Languages)
+                    {
+                        var isLocal = ContextHelper.Local(language.Url);
+                        <option data-link="@(language.Url)" data-language="@language.TwoLetterISOLanguageName">@(language.Title)@isLocal</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="settings-item">
+            <div class="label">
+                <span>Time Zone</span>
+            </div>
+            <div class="custom-select">
+                <select id="global-timezone-selector">
+                    @{
+                        var curentTimeZone = Model.CustomerSummary != null ? DefaultAllowedValues.GetTimeZoneByCode(Model.CustomerSummary.TimeZone) : timeZones[0];
+                        <option value="@curentTimeZone.UtcOffsetMinutes">@curentTimeZone.SimpleDisplayName</option>
+                        foreach (var zone in timeZones)
+                        {
+                            <option value="@zone.UtcOffsetMinutes">@zone.SimpleDisplayName</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+    </div>
+</section>

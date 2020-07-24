@@ -1,0 +1,417 @@
+{
+	"info": {
+		"_postman_id": "945da3c9-ddc1-44fc-8f95-ac64c6055d98",
+		"name": "Umbraco Login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31d5ed4d-ea98-4865-bbe6-501541dd0de0",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var JWT=jsonData.token;",
+							"",
+							"pm.test(\"Successfully logged in with username \", function () {",
+							"   pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.globals.set(\"JWT\", jsonData.token);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "{{Origin}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \n    \"Credential\": \"{{username}}\",\n    \"Password\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "http://customer-management-service-api.totalcoding-test1.com/api/Account/customer-login",
+					"protocol": "http",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Account",
+						"customer-login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve username SMS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31d5ed4d-ea98-4865-bbe6-501541dd0de0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://umbracotest18.totalbetting.xyz/"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"mobileNumber\": \"+447464201112\",\r\n  \"languageCode\": \"EN\"\r\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Account/retrieve-username-via-sms",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Account",
+						"retrieve-username-via-sms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve username Email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31d5ed4d-ea98-4865-bbe6-501541dd0de0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://umbracotest18.totalbetting.xyz/"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"ddemirel@gmail.com\",\r\n  \"languageCode\": \"EN\"\r\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Account/retrieve-username-via-email",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Account",
+						"retrieve-username-via-email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset password verification sms",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31d5ed4d-ea98-4865-bbe6-501541dd0de0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://umbracotest18.totalbetting.xyz/"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"test1562598743\",\r\n  \"mobileNumber\": \"+441562598743\",\r\n  \"languageCode\": \"EN\"\r\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Account/reset-password-verification-sms",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Account",
+						"reset-password-verification-sms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset password sms",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31d5ed4d-ea98-4865-bbe6-501541dd0de0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "http://customer-management-service-api.totalcoding-test1.com"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"carlos.casalicchio@gmail.com\",\r\n  \"verificationCode\": \"367325\",\r\n  \"newPassword\": \"P@ss0000\"\r\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Account/reset-password-sms",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Account",
+						"reset-password-sms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset password email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31d5ed4d-ea98-4865-bbe6-501541dd0de0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "{{Origin}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"carlos.casalicchio@gmail.com\",\r\n  \"verificationUrl\": \"fsdfsdfsd\",\r\n  \"newPassword\": \"P@ss0000\"\r\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Account/reset-password-email",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Account",
+						"reset-password-email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset password verification email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31d5ed4d-ea98-4865-bbe6-501541dd0de0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "{{Origin}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"carlos.casalicchio@gmail.com\",\r\n  \"email\": \"carlos.casalicchio@gmail.com\",\r\n  \"languageCode\": \"EN\",\r\n  \"verificationUrl\": \"fsdfsdfsd\"\r\n}"
+				},
+				"url": {
+					"raw": "https://customer-management-service-api.totalcoding-test1.com/api/Account/reset-password-verification-email",
+					"protocol": "https",
+					"host": [
+						"customer-management-service-api",
+						"totalcoding-test1",
+						"com"
+					],
+					"path": [
+						"api",
+						"Account",
+						"reset-password-verification-email"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "537d666c-4c35-4746-a4d6-049daed2fdd8",
+				"type": "text/javascript",
+				"exec": [
+					"pm.sendRequest({",
+					"    url: \"https://sit-user-management-service-api.totalcoding-test1.com/api/StaffUser/api-key-login\",",
+					"    method: 'POST',",
+					"    header: {",
+					"        'content-type': 'application/json-patch+json'",
+					"        ",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"   \"apiKey\": \"api_key_customer_management\",",
+					"  \"platformGuid\": \"CustomerManagementGuid\"",
+					"})",
+					"    }",
+					"}, function (err, res) {",
+					"    pm.variables.set('token', res.json().accessToken)",
+					"});  ",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8ececd1d-fd7b-49dd-93b6-031a4b85cf19",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

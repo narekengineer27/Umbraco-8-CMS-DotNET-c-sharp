@@ -1,0 +1,17 @@
+﻿<div class="text-center" ng-show="vm.processing">
+    <div class="processing mt-0">
+        @if (TempData["FormSpinnerImage"] != null)
+        {
+            <img src="@TempData["FormSpinnerImage"]" />
+
+        }
+        else
+        {
+            <img src="~/Media/img/tail-spin.svg" />
+        }
+    </div>
+</div>
+<div class="response-failure" ng-show="vm.data.Error" ng-if="vm.data.Error.Message != ''">{{ vm.data.Error.Message }}</div>
+<div class="response-failure" ng-show="vm.data.Error" ng-if="vm.data.Error.Message == ''">Error processing request. Please contact administrator.</div>
+<div class="response-failure" ng-show="vm.data.Errors">{{ vm.data.Errors.ErrorMessage }}</div>
+<div class="response-success" ng-show="vm.success">{{ vm.success }}</div>

@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "510f590c-ef21-41b0-9850-b043e62115b9",
+		"name": "Total Code Umbraco Json-rpc Api Documented With Tenant Preferences",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"tenant\": {\n            \"ApiKey\": \"614960f9-ee70-4c6a-b24d-5039573c871b\",\n            \"AppId\": \"79ee8b63-fa81-4c0f-b8a8-756877868971\",\n            \"BrandName\": \"Test Site\",\n            \"Currencies\": {\n                \"Codes\": [\n                    \"USD\",\n                    \"EUR\",\n                    \"BRL\"\n                ]\n            },\n            \"Domain\": \"totalcoding-test1.com\",\n            \"Email\": \"test@email.com\",\n            \"Group\": \"Test Group\",\n            \"Languages\": {\n                \"Default\": \"en-Us\",\n                \"Alternate\": [\n                    \"en-GB\",\n                    \"es-ES\",\n                    \"pt-BR\",\n                    \"fr-FR\"\n                ]\n            },\n            \"Name\": \"Testing User\",\n            \"Password\": \"Password123!\",\n            \"SubDomain\": \"customer-management-service-api\",\n            \"TenantUId\": \"B3988460-F283-4D44-8A5E-58EB7C909B39\",\n            \"Username\": \"test@email.com\",\n            \"TenantPreferences\": {\n                \"Address\": {\n                    \"AddressLine1\": {\n                        \"AllowedValues\": null,\n                        \"IsMandatory\": true,\n                        \"IsUsed\": true,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    },\n                    \"AddressLine2\": {\n                        \"AllowedValues\": null,\n                        \"IsMandatory\": false,\n                        \"IsUsed\": true,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    },\n                    \"CityOrTown\": {\n                        \"AllowedValues\": null,\n                        \"IsMandatory\": false,\n                        \"IsUsed\": true,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    },\n                    \"PostalCode\": {\n                        \"AllowedValues\": null,\n                        \"IsMandatory\": true,\n                        \"IsUsed\": true,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    }\n                },\n                \"Age\": {\n                    \"AllowedValues\": null,\n                    \"IsMandatory\": true,\n                    \"IsUsed\": true,\n                    \"MaxValue\": 13,\n                    \"MinValue\": 99,\n                    \"Validation\": null\n                },\n                \"BonusCode\": {\n                    \"AllowedValues\": null,\n                    \"IsMandatory\": false,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": null\n                },\n                \"Country\": {\n                    \"AllowedValues\": [\n                        \"US\",\n                        \"UK\"\n                    ],\n                    \"IsMandatory\": false,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": null\n                },\n                \"DateOfBirth\": {\n                    \"AllowedValues\": [\n                        \"1980\",\n                        \"1981\",\n                        \"1982\",\n                        \"1983\",\n                        \"1984\",\n                        \"1985\",\n                        \"1986\",\n                        \"1987\",\n                        \"1988\",\n                        \"1989\",\n                        \"1990\",\n                        \"1991\",\n                        \"1992\"\n                    ],\n                    \"IsMandatory\": false,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": null\n                },\n                \"Email\": {\n                    \"AllowedValues\": null,\n                    \"IsMandatory\": true,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": \"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$\",\n                    \"ValidationRequired\": true\n                },\n                \"FirstName\": {\n                    \"AllowedValues\": null,\n                    \"IsMandatory\": true,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": null\n                },\n                \"Gender\": {\n                    \"AllowedValues\": [\n                        \"M\",\n                        \"F\",\n                        \"Trans\"\n                    ],\n                    \"IsMandatory\": false,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": null\n                },\n                \"LastName\": {\n                    \"AllowedValues\": null,\n                    \"IsMandatory\": true,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": null\n                },\n                \"Mobile\": {\n                    \"AllowedValues\": [\n                        \"+1\",\n                        \"+2\",\n                        \"+33\",\n                        \"+44\"\n                    ],\n                    \"IsMandatory\": true,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": \"/^(\\\\+\\\\d{1,3}[- ]?)?\\\\d{10}$/\",\n                    \"ValidationRequired\": true\n                },\n                \"Preferences\": {\n                    \"DefaultCurrency\": {\n                        \"AllowedValues\": [\n                            \"USD\"\n                        ],\n                        \"IsMandatory\": false,\n                        \"IsUsed\": true,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    },\n                    \"DefaultLanguage\": {\n                        \"AllowedValues\": [\n                            \"en-US\",\n                            \"en-GB\"\n                        ],\n                        \"IsMandatory\": false,\n                        \"IsUsed\": true,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    },\n                    \"OddsDisplay\": {\n                        \"AllowedValues\": null,\n                        \"IsMandatory\": false,\n                        \"IsUsed\": false,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    },\n                    \"TimeZone\": {\n                        \"AllowedValues\": null,\n                        \"IsMandatory\": false,\n                        \"IsUsed\": true,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    }\n                },\n                \"Referrer\": {\n                    \"AllowedValues\": null,\n                    \"IsMandatory\": false,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": null\n                },\n                \"Security\": {\n                    \"Password\": {\n                        \"AllowedValues\": null,\n                        \"IsUsed\": true,\n                        \"IsMandatory\": true,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    },\n                    \"Username\": {\n                        \"AllowedValues\": null,\n                        \"IsMandatory\": true,\n                        \"IsUsed\": true,\n                        \"MaxValue\": null,\n                        \"MinValue\": null,\n                        \"Validation\": null\n                    }\n                },\n                \"Title\": {\n                    \"AllowedValues\": null,\n                    \"IsMandatory\": false,\n                    \"IsUsed\": true,\n                    \"MaxValue\": null,\n                    \"MinValue\": null,\n                    \"Validation\": null\n                },\n                \"ReceiveNotifications\": true,\n                \"ReceiveNotificationsViaInPlatformMessages\": true,\n                \"ReceiveNotificationViaEmail\": true,\n                \"ReceiveNotificationViaSMS\": true\n            }\n        }\n    },\n    \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to create new Tenants in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => 28d978f9-e9e1-4629-b246-97eec59b2493\n\t- Username (string) *umbraco uses email address as username; example => myemail@email.com\n\t- Name (string) example => \"John Doe\"\n\t- Password (string) *minimum of 10 characters; example => 'Password!1234'\n\t- Email (string) example => myemail@email.com\n\t- Group (string) *group name for the tenant; example => \"John Doe's Group\"\n\t- BrandName (string) example => \"John Doe's Shop\"\n\t- Domain (string) *domain with no http:// i.e. 'totalumbraco.com'\n\t- Subdomain (string) *only cname i.e. 'tenantsite'\n\t- Languages:\n\t\t- Default (string) *ISO 639-1 standard language codes; example => 'en-US'\n\t\t- Alternate (string array) *ISO 639-1 standard language codes; example => 'es-ES'\n\t- Currencies:\n\t\t- Codes (string) *ISO 4217 country currency code; example => 'USD'\n\t- AppId (Guid) example => be576e8d-ac9c-4eba-9088-a81d2b363399\n\t- ApiKey (Guid) example => b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\n\t- Tenant Preferences:\n\t\t\n\t\t- AddressLine1 (object)*\n\t\t- AddressLine2 (object)*\n\t\t- CityOrTown (object)*\n\t\t- PostalCode (object)*\n\t\t- Age (object)*\n\t\t- BonusCode (object)*\n\t\t- Country (object)*\n\t\t- DateOfBirth (object)*\n\t\t- Email (object)*\n\t\t- FirstName (object)*\n\t\t- Gende (object)*\n\t\t- LastName (object)*\n\t\t- Mobile (object)*\n\t\t\n\t\t- DefaultCurrency (object)*\n\t\t- DefaultLanguage (object)*\n\t\t- OddsDisplay (object)*\n\t\t- TimeZone (object)*\n\t\t- Referre (object)*\n\t\t- Password (object)*\n\t\t- Username (object)*\n\t\t- Title (object)*\n\t\t\n\t\t- ReceiveNotifications (bool)\n\t\t- ReceiveNotificationsViaInPlatformMessages (bool)\n\t\t- ReceiveNotificationViaEmail (bool)\n\t\t- ReceiveNotificationViaSMS (bool)\n\t\t\n*Each object has the following options (see example)\n\t- AllowedValues (array of objects)\n\t- IsMandatory (bool)\n\t- IsUsed (bool)\n\t- MaxValue (object)\n\t- MinValue (object)\n\t- Validation (string)\n\t- ValidationRequired (bool)\n\t\t\t\t   \n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\n\n\t\t{\n\t\t    \"method\": \"CreateTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t\t\t\t\t        \"tenant\":{  \n\t\t\t\t   \"ApiKey\":\"23f991de-35cd-4adb-ba45-c72c956b13ba\",\n\t\t\t\t   \"AppId\":\"d982de1b-39c6-49eb-a3a1-0a21d7273087\",\n\t\t\t\t   \"BrandName\":\"Jane Taylor Site\",\n\t\t\t\t   \"Currencies\":{  \n\t\t\t\t      \"Codes\":[  \n\t\t\t\t         \"USD\",\n\t\t\t\t         \"EUR\"\n\t\t\t\t      ]\n\t\t\t\t   },\n\t\t\t\t   \"Domain\":\"totalumbraco.com\",\n\t\t\t\t   \"Email\":\"janetaylor@outlook.com\",\n\t\t\t\t   \"Group\":\"Jane's Group\",\n\t\t\t\t   \"Languages\":{  \n\t\t\t\t      \"Default\":\"en-US\",\n\t\t\t\t      \"Alternate\":[  \n\t\t\t\t         \"en-GB\",\n\t\t\t\t         \"es-ES\",\n\t\t\t\t         \"fr-FR\"\n\t\t\t\t      ]\n\t\t\t\t   },\n\t\t\t\t   \"Name\":\"Jane Taylor\",\n\t\t\t\t   \"Password\":\"Password!123\",\n\t\t\t\t   \"SubDomain\":\"jane\",\n\t\t\t\t   \"TenantUId\":\"9264a54f-da0e-4413-8c56-28414fa9e7a1\",\n\t\t\t\t   \"Username\":\"janetaylor@outlook.com\",\n\t\t\t\t   \"TenantPreferences\":{  \n\t\t\t\t      \"Address\":{  \n\t\t\t\t         \"AddressLine1\":{  \n\t\t\t\t            \"AllowedValues\":null,\n\t\t\t\t            \"IsMandatory\":true,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"MaxValue\":null,\n\t\t\t\t            \"MinValue\":null,\n\t\t\t\t            \"Validation\":null\n\t\t\t\t         },\n\t\t\t\t         \"AddressLine2\":{  \n\t\t\t\t            \"AllowedValues\":null,\n\t\t\t\t            \"IsMandatory\":false,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"MaxValue\":null,\n\t\t\t\t            \"MinValue\":null,\n\t\t\t\t            \"Validation\":null\n\t\t\t\t         },\n\t\t\t\t         \"CityOrTown\":{  \n\t\t\t\t            \"AllowedValues\":[  \n\t\t\t\t               \"New York\",\n\t\t\t\t               \"Los Angeles\"\n\t\t\t\t            ],\n\t\t\t\t            \"IsMandatory\":true,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"MaxValue\":null,\n\t\t\t\t            \"MinValue\":null,\n\t\t\t\t            \"Validation\":null\n\t\t\t\t         },\n\t\t\t\t         \"PostalCode\":{  \n\t\t\t\t            \"AllowedValues\":null,\n\t\t\t\t            \"IsMandatory\":true,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"MaxValue\":null,\n\t\t\t\t            \"MinValue\":null,\n\t\t\t\t            \"Validation\":\"^[0-9]{5}(?:-[0-9]{4})?$\"\n\t\t\t\t         }\n\t\t\t\t      },\n\t\t\t\t      \"Age\":{  \n\t\t\t\t         \"AllowedValues\":null,\n\t\t\t\t         \"IsMandatory\":true,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":99,\n\t\t\t\t         \"MinValue\":13,\n\t\t\t\t         \"Validation\":null\n\t\t\t\t      },\n\t\t\t\t      \"BonusCode\":{  \n\t\t\t\t         \"AllowedValues\":[  \n\t\t\t\t            \"BONUS123\",\n\t\t\t\t            \"BONUS12323\"\n\t\t\t\t         ],\n\t\t\t\t         \"IsMandatory\":false,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":null\n\t\t\t\t      },\n\t\t\t\t      \"Country\":{  \n\t\t\t\t         \"AllowedValues\":[  \n\t\t\t\t            \"US\",\n\t\t\t\t            \"UK\",\n\t\t\t\t            \"FR\"\n\t\t\t\t         ],\n\t\t\t\t         \"IsMandatory\":true,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":null\n\t\t\t\t      },\n\t\t\t\t      \"DateOfBirth\":{  \n\t\t\t\t         \"AllowedValues\":null,\n\t\t\t\t         \"IsMandatory\":false,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":\"^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\\\\d\\\\d$\"\n\t\t\t\t      },\n\t\t\t\t      \"Email\":{  \n\t\t\t\t         \"AllowedValues\":null,\n\t\t\t\t         \"IsMandatory\":true,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":\"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$\",\n\t\t\t\t         \"ValidationRequired\":true\n\t\t\t\t      },\n\t\t\t\t      \"FirstName\":{  \n\t\t\t\t         \"AllowedValues\":null,\n\t\t\t\t         \"IsMandatory\":true,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":null\n\t\t\t\t      },\n\t\t\t\t      \"Gender\":{  \n\t\t\t\t         \"AllowedValues\":[  \n\t\t\t\t            \"F\",\n\t\t\t\t            \"M\"\n\t\t\t\t         ],\n\t\t\t\t         \"IsMandatory\":false,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":null\n\t\t\t\t      },\n\t\t\t\t      \"LastName\":{  \n\t\t\t\t         \"AllowedValues\":null,\n\t\t\t\t         \"IsMandatory\":true,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":null\n\t\t\t\t      },\n\t\t\t\t      \"Mobile\":{  \n\t\t\t\t         \"AllowedValues\":null,\n\t\t\t\t         \"IsMandatory\":false,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":\"/^(\\\\+\\\\d{1,3}[- ]?)?\\\\d{10}$/\",\n\t\t\t\t         \"ValidationRequired\":true\n\t\t\t\t      },\n\t\t\t\t      \"Preferences\":{  \n\t\t\t\t         \"DefaultCurrency\":{  \n\t\t\t\t            \"AllowedValues\":[  \n\t\t\t\t               \"USD\",\n\t\t\t\t               \"€\"\n\t\t\t\t            ],\n\t\t\t\t            \"IsMandatory\":false,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"MaxValue\":null,\n\t\t\t\t            \"MinValue\":null,\n\t\t\t\t            \"Validation\":null\n\t\t\t\t         },\n\t\t\t\t         \"DefaultLanguage\":{  \n\t\t\t\t            \"AllowedValues\":[  \n\t\t\t\t               \"en-US\",\n\t\t\t\t               \"en-GB\"\n\t\t\t\t            ],\n\t\t\t\t            \"IsMandatory\":true,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"MaxValue\":null,\n\t\t\t\t            \"MinValue\":null,\n\t\t\t\t            \"Validation\":\"/^(\\\\+?\\\\d{1,3}|\\\\d{1,4})$/\"\n\t\t\t\t         },\n\t\t\t\t         \"OddsDisplay\":{  \n\t\t\t\t            \"AllowedValues\":null,\n\t\t\t\t            \"IsMandatory\":false,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"MaxValue\":null,\n\t\t\t\t            \"MinValue\":null,\n\t\t\t\t            \"Validation\":null\n\t\t\t\t         },\n\t\t\t\t         \"TimeZone\":{  \n\t\t\t\t            \"AllowedValues\":[  \n\t\t\t\t               \"MST\",\n\t\t\t\t               \"DST\",\n\t\t\t\t               \"-3GTM\"\n\t\t\t\t            ],\n\t\t\t\t            \"IsMandatory\":false,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"MaxValue\":null,\n\t\t\t\t            \"MinValue\":null,\n\t\t\t\t            \"Validation\":null\n\t\t\t\t         }\n\t\t\t\t      },\n\t\t\t\t      \"Referrer\":{  \n\t\t\t\t         \"AllowedValues\":[  \n\t\t\t\t            1,\n\t\t\t\t            2,\n\t\t\t\t            3,\n\t\t\t\t            4,\n\t\t\t\t            5\n\t\t\t\t         ],\n\t\t\t\t         \"IsMandatory\":false,\n\t\t\t\t         \"IsUsed\":true,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":null\n\t\t\t\t      },\n\t\t\t\t      \"Security\":{  \n\t\t\t\t         \"Password\":{  \n\t\t\t\t            \"AllowedValues\":null,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"IsMandatory\":true,\n\t\t\t\t            \"MaxValue\":12,\n\t\t\t\t            \"MinValue\":10,\n\t\t\t\t            \"Validation\":\"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\\\$%\\\\^&\\\\*])(?=.{10,12})\"\n\t\t\t\t         },\n\t\t\t\t         \"Username\":{  \n\t\t\t\t            \"AllowedValues\":null,\n\t\t\t\t            \"IsMandatory\":true,\n\t\t\t\t            \"IsUsed\":true,\n\t\t\t\t            \"MaxValue\":null,\n\t\t\t\t            \"MinValue\":null,\n\t\t\t\t            \"Validation\":null\n\t\t\t\t         }\n\t\t\t\t      },\n\t\t\t\t      \"Title\":{  \n\t\t\t\t         \"AllowedValues\":null,\n\t\t\t\t         \"IsMandatory\":false,\n\t\t\t\t         \"IsUsed\":false,\n\t\t\t\t         \"MaxValue\":null,\n\t\t\t\t         \"MinValue\":null,\n\t\t\t\t         \"Validation\":null\n\t\t\t\t      },\n\t\t\t\t      \"ReceiveNotifications\":true,\n\t\t\t\t      \"ReceiveNotificationsViaInPlatformMessages\":true,\n\t\t\t\t      \"ReceiveNotificationViaEmail\":true,\n\t\t\t\t      \"ReceiveNotificationViaSMS\":false\n\t\t\t\t   }\n\t\t\t\t}\n\t\t    },\n\t\t    \"id\": 1\n\t\t}\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\n### Returns extended Tenant with Umbraco System Details\n\n#### Example\n\n\t\t\t{  \n\t\t   \"jsonrpc\":\"2.0\",\n\t\t   \"result\":{  \n\t\t      \"Message\":\"Tenant Created\",\n\t\t      \"TenantUid\":\"9264a54f-da0e-4413-8c56-28414fa9e7a1\",\n\t\t      \"Status\":\"Ok\",\n\t\t      \"Data\":{  \n\t\t         \"extended\":{  \n\t\t            \"AllowedSectionAliases\":[  \n\t\t               \"content\",\n\t\t               \"media\"\n\t\t            ],\n\t\t            \"Permissions\":[  \n\t\t               \"I\",\n\t\t               \"P\",\n\t\t               \"K\",\n\t\t               \"F\",\n\t\t               \"ï\",\n\t\t               \"D\",\n\t\t               \"C\",\n\t\t               \"U\",\n\t\t               \"A\",\n\t\t               \"O\",\n\t\t               \"S\"\n\t\t            ],\n\t\t            \"StartContentId\":1056,\n\t\t            \"StartMediaId\":1057,\n\t\t            \"Tenant\":{  \n\t\t               \"ApiKey\":\"23f991de-35cd-4adb-ba45-c72c956b13ba\",\n\t\t               \"AppId\":\"d982de1b-39c6-49eb-a3a1-0a21d7273087\",\n\t\t               \"BrandName\":\"Jane Taylor Site\",\n\t\t               \"Currencies\":{  \n\t\t                  \"Codes\":[  \n\t\t                     \"USD\",\n\t\t                     \"EUR\"\n\t\t                  ]\n\t\t               },\n\t\t               \"Domain\":\"totalumbraco.com\",\n\t\t               \"Email\":\"janetaylor@outlook.com\",\n\t\t               \"Group\":\"Jane's Group\",\n\t\t               \"Languages\":{  \n\t\t                  \"Default\":\"en-US\",\n\t\t                  \"Alternate\":[  \n\t\t                     \"en-GB\",\n\t\t                     \"es-ES\",\n\t\t                     \"fr-FR\"\n\t\t                  ]\n\t\t               },\n\t\t               \"Name\":\"Jane Taylor\",\n\t\t               \"Password\":\"Password!123\",\n\t\t               \"SubDomain\":\"jane\",\n\t\t               \"TenantUId\":\"9264a54f-da0e-4413-8c56-28414fa9e7a1\",\n\t\t               \"Username\":\"janetaylor@outlook.com\",\n\t\t               \"TenantPreferences\":{  \n\t\t                  \"Address\":{  \n\t\t                     \"AddressLine1\":{  \n\t\t                        \"AllowedValues\":null,\n\t\t                        \"IsMandatory\":true,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"MaxValue\":null,\n\t\t                        \"MinValue\":null,\n\t\t                        \"Validation\":null\n\t\t                     },\n\t\t                     \"AddressLine2\":{  \n\t\t                        \"AllowedValues\":null,\n\t\t                        \"IsMandatory\":false,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"MaxValue\":null,\n\t\t                        \"MinValue\":null,\n\t\t                        \"Validation\":null\n\t\t                     },\n\t\t                     \"CityOrTown\":{  \n\t\t                        \"AllowedValues\":[  \n\t\t                           \"New York\",\n\t\t                           \"Los Angeles\"\n\t\t                        ],\n\t\t                        \"IsMandatory\":true,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"MaxValue\":null,\n\t\t                        \"MinValue\":null,\n\t\t                        \"Validation\":null\n\t\t                     },\n\t\t                     \"PostalCode\":{  \n\t\t                        \"AllowedValues\":null,\n\t\t                        \"IsMandatory\":true,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"MaxValue\":null,\n\t\t                        \"MinValue\":null,\n\t\t                        \"Validation\":\"^[0-9]{5}(?:-[0-9]{4})?$\"\n\t\t                     }\n\t\t                  },\n\t\t                  \"Age\":{  \n\t\t                     \"AllowedValues\":null,\n\t\t                     \"IsMandatory\":true,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":99,\n\t\t                     \"MinValue\":13,\n\t\t                     \"Validation\":null\n\t\t                  },\n\t\t                  \"BonusCode\":{  \n\t\t                     \"AllowedValues\":[  \n\t\t                        \"BONUS123\",\n\t\t                        \"BONUS12323\"\n\t\t                     ],\n\t\t                     \"IsMandatory\":false,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":null\n\t\t                  },\n\t\t                  \"Country\":{  \n\t\t                     \"AllowedValues\":[  \n\t\t                        \"US\",\n\t\t                        \"UK\",\n\t\t                        \"FR\"\n\t\t                     ],\n\t\t                     \"IsMandatory\":true,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":null\n\t\t                  },\n\t\t                  \"DateOfBirth\":{  \n\t\t                     \"AllowedValues\":null,\n\t\t                     \"IsMandatory\":false,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":\"^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\\\\d\\\\d$\"\n\t\t                  },\n\t\t                  \"Email\":{  \n\t\t                     \"AllowedValues\":null,\n\t\t                     \"IsMandatory\":true,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":\"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$\",\n\t\t                     \"ValidationRequired\":true\n\t\t                  },\n\t\t                  \"FirstName\":{  \n\t\t                     \"AllowedValues\":null,\n\t\t                     \"IsMandatory\":true,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":null\n\t\t                  },\n\t\t                  \"Gender\":{  \n\t\t                     \"AllowedValues\":[  \n\t\t                        \"F\",\n\t\t                        \"M\"\n\t\t                     ],\n\t\t                     \"IsMandatory\":false,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":null\n\t\t                  },\n\t\t                  \"LastName\":{  \n\t\t                     \"AllowedValues\":null,\n\t\t                     \"IsMandatory\":true,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":null\n\t\t                  },\n\t\t                  \"Mobile\":{  \n\t\t                     \"AllowedValues\":null,\n\t\t                     \"IsMandatory\":false,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":\"/^(\\\\+\\\\d{1,3}[- ]?)?\\\\d{10}$/\",\n\t\t                     \"ValidationRequired\":true\n\t\t                  },\n\t\t                  \"Preferences\":{  \n\t\t                     \"DefaultCurrency\":{  \n\t\t                        \"AllowedValues\":[  \n\t\t                           \"USD\",\n\t\t                           \"€\"\n\t\t                        ],\n\t\t                        \"IsMandatory\":false,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"MaxValue\":null,\n\t\t                        \"MinValue\":null,\n\t\t                        \"Validation\":null\n\t\t                     },\n\t\t                     \"DefaultLanguage\":{  \n\t\t                        \"AllowedValues\":[  \n\t\t                           \"en-US\",\n\t\t                           \"en-GB\"\n\t\t                        ],\n\t\t                        \"IsMandatory\":true,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"MaxValue\":null,\n\t\t                        \"MinValue\":null,\n\t\t                        \"Validation\":\"/^(\\\\+?\\\\d{1,3}|\\\\d{1,4})$/\"\n\t\t                     },\n\t\t                     \"OddsDisplay\":{  \n\t\t                        \"AllowedValues\":null,\n\t\t                        \"IsMandatory\":false,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"MaxValue\":null,\n\t\t                        \"MinValue\":null,\n\t\t                        \"Validation\":null\n\t\t                     },\n\t\t                     \"TimeZone\":{  \n\t\t                        \"AllowedValues\":[  \n\t\t                           \"MST\",\n\t\t                           \"DST\",\n\t\t                           \"-3GTM\"\n\t\t                        ],\n\t\t                        \"IsMandatory\":false,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"MaxValue\":null,\n\t\t                        \"MinValue\":null,\n\t\t                        \"Validation\":null\n\t\t                     }\n\t\t                  },\n\t\t                  \"Referrer\":{  \n\t\t                     \"AllowedValues\":[  \n\t\t                        1,\n\t\t                        2,\n\t\t                        3,\n\t\t                        4,\n\t\t                        5\n\t\t                     ],\n\t\t                     \"IsMandatory\":false,\n\t\t                     \"IsUsed\":true,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":null\n\t\t                  },\n\t\t                  \"Security\":{  \n\t\t                     \"Password\":{  \n\t\t                        \"AllowedValues\":null,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"IsMandatory\":true,\n\t\t                        \"MaxValue\":12,\n\t\t                        \"MinValue\":10,\n\t\t                        \"Validation\":\"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\\\$%\\\\^&\\\\*])(?=.{10,12})\"\n\t\t                     },\n\t\t                     \"Username\":{  \n\t\t                        \"AllowedValues\":null,\n\t\t                        \"IsMandatory\":true,\n\t\t                        \"IsUsed\":true,\n\t\t                        \"MaxValue\":null,\n\t\t                        \"MinValue\":null,\n\t\t                        \"Validation\":null\n\t\t                     }\n\t\t                  },\n\t\t                  \"Title\":{  \n\t\t                     \"AllowedValues\":null,\n\t\t                     \"IsMandatory\":false,\n\t\t                     \"IsUsed\":false,\n\t\t                     \"MaxValue\":null,\n\t\t                     \"MinValue\":null,\n\t\t                     \"Validation\":null\n\t\t                  },\n\t\t                  \"ReceiveNotifications\":true,\n\t\t                  \"ReceiveNotificationsViaInPlatformMessages\":true,\n\t\t                  \"ReceiveNotificationViaEmail\":true,\n\t\t                  \"ReceiveNotificationViaSMS\":false\n\t\t               }\n\t\t            },\n\t\t            \"UserId\":0\n\t\t         }\n\t\t      }\n\t\t   },\n\t\t   \"id\":1\n\t\t}\t\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        DefaultLanguageIsMandatory = 400,\n        DuplicateTenantUid = 501,\n        DuplicateTenantBrandName = 502,\n        DuplicateTenantDomain = 503,\n        TenantAlreadyExists = 507,\n        DomainAlreadyAssigned = 601,\n        DomainMalformatted = 602,\n        SubDomainIsRequired = 603,\n        UsernameAlreadyExists = 701,\n        UsernameMalformed = 702,\n        MediaNodeAlreadyExists = 800,\n        GroupAlreadyExists = 900"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EditTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"user\": {\n            \"TenantUId\": \"\",\n            \"Name\": \"\",\n            \"Username\": \"\",\n            \"Password\": \"\",\n            \"Email\": \"\",\n            \"Group\": \"\"\n        },\n        \"group\": {\n            \"Name\": \"\",\n            \"Alias\": \"\",\n            \"RenameGroupTo\": \"\",\n            \"TenantUId\": \"\",\n            \"StartContentId\": 0,\n            \"StartMediaId\": 0,\n            \"Permissions\": [],\n            \"AllowedSectionAliases\": []\n        },\n        \"tenant\": {\n            \"TenantUid\": \"\",\n            \"BrandName\": \"\",\n            \"Domain\": \"\",\n            \"SubDomain\": \"\",\n            \"Languages\": {\n                \"Default\": \"\",\n                \"Alternate\": []\n            },\n            \"Currencies\": {\n                \"Codes\": []\n            },\n            \"AppId\": \"\",\n            \"ApiKey\": \"\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to edit Tenants in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n\t\n    - User: [optional] * Used when needing to update the main user for the Tenant\n    \t- TenantUId (Guid) example => \"d7433649-7f63-4a87-838f-b87ad52ac778\"\n        - Name (string) example => \"Jane Taylor\"\n    \t- Username (string) *umbraco uses email address as username; example => \"janetaylor@outlook.com\"\n        - Password (string) *minimum of 10 characters; example => 'Password!1234'\n        - Email (string) example => \"janetaylor@outlook.com\"\n        - Group (string) *group name for the tenant; example => \"Jane's Group\"\n        \n    - Group: [optional] * Used when needing to update the main group for the Tenant\n        - Name (string) *group's current name; example => \"Jane's Group\"\n        - Alias (string) [optional] *by default, the alias is created from the group's name; example => \"janesgroup\"\n        - RenameGroupTo (string) *new name for the group; example => \"Test 1\"\n        - TenantUId (Guid) *must be the same as tenant, to make sure there's no tampering with other tenants; example => \"d7433649-7f63-4a87-838f-b87ad52ac778\"\n        - StartContentId (int) *this is the content home for the tenant, returned from the create tenant procedure; example => 1064\n        - StartMediaId (int) *this is the media home for the tenant, returned from the create tenant procedure; example => 1065\n        - Permissions (string array) *array of permissions for the group (functionalities permitted); example => \"I\",\"P\",\"K\",\"F\",\"ï\",\"D\",\"C\",\"U\",\"A\",\"O\",\"S\" (these are default)\n        - AllowedSectionAliases (string array) *array of sections the group is allowed to access, currently must be set to only \"content\" and \"media\"\n\n\t-Tenant [required] * Used to update the tenant information in Umbraco\n        - TenantUid (Guid) *must match other tenantUids; example => \"d7433649-7f63-4a87-838f-b87ad52ac778\"\n        - BrandName (string) *the brandname for the tenant; example => \"Test site 1\"\n        - Domain (string) *domain with no http:// i.e. 'totalumbraco.com'\n\t\t- Subdomain (string) *only cname i.e. 'tenantsite'\n\t\t- Languages:\n\t\t\t- Default (string) *ISO 639-1 standard language codes; example => 'en-US'\n\t\t\t- Alternate (string array) *ISO 639-1 standard language codes; example => 'es-ES'\n\t\t- Currencies:\n\t\t\t- Codes (string) *ISO 4217 country currency code; example => 'USD'\n\t\t- AppId (Guid) example => be576e8d-ac9c-4eba-9088-a81d2b363399\n\t\t- ApiKey (Guid) example => b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example:\n\n\t\t{\n\t\t    \"method\": \"EditTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"user\": {\n\t\t        \t\"TenantUId\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n\t\t        \t\"Name\": \"Jane Taylor\",\n\t\t        \t\"Username\": \"janetaylor@outlook.com\",\n\t\t            \"Password\": \"Password!123\",\n\t\t            \"Email\": \"janetaylor2@outlook.com\",\n\t\t            \"Group\": \"Jane's Group\"\n\t\t        },\n\t\t        \"group\": {\n\t\t            \"Name\": \"Jane's Group\",\n\t\t            \"Alias\": \"janesgroup\",\n\t\t            \"RenameGroupTo\":\"Test 12\",\n\t\t            \"TenantUId\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n\t\t            \"StartContentId\": 1064,\n\t\t            \"StartMediaId\": 1065,\n\t\t            \"Permissions\": [\n\t\t                \"I\",\n\t\t                \"P\",\n\t\t                \"K\",\n\t\t                \"F\",\n\t\t                \"ï\",\n\t\t                \"D\",\n\t\t                \"C\",\n\t\t                \"U\",\n\t\t                \"A\",\n\t\t                \"O\",\n\t\t                \"S\"\n\t\t            ],\n\t\t            \"AllowedSectionAliases\": [\n\t\t                \"content\",\n\t\t                \"media\"\n\t\t            ]\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"d7433649-7f63-4a87-838f-b87ad52ac778\",\n\t\t            \"BrandName\": \"Dilek Test Site 10\",\n\t\t            \"Domain\": \"totalumbraco.com\",\n\t\t            \"SubDomain\": \"dilek10\",\n\t\t            \"Languages\": {\n\t\t                \"Default\": \"en-GB\",\n\t\t                \"Alternate\": [\n\t\t                    \"es-ES\",\n\t\t                    \"pt-BR\",\n\t\t                    \"fr-FR\"\n\t\t                ]\n\t\t            },\n\t\t            \"Currencies\": {\n\t\t                \"Codes\": [\n\t\t                    \"USD\",\n\t\t                    \"EUR\",\n\t\t                    \"BRL\"\n\t\t                ]\n\t\t            },\n\t\t            \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n\t\t            \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 2\n\t\t}\n\t\t\n### Returns an extended Tenant with newly updated Umbraco Details\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Tenant edited\",\n\t\t        \"TenantUid\": \"b4366529-cb61-43ca-a8ef-7c82adf7fe67\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"Tenant\": {\n\t\t                \"ApiKey\": \"b1dfca33-2ad7-4bd0-b2a2-365cb8977e7d\",\n\t\t                \"AppId\": \"be576e8d-ac9c-4eba-9088-a81d2b363399\",\n\t\t                \"BrandName\": \"Bob Site\",\n\t\t                \"Currencies\": {\n\t\t                    \"Codes\": [\n\t\t                        \"USD\",\n\t\t                        \"EUR\",\n\t\t                        \"BRL\"\n\t\t                    ]\n\t\t                },\n\t\t                \"Domain\": \"totalumbraco.com\",\n\t\t                \"Languages\": {\n\t\t                    \"Default\": \"en-Us\",\n\t\t                    \"Alternate\": [\n\t\t                        \"en-GB\",\n\t\t                        \"es-ES\",\n\t\t                        \"pt-BR\",\n\t\t                        \"fr-FR\",\n\t\t                        \"aa-DJ\"\n\t\t                    ]\n\t\t                },\n\t\t                \"Name\": null,\n\t\t                \"Password\": null,\n\t\t                \"Email\": null,\n\t\t                \"SubDomain\": \"bobs\",\n\t\t                \"TenantUId\": \"b4366529-cb61-43ca-a8ef-7c82adf7fe67\",\n\t\t                \"Username\": null,\n\t\t                \"Group\": null\n\t\t            },\n\t\t            \"StartContentId\": 1066,\n\t\t            \"StartMediaId\": 1067,\n\t\t            \"Permissions\": null,\n\t\t            \"AllowedSectionAliases\": null,\n\t\t            \"UserId\": 0\n\t\t        }\n\t\t    },\n\t\t    \"id\": 2\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        DefaultLanguageIsMandatory = 400,\n        DuplicateTenantBrandName = 502,\n        DuplicateTenantDomain = 503,\n        TenantNotFound = 504,\n        DomainAlreadyAssigned = 601,\n        DomainMalformatted = 602,\n        SubDomainIsRequired = 603,\n        UsernameMalformed = 702,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		},
+		{
+			"name": "Disable Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"DisableTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n       \"payload\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\",\n            \"Group\": \"\"\n        }\n    },\n    \"id\": 3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Disable a Tenant in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be disabled, usually the main user; example => \"bobdylan@outlook.com\"\n    - Group (string) *the group to be disabled, usually the main group; example => \"Bob's Group\"\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example \n\n\t\t{\n\t\t    \"method\": \"DisableTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t       \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\",\n\t\t            \"Group\": \"Bob's Group\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 4\n\t\t}\n\t\t\n### Returns confirmation of Tenant Disabled\n\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Tenant disabled\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": null\n\t\t    },\n\t\t    \"id\": 3\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        TenantAlreadyDisabled = 505,\n        UsernameAlreadyDisabled = 703,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		},
+		{
+			"name": "Enable Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EnableTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\",\n            \"Group\": \"\"\n        }\n    },\n    \"id\": 5\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Enable a Tenant in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be enabled, usually the main user; example => \"bobdylan@outlook.com\"\n    - Group (string) *the group to be enabled, usually the main group; example => \"Bob's Group\"\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example \t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"EnableTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\",\n\t\t            \"Group\": \"Bob's Group\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 5\n\t\t}\n\t\t\n### Returns confirmation that Tenant has been enabled\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Tenant enabled\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": null\n\t\t    },\n\t\t    \"id\": 5\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        TenantAlreadyEnabled = 506,\n        UsernameAlreadyEnabled = 704,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"\",\n            \"Name\": \"\",\n            \"Password\": \"\",\n            \"Email\": \"\",\n            \"Username\": \"\",\n            \"Group\": \"\"\n        }\n    },\n    \"id\": 8\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to create new User in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - User:\n\t- TenantUid (Guid) example => 28d978f9-e9e1-4629-b246-97eec59b2493\n\t- Name (string) example => \"John Doe\"\n\t- Password (string) *minimum of 10 characters; example => 'Password!1234'\n\t- Email (string) example => myemail@email.com\n\t- Username (string) *umbraco uses email address as username; example => myemail@email.com\n\t- Group (string) *group name for the tenant; example => \"John Doe's Group\"\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\t\n\t\n\t\t{\n\t\t    \"method\": \"CreateUser\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"user\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Name\": \"Jane Doe\",\n\t\t            \"Password\": \"Password1234!\",\n\t\t            \"Email\": \"janedoe@outlook.com\",\n\t\t            \"Username\": \"janedoe@outlook.com\",\n\t\t            \"Group\": \"Bob's Group\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 8\n\t\t}\n\t\t\n### Returns confirmation the user has been created\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"User created\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": \"9\"\n\t\t    },\n\t\t    \"id\": 8\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameAlreadyExists = 701,"
+			},
+			"response": []
+		},
+		{
+			"name": "Disable User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"DisableUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\"\n        }\n    },\n    \"id\": 6\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Disable a single User in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be disabled, usually the main user; example => \"bobdylan@outlook.com\"\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example \t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"DisableUser\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 6\n\t\t}\n\t\t\n### Returns confirmation the user has been disabled\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"User disabled\",\n\t\t        \"TenantUid\": null,\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"Username\": \"bobdylan2@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 6\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameAlreadyDisabled = 703,\n        UsernameDoesNotExist = 705,"
+			},
+			"response": []
+		},
+		{
+			"name": "Enable User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"EnableUser\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"\",\n            \"Username\": \"\"\n        }\n    },\n    \"id\": 7\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Enable a single User in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be enabled, usually the main user; example => \"bobdylan@outlook.com\"\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n#### Example \t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"EnableUser\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 7\n\t\t}\n\t\t\n### Returns confirmation the user has been enabled\n\n#### Example \n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"User bobdylan2@outlook.com Enabled\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": null\n\t\t    },\n\t\t    \"id\": 7\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameAlreadyEnabled = 704,\n        UsernameDoesNotExist = 705,"
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"ChangePassword\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"Password\": \"Password1234!\",\n            \"Username\": \"janedoe@outlook.com\"\n        }\n    },\n    \"id\": 9\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Change a User's Password in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - User:\n\t- Password (string) *minimum of 10 characters; example => 'Password!1234'\n\t- Username (string) *umbraco uses email address as username; example => myemail@email.com\n\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\n\n\t\t{\n\t\t    \"method\": \"ChangePassword\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"user\": {\n\t\t            \"Password\": \"Password1234!\",\n\t\t            \"Username\": \"janedoe@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 9\n\t\t}\n\t\t\n### Returns Confirmation the password has been changed\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Password for janedoe@outlook.com changed\",\n\t\t        \"TenantUid\": null,\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"Username\": \"janedoe@outlook.com\",\n\t\t            \"Password\": \"Password1234!\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 9\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        UsernameDoesNotExist = 705,"
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"ResetPassword\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n            \"Username\": \"janedoe@outlook.com\"\n        }\n    },\n    \"id\": 10\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to Change a User's Password in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - User:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n\t- Username (string) *umbraco uses email address as username; example => myemail@email.com\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\n\n\t\t{\n\t\t    \"method\": \"ResetPassword\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"janedoe@outlook.com\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 10\n\t\t}\n\t\t\n### Returns a new (random) password\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Password for janedoe@outlook.com Reset\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"newPassword\": \"999fr691gc\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 10\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameDoesNotExist = 705"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Group",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"CreateGroup\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"Name\": \"\",\n            \"TenantUId\": \"\",\n            \"StartContentId\": 0,\n            \"StartMediaId\": 0,\n            \"Permissions\": [],\n            \"AllowedSectionAliases\": []\n        }\n    },\n    \"id\": 11\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to create new Group in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n\t\n - Group:\n    - Name (string) *group's current name; example => \"Jane's Group\"\n    - Alias (string) [optional] *by default, the alias is created from the group's name; example => \"janesgroup\"\n    - RenameGroupTo (string) *new name for the group; example => \"Test 1\"\n    - TenantUId (Guid) *must be the same as tenant, to make sure there's no tampering with other tenants; example => \"d7433649-7f63-4a87-838f-b87ad52ac778\"\n    - StartContentId (int) *this is the content home for the tenant, returned from the create tenant procedure; example => 1064\n    - StartMediaId (int) *this is the media home for the tenant, returned from the create tenant procedure; example => 1065\n    - Permissions (string array) *array of permissions for the group (functionalities permitted); example => \"I\",\"P\",\"K\",\"F\",\"ï\",\"D\",\"C\",\"U\",\"A\",\"O\",\"S\" (these are default)\n    - AllowedSectionAliases (string array) *array of sections the group is allowed to access, currently must be set to only \"content\" and \"media\"\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\t\t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"CreateGroup\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"group\": {\n\t\t            \"Name\": \"Test 1\",\n\t\t            \"TenantUId\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"StartContentId\": 1066,\n\t\t            \"StartMediaId\": 1067,\n\t\t            \"Permissions\": [\n\t\t                \"I\",\n\t\t                \"P\",\n\t\t                \"K\",\n\t\t                \"F\",\n\t\t                \"ï\",\n\t\t                \"D\",\n\t\t                \"C\",\n\t\t                \"U\",\n\t\t                \"A\",\n\t\t                \"O\",\n\t\t                \"S\"\n\t\t            ],\n\t\t            \"AllowedSectionAliases\": [\n\t\t                \"content\",\n\t\t                \"media\"\n\t\t            ]\n\t\t        }\n\t\t    },\n\t\t    \"id\": 11\n\t\t}\n\t\t\n### Returns Confirmation the new group has been created, and the Group Id in Umbraco\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Group Test 1 Created\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"groupId\": \"13\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 11\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        GroupAlreadyExists = 900,"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Groups",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"AssignUserGroups\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"groups\": [],\n        \"username\": \"\"\n    },\n    \"id\": 11\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to assign users to groups in Umbraco\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - groups (string array) *an array of user group names\n - username (string) *user to be assigned to groups; example => myemail@email.com\n\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\t\t\n\t\n\t\t{\n\t\t    \"method\": \"AssignUserGroups\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"groups\": [\n\t\t            \"Test 1\",\n\t\t            \"Test 2\",\n\t\t            \"Test 3\"\n\t\t        ],\n\t\t        \"username\": \"janedoe@outlook.com\"\n\t\t    },\n\t\t    \"id\": 12\n\t\t}\n\t\t\n### Returns confirmation of group assignment, with group ids\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Groups assigned to user\",\n\t\t        \"TenantUid\": null,\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"Username\": \"janedoe@outlook.com\",\n\t\t            \"assignedGroups\": \"13,10,11,\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 11\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		},
+		{
+			"name": "Purge Tenant",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0ca6c695-843b-4baa-afb9-d4dcec68013b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "ApiKey 4d53bce03ec34c0a911182d4c228ee6c:zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"method\": \"PurgeTenant\",\n    \"params\": {\n        \"authorization\": {\n            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n        },\n        \"payload\": {\n            \"TenantUid\": \"B3988460-F283-4D44-8A5E-58EB7C909B39\",\n            \"Username\": \"test@email.com\",\n            \"Group\": \"Test Group\"\n        }\n    },\n    \"id\": 99\n}"
+				},
+				"url": {
+					"raw": "http://localhost:2766/json.rpc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2766",
+					"path": [
+						"json.rpc"
+					]
+				},
+				"description": "### Use this procedure to completely **DELETE** a tenant from Umbraco (including it's related objects)\n\n**required objects:**\n\n - authorization: [this is the total code api information to authenticate with umbraco to process requests]\n\t- AppId (Guid)\n\t- ApiKey (Guid)\n - tenant:\n\t- TenantUid (Guid) example => \"28d978f9-e9e1-4629-b246-97eec59b2493\"\n    - Username (string) *the user to be enabled, usually the main user; example => \"bobdylan@outlook.com\"\n    - Group (string) *the group to be enabled, usually the main group; example => \"Bob's Group\"\n\t\n#### Since the procedure is Json-Rpc, it must be wrapped with Json-Rpc objects\n\n\t\t{\n\t\t\t\"method\": <<Method Name>>,\n\t\t\t\"params\": <<parameters for the request>>,\n\t\t\t\"id\": <<id of the request>>\n\t\t}\n\t\t\n\t\t\n#### Example\t\t\t\n\t\t\n\t\t{\n\t\t    \"method\": \"PurgeTenant\",\n\t\t    \"params\": {\n\t\t        \"authorization\": {\n\t\t            \"AppId\": \"4d53bce03ec34c0a911182d4c228ee6c\",\n\t\t            \"ApiKey\": \"zYPSLb7uYA1NHFHtvZw+DGyqJr2P2/sT8puaAP+NFgs=\"\n\t\t        },\n\t\t        \"tenant\": {\n\t\t            \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t            \"Username\": \"bobdylan@outlook.com\",\n\t\t            \"Group\": \"Bob's Group\"\n\t\t        }\n\t\t    },\n\t\t    \"id\": 99\n\t\t}\n\t\t\n### Returns Confirmation of Tenant Removal, and Which objects were also removed\n\n#### Example\n\n\t\t{\n\t\t    \"jsonrpc\": \"2.0\",\n\t\t    \"result\": {\n\t\t        \"Message\": \"Tenant Purged from CMS\",\n\t\t        \"TenantUid\": \"28d978f9-e9e1-4629-b246-97eec59b2493\",\n\t\t        \"Status\": \"Ok\",\n\t\t        \"Data\": {\n\t\t            \"ContentFoundAndDeleted\": true,\n\t\t            \"GroupFoundAndDeleted\": true,\n\t\t            \"MediaFolderFoundAndDeleted\": true,\n\t\t            \"UserFoundAndDeleted\": true\n\t\t        }\n\t\t    },\n\t\t    \"id\": 99\n\t\t}\n\t\t\n## Possible Errors\n\n\t\tUnhandled = -999,\n        TenantNotFound = 504,\n        UsernameDoesNotExist = 705,\n        GroupDoesNotExist = 901"
+			},
+			"response": []
+		}
+	]
+}

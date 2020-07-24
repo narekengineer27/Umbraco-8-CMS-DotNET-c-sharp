@@ -1,0 +1,19 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TotalCode.Core.Models.Pages.GamePageViewModel>
+
+<div class="filters" ng-show=" vm.subcategories.length > 0">
+    <div class="filter-title">@Umbraco.GetDictionaryValue("[Games]SubCategories", "Sub Categories")</div>
+    <label labelfor="all" class="all" ng-class="{'active':vm.filter===''}">
+        <input type="radio" name="subcategory" value="" id="all" ng-click="vm.updateGrid('')"/>@Umbraco.GetDictionaryValue("[Games]All", "All")
+    </label>
+    <label labelfor="new" class="new" ng-class="{'active':vm.checkNew()}">
+        <input type="radio" name="subcategory" ng-value="{'NewGame':true}" id="new" ng-click="vm.updateGrid('new')"/>
+        @Umbraco.GetDictionaryValue("[Games]New", "New")
+    </label>
+    <label labelfor="favourite" class="favourite" ng-class="{'active':vm.checkFavourite()}">
+        <input type="radio" name="subcategory"  ng-value="{'Favourite':true}" id="favourite" ng-click="vm.updateGrid('favourite')"/>
+        @Umbraco.GetDictionaryValue("[Games]Favorite", "Favourite")
+    </label>
+    <label labelfor="{{vm.removeSpaces(subCategory)}}" ng-repeat="subCategory in vm.subcategories" class="{{vm.removeSpaces(subCategory)}}" ng-class="{'active':vm.filter===subCategory}">
+        <input type="radio" name="subcategory"  value="{{subCategory}}" id="{{vm.removeSpaces(subCategory)}}" ng-click="vm.updateGrid(subCategory)"/>{{subCategory}}
+    </label>
+</div>
